@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="masl" nsURI="http://www.xtuml.org/bp/xtext/Masl" nsPrefix="masl">
+  <eClassifiers xsi:type="ecore:EClass" name="Project">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="projectName" eType="#//ProjectName"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="projectItem" upperBound="-1"
+        eType="#//projectItem" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="pragmaList" eType="#//PragmaList"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="projectItem"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Domain" eSuperTypes="#//projectItem">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="domainName" eType="#//DomainName"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="domainPrjItem" upperBound="-1"
+        eType="#//domainPrjItem" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="pragmaList" eType="#//PragmaList"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="domainPrjItem"/>
+  <eClassifiers xsi:type="ecore:EClass" name="ProjectName">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="identifier" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="DomainName">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="identifier" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="TerminatorName">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="identifier" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="TerminatorDefinition" eSuperTypes="#//domainPrjItem">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="terminatorName" eType="#//TerminatorName"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="terminatorItem" upperBound="-1"
+        eType="#//terminatorItem" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="pragmaList" eType="#//PragmaList"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="terminatorItem">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="serviceVisibility" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="serviceName" eType="#//ServiceName"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="parameterList" eType="#//parameterList"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="pragmaList" eType="#//PragmaList"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="TerminatorServiceDeclaration" eSuperTypes="#//terminatorItem"/>
+  <eClassifiers xsi:type="ecore:EClass" name="TerminatorFunctionDeclaration" eSuperTypes="#//terminatorItem">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="returnType" eType="#//ReturnType"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="parameterList">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="parameterDefinition" upperBound="-1"
+        eType="#//ParameterDefinition" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ParameterDefinition">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="parameterName" eType="#//ParameterName"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="parameterMode" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="parameterType" eType="#//ParameterType"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ServiceName">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="identifier" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ParameterName">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="identifier" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ParameterType">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="typeReference" eType="#//typeReference"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ReturnType">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="typeReference" eType="#//typeReference"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="typeReference"/>
+  <eClassifiers xsi:type="ecore:EClass" name="NamedType" eSuperTypes="#//typeReference">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="anonymous" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="domainName" eType="#//DomainName"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="typeName" eType="#//TypeName"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="TypeName">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="identifier" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="PragmaList">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="pragma" upperBound="-1"
+        eType="#//Pragma" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Pragma">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="pragmaName" eType="#//PragmaName"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="pragmaValue" unique="false"
+        upperBound="-1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="PragmaName">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="identifier" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+</ecore:EPackage>
