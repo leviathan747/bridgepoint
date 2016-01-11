@@ -12,6 +12,15 @@ Workflow {
 			project = StandardProjectConfig {
 				baseName = "org.xtuml.bp.xtext.masl"
 				rootPath = rootPath
+                                runtimeTest = {
+                                        enabled = true
+                                }
+                                eclipsePlugin = {
+                                        enabled = true
+                                }
+                                eclipsePluginTest = {
+                                        enabled = true
+                                }
 				createEclipseMetaData = true
 			}
 			code = {
