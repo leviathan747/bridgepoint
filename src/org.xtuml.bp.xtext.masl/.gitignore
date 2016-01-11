@@ -1,2 +1,4 @@
 bin/
 *.xtendbin
+*.java._trace
+*.gitignore
