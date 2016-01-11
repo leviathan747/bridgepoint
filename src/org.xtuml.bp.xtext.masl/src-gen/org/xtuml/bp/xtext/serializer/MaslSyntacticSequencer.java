@@ -64,8 +64,6 @@ public class MaslSyntacticSequencer extends AbstractSyntacticSequencer {
 			return getSERVICEToken(semanticObject, ruleCall, node);
 		else if (ruleCall.getRule() == grammarAccess.getTERMINATORRule())
 			return getTERMINATORToken(semanticObject, ruleCall, node);
-		else if (ruleCall.getRule() == grammarAccess.getDeprecatedTypeRule())
-			return getdeprecatedTypeToken(semanticObject, ruleCall, node);
 		return "";
 	}
 	
@@ -202,18 +200,6 @@ public class MaslSyntacticSequencer extends AbstractSyntacticSequencer {
 		if (node != null)
 			return getTokenText(node);
 		return "terminator";
-	}
-	
-	/**
-	 * deprecatedType                				: INSTANCE
-	 *                               				| EVENT
-	 *                               				| SERVICE
-	 *                               				;
-	 */
-	protected String getdeprecatedTypeToken(EObject semanticObject, RuleCall ruleCall, INode node) {
-		if (node != null)
-			return getTokenText(node);
-		return "instance";
 	}
 	
 	@Override

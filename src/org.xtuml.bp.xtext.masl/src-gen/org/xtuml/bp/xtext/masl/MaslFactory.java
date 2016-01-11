@@ -186,6 +186,15 @@ public interface MaslFactory extends EFactory
   typeReference createtypeReference();
 
   /**
+   * Returns a new object of class '<em>deprecated Type</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>deprecated Type</em>'.
+   * @generated
+   */
+  deprecatedType createdeprecatedType();
+
+  /**
    * Returns a new object of class '<em>Named Type</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->

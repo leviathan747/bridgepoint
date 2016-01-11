@@ -6,6 +6,7 @@ package org.xtuml.bp.xtext.services;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import java.util.List;
+import org.eclipse.xtext.Action;
 import org.eclipse.xtext.Alternatives;
 import org.eclipse.xtext.Assignment;
 import org.eclipse.xtext.Grammar;
@@ -410,46 +411,51 @@ public class MaslGrammarAccess extends AbstractGrammarElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.xtuml.bp.xtext.Masl.parameterList");
 		private final Group cGroup = (Group)rule.eContents().get(1);
 		private final RuleCall cLPARENParserRuleCall_0 = (RuleCall)cGroup.eContents().get(0);
-		private final Assignment cParameterDefinitionAssignment_1 = (Assignment)cGroup.eContents().get(1);
-		private final RuleCall cParameterDefinitionParameterDefinitionParserRuleCall_1_0 = (RuleCall)cParameterDefinitionAssignment_1.eContents().get(0);
-		private final Group cGroup_2 = (Group)cGroup.eContents().get(2);
-		private final RuleCall cCOMMAParserRuleCall_2_0 = (RuleCall)cGroup_2.eContents().get(0);
-		private final Assignment cParameterDefinitionAssignment_2_1 = (Assignment)cGroup_2.eContents().get(1);
-		private final RuleCall cParameterDefinitionParameterDefinitionParserRuleCall_2_1_0 = (RuleCall)cParameterDefinitionAssignment_2_1.eContents().get(0);
-		private final RuleCall cRPARENParserRuleCall_3 = (RuleCall)cGroup.eContents().get(3);
+		private final Action cParameterListAction_1 = (Action)cGroup.eContents().get(1);
+		private final Assignment cParameterDefinitionAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final RuleCall cParameterDefinitionParameterDefinitionParserRuleCall_2_0 = (RuleCall)cParameterDefinitionAssignment_2.eContents().get(0);
+		private final Group cGroup_3 = (Group)cGroup.eContents().get(3);
+		private final RuleCall cCOMMAParserRuleCall_3_0 = (RuleCall)cGroup_3.eContents().get(0);
+		private final Assignment cParameterDefinitionAssignment_3_1 = (Assignment)cGroup_3.eContents().get(1);
+		private final RuleCall cParameterDefinitionParameterDefinitionParserRuleCall_3_1_0 = (RuleCall)cParameterDefinitionAssignment_3_1.eContents().get(0);
+		private final RuleCall cRPARENParserRuleCall_4 = (RuleCall)cGroup.eContents().get(4);
 		
 		//parameterList:
-		//	LPAREN
-		//	parameterDefinition+=parameterDefinition? (COMMA parameterDefinition+=parameterDefinition)*
+		//	LPAREN {parameterList} parameterDefinition+=parameterDefinition? (COMMA parameterDefinition+=parameterDefinition)*
 		//	RPAREN;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//LPAREN parameterDefinition+=parameterDefinition? (COMMA parameterDefinition+=parameterDefinition)* RPAREN
+		//LPAREN {parameterList} parameterDefinition+=parameterDefinition? (COMMA parameterDefinition+=parameterDefinition)*
+		//RPAREN
 		public Group getGroup() { return cGroup; }
 		
 		//LPAREN
 		public RuleCall getLPARENParserRuleCall_0() { return cLPARENParserRuleCall_0; }
 		
+		//{parameterList}
+		public Action getParameterListAction_1() { return cParameterListAction_1; }
+		
+		//// ensure a parameterList AST object is created even if there are no parameters
 		//parameterDefinition+=parameterDefinition?
-		public Assignment getParameterDefinitionAssignment_1() { return cParameterDefinitionAssignment_1; }
+		public Assignment getParameterDefinitionAssignment_2() { return cParameterDefinitionAssignment_2; }
 		
 		//parameterDefinition
-		public RuleCall getParameterDefinitionParameterDefinitionParserRuleCall_1_0() { return cParameterDefinitionParameterDefinitionParserRuleCall_1_0; }
+		public RuleCall getParameterDefinitionParameterDefinitionParserRuleCall_2_0() { return cParameterDefinitionParameterDefinitionParserRuleCall_2_0; }
 		
 		//(COMMA parameterDefinition+=parameterDefinition)*
-		public Group getGroup_2() { return cGroup_2; }
+		public Group getGroup_3() { return cGroup_3; }
 		
 		//COMMA
-		public RuleCall getCOMMAParserRuleCall_2_0() { return cCOMMAParserRuleCall_2_0; }
+		public RuleCall getCOMMAParserRuleCall_3_0() { return cCOMMAParserRuleCall_3_0; }
 		
 		//parameterDefinition+=parameterDefinition
-		public Assignment getParameterDefinitionAssignment_2_1() { return cParameterDefinitionAssignment_2_1; }
+		public Assignment getParameterDefinitionAssignment_3_1() { return cParameterDefinitionAssignment_3_1; }
 		
 		//parameterDefinition
-		public RuleCall getParameterDefinitionParameterDefinitionParserRuleCall_2_1_0() { return cParameterDefinitionParameterDefinitionParserRuleCall_2_1_0; }
+		public RuleCall getParameterDefinitionParameterDefinitionParserRuleCall_3_1_0() { return cParameterDefinitionParameterDefinitionParserRuleCall_3_1_0; }
 		
 		//RPAREN
-		public RuleCall getRPARENParserRuleCall_3() { return cRPARENParserRuleCall_3; }
+		public RuleCall getRPARENParserRuleCall_4() { return cRPARENParserRuleCall_4; }
 	}
 	public class ParameterDefinitionElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.xtuml.bp.xtext.Masl.parameterDefinition");
@@ -616,27 +622,39 @@ public class MaslGrammarAccess extends AbstractGrammarElementFinder {
 	public class DeprecatedTypeElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.xtuml.bp.xtext.Masl.deprecatedType");
 		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
-		private final RuleCall cINSTANCEParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
-		private final RuleCall cEVENTParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
-		private final RuleCall cSERVICEParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
+		private final Assignment cINSTANCEAssignment_0 = (Assignment)cAlternatives.eContents().get(0);
+		private final RuleCall cINSTANCEINSTANCEParserRuleCall_0_0 = (RuleCall)cINSTANCEAssignment_0.eContents().get(0);
+		private final Assignment cEVENTAssignment_1 = (Assignment)cAlternatives.eContents().get(1);
+		private final RuleCall cEVENTEVENTParserRuleCall_1_0 = (RuleCall)cEVENTAssignment_1.eContents().get(0);
+		private final Assignment cSERVICEAssignment_2 = (Assignment)cAlternatives.eContents().get(2);
+		private final RuleCall cSERVICESERVICEParserRuleCall_2_0 = (RuleCall)cSERVICEAssignment_2.eContents().get(0);
 		
 		//deprecatedType:
-		//	INSTANCE
-		//	| EVENT
-		//	| SERVICE;
+		//	INSTANCE=INSTANCE
+		//	| EVENT=EVENT
+		//	| SERVICE=SERVICE;
 		@Override public ParserRule getRule() { return rule; }
 		
-		//INSTANCE | EVENT | SERVICE
+		//INSTANCE=INSTANCE | EVENT=EVENT | SERVICE=SERVICE
 		public Alternatives getAlternatives() { return cAlternatives; }
 		
+		//INSTANCE=INSTANCE
+		public Assignment getINSTANCEAssignment_0() { return cINSTANCEAssignment_0; }
+		
 		//INSTANCE
-		public RuleCall getINSTANCEParserRuleCall_0() { return cINSTANCEParserRuleCall_0; }
+		public RuleCall getINSTANCEINSTANCEParserRuleCall_0_0() { return cINSTANCEINSTANCEParserRuleCall_0_0; }
+		
+		//EVENT=EVENT
+		public Assignment getEVENTAssignment_1() { return cEVENTAssignment_1; }
 		
 		//EVENT
-		public RuleCall getEVENTParserRuleCall_1() { return cEVENTParserRuleCall_1; }
+		public RuleCall getEVENTEVENTParserRuleCall_1_0() { return cEVENTEVENTParserRuleCall_1_0; }
+		
+		//SERVICE=SERVICE
+		public Assignment getSERVICEAssignment_2() { return cSERVICEAssignment_2; }
 		
 		//SERVICE
-		public RuleCall getSERVICEParserRuleCall_2() { return cSERVICEParserRuleCall_2; }
+		public RuleCall getSERVICESERVICEParserRuleCall_2_0() { return cSERVICESERVICEParserRuleCall_2_0; }
 	}
 	public class NamedTypeRefElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.xtuml.bp.xtext.Masl.namedTypeRef");
@@ -699,28 +717,36 @@ public class MaslGrammarAccess extends AbstractGrammarElementFinder {
 	public class PragmaListElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.xtuml.bp.xtext.Masl.pragmaList");
 		private final Group cGroup = (Group)rule.eContents().get(1);
-		private final Assignment cPragmaAssignment_0 = (Assignment)cGroup.eContents().get(0);
-		private final RuleCall cPragmaPragmaParserRuleCall_0_0 = (RuleCall)cPragmaAssignment_0.eContents().get(0);
-		private final RuleCall cSEMIParserRuleCall_1 = (RuleCall)cGroup.eContents().get(1);
+		private final Action cPragmaListAction_0 = (Action)cGroup.eContents().get(0);
+		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
+		private final Assignment cPragmaAssignment_1_0 = (Assignment)cGroup_1.eContents().get(0);
+		private final RuleCall cPragmaPragmaParserRuleCall_1_0_0 = (RuleCall)cPragmaAssignment_1_0.eContents().get(0);
+		private final RuleCall cSEMIParserRuleCall_1_1 = (RuleCall)cGroup_1.eContents().get(1);
 		
 		////---------------------------------------------------------
 		//// Pragma Definition
 		////---------------------------------------------------------
 		//pragmaList PragmaList:
-		//	(pragma+=pragma SEMI)*
+		//	{PragmaList} (pragma+=pragma SEMI)*
 		@Override public ParserRule getRule() { return rule; }
 		
-		//(pragma+=pragma SEMI)*
+		//{PragmaList} (pragma+=pragma SEMI)*
 		public Group getGroup() { return cGroup; }
 		
+		//{PragmaList}
+		public Action getPragmaListAction_0() { return cPragmaListAction_0; }
+		
+		//(pragma+=pragma SEMI)*
+		public Group getGroup_1() { return cGroup_1; }
+		
 		//pragma+=pragma
-		public Assignment getPragmaAssignment_0() { return cPragmaAssignment_0; }
+		public Assignment getPragmaAssignment_1_0() { return cPragmaAssignment_1_0; }
 		
 		//pragma
-		public RuleCall getPragmaPragmaParserRuleCall_0_0() { return cPragmaPragmaParserRuleCall_0_0; }
+		public RuleCall getPragmaPragmaParserRuleCall_1_0_0() { return cPragmaPragmaParserRuleCall_1_0_0; }
 		
 		//SEMI
-		public RuleCall getSEMIParserRuleCall_1() { return cSEMIParserRuleCall_1; }
+		public RuleCall getSEMIParserRuleCall_1_1() { return cSEMIParserRuleCall_1_1; }
 	}
 	public class PragmaElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.xtuml.bp.xtext.Masl.pragma");
@@ -1384,8 +1410,7 @@ public class MaslGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//parameterList:
-	//	LPAREN
-	//	parameterDefinition+=parameterDefinition? (COMMA parameterDefinition+=parameterDefinition)*
+	//	LPAREN {parameterList} parameterDefinition+=parameterDefinition? (COMMA parameterDefinition+=parameterDefinition)*
 	//	RPAREN;
 	public ParameterListElements getParameterListAccess() {
 		return pParameterList;
@@ -1482,9 +1507,9 @@ public class MaslGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	//deprecatedType:
-	//	INSTANCE
-	//	| EVENT
-	//	| SERVICE;
+	//	INSTANCE=INSTANCE
+	//	| EVENT=EVENT
+	//	| SERVICE=SERVICE;
 	public DeprecatedTypeElements getDeprecatedTypeAccess() {
 		return pDeprecatedType;
 	}
@@ -1517,7 +1542,7 @@ public class MaslGrammarAccess extends AbstractGrammarElementFinder {
 	//// Pragma Definition
 	////---------------------------------------------------------
 	//pragmaList PragmaList:
-	//	(pragma+=pragma SEMI)*
+	//	{PragmaList} (pragma+=pragma SEMI)*
 	public PragmaListElements getPragmaListAccess() {
 		return pPragmaList;
 	}

@@ -33,6 +33,7 @@ import org.xtuml.bp.xtext.masl.TerminatorFunctionDeclaration;
 import org.xtuml.bp.xtext.masl.TerminatorName;
 import org.xtuml.bp.xtext.masl.TerminatorServiceDeclaration;
 import org.xtuml.bp.xtext.masl.TypeName;
+import org.xtuml.bp.xtext.masl.deprecatedType;
 import org.xtuml.bp.xtext.masl.parameterList;
 import org.xtuml.bp.xtext.services.MaslGrammarAccess;
 
@@ -104,6 +105,9 @@ public class MaslSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 			case MaslPackage.TYPE_NAME:
 				sequence_typeName(context, (TypeName) semanticObject); 
 				return; 
+			case MaslPackage.DEPRECATED_TYPE:
+				sequence_deprecatedType(context, (deprecatedType) semanticObject); 
+				return; 
 			case MaslPackage.PARAMETER_LIST:
 				sequence_parameterList(context, (parameterList) semanticObject); 
 				return; 
@@ -111,6 +115,19 @@ public class MaslSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 		if (errorAcceptor != null)
 			errorAcceptor.accept(diagnosticProvider.createInvalidContextOrTypeDiagnostic(semanticObject, context));
 	}
+	
+	/**
+	 * Contexts:
+	 *     typeReference returns deprecatedType
+	 *     deprecatedType returns deprecatedType
+	 *
+	 * Constraint:
+	 *     (INSTANCE=INSTANCE | EVENT=EVENT | SERVICE=SERVICE)
+	 */
+	protected void sequence_deprecatedType(ISerializationContext context, deprecatedType semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
 	
 	/**
 	 * Contexts:
@@ -185,7 +202,7 @@ public class MaslSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 *     parameterList returns parameterList
 	 *
 	 * Constraint:
-	 *     ((parameterDefinition+=parameterDefinition parameterDefinition+=parameterDefinition+) | parameterDefinition+=parameterDefinition+)?
+	 *     (parameterDefinition+=parameterDefinition? parameterDefinition+=parameterDefinition*)
 	 */
 	protected void sequence_parameterList(ISerializationContext context, parameterList semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
@@ -233,7 +250,7 @@ public class MaslSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 *     pragmaList returns PragmaList
 	 *
 	 * Constraint:
-	 *     pragma+=pragma+
+	 *     pragma+=pragma*
 	 */
 	protected void sequence_pragmaList(ISerializationContext context, PragmaList semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);

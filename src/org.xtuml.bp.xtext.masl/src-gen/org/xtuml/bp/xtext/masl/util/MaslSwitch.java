@@ -203,6 +203,14 @@ public class MaslSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case MaslPackage.DEPRECATED_TYPE:
+      {
+        deprecatedType deprecatedType = (deprecatedType)theEObject;
+        T result = casedeprecatedType(deprecatedType);
+        if (result == null) result = casetypeReference(deprecatedType);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       case MaslPackage.NAMED_TYPE:
       {
         NamedType namedType = (NamedType)theEObject;
@@ -527,6 +535,22 @@ public class MaslSwitch<T> extends Switch<T>
    * @generated
    */
   public T casetypeReference(typeReference object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>deprecated Type</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>deprecated Type</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T casedeprecatedType(deprecatedType object)
   {
     return null;
   }

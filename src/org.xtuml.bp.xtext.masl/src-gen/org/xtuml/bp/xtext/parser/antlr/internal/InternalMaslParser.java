@@ -2022,24 +2022,24 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleparameterList"
-    // InternalMasl.g:845:1: ruleparameterList returns [EObject current=null] : ( ruleLPAREN ( (lv_parameterDefinition_1_0= ruleparameterDefinition ) )? ( ruleCOMMA ( (lv_parameterDefinition_3_0= ruleparameterDefinition ) ) )* ruleRPAREN ) ;
+    // InternalMasl.g:845:1: ruleparameterList returns [EObject current=null] : ( ruleLPAREN () ( (lv_parameterDefinition_2_0= ruleparameterDefinition ) )? ( ruleCOMMA ( (lv_parameterDefinition_4_0= ruleparameterDefinition ) ) )* ruleRPAREN ) ;
     public final EObject ruleparameterList() throws RecognitionException {
         EObject current = null;
 
-        EObject lv_parameterDefinition_1_0 = null;
+        EObject lv_parameterDefinition_2_0 = null;
 
-        EObject lv_parameterDefinition_3_0 = null;
+        EObject lv_parameterDefinition_4_0 = null;
 
 
 
         	enterRule();
 
         try {
-            // InternalMasl.g:851:2: ( ( ruleLPAREN ( (lv_parameterDefinition_1_0= ruleparameterDefinition ) )? ( ruleCOMMA ( (lv_parameterDefinition_3_0= ruleparameterDefinition ) ) )* ruleRPAREN ) )
-            // InternalMasl.g:852:2: ( ruleLPAREN ( (lv_parameterDefinition_1_0= ruleparameterDefinition ) )? ( ruleCOMMA ( (lv_parameterDefinition_3_0= ruleparameterDefinition ) ) )* ruleRPAREN )
+            // InternalMasl.g:851:2: ( ( ruleLPAREN () ( (lv_parameterDefinition_2_0= ruleparameterDefinition ) )? ( ruleCOMMA ( (lv_parameterDefinition_4_0= ruleparameterDefinition ) ) )* ruleRPAREN ) )
+            // InternalMasl.g:852:2: ( ruleLPAREN () ( (lv_parameterDefinition_2_0= ruleparameterDefinition ) )? ( ruleCOMMA ( (lv_parameterDefinition_4_0= ruleparameterDefinition ) ) )* ruleRPAREN )
             {
-            // InternalMasl.g:852:2: ( ruleLPAREN ( (lv_parameterDefinition_1_0= ruleparameterDefinition ) )? ( ruleCOMMA ( (lv_parameterDefinition_3_0= ruleparameterDefinition ) ) )* ruleRPAREN )
-            // InternalMasl.g:853:3: ruleLPAREN ( (lv_parameterDefinition_1_0= ruleparameterDefinition ) )? ( ruleCOMMA ( (lv_parameterDefinition_3_0= ruleparameterDefinition ) ) )* ruleRPAREN
+            // InternalMasl.g:852:2: ( ruleLPAREN () ( (lv_parameterDefinition_2_0= ruleparameterDefinition ) )? ( ruleCOMMA ( (lv_parameterDefinition_4_0= ruleparameterDefinition ) ) )* ruleRPAREN )
+            // InternalMasl.g:853:3: ruleLPAREN () ( (lv_parameterDefinition_2_0= ruleparameterDefinition ) )? ( ruleCOMMA ( (lv_parameterDefinition_4_0= ruleparameterDefinition ) ) )* ruleRPAREN
             {
 
             			newCompositeNode(grammarAccess.getParameterListAccess().getLPARENParserRuleCall_0());
@@ -2052,7 +2052,18 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
 
             			afterParserOrEnumRuleCall();
             		
-            // InternalMasl.g:860:3: ( (lv_parameterDefinition_1_0= ruleparameterDefinition ) )?
+            // InternalMasl.g:860:3: ()
+            // InternalMasl.g:861:4: 
+            {
+
+            				current = forceCreateModelElement(
+            					grammarAccess.getParameterListAccess().getParameterListAction_1(),
+            					current);
+            			
+
+            }
+
+            // InternalMasl.g:867:3: ( (lv_parameterDefinition_2_0= ruleparameterDefinition ) )?
             int alt8=2;
             int LA8_0 = input.LA(1);
 
@@ -2061,16 +2072,16 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
             }
             switch (alt8) {
                 case 1 :
-                    // InternalMasl.g:861:4: (lv_parameterDefinition_1_0= ruleparameterDefinition )
+                    // InternalMasl.g:868:4: (lv_parameterDefinition_2_0= ruleparameterDefinition )
                     {
-                    // InternalMasl.g:861:4: (lv_parameterDefinition_1_0= ruleparameterDefinition )
-                    // InternalMasl.g:862:5: lv_parameterDefinition_1_0= ruleparameterDefinition
+                    // InternalMasl.g:868:4: (lv_parameterDefinition_2_0= ruleparameterDefinition )
+                    // InternalMasl.g:869:5: lv_parameterDefinition_2_0= ruleparameterDefinition
                     {
 
-                    					newCompositeNode(grammarAccess.getParameterListAccess().getParameterDefinitionParameterDefinitionParserRuleCall_1_0());
+                    					newCompositeNode(grammarAccess.getParameterListAccess().getParameterDefinitionParameterDefinitionParserRuleCall_2_0());
                     				
                     pushFollow(FOLLOW_17);
-                    lv_parameterDefinition_1_0=ruleparameterDefinition();
+                    lv_parameterDefinition_2_0=ruleparameterDefinition();
 
                     state._fsp--;
 
@@ -2081,7 +2092,7 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
                     					add(
                     						current,
                     						"parameterDefinition",
-                    						lv_parameterDefinition_1_0,
+                    						lv_parameterDefinition_2_0,
                     						"org.xtuml.bp.xtext.Masl.parameterDefinition");
                     					afterParserOrEnumRuleCall();
                     				
@@ -2094,7 +2105,7 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalMasl.g:879:3: ( ruleCOMMA ( (lv_parameterDefinition_3_0= ruleparameterDefinition ) ) )*
+            // InternalMasl.g:886:3: ( ruleCOMMA ( (lv_parameterDefinition_4_0= ruleparameterDefinition ) ) )*
             loop9:
             do {
                 int alt9=2;
@@ -2107,10 +2118,10 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
 
                 switch (alt9) {
             	case 1 :
-            	    // InternalMasl.g:880:4: ruleCOMMA ( (lv_parameterDefinition_3_0= ruleparameterDefinition ) )
+            	    // InternalMasl.g:887:4: ruleCOMMA ( (lv_parameterDefinition_4_0= ruleparameterDefinition ) )
             	    {
 
-            	    				newCompositeNode(grammarAccess.getParameterListAccess().getCOMMAParserRuleCall_2_0());
+            	    				newCompositeNode(grammarAccess.getParameterListAccess().getCOMMAParserRuleCall_3_0());
             	    			
             	    pushFollow(FOLLOW_3);
             	    ruleCOMMA();
@@ -2120,17 +2131,17 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
 
             	    				afterParserOrEnumRuleCall();
             	    			
-            	    // InternalMasl.g:887:4: ( (lv_parameterDefinition_3_0= ruleparameterDefinition ) )
-            	    // InternalMasl.g:888:5: (lv_parameterDefinition_3_0= ruleparameterDefinition )
+            	    // InternalMasl.g:894:4: ( (lv_parameterDefinition_4_0= ruleparameterDefinition ) )
+            	    // InternalMasl.g:895:5: (lv_parameterDefinition_4_0= ruleparameterDefinition )
             	    {
-            	    // InternalMasl.g:888:5: (lv_parameterDefinition_3_0= ruleparameterDefinition )
-            	    // InternalMasl.g:889:6: lv_parameterDefinition_3_0= ruleparameterDefinition
+            	    // InternalMasl.g:895:5: (lv_parameterDefinition_4_0= ruleparameterDefinition )
+            	    // InternalMasl.g:896:6: lv_parameterDefinition_4_0= ruleparameterDefinition
             	    {
 
-            	    						newCompositeNode(grammarAccess.getParameterListAccess().getParameterDefinitionParameterDefinitionParserRuleCall_2_1_0());
+            	    						newCompositeNode(grammarAccess.getParameterListAccess().getParameterDefinitionParameterDefinitionParserRuleCall_3_1_0());
             	    					
             	    pushFollow(FOLLOW_17);
-            	    lv_parameterDefinition_3_0=ruleparameterDefinition();
+            	    lv_parameterDefinition_4_0=ruleparameterDefinition();
 
             	    state._fsp--;
 
@@ -2141,7 +2152,7 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
             	    						add(
             	    							current,
             	    							"parameterDefinition",
-            	    							lv_parameterDefinition_3_0,
+            	    							lv_parameterDefinition_4_0,
             	    							"org.xtuml.bp.xtext.Masl.parameterDefinition");
             	    						afterParserOrEnumRuleCall();
             	    					
@@ -2161,7 +2172,7 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
             } while (true);
 
 
-            			newCompositeNode(grammarAccess.getParameterListAccess().getRPARENParserRuleCall_3());
+            			newCompositeNode(grammarAccess.getParameterListAccess().getRPARENParserRuleCall_4());
             		
             pushFollow(FOLLOW_2);
             ruleRPAREN();
@@ -2194,7 +2205,7 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleparameterDefinition"
-    // InternalMasl.g:918:1: entryRuleparameterDefinition returns [EObject current=null] : iv_ruleparameterDefinition= ruleparameterDefinition EOF ;
+    // InternalMasl.g:925:1: entryRuleparameterDefinition returns [EObject current=null] : iv_ruleparameterDefinition= ruleparameterDefinition EOF ;
     public final EObject entryRuleparameterDefinition() throws RecognitionException {
         EObject current = null;
 
@@ -2202,8 +2213,8 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalMasl.g:918:60: (iv_ruleparameterDefinition= ruleparameterDefinition EOF )
-            // InternalMasl.g:919:2: iv_ruleparameterDefinition= ruleparameterDefinition EOF
+            // InternalMasl.g:925:60: (iv_ruleparameterDefinition= ruleparameterDefinition EOF )
+            // InternalMasl.g:926:2: iv_ruleparameterDefinition= ruleparameterDefinition EOF
             {
              newCompositeNode(grammarAccess.getParameterDefinitionRule()); 
             pushFollow(FOLLOW_1);
@@ -2230,7 +2241,7 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleparameterDefinition"
-    // InternalMasl.g:925:1: ruleparameterDefinition returns [EObject current=null] : ( ( (lv_parameterName_0_0= ruleparameterName ) ) ruleCOLON ( (lv_parameterMode_2_0= ruleparameterMode ) ) ( (lv_parameterType_3_0= ruleparameterType ) ) ) ;
+    // InternalMasl.g:932:1: ruleparameterDefinition returns [EObject current=null] : ( ( (lv_parameterName_0_0= ruleparameterName ) ) ruleCOLON ( (lv_parameterMode_2_0= ruleparameterMode ) ) ( (lv_parameterType_3_0= ruleparameterType ) ) ) ;
     public final EObject ruleparameterDefinition() throws RecognitionException {
         EObject current = null;
 
@@ -2245,17 +2256,17 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalMasl.g:931:2: ( ( ( (lv_parameterName_0_0= ruleparameterName ) ) ruleCOLON ( (lv_parameterMode_2_0= ruleparameterMode ) ) ( (lv_parameterType_3_0= ruleparameterType ) ) ) )
-            // InternalMasl.g:932:2: ( ( (lv_parameterName_0_0= ruleparameterName ) ) ruleCOLON ( (lv_parameterMode_2_0= ruleparameterMode ) ) ( (lv_parameterType_3_0= ruleparameterType ) ) )
+            // InternalMasl.g:938:2: ( ( ( (lv_parameterName_0_0= ruleparameterName ) ) ruleCOLON ( (lv_parameterMode_2_0= ruleparameterMode ) ) ( (lv_parameterType_3_0= ruleparameterType ) ) ) )
+            // InternalMasl.g:939:2: ( ( (lv_parameterName_0_0= ruleparameterName ) ) ruleCOLON ( (lv_parameterMode_2_0= ruleparameterMode ) ) ( (lv_parameterType_3_0= ruleparameterType ) ) )
             {
-            // InternalMasl.g:932:2: ( ( (lv_parameterName_0_0= ruleparameterName ) ) ruleCOLON ( (lv_parameterMode_2_0= ruleparameterMode ) ) ( (lv_parameterType_3_0= ruleparameterType ) ) )
-            // InternalMasl.g:933:3: ( (lv_parameterName_0_0= ruleparameterName ) ) ruleCOLON ( (lv_parameterMode_2_0= ruleparameterMode ) ) ( (lv_parameterType_3_0= ruleparameterType ) )
+            // InternalMasl.g:939:2: ( ( (lv_parameterName_0_0= ruleparameterName ) ) ruleCOLON ( (lv_parameterMode_2_0= ruleparameterMode ) ) ( (lv_parameterType_3_0= ruleparameterType ) ) )
+            // InternalMasl.g:940:3: ( (lv_parameterName_0_0= ruleparameterName ) ) ruleCOLON ( (lv_parameterMode_2_0= ruleparameterMode ) ) ( (lv_parameterType_3_0= ruleparameterType ) )
             {
-            // InternalMasl.g:933:3: ( (lv_parameterName_0_0= ruleparameterName ) )
-            // InternalMasl.g:934:4: (lv_parameterName_0_0= ruleparameterName )
+            // InternalMasl.g:940:3: ( (lv_parameterName_0_0= ruleparameterName ) )
+            // InternalMasl.g:941:4: (lv_parameterName_0_0= ruleparameterName )
             {
-            // InternalMasl.g:934:4: (lv_parameterName_0_0= ruleparameterName )
-            // InternalMasl.g:935:5: lv_parameterName_0_0= ruleparameterName
+            // InternalMasl.g:941:4: (lv_parameterName_0_0= ruleparameterName )
+            // InternalMasl.g:942:5: lv_parameterName_0_0= ruleparameterName
             {
 
             					newCompositeNode(grammarAccess.getParameterDefinitionAccess().getParameterNameParameterNameParserRuleCall_0_0());
@@ -2293,11 +2304,11 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
 
             			afterParserOrEnumRuleCall();
             		
-            // InternalMasl.g:959:3: ( (lv_parameterMode_2_0= ruleparameterMode ) )
-            // InternalMasl.g:960:4: (lv_parameterMode_2_0= ruleparameterMode )
+            // InternalMasl.g:966:3: ( (lv_parameterMode_2_0= ruleparameterMode ) )
+            // InternalMasl.g:967:4: (lv_parameterMode_2_0= ruleparameterMode )
             {
-            // InternalMasl.g:960:4: (lv_parameterMode_2_0= ruleparameterMode )
-            // InternalMasl.g:961:5: lv_parameterMode_2_0= ruleparameterMode
+            // InternalMasl.g:967:4: (lv_parameterMode_2_0= ruleparameterMode )
+            // InternalMasl.g:968:5: lv_parameterMode_2_0= ruleparameterMode
             {
 
             					newCompositeNode(grammarAccess.getParameterDefinitionAccess().getParameterModeParameterModeParserRuleCall_2_0());
@@ -2324,11 +2335,11 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalMasl.g:978:3: ( (lv_parameterType_3_0= ruleparameterType ) )
-            // InternalMasl.g:979:4: (lv_parameterType_3_0= ruleparameterType )
+            // InternalMasl.g:985:3: ( (lv_parameterType_3_0= ruleparameterType ) )
+            // InternalMasl.g:986:4: (lv_parameterType_3_0= ruleparameterType )
             {
-            // InternalMasl.g:979:4: (lv_parameterType_3_0= ruleparameterType )
-            // InternalMasl.g:980:5: lv_parameterType_3_0= ruleparameterType
+            // InternalMasl.g:986:4: (lv_parameterType_3_0= ruleparameterType )
+            // InternalMasl.g:987:5: lv_parameterType_3_0= ruleparameterType
             {
 
             					newCompositeNode(grammarAccess.getParameterDefinitionAccess().getParameterTypeParameterTypeParserRuleCall_3_0());
@@ -2378,7 +2389,7 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleserviceVisibility"
-    // InternalMasl.g:1001:1: entryRuleserviceVisibility returns [String current=null] : iv_ruleserviceVisibility= ruleserviceVisibility EOF ;
+    // InternalMasl.g:1008:1: entryRuleserviceVisibility returns [String current=null] : iv_ruleserviceVisibility= ruleserviceVisibility EOF ;
     public final String entryRuleserviceVisibility() throws RecognitionException {
         String current = null;
 
@@ -2386,8 +2397,8 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalMasl.g:1001:57: (iv_ruleserviceVisibility= ruleserviceVisibility EOF )
-            // InternalMasl.g:1002:2: iv_ruleserviceVisibility= ruleserviceVisibility EOF
+            // InternalMasl.g:1008:57: (iv_ruleserviceVisibility= ruleserviceVisibility EOF )
+            // InternalMasl.g:1009:2: iv_ruleserviceVisibility= ruleserviceVisibility EOF
             {
              newCompositeNode(grammarAccess.getServiceVisibilityRule()); 
             pushFollow(FOLLOW_1);
@@ -2414,7 +2425,7 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleserviceVisibility"
-    // InternalMasl.g:1008:1: ruleserviceVisibility returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (this_PRIVATE_0= rulePRIVATE | this_PUBLIC_1= rulePUBLIC ) ;
+    // InternalMasl.g:1015:1: ruleserviceVisibility returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (this_PRIVATE_0= rulePRIVATE | this_PUBLIC_1= rulePUBLIC ) ;
     public final AntlrDatatypeRuleToken ruleserviceVisibility() throws RecognitionException {
         AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
 
@@ -2427,10 +2438,10 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalMasl.g:1014:2: ( (this_PRIVATE_0= rulePRIVATE | this_PUBLIC_1= rulePUBLIC ) )
-            // InternalMasl.g:1015:2: (this_PRIVATE_0= rulePRIVATE | this_PUBLIC_1= rulePUBLIC )
+            // InternalMasl.g:1021:2: ( (this_PRIVATE_0= rulePRIVATE | this_PUBLIC_1= rulePUBLIC ) )
+            // InternalMasl.g:1022:2: (this_PRIVATE_0= rulePRIVATE | this_PUBLIC_1= rulePUBLIC )
             {
-            // InternalMasl.g:1015:2: (this_PRIVATE_0= rulePRIVATE | this_PUBLIC_1= rulePUBLIC )
+            // InternalMasl.g:1022:2: (this_PRIVATE_0= rulePRIVATE | this_PUBLIC_1= rulePUBLIC )
             int alt10=2;
             int LA10_0 = input.LA(1);
 
@@ -2448,7 +2459,7 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
             }
             switch (alt10) {
                 case 1 :
-                    // InternalMasl.g:1016:3: this_PRIVATE_0= rulePRIVATE
+                    // InternalMasl.g:1023:3: this_PRIVATE_0= rulePRIVATE
                     {
 
                     			newCompositeNode(grammarAccess.getServiceVisibilityAccess().getPRIVATEParserRuleCall_0());
@@ -2468,7 +2479,7 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // InternalMasl.g:1027:3: this_PUBLIC_1= rulePUBLIC
+                    // InternalMasl.g:1034:3: this_PUBLIC_1= rulePUBLIC
                     {
 
                     			newCompositeNode(grammarAccess.getServiceVisibilityAccess().getPUBLICParserRuleCall_1());
@@ -2510,7 +2521,7 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleparameterMode"
-    // InternalMasl.g:1041:1: entryRuleparameterMode returns [String current=null] : iv_ruleparameterMode= ruleparameterMode EOF ;
+    // InternalMasl.g:1048:1: entryRuleparameterMode returns [String current=null] : iv_ruleparameterMode= ruleparameterMode EOF ;
     public final String entryRuleparameterMode() throws RecognitionException {
         String current = null;
 
@@ -2518,8 +2529,8 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalMasl.g:1041:53: (iv_ruleparameterMode= ruleparameterMode EOF )
-            // InternalMasl.g:1042:2: iv_ruleparameterMode= ruleparameterMode EOF
+            // InternalMasl.g:1048:53: (iv_ruleparameterMode= ruleparameterMode EOF )
+            // InternalMasl.g:1049:2: iv_ruleparameterMode= ruleparameterMode EOF
             {
              newCompositeNode(grammarAccess.getParameterModeRule()); 
             pushFollow(FOLLOW_1);
@@ -2546,7 +2557,7 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleparameterMode"
-    // InternalMasl.g:1048:1: ruleparameterMode returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (this_IN_0= ruleIN | this_OUT_1= ruleOUT ) ;
+    // InternalMasl.g:1055:1: ruleparameterMode returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (this_IN_0= ruleIN | this_OUT_1= ruleOUT ) ;
     public final AntlrDatatypeRuleToken ruleparameterMode() throws RecognitionException {
         AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
 
@@ -2559,10 +2570,10 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalMasl.g:1054:2: ( (this_IN_0= ruleIN | this_OUT_1= ruleOUT ) )
-            // InternalMasl.g:1055:2: (this_IN_0= ruleIN | this_OUT_1= ruleOUT )
+            // InternalMasl.g:1061:2: ( (this_IN_0= ruleIN | this_OUT_1= ruleOUT ) )
+            // InternalMasl.g:1062:2: (this_IN_0= ruleIN | this_OUT_1= ruleOUT )
             {
-            // InternalMasl.g:1055:2: (this_IN_0= ruleIN | this_OUT_1= ruleOUT )
+            // InternalMasl.g:1062:2: (this_IN_0= ruleIN | this_OUT_1= ruleOUT )
             int alt11=2;
             int LA11_0 = input.LA(1);
 
@@ -2580,7 +2591,7 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
             }
             switch (alt11) {
                 case 1 :
-                    // InternalMasl.g:1056:3: this_IN_0= ruleIN
+                    // InternalMasl.g:1063:3: this_IN_0= ruleIN
                     {
 
                     			newCompositeNode(grammarAccess.getParameterModeAccess().getINParserRuleCall_0());
@@ -2600,7 +2611,7 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // InternalMasl.g:1067:3: this_OUT_1= ruleOUT
+                    // InternalMasl.g:1074:3: this_OUT_1= ruleOUT
                     {
 
                     			newCompositeNode(grammarAccess.getParameterModeAccess().getOUTParserRuleCall_1());
@@ -2642,7 +2653,7 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleserviceName"
-    // InternalMasl.g:1081:1: entryRuleserviceName returns [EObject current=null] : iv_ruleserviceName= ruleserviceName EOF ;
+    // InternalMasl.g:1088:1: entryRuleserviceName returns [EObject current=null] : iv_ruleserviceName= ruleserviceName EOF ;
     public final EObject entryRuleserviceName() throws RecognitionException {
         EObject current = null;
 
@@ -2650,8 +2661,8 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalMasl.g:1081:52: (iv_ruleserviceName= ruleserviceName EOF )
-            // InternalMasl.g:1082:2: iv_ruleserviceName= ruleserviceName EOF
+            // InternalMasl.g:1088:52: (iv_ruleserviceName= ruleserviceName EOF )
+            // InternalMasl.g:1089:2: iv_ruleserviceName= ruleserviceName EOF
             {
              newCompositeNode(grammarAccess.getServiceNameRule()); 
             pushFollow(FOLLOW_1);
@@ -2678,7 +2689,7 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleserviceName"
-    // InternalMasl.g:1088:1: ruleserviceName returns [EObject current=null] : ( (lv_identifier_0_0= RULE_ID ) ) ;
+    // InternalMasl.g:1095:1: ruleserviceName returns [EObject current=null] : ( (lv_identifier_0_0= RULE_ID ) ) ;
     public final EObject ruleserviceName() throws RecognitionException {
         EObject current = null;
 
@@ -2688,14 +2699,14 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalMasl.g:1094:2: ( ( (lv_identifier_0_0= RULE_ID ) ) )
-            // InternalMasl.g:1095:2: ( (lv_identifier_0_0= RULE_ID ) )
+            // InternalMasl.g:1101:2: ( ( (lv_identifier_0_0= RULE_ID ) ) )
+            // InternalMasl.g:1102:2: ( (lv_identifier_0_0= RULE_ID ) )
             {
-            // InternalMasl.g:1095:2: ( (lv_identifier_0_0= RULE_ID ) )
-            // InternalMasl.g:1096:3: (lv_identifier_0_0= RULE_ID )
+            // InternalMasl.g:1102:2: ( (lv_identifier_0_0= RULE_ID ) )
+            // InternalMasl.g:1103:3: (lv_identifier_0_0= RULE_ID )
             {
-            // InternalMasl.g:1096:3: (lv_identifier_0_0= RULE_ID )
-            // InternalMasl.g:1097:4: lv_identifier_0_0= RULE_ID
+            // InternalMasl.g:1103:3: (lv_identifier_0_0= RULE_ID )
+            // InternalMasl.g:1104:4: lv_identifier_0_0= RULE_ID
             {
             lv_identifier_0_0=(Token)match(input,RULE_ID,FOLLOW_2); 
 
@@ -2737,7 +2748,7 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleparameterName"
-    // InternalMasl.g:1116:1: entryRuleparameterName returns [EObject current=null] : iv_ruleparameterName= ruleparameterName EOF ;
+    // InternalMasl.g:1123:1: entryRuleparameterName returns [EObject current=null] : iv_ruleparameterName= ruleparameterName EOF ;
     public final EObject entryRuleparameterName() throws RecognitionException {
         EObject current = null;
 
@@ -2745,8 +2756,8 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalMasl.g:1116:54: (iv_ruleparameterName= ruleparameterName EOF )
-            // InternalMasl.g:1117:2: iv_ruleparameterName= ruleparameterName EOF
+            // InternalMasl.g:1123:54: (iv_ruleparameterName= ruleparameterName EOF )
+            // InternalMasl.g:1124:2: iv_ruleparameterName= ruleparameterName EOF
             {
              newCompositeNode(grammarAccess.getParameterNameRule()); 
             pushFollow(FOLLOW_1);
@@ -2773,7 +2784,7 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleparameterName"
-    // InternalMasl.g:1123:1: ruleparameterName returns [EObject current=null] : ( (lv_identifier_0_0= RULE_ID ) ) ;
+    // InternalMasl.g:1130:1: ruleparameterName returns [EObject current=null] : ( (lv_identifier_0_0= RULE_ID ) ) ;
     public final EObject ruleparameterName() throws RecognitionException {
         EObject current = null;
 
@@ -2783,14 +2794,14 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalMasl.g:1129:2: ( ( (lv_identifier_0_0= RULE_ID ) ) )
-            // InternalMasl.g:1130:2: ( (lv_identifier_0_0= RULE_ID ) )
+            // InternalMasl.g:1136:2: ( ( (lv_identifier_0_0= RULE_ID ) ) )
+            // InternalMasl.g:1137:2: ( (lv_identifier_0_0= RULE_ID ) )
             {
-            // InternalMasl.g:1130:2: ( (lv_identifier_0_0= RULE_ID ) )
-            // InternalMasl.g:1131:3: (lv_identifier_0_0= RULE_ID )
+            // InternalMasl.g:1137:2: ( (lv_identifier_0_0= RULE_ID ) )
+            // InternalMasl.g:1138:3: (lv_identifier_0_0= RULE_ID )
             {
-            // InternalMasl.g:1131:3: (lv_identifier_0_0= RULE_ID )
-            // InternalMasl.g:1132:4: lv_identifier_0_0= RULE_ID
+            // InternalMasl.g:1138:3: (lv_identifier_0_0= RULE_ID )
+            // InternalMasl.g:1139:4: lv_identifier_0_0= RULE_ID
             {
             lv_identifier_0_0=(Token)match(input,RULE_ID,FOLLOW_2); 
 
@@ -2832,7 +2843,7 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleparameterType"
-    // InternalMasl.g:1151:1: entryRuleparameterType returns [EObject current=null] : iv_ruleparameterType= ruleparameterType EOF ;
+    // InternalMasl.g:1158:1: entryRuleparameterType returns [EObject current=null] : iv_ruleparameterType= ruleparameterType EOF ;
     public final EObject entryRuleparameterType() throws RecognitionException {
         EObject current = null;
 
@@ -2840,8 +2851,8 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalMasl.g:1151:54: (iv_ruleparameterType= ruleparameterType EOF )
-            // InternalMasl.g:1152:2: iv_ruleparameterType= ruleparameterType EOF
+            // InternalMasl.g:1158:54: (iv_ruleparameterType= ruleparameterType EOF )
+            // InternalMasl.g:1159:2: iv_ruleparameterType= ruleparameterType EOF
             {
              newCompositeNode(grammarAccess.getParameterTypeRule()); 
             pushFollow(FOLLOW_1);
@@ -2868,7 +2879,7 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleparameterType"
-    // InternalMasl.g:1158:1: ruleparameterType returns [EObject current=null] : ( (lv_typeReference_0_0= ruletypeReference ) ) ;
+    // InternalMasl.g:1165:1: ruleparameterType returns [EObject current=null] : ( (lv_typeReference_0_0= ruletypeReference ) ) ;
     public final EObject ruleparameterType() throws RecognitionException {
         EObject current = null;
 
@@ -2879,14 +2890,14 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalMasl.g:1164:2: ( ( (lv_typeReference_0_0= ruletypeReference ) ) )
-            // InternalMasl.g:1165:2: ( (lv_typeReference_0_0= ruletypeReference ) )
+            // InternalMasl.g:1171:2: ( ( (lv_typeReference_0_0= ruletypeReference ) ) )
+            // InternalMasl.g:1172:2: ( (lv_typeReference_0_0= ruletypeReference ) )
             {
-            // InternalMasl.g:1165:2: ( (lv_typeReference_0_0= ruletypeReference ) )
-            // InternalMasl.g:1166:3: (lv_typeReference_0_0= ruletypeReference )
+            // InternalMasl.g:1172:2: ( (lv_typeReference_0_0= ruletypeReference ) )
+            // InternalMasl.g:1173:3: (lv_typeReference_0_0= ruletypeReference )
             {
-            // InternalMasl.g:1166:3: (lv_typeReference_0_0= ruletypeReference )
-            // InternalMasl.g:1167:4: lv_typeReference_0_0= ruletypeReference
+            // InternalMasl.g:1173:3: (lv_typeReference_0_0= ruletypeReference )
+            // InternalMasl.g:1174:4: lv_typeReference_0_0= ruletypeReference
             {
 
             				newCompositeNode(grammarAccess.getParameterTypeAccess().getTypeReferenceTypeReferenceParserRuleCall_0());
@@ -2933,7 +2944,7 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRulereturnType"
-    // InternalMasl.g:1187:1: entryRulereturnType returns [EObject current=null] : iv_rulereturnType= rulereturnType EOF ;
+    // InternalMasl.g:1194:1: entryRulereturnType returns [EObject current=null] : iv_rulereturnType= rulereturnType EOF ;
     public final EObject entryRulereturnType() throws RecognitionException {
         EObject current = null;
 
@@ -2941,8 +2952,8 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalMasl.g:1187:51: (iv_rulereturnType= rulereturnType EOF )
-            // InternalMasl.g:1188:2: iv_rulereturnType= rulereturnType EOF
+            // InternalMasl.g:1194:51: (iv_rulereturnType= rulereturnType EOF )
+            // InternalMasl.g:1195:2: iv_rulereturnType= rulereturnType EOF
             {
              newCompositeNode(grammarAccess.getReturnTypeRule()); 
             pushFollow(FOLLOW_1);
@@ -2969,7 +2980,7 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "rulereturnType"
-    // InternalMasl.g:1194:1: rulereturnType returns [EObject current=null] : ( (lv_typeReference_0_0= ruletypeReference ) ) ;
+    // InternalMasl.g:1201:1: rulereturnType returns [EObject current=null] : ( (lv_typeReference_0_0= ruletypeReference ) ) ;
     public final EObject rulereturnType() throws RecognitionException {
         EObject current = null;
 
@@ -2980,14 +2991,14 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalMasl.g:1200:2: ( ( (lv_typeReference_0_0= ruletypeReference ) ) )
-            // InternalMasl.g:1201:2: ( (lv_typeReference_0_0= ruletypeReference ) )
+            // InternalMasl.g:1207:2: ( ( (lv_typeReference_0_0= ruletypeReference ) ) )
+            // InternalMasl.g:1208:2: ( (lv_typeReference_0_0= ruletypeReference ) )
             {
-            // InternalMasl.g:1201:2: ( (lv_typeReference_0_0= ruletypeReference ) )
-            // InternalMasl.g:1202:3: (lv_typeReference_0_0= ruletypeReference )
+            // InternalMasl.g:1208:2: ( (lv_typeReference_0_0= ruletypeReference ) )
+            // InternalMasl.g:1209:3: (lv_typeReference_0_0= ruletypeReference )
             {
-            // InternalMasl.g:1202:3: (lv_typeReference_0_0= ruletypeReference )
-            // InternalMasl.g:1203:4: lv_typeReference_0_0= ruletypeReference
+            // InternalMasl.g:1209:3: (lv_typeReference_0_0= ruletypeReference )
+            // InternalMasl.g:1210:4: lv_typeReference_0_0= ruletypeReference
             {
 
             				newCompositeNode(grammarAccess.getReturnTypeAccess().getTypeReferenceTypeReferenceParserRuleCall_0());
@@ -3034,7 +3045,7 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuletypeReference"
-    // InternalMasl.g:1223:1: entryRuletypeReference returns [EObject current=null] : iv_ruletypeReference= ruletypeReference EOF ;
+    // InternalMasl.g:1230:1: entryRuletypeReference returns [EObject current=null] : iv_ruletypeReference= ruletypeReference EOF ;
     public final EObject entryRuletypeReference() throws RecognitionException {
         EObject current = null;
 
@@ -3042,8 +3053,8 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalMasl.g:1223:54: (iv_ruletypeReference= ruletypeReference EOF )
-            // InternalMasl.g:1224:2: iv_ruletypeReference= ruletypeReference EOF
+            // InternalMasl.g:1230:54: (iv_ruletypeReference= ruletypeReference EOF )
+            // InternalMasl.g:1231:2: iv_ruletypeReference= ruletypeReference EOF
             {
              newCompositeNode(grammarAccess.getTypeReferenceRule()); 
             pushFollow(FOLLOW_1);
@@ -3070,21 +3081,23 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruletypeReference"
-    // InternalMasl.g:1230:1: ruletypeReference returns [EObject current=null] : (this_namedTypeRef_0= rulenamedTypeRef | ruledeprecatedType ) ;
+    // InternalMasl.g:1237:1: ruletypeReference returns [EObject current=null] : (this_namedTypeRef_0= rulenamedTypeRef | this_deprecatedType_1= ruledeprecatedType ) ;
     public final EObject ruletypeReference() throws RecognitionException {
         EObject current = null;
 
         EObject this_namedTypeRef_0 = null;
+
+        EObject this_deprecatedType_1 = null;
 
 
 
         	enterRule();
 
         try {
-            // InternalMasl.g:1236:2: ( (this_namedTypeRef_0= rulenamedTypeRef | ruledeprecatedType ) )
-            // InternalMasl.g:1237:2: (this_namedTypeRef_0= rulenamedTypeRef | ruledeprecatedType )
+            // InternalMasl.g:1243:2: ( (this_namedTypeRef_0= rulenamedTypeRef | this_deprecatedType_1= ruledeprecatedType ) )
+            // InternalMasl.g:1244:2: (this_namedTypeRef_0= rulenamedTypeRef | this_deprecatedType_1= ruledeprecatedType )
             {
-            // InternalMasl.g:1237:2: (this_namedTypeRef_0= rulenamedTypeRef | ruledeprecatedType )
+            // InternalMasl.g:1244:2: (this_namedTypeRef_0= rulenamedTypeRef | this_deprecatedType_1= ruledeprecatedType )
             int alt12=2;
             int LA12_0 = input.LA(1);
 
@@ -3102,7 +3115,7 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
             }
             switch (alt12) {
                 case 1 :
-                    // InternalMasl.g:1238:3: this_namedTypeRef_0= rulenamedTypeRef
+                    // InternalMasl.g:1245:3: this_namedTypeRef_0= rulenamedTypeRef
                     {
 
                     			newCompositeNode(grammarAccess.getTypeReferenceAccess().getNamedTypeRefParserRuleCall_0());
@@ -3120,17 +3133,18 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // InternalMasl.g:1247:3: ruledeprecatedType
+                    // InternalMasl.g:1254:3: this_deprecatedType_1= ruledeprecatedType
                     {
 
                     			newCompositeNode(grammarAccess.getTypeReferenceAccess().getDeprecatedTypeParserRuleCall_1());
                     		
                     pushFollow(FOLLOW_2);
-                    ruledeprecatedType();
+                    this_deprecatedType_1=ruledeprecatedType();
 
                     state._fsp--;
 
 
+                    			current = this_deprecatedType_1;
                     			afterParserOrEnumRuleCall();
                     		
 
@@ -3159,16 +3173,16 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuledeprecatedType"
-    // InternalMasl.g:1258:1: entryRuledeprecatedType returns [String current=null] : iv_ruledeprecatedType= ruledeprecatedType EOF ;
-    public final String entryRuledeprecatedType() throws RecognitionException {
-        String current = null;
+    // InternalMasl.g:1266:1: entryRuledeprecatedType returns [EObject current=null] : iv_ruledeprecatedType= ruledeprecatedType EOF ;
+    public final EObject entryRuledeprecatedType() throws RecognitionException {
+        EObject current = null;
 
-        AntlrDatatypeRuleToken iv_ruledeprecatedType = null;
+        EObject iv_ruledeprecatedType = null;
 
 
         try {
-            // InternalMasl.g:1258:54: (iv_ruledeprecatedType= ruledeprecatedType EOF )
-            // InternalMasl.g:1259:2: iv_ruledeprecatedType= ruledeprecatedType EOF
+            // InternalMasl.g:1266:55: (iv_ruledeprecatedType= ruledeprecatedType EOF )
+            // InternalMasl.g:1267:2: iv_ruledeprecatedType= ruledeprecatedType EOF
             {
              newCompositeNode(grammarAccess.getDeprecatedTypeRule()); 
             pushFollow(FOLLOW_1);
@@ -3176,7 +3190,7 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
 
             state._fsp--;
 
-             current =iv_ruledeprecatedType.getText(); 
+             current =iv_ruledeprecatedType; 
             match(input,EOF,FOLLOW_2); 
 
             }
@@ -3195,25 +3209,25 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruledeprecatedType"
-    // InternalMasl.g:1265:1: ruledeprecatedType returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (this_INSTANCE_0= ruleINSTANCE | this_EVENT_1= ruleEVENT | this_SERVICE_2= ruleSERVICE ) ;
-    public final AntlrDatatypeRuleToken ruledeprecatedType() throws RecognitionException {
-        AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
+    // InternalMasl.g:1273:1: ruledeprecatedType returns [EObject current=null] : ( ( (lv_INSTANCE_0_0= ruleINSTANCE ) ) | ( (lv_EVENT_1_0= ruleEVENT ) ) | ( (lv_SERVICE_2_0= ruleSERVICE ) ) ) ;
+    public final EObject ruledeprecatedType() throws RecognitionException {
+        EObject current = null;
 
-        AntlrDatatypeRuleToken this_INSTANCE_0 = null;
+        AntlrDatatypeRuleToken lv_INSTANCE_0_0 = null;
 
-        AntlrDatatypeRuleToken this_EVENT_1 = null;
+        AntlrDatatypeRuleToken lv_EVENT_1_0 = null;
 
-        AntlrDatatypeRuleToken this_SERVICE_2 = null;
+        AntlrDatatypeRuleToken lv_SERVICE_2_0 = null;
 
 
 
         	enterRule();
 
         try {
-            // InternalMasl.g:1271:2: ( (this_INSTANCE_0= ruleINSTANCE | this_EVENT_1= ruleEVENT | this_SERVICE_2= ruleSERVICE ) )
-            // InternalMasl.g:1272:2: (this_INSTANCE_0= ruleINSTANCE | this_EVENT_1= ruleEVENT | this_SERVICE_2= ruleSERVICE )
+            // InternalMasl.g:1279:2: ( ( ( (lv_INSTANCE_0_0= ruleINSTANCE ) ) | ( (lv_EVENT_1_0= ruleEVENT ) ) | ( (lv_SERVICE_2_0= ruleSERVICE ) ) ) )
+            // InternalMasl.g:1280:2: ( ( (lv_INSTANCE_0_0= ruleINSTANCE ) ) | ( (lv_EVENT_1_0= ruleEVENT ) ) | ( (lv_SERVICE_2_0= ruleSERVICE ) ) )
             {
-            // InternalMasl.g:1272:2: (this_INSTANCE_0= ruleINSTANCE | this_EVENT_1= ruleEVENT | this_SERVICE_2= ruleSERVICE )
+            // InternalMasl.g:1280:2: ( ( (lv_INSTANCE_0_0= ruleINSTANCE ) ) | ( (lv_EVENT_1_0= ruleEVENT ) ) | ( (lv_SERVICE_2_0= ruleSERVICE ) ) )
             int alt13=3;
             switch ( input.LA(1) ) {
             case 19:
@@ -3240,62 +3254,113 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
 
             switch (alt13) {
                 case 1 :
-                    // InternalMasl.g:1273:3: this_INSTANCE_0= ruleINSTANCE
+                    // InternalMasl.g:1281:3: ( (lv_INSTANCE_0_0= ruleINSTANCE ) )
+                    {
+                    // InternalMasl.g:1281:3: ( (lv_INSTANCE_0_0= ruleINSTANCE ) )
+                    // InternalMasl.g:1282:4: (lv_INSTANCE_0_0= ruleINSTANCE )
+                    {
+                    // InternalMasl.g:1282:4: (lv_INSTANCE_0_0= ruleINSTANCE )
+                    // InternalMasl.g:1283:5: lv_INSTANCE_0_0= ruleINSTANCE
                     {
 
-                    			newCompositeNode(grammarAccess.getDeprecatedTypeAccess().getINSTANCEParserRuleCall_0());
-                    		
+                    					newCompositeNode(grammarAccess.getDeprecatedTypeAccess().getINSTANCEINSTANCEParserRuleCall_0_0());
+                    				
                     pushFollow(FOLLOW_2);
-                    this_INSTANCE_0=ruleINSTANCE();
+                    lv_INSTANCE_0_0=ruleINSTANCE();
 
                     state._fsp--;
 
 
-                    			current.merge(this_INSTANCE_0);
-                    		
+                    					if (current==null) {
+                    						current = createModelElementForParent(grammarAccess.getDeprecatedTypeRule());
+                    					}
+                    					set(
+                    						current,
+                    						"INSTANCE",
+                    						lv_INSTANCE_0_0,
+                    						"org.xtuml.bp.xtext.Masl.INSTANCE");
+                    					afterParserOrEnumRuleCall();
+                    				
 
-                    			afterParserOrEnumRuleCall();
-                    		
+                    }
+
+
+                    }
+
 
                     }
                     break;
                 case 2 :
-                    // InternalMasl.g:1284:3: this_EVENT_1= ruleEVENT
+                    // InternalMasl.g:1301:3: ( (lv_EVENT_1_0= ruleEVENT ) )
+                    {
+                    // InternalMasl.g:1301:3: ( (lv_EVENT_1_0= ruleEVENT ) )
+                    // InternalMasl.g:1302:4: (lv_EVENT_1_0= ruleEVENT )
+                    {
+                    // InternalMasl.g:1302:4: (lv_EVENT_1_0= ruleEVENT )
+                    // InternalMasl.g:1303:5: lv_EVENT_1_0= ruleEVENT
                     {
 
-                    			newCompositeNode(grammarAccess.getDeprecatedTypeAccess().getEVENTParserRuleCall_1());
-                    		
+                    					newCompositeNode(grammarAccess.getDeprecatedTypeAccess().getEVENTEVENTParserRuleCall_1_0());
+                    				
                     pushFollow(FOLLOW_2);
-                    this_EVENT_1=ruleEVENT();
+                    lv_EVENT_1_0=ruleEVENT();
 
                     state._fsp--;
 
 
-                    			current.merge(this_EVENT_1);
-                    		
+                    					if (current==null) {
+                    						current = createModelElementForParent(grammarAccess.getDeprecatedTypeRule());
+                    					}
+                    					set(
+                    						current,
+                    						"EVENT",
+                    						lv_EVENT_1_0,
+                    						"org.xtuml.bp.xtext.Masl.EVENT");
+                    					afterParserOrEnumRuleCall();
+                    				
 
-                    			afterParserOrEnumRuleCall();
-                    		
+                    }
+
+
+                    }
+
 
                     }
                     break;
                 case 3 :
-                    // InternalMasl.g:1295:3: this_SERVICE_2= ruleSERVICE
+                    // InternalMasl.g:1321:3: ( (lv_SERVICE_2_0= ruleSERVICE ) )
+                    {
+                    // InternalMasl.g:1321:3: ( (lv_SERVICE_2_0= ruleSERVICE ) )
+                    // InternalMasl.g:1322:4: (lv_SERVICE_2_0= ruleSERVICE )
+                    {
+                    // InternalMasl.g:1322:4: (lv_SERVICE_2_0= ruleSERVICE )
+                    // InternalMasl.g:1323:5: lv_SERVICE_2_0= ruleSERVICE
                     {
 
-                    			newCompositeNode(grammarAccess.getDeprecatedTypeAccess().getSERVICEParserRuleCall_2());
-                    		
+                    					newCompositeNode(grammarAccess.getDeprecatedTypeAccess().getSERVICESERVICEParserRuleCall_2_0());
+                    				
                     pushFollow(FOLLOW_2);
-                    this_SERVICE_2=ruleSERVICE();
+                    lv_SERVICE_2_0=ruleSERVICE();
 
                     state._fsp--;
 
 
-                    			current.merge(this_SERVICE_2);
-                    		
+                    					if (current==null) {
+                    						current = createModelElementForParent(grammarAccess.getDeprecatedTypeRule());
+                    					}
+                    					set(
+                    						current,
+                    						"SERVICE",
+                    						lv_SERVICE_2_0,
+                    						"org.xtuml.bp.xtext.Masl.SERVICE");
+                    					afterParserOrEnumRuleCall();
+                    				
 
-                    			afterParserOrEnumRuleCall();
-                    		
+                    }
+
+
+                    }
+
 
                     }
                     break;
@@ -3322,7 +3387,7 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRulenamedTypeRef"
-    // InternalMasl.g:1309:1: entryRulenamedTypeRef returns [EObject current=null] : iv_rulenamedTypeRef= rulenamedTypeRef EOF ;
+    // InternalMasl.g:1344:1: entryRulenamedTypeRef returns [EObject current=null] : iv_rulenamedTypeRef= rulenamedTypeRef EOF ;
     public final EObject entryRulenamedTypeRef() throws RecognitionException {
         EObject current = null;
 
@@ -3330,8 +3395,8 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalMasl.g:1309:53: (iv_rulenamedTypeRef= rulenamedTypeRef EOF )
-            // InternalMasl.g:1310:2: iv_rulenamedTypeRef= rulenamedTypeRef EOF
+            // InternalMasl.g:1344:53: (iv_rulenamedTypeRef= rulenamedTypeRef EOF )
+            // InternalMasl.g:1345:2: iv_rulenamedTypeRef= rulenamedTypeRef EOF
             {
              newCompositeNode(grammarAccess.getNamedTypeRefRule()); 
             pushFollow(FOLLOW_1);
@@ -3358,7 +3423,7 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "rulenamedTypeRef"
-    // InternalMasl.g:1316:1: rulenamedTypeRef returns [EObject current=null] : ( ( (lv_anonymous_0_0= ruleANONYMOUS ) )? ( ( (lv_domainName_1_0= ruledomainName ) ) ruleSCOPE )? ( (lv_typeName_3_0= ruletypeName ) ) ) ;
+    // InternalMasl.g:1351:1: rulenamedTypeRef returns [EObject current=null] : ( ( (lv_anonymous_0_0= ruleANONYMOUS ) )? ( ( (lv_domainName_1_0= ruledomainName ) ) ruleSCOPE )? ( (lv_typeName_3_0= ruletypeName ) ) ) ;
     public final EObject rulenamedTypeRef() throws RecognitionException {
         EObject current = null;
 
@@ -3373,13 +3438,13 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalMasl.g:1322:2: ( ( ( (lv_anonymous_0_0= ruleANONYMOUS ) )? ( ( (lv_domainName_1_0= ruledomainName ) ) ruleSCOPE )? ( (lv_typeName_3_0= ruletypeName ) ) ) )
-            // InternalMasl.g:1323:2: ( ( (lv_anonymous_0_0= ruleANONYMOUS ) )? ( ( (lv_domainName_1_0= ruledomainName ) ) ruleSCOPE )? ( (lv_typeName_3_0= ruletypeName ) ) )
+            // InternalMasl.g:1357:2: ( ( ( (lv_anonymous_0_0= ruleANONYMOUS ) )? ( ( (lv_domainName_1_0= ruledomainName ) ) ruleSCOPE )? ( (lv_typeName_3_0= ruletypeName ) ) ) )
+            // InternalMasl.g:1358:2: ( ( (lv_anonymous_0_0= ruleANONYMOUS ) )? ( ( (lv_domainName_1_0= ruledomainName ) ) ruleSCOPE )? ( (lv_typeName_3_0= ruletypeName ) ) )
             {
-            // InternalMasl.g:1323:2: ( ( (lv_anonymous_0_0= ruleANONYMOUS ) )? ( ( (lv_domainName_1_0= ruledomainName ) ) ruleSCOPE )? ( (lv_typeName_3_0= ruletypeName ) ) )
-            // InternalMasl.g:1324:3: ( (lv_anonymous_0_0= ruleANONYMOUS ) )? ( ( (lv_domainName_1_0= ruledomainName ) ) ruleSCOPE )? ( (lv_typeName_3_0= ruletypeName ) )
+            // InternalMasl.g:1358:2: ( ( (lv_anonymous_0_0= ruleANONYMOUS ) )? ( ( (lv_domainName_1_0= ruledomainName ) ) ruleSCOPE )? ( (lv_typeName_3_0= ruletypeName ) ) )
+            // InternalMasl.g:1359:3: ( (lv_anonymous_0_0= ruleANONYMOUS ) )? ( ( (lv_domainName_1_0= ruledomainName ) ) ruleSCOPE )? ( (lv_typeName_3_0= ruletypeName ) )
             {
-            // InternalMasl.g:1324:3: ( (lv_anonymous_0_0= ruleANONYMOUS ) )?
+            // InternalMasl.g:1359:3: ( (lv_anonymous_0_0= ruleANONYMOUS ) )?
             int alt14=2;
             int LA14_0 = input.LA(1);
 
@@ -3388,10 +3453,10 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
             }
             switch (alt14) {
                 case 1 :
-                    // InternalMasl.g:1325:4: (lv_anonymous_0_0= ruleANONYMOUS )
+                    // InternalMasl.g:1360:4: (lv_anonymous_0_0= ruleANONYMOUS )
                     {
-                    // InternalMasl.g:1325:4: (lv_anonymous_0_0= ruleANONYMOUS )
-                    // InternalMasl.g:1326:5: lv_anonymous_0_0= ruleANONYMOUS
+                    // InternalMasl.g:1360:4: (lv_anonymous_0_0= ruleANONYMOUS )
+                    // InternalMasl.g:1361:5: lv_anonymous_0_0= ruleANONYMOUS
                     {
 
                     					newCompositeNode(grammarAccess.getNamedTypeRefAccess().getAnonymousANONYMOUSParserRuleCall_0_0());
@@ -3421,7 +3486,7 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalMasl.g:1343:3: ( ( (lv_domainName_1_0= ruledomainName ) ) ruleSCOPE )?
+            // InternalMasl.g:1378:3: ( ( (lv_domainName_1_0= ruledomainName ) ) ruleSCOPE )?
             int alt15=2;
             int LA15_0 = input.LA(1);
 
@@ -3434,13 +3499,13 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
             }
             switch (alt15) {
                 case 1 :
-                    // InternalMasl.g:1344:4: ( (lv_domainName_1_0= ruledomainName ) ) ruleSCOPE
+                    // InternalMasl.g:1379:4: ( (lv_domainName_1_0= ruledomainName ) ) ruleSCOPE
                     {
-                    // InternalMasl.g:1344:4: ( (lv_domainName_1_0= ruledomainName ) )
-                    // InternalMasl.g:1345:5: (lv_domainName_1_0= ruledomainName )
+                    // InternalMasl.g:1379:4: ( (lv_domainName_1_0= ruledomainName ) )
+                    // InternalMasl.g:1380:5: (lv_domainName_1_0= ruledomainName )
                     {
-                    // InternalMasl.g:1345:5: (lv_domainName_1_0= ruledomainName )
-                    // InternalMasl.g:1346:6: lv_domainName_1_0= ruledomainName
+                    // InternalMasl.g:1380:5: (lv_domainName_1_0= ruledomainName )
+                    // InternalMasl.g:1381:6: lv_domainName_1_0= ruledomainName
                     {
 
                     						newCompositeNode(grammarAccess.getNamedTypeRefAccess().getDomainNameDomainNameParserRuleCall_1_0_0());
@@ -3484,11 +3549,11 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
 
             }
 
-            // InternalMasl.g:1371:3: ( (lv_typeName_3_0= ruletypeName ) )
-            // InternalMasl.g:1372:4: (lv_typeName_3_0= ruletypeName )
+            // InternalMasl.g:1406:3: ( (lv_typeName_3_0= ruletypeName ) )
+            // InternalMasl.g:1407:4: (lv_typeName_3_0= ruletypeName )
             {
-            // InternalMasl.g:1372:4: (lv_typeName_3_0= ruletypeName )
-            // InternalMasl.g:1373:5: lv_typeName_3_0= ruletypeName
+            // InternalMasl.g:1407:4: (lv_typeName_3_0= ruletypeName )
+            // InternalMasl.g:1408:5: lv_typeName_3_0= ruletypeName
             {
 
             					newCompositeNode(grammarAccess.getNamedTypeRefAccess().getTypeNameTypeNameParserRuleCall_2_0());
@@ -3538,7 +3603,7 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuletypeName"
-    // InternalMasl.g:1394:1: entryRuletypeName returns [EObject current=null] : iv_ruletypeName= ruletypeName EOF ;
+    // InternalMasl.g:1429:1: entryRuletypeName returns [EObject current=null] : iv_ruletypeName= ruletypeName EOF ;
     public final EObject entryRuletypeName() throws RecognitionException {
         EObject current = null;
 
@@ -3546,8 +3611,8 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalMasl.g:1394:49: (iv_ruletypeName= ruletypeName EOF )
-            // InternalMasl.g:1395:2: iv_ruletypeName= ruletypeName EOF
+            // InternalMasl.g:1429:49: (iv_ruletypeName= ruletypeName EOF )
+            // InternalMasl.g:1430:2: iv_ruletypeName= ruletypeName EOF
             {
              newCompositeNode(grammarAccess.getTypeNameRule()); 
             pushFollow(FOLLOW_1);
@@ -3574,7 +3639,7 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruletypeName"
-    // InternalMasl.g:1401:1: ruletypeName returns [EObject current=null] : ( (lv_identifier_0_0= RULE_ID ) ) ;
+    // InternalMasl.g:1436:1: ruletypeName returns [EObject current=null] : ( (lv_identifier_0_0= RULE_ID ) ) ;
     public final EObject ruletypeName() throws RecognitionException {
         EObject current = null;
 
@@ -3584,14 +3649,14 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalMasl.g:1407:2: ( ( (lv_identifier_0_0= RULE_ID ) ) )
-            // InternalMasl.g:1408:2: ( (lv_identifier_0_0= RULE_ID ) )
+            // InternalMasl.g:1442:2: ( ( (lv_identifier_0_0= RULE_ID ) ) )
+            // InternalMasl.g:1443:2: ( (lv_identifier_0_0= RULE_ID ) )
             {
-            // InternalMasl.g:1408:2: ( (lv_identifier_0_0= RULE_ID ) )
-            // InternalMasl.g:1409:3: (lv_identifier_0_0= RULE_ID )
+            // InternalMasl.g:1443:2: ( (lv_identifier_0_0= RULE_ID ) )
+            // InternalMasl.g:1444:3: (lv_identifier_0_0= RULE_ID )
             {
-            // InternalMasl.g:1409:3: (lv_identifier_0_0= RULE_ID )
-            // InternalMasl.g:1410:4: lv_identifier_0_0= RULE_ID
+            // InternalMasl.g:1444:3: (lv_identifier_0_0= RULE_ID )
+            // InternalMasl.g:1445:4: lv_identifier_0_0= RULE_ID
             {
             lv_identifier_0_0=(Token)match(input,RULE_ID,FOLLOW_2); 
 
@@ -3633,7 +3698,7 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRulepragmaList"
-    // InternalMasl.g:1429:1: entryRulepragmaList returns [EObject current=null] : iv_rulepragmaList= rulepragmaList EOF ;
+    // InternalMasl.g:1464:1: entryRulepragmaList returns [EObject current=null] : iv_rulepragmaList= rulepragmaList EOF ;
     public final EObject entryRulepragmaList() throws RecognitionException {
         EObject current = null;
 
@@ -3641,8 +3706,8 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalMasl.g:1429:51: (iv_rulepragmaList= rulepragmaList EOF )
-            // InternalMasl.g:1430:2: iv_rulepragmaList= rulepragmaList EOF
+            // InternalMasl.g:1464:51: (iv_rulepragmaList= rulepragmaList EOF )
+            // InternalMasl.g:1465:2: iv_rulepragmaList= rulepragmaList EOF
             {
              newCompositeNode(grammarAccess.getPragmaListRule()); 
             pushFollow(FOLLOW_1);
@@ -3669,21 +3734,35 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "rulepragmaList"
-    // InternalMasl.g:1436:1: rulepragmaList returns [EObject current=null] : ( ( (lv_pragma_0_0= rulepragma ) ) ruleSEMI )* ;
+    // InternalMasl.g:1471:1: rulepragmaList returns [EObject current=null] : ( () ( ( (lv_pragma_1_0= rulepragma ) ) ruleSEMI )* ) ;
     public final EObject rulepragmaList() throws RecognitionException {
         EObject current = null;
 
-        EObject lv_pragma_0_0 = null;
+        EObject lv_pragma_1_0 = null;
 
 
 
         	enterRule();
 
         try {
-            // InternalMasl.g:1442:2: ( ( ( (lv_pragma_0_0= rulepragma ) ) ruleSEMI )* )
-            // InternalMasl.g:1443:2: ( ( (lv_pragma_0_0= rulepragma ) ) ruleSEMI )*
+            // InternalMasl.g:1477:2: ( ( () ( ( (lv_pragma_1_0= rulepragma ) ) ruleSEMI )* ) )
+            // InternalMasl.g:1478:2: ( () ( ( (lv_pragma_1_0= rulepragma ) ) ruleSEMI )* )
             {
-            // InternalMasl.g:1443:2: ( ( (lv_pragma_0_0= rulepragma ) ) ruleSEMI )*
+            // InternalMasl.g:1478:2: ( () ( ( (lv_pragma_1_0= rulepragma ) ) ruleSEMI )* )
+            // InternalMasl.g:1479:3: () ( ( (lv_pragma_1_0= rulepragma ) ) ruleSEMI )*
+            {
+            // InternalMasl.g:1479:3: ()
+            // InternalMasl.g:1480:4: 
+            {
+
+            				current = forceCreateModelElement(
+            					grammarAccess.getPragmaListAccess().getPragmaListAction_0(),
+            					current);
+            			
+
+            }
+
+            // InternalMasl.g:1486:3: ( ( (lv_pragma_1_0= rulepragma ) ) ruleSEMI )*
             loop16:
             do {
                 int alt16=2;
@@ -3696,33 +3775,33 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
 
                 switch (alt16) {
             	case 1 :
-            	    // InternalMasl.g:1444:3: ( (lv_pragma_0_0= rulepragma ) ) ruleSEMI
+            	    // InternalMasl.g:1487:4: ( (lv_pragma_1_0= rulepragma ) ) ruleSEMI
             	    {
-            	    // InternalMasl.g:1444:3: ( (lv_pragma_0_0= rulepragma ) )
-            	    // InternalMasl.g:1445:4: (lv_pragma_0_0= rulepragma )
+            	    // InternalMasl.g:1487:4: ( (lv_pragma_1_0= rulepragma ) )
+            	    // InternalMasl.g:1488:5: (lv_pragma_1_0= rulepragma )
             	    {
-            	    // InternalMasl.g:1445:4: (lv_pragma_0_0= rulepragma )
-            	    // InternalMasl.g:1446:5: lv_pragma_0_0= rulepragma
+            	    // InternalMasl.g:1488:5: (lv_pragma_1_0= rulepragma )
+            	    // InternalMasl.g:1489:6: lv_pragma_1_0= rulepragma
             	    {
 
-            	    					newCompositeNode(grammarAccess.getPragmaListAccess().getPragmaPragmaParserRuleCall_0_0());
-            	    				
+            	    						newCompositeNode(grammarAccess.getPragmaListAccess().getPragmaPragmaParserRuleCall_1_0_0());
+            	    					
             	    pushFollow(FOLLOW_6);
-            	    lv_pragma_0_0=rulepragma();
+            	    lv_pragma_1_0=rulepragma();
 
             	    state._fsp--;
 
 
-            	    					if (current==null) {
-            	    						current = createModelElementForParent(grammarAccess.getPragmaListRule());
-            	    					}
-            	    					add(
-            	    						current,
-            	    						"pragma",
-            	    						lv_pragma_0_0,
-            	    						"org.xtuml.bp.xtext.Masl.pragma");
-            	    					afterParserOrEnumRuleCall();
-            	    				
+            	    						if (current==null) {
+            	    							current = createModelElementForParent(grammarAccess.getPragmaListRule());
+            	    						}
+            	    						add(
+            	    							current,
+            	    							"pragma",
+            	    							lv_pragma_1_0,
+            	    							"org.xtuml.bp.xtext.Masl.pragma");
+            	    						afterParserOrEnumRuleCall();
+            	    					
 
             	    }
 
@@ -3730,16 +3809,16 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
             	    }
 
 
-            	    			newCompositeNode(grammarAccess.getPragmaListAccess().getSEMIParserRuleCall_1());
-            	    		
+            	    				newCompositeNode(grammarAccess.getPragmaListAccess().getSEMIParserRuleCall_1_1());
+            	    			
             	    pushFollow(FOLLOW_22);
             	    ruleSEMI();
 
             	    state._fsp--;
 
 
-            	    			afterParserOrEnumRuleCall();
-            	    		
+            	    				afterParserOrEnumRuleCall();
+            	    			
 
             	    }
             	    break;
@@ -3748,6 +3827,9 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
             	    break loop16;
                 }
             } while (true);
+
+
+            }
 
 
             }
@@ -3769,7 +3851,7 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRulepragma"
-    // InternalMasl.g:1474:1: entryRulepragma returns [EObject current=null] : iv_rulepragma= rulepragma EOF ;
+    // InternalMasl.g:1518:1: entryRulepragma returns [EObject current=null] : iv_rulepragma= rulepragma EOF ;
     public final EObject entryRulepragma() throws RecognitionException {
         EObject current = null;
 
@@ -3777,8 +3859,8 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalMasl.g:1474:47: (iv_rulepragma= rulepragma EOF )
-            // InternalMasl.g:1475:2: iv_rulepragma= rulepragma EOF
+            // InternalMasl.g:1518:47: (iv_rulepragma= rulepragma EOF )
+            // InternalMasl.g:1519:2: iv_rulepragma= rulepragma EOF
             {
              newCompositeNode(grammarAccess.getPragmaRule()); 
             pushFollow(FOLLOW_1);
@@ -3805,7 +3887,7 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "rulepragma"
-    // InternalMasl.g:1481:1: rulepragma returns [EObject current=null] : ( rulePRAGMATOK ( (lv_pragmaName_1_0= rulepragmaName ) ) ruleLPAREN ( ( (lv_pragmaValue_3_0= rulepragmaValue ) ) ( ruleCOMMA ( (lv_pragmaValue_5_0= rulepragmaValue ) ) )* )? ruleRPAREN ) ;
+    // InternalMasl.g:1525:1: rulepragma returns [EObject current=null] : ( rulePRAGMATOK ( (lv_pragmaName_1_0= rulepragmaName ) ) ruleLPAREN ( ( (lv_pragmaValue_3_0= rulepragmaValue ) ) ( ruleCOMMA ( (lv_pragmaValue_5_0= rulepragmaValue ) ) )* )? ruleRPAREN ) ;
     public final EObject rulepragma() throws RecognitionException {
         EObject current = null;
 
@@ -3820,11 +3902,11 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalMasl.g:1487:2: ( ( rulePRAGMATOK ( (lv_pragmaName_1_0= rulepragmaName ) ) ruleLPAREN ( ( (lv_pragmaValue_3_0= rulepragmaValue ) ) ( ruleCOMMA ( (lv_pragmaValue_5_0= rulepragmaValue ) ) )* )? ruleRPAREN ) )
-            // InternalMasl.g:1488:2: ( rulePRAGMATOK ( (lv_pragmaName_1_0= rulepragmaName ) ) ruleLPAREN ( ( (lv_pragmaValue_3_0= rulepragmaValue ) ) ( ruleCOMMA ( (lv_pragmaValue_5_0= rulepragmaValue ) ) )* )? ruleRPAREN )
+            // InternalMasl.g:1531:2: ( ( rulePRAGMATOK ( (lv_pragmaName_1_0= rulepragmaName ) ) ruleLPAREN ( ( (lv_pragmaValue_3_0= rulepragmaValue ) ) ( ruleCOMMA ( (lv_pragmaValue_5_0= rulepragmaValue ) ) )* )? ruleRPAREN ) )
+            // InternalMasl.g:1532:2: ( rulePRAGMATOK ( (lv_pragmaName_1_0= rulepragmaName ) ) ruleLPAREN ( ( (lv_pragmaValue_3_0= rulepragmaValue ) ) ( ruleCOMMA ( (lv_pragmaValue_5_0= rulepragmaValue ) ) )* )? ruleRPAREN )
             {
-            // InternalMasl.g:1488:2: ( rulePRAGMATOK ( (lv_pragmaName_1_0= rulepragmaName ) ) ruleLPAREN ( ( (lv_pragmaValue_3_0= rulepragmaValue ) ) ( ruleCOMMA ( (lv_pragmaValue_5_0= rulepragmaValue ) ) )* )? ruleRPAREN )
-            // InternalMasl.g:1489:3: rulePRAGMATOK ( (lv_pragmaName_1_0= rulepragmaName ) ) ruleLPAREN ( ( (lv_pragmaValue_3_0= rulepragmaValue ) ) ( ruleCOMMA ( (lv_pragmaValue_5_0= rulepragmaValue ) ) )* )? ruleRPAREN
+            // InternalMasl.g:1532:2: ( rulePRAGMATOK ( (lv_pragmaName_1_0= rulepragmaName ) ) ruleLPAREN ( ( (lv_pragmaValue_3_0= rulepragmaValue ) ) ( ruleCOMMA ( (lv_pragmaValue_5_0= rulepragmaValue ) ) )* )? ruleRPAREN )
+            // InternalMasl.g:1533:3: rulePRAGMATOK ( (lv_pragmaName_1_0= rulepragmaName ) ) ruleLPAREN ( ( (lv_pragmaValue_3_0= rulepragmaValue ) ) ( ruleCOMMA ( (lv_pragmaValue_5_0= rulepragmaValue ) ) )* )? ruleRPAREN
             {
 
             			newCompositeNode(grammarAccess.getPragmaAccess().getPRAGMATOKParserRuleCall_0());
@@ -3837,11 +3919,11 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
 
             			afterParserOrEnumRuleCall();
             		
-            // InternalMasl.g:1496:3: ( (lv_pragmaName_1_0= rulepragmaName ) )
-            // InternalMasl.g:1497:4: (lv_pragmaName_1_0= rulepragmaName )
+            // InternalMasl.g:1540:3: ( (lv_pragmaName_1_0= rulepragmaName ) )
+            // InternalMasl.g:1541:4: (lv_pragmaName_1_0= rulepragmaName )
             {
-            // InternalMasl.g:1497:4: (lv_pragmaName_1_0= rulepragmaName )
-            // InternalMasl.g:1498:5: lv_pragmaName_1_0= rulepragmaName
+            // InternalMasl.g:1541:4: (lv_pragmaName_1_0= rulepragmaName )
+            // InternalMasl.g:1542:5: lv_pragmaName_1_0= rulepragmaName
             {
 
             					newCompositeNode(grammarAccess.getPragmaAccess().getPragmaNamePragmaNameParserRuleCall_1_0());
@@ -3879,7 +3961,7 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
 
             			afterParserOrEnumRuleCall();
             		
-            // InternalMasl.g:1522:3: ( ( (lv_pragmaValue_3_0= rulepragmaValue ) ) ( ruleCOMMA ( (lv_pragmaValue_5_0= rulepragmaValue ) ) )* )?
+            // InternalMasl.g:1566:3: ( ( (lv_pragmaValue_3_0= rulepragmaValue ) ) ( ruleCOMMA ( (lv_pragmaValue_5_0= rulepragmaValue ) ) )* )?
             int alt18=2;
             int LA18_0 = input.LA(1);
 
@@ -3888,13 +3970,13 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
             }
             switch (alt18) {
                 case 1 :
-                    // InternalMasl.g:1523:4: ( (lv_pragmaValue_3_0= rulepragmaValue ) ) ( ruleCOMMA ( (lv_pragmaValue_5_0= rulepragmaValue ) ) )*
+                    // InternalMasl.g:1567:4: ( (lv_pragmaValue_3_0= rulepragmaValue ) ) ( ruleCOMMA ( (lv_pragmaValue_5_0= rulepragmaValue ) ) )*
                     {
-                    // InternalMasl.g:1523:4: ( (lv_pragmaValue_3_0= rulepragmaValue ) )
-                    // InternalMasl.g:1524:5: (lv_pragmaValue_3_0= rulepragmaValue )
+                    // InternalMasl.g:1567:4: ( (lv_pragmaValue_3_0= rulepragmaValue ) )
+                    // InternalMasl.g:1568:5: (lv_pragmaValue_3_0= rulepragmaValue )
                     {
-                    // InternalMasl.g:1524:5: (lv_pragmaValue_3_0= rulepragmaValue )
-                    // InternalMasl.g:1525:6: lv_pragmaValue_3_0= rulepragmaValue
+                    // InternalMasl.g:1568:5: (lv_pragmaValue_3_0= rulepragmaValue )
+                    // InternalMasl.g:1569:6: lv_pragmaValue_3_0= rulepragmaValue
                     {
 
                     						newCompositeNode(grammarAccess.getPragmaAccess().getPragmaValuePragmaValueParserRuleCall_3_0_0());
@@ -3921,7 +4003,7 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
 
                     }
 
-                    // InternalMasl.g:1542:4: ( ruleCOMMA ( (lv_pragmaValue_5_0= rulepragmaValue ) ) )*
+                    // InternalMasl.g:1586:4: ( ruleCOMMA ( (lv_pragmaValue_5_0= rulepragmaValue ) ) )*
                     loop17:
                     do {
                         int alt17=2;
@@ -3934,7 +4016,7 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
 
                         switch (alt17) {
                     	case 1 :
-                    	    // InternalMasl.g:1543:5: ruleCOMMA ( (lv_pragmaValue_5_0= rulepragmaValue ) )
+                    	    // InternalMasl.g:1587:5: ruleCOMMA ( (lv_pragmaValue_5_0= rulepragmaValue ) )
                     	    {
 
                     	    					newCompositeNode(grammarAccess.getPragmaAccess().getCOMMAParserRuleCall_3_1_0());
@@ -3947,11 +4029,11 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
 
                     	    					afterParserOrEnumRuleCall();
                     	    				
-                    	    // InternalMasl.g:1550:5: ( (lv_pragmaValue_5_0= rulepragmaValue ) )
-                    	    // InternalMasl.g:1551:6: (lv_pragmaValue_5_0= rulepragmaValue )
+                    	    // InternalMasl.g:1594:5: ( (lv_pragmaValue_5_0= rulepragmaValue ) )
+                    	    // InternalMasl.g:1595:6: (lv_pragmaValue_5_0= rulepragmaValue )
                     	    {
-                    	    // InternalMasl.g:1551:6: (lv_pragmaValue_5_0= rulepragmaValue )
-                    	    // InternalMasl.g:1552:7: lv_pragmaValue_5_0= rulepragmaValue
+                    	    // InternalMasl.g:1595:6: (lv_pragmaValue_5_0= rulepragmaValue )
+                    	    // InternalMasl.g:1596:7: lv_pragmaValue_5_0= rulepragmaValue
                     	    {
 
                     	    							newCompositeNode(grammarAccess.getPragmaAccess().getPragmaValuePragmaValueParserRuleCall_3_1_1_0());
@@ -4027,7 +4109,7 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRulepragmaValue"
-    // InternalMasl.g:1582:1: entryRulepragmaValue returns [String current=null] : iv_rulepragmaValue= rulepragmaValue EOF ;
+    // InternalMasl.g:1626:1: entryRulepragmaValue returns [String current=null] : iv_rulepragmaValue= rulepragmaValue EOF ;
     public final String entryRulepragmaValue() throws RecognitionException {
         String current = null;
 
@@ -4035,8 +4117,8 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalMasl.g:1582:51: (iv_rulepragmaValue= rulepragmaValue EOF )
-            // InternalMasl.g:1583:2: iv_rulepragmaValue= rulepragmaValue EOF
+            // InternalMasl.g:1626:51: (iv_rulepragmaValue= rulepragmaValue EOF )
+            // InternalMasl.g:1627:2: iv_rulepragmaValue= rulepragmaValue EOF
             {
              newCompositeNode(grammarAccess.getPragmaValueRule()); 
             pushFollow(FOLLOW_1);
@@ -4063,7 +4145,7 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "rulepragmaValue"
-    // InternalMasl.g:1589:1: rulepragmaValue returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (this_literal_0= ruleliteral | this_ID_1= RULE_ID ) ;
+    // InternalMasl.g:1633:1: rulepragmaValue returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (this_literal_0= ruleliteral | this_ID_1= RULE_ID ) ;
     public final AntlrDatatypeRuleToken rulepragmaValue() throws RecognitionException {
         AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
 
@@ -4075,10 +4157,10 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalMasl.g:1595:2: ( (this_literal_0= ruleliteral | this_ID_1= RULE_ID ) )
-            // InternalMasl.g:1596:2: (this_literal_0= ruleliteral | this_ID_1= RULE_ID )
+            // InternalMasl.g:1639:2: ( (this_literal_0= ruleliteral | this_ID_1= RULE_ID ) )
+            // InternalMasl.g:1640:2: (this_literal_0= ruleliteral | this_ID_1= RULE_ID )
             {
-            // InternalMasl.g:1596:2: (this_literal_0= ruleliteral | this_ID_1= RULE_ID )
+            // InternalMasl.g:1640:2: (this_literal_0= ruleliteral | this_ID_1= RULE_ID )
             int alt19=2;
             int LA19_0 = input.LA(1);
 
@@ -4096,7 +4178,7 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
             }
             switch (alt19) {
                 case 1 :
-                    // InternalMasl.g:1597:3: this_literal_0= ruleliteral
+                    // InternalMasl.g:1641:3: this_literal_0= ruleliteral
                     {
 
                     			newCompositeNode(grammarAccess.getPragmaValueAccess().getLiteralParserRuleCall_0());
@@ -4116,7 +4198,7 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // InternalMasl.g:1608:3: this_ID_1= RULE_ID
+                    // InternalMasl.g:1652:3: this_ID_1= RULE_ID
                     {
                     this_ID_1=(Token)match(input,RULE_ID,FOLLOW_2); 
 
@@ -4151,7 +4233,7 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRulepragmaName"
-    // InternalMasl.g:1619:1: entryRulepragmaName returns [EObject current=null] : iv_rulepragmaName= rulepragmaName EOF ;
+    // InternalMasl.g:1663:1: entryRulepragmaName returns [EObject current=null] : iv_rulepragmaName= rulepragmaName EOF ;
     public final EObject entryRulepragmaName() throws RecognitionException {
         EObject current = null;
 
@@ -4159,8 +4241,8 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalMasl.g:1619:51: (iv_rulepragmaName= rulepragmaName EOF )
-            // InternalMasl.g:1620:2: iv_rulepragmaName= rulepragmaName EOF
+            // InternalMasl.g:1663:51: (iv_rulepragmaName= rulepragmaName EOF )
+            // InternalMasl.g:1664:2: iv_rulepragmaName= rulepragmaName EOF
             {
              newCompositeNode(grammarAccess.getPragmaNameRule()); 
             pushFollow(FOLLOW_1);
@@ -4187,7 +4269,7 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "rulepragmaName"
-    // InternalMasl.g:1626:1: rulepragmaName returns [EObject current=null] : ( (lv_identifier_0_0= RULE_ID ) ) ;
+    // InternalMasl.g:1670:1: rulepragmaName returns [EObject current=null] : ( (lv_identifier_0_0= RULE_ID ) ) ;
     public final EObject rulepragmaName() throws RecognitionException {
         EObject current = null;
 
@@ -4197,14 +4279,14 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalMasl.g:1632:2: ( ( (lv_identifier_0_0= RULE_ID ) ) )
-            // InternalMasl.g:1633:2: ( (lv_identifier_0_0= RULE_ID ) )
+            // InternalMasl.g:1676:2: ( ( (lv_identifier_0_0= RULE_ID ) ) )
+            // InternalMasl.g:1677:2: ( (lv_identifier_0_0= RULE_ID ) )
             {
-            // InternalMasl.g:1633:2: ( (lv_identifier_0_0= RULE_ID ) )
-            // InternalMasl.g:1634:3: (lv_identifier_0_0= RULE_ID )
+            // InternalMasl.g:1677:2: ( (lv_identifier_0_0= RULE_ID ) )
+            // InternalMasl.g:1678:3: (lv_identifier_0_0= RULE_ID )
             {
-            // InternalMasl.g:1634:3: (lv_identifier_0_0= RULE_ID )
-            // InternalMasl.g:1635:4: lv_identifier_0_0= RULE_ID
+            // InternalMasl.g:1678:3: (lv_identifier_0_0= RULE_ID )
+            // InternalMasl.g:1679:4: lv_identifier_0_0= RULE_ID
             {
             lv_identifier_0_0=(Token)match(input,RULE_ID,FOLLOW_2); 
 
@@ -4246,7 +4328,7 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleliteral"
-    // InternalMasl.g:1654:1: entryRuleliteral returns [String current=null] : iv_ruleliteral= ruleliteral EOF ;
+    // InternalMasl.g:1698:1: entryRuleliteral returns [String current=null] : iv_ruleliteral= ruleliteral EOF ;
     public final String entryRuleliteral() throws RecognitionException {
         String current = null;
 
@@ -4254,8 +4336,8 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalMasl.g:1654:47: (iv_ruleliteral= ruleliteral EOF )
-            // InternalMasl.g:1655:2: iv_ruleliteral= ruleliteral EOF
+            // InternalMasl.g:1698:47: (iv_ruleliteral= ruleliteral EOF )
+            // InternalMasl.g:1699:2: iv_ruleliteral= ruleliteral EOF
             {
              newCompositeNode(grammarAccess.getLiteralRule()); 
             pushFollow(FOLLOW_1);
@@ -4282,7 +4364,7 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleliteral"
-    // InternalMasl.g:1661:1: ruleliteral returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (this_INT_0= RULE_INT | this_STRING_1= RULE_STRING ) ;
+    // InternalMasl.g:1705:1: ruleliteral returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : (this_INT_0= RULE_INT | this_STRING_1= RULE_STRING ) ;
     public final AntlrDatatypeRuleToken ruleliteral() throws RecognitionException {
         AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
 
@@ -4293,10 +4375,10 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalMasl.g:1667:2: ( (this_INT_0= RULE_INT | this_STRING_1= RULE_STRING ) )
-            // InternalMasl.g:1668:2: (this_INT_0= RULE_INT | this_STRING_1= RULE_STRING )
+            // InternalMasl.g:1711:2: ( (this_INT_0= RULE_INT | this_STRING_1= RULE_STRING ) )
+            // InternalMasl.g:1712:2: (this_INT_0= RULE_INT | this_STRING_1= RULE_STRING )
             {
-            // InternalMasl.g:1668:2: (this_INT_0= RULE_INT | this_STRING_1= RULE_STRING )
+            // InternalMasl.g:1712:2: (this_INT_0= RULE_INT | this_STRING_1= RULE_STRING )
             int alt20=2;
             int LA20_0 = input.LA(1);
 
@@ -4314,7 +4396,7 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
             }
             switch (alt20) {
                 case 1 :
-                    // InternalMasl.g:1669:3: this_INT_0= RULE_INT
+                    // InternalMasl.g:1713:3: this_INT_0= RULE_INT
                     {
                     this_INT_0=(Token)match(input,RULE_INT,FOLLOW_2); 
 
@@ -4327,7 +4409,7 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
                     }
                     break;
                 case 2 :
-                    // InternalMasl.g:1677:3: this_STRING_1= RULE_STRING
+                    // InternalMasl.g:1721:3: this_STRING_1= RULE_STRING
                     {
                     this_STRING_1=(Token)match(input,RULE_STRING,FOLLOW_2); 
 
@@ -4362,7 +4444,7 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleANONYMOUS"
-    // InternalMasl.g:1688:1: entryRuleANONYMOUS returns [String current=null] : iv_ruleANONYMOUS= ruleANONYMOUS EOF ;
+    // InternalMasl.g:1732:1: entryRuleANONYMOUS returns [String current=null] : iv_ruleANONYMOUS= ruleANONYMOUS EOF ;
     public final String entryRuleANONYMOUS() throws RecognitionException {
         String current = null;
 
@@ -4370,8 +4452,8 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalMasl.g:1688:49: (iv_ruleANONYMOUS= ruleANONYMOUS EOF )
-            // InternalMasl.g:1689:2: iv_ruleANONYMOUS= ruleANONYMOUS EOF
+            // InternalMasl.g:1732:49: (iv_ruleANONYMOUS= ruleANONYMOUS EOF )
+            // InternalMasl.g:1733:2: iv_ruleANONYMOUS= ruleANONYMOUS EOF
             {
              newCompositeNode(grammarAccess.getANONYMOUSRule()); 
             pushFollow(FOLLOW_1);
@@ -4398,7 +4480,7 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleANONYMOUS"
-    // InternalMasl.g:1695:1: ruleANONYMOUS returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : kw= 'anonymous' ;
+    // InternalMasl.g:1739:1: ruleANONYMOUS returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : kw= 'anonymous' ;
     public final AntlrDatatypeRuleToken ruleANONYMOUS() throws RecognitionException {
         AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
 
@@ -4408,8 +4490,8 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalMasl.g:1701:2: (kw= 'anonymous' )
-            // InternalMasl.g:1702:2: kw= 'anonymous'
+            // InternalMasl.g:1745:2: (kw= 'anonymous' )
+            // InternalMasl.g:1746:2: kw= 'anonymous'
             {
             kw=(Token)match(input,11,FOLLOW_2); 
 
@@ -4436,7 +4518,7 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleCOLON"
-    // InternalMasl.g:1710:1: entryRuleCOLON returns [String current=null] : iv_ruleCOLON= ruleCOLON EOF ;
+    // InternalMasl.g:1754:1: entryRuleCOLON returns [String current=null] : iv_ruleCOLON= ruleCOLON EOF ;
     public final String entryRuleCOLON() throws RecognitionException {
         String current = null;
 
@@ -4444,8 +4526,8 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalMasl.g:1710:45: (iv_ruleCOLON= ruleCOLON EOF )
-            // InternalMasl.g:1711:2: iv_ruleCOLON= ruleCOLON EOF
+            // InternalMasl.g:1754:45: (iv_ruleCOLON= ruleCOLON EOF )
+            // InternalMasl.g:1755:2: iv_ruleCOLON= ruleCOLON EOF
             {
              newCompositeNode(grammarAccess.getCOLONRule()); 
             pushFollow(FOLLOW_1);
@@ -4472,7 +4554,7 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleCOLON"
-    // InternalMasl.g:1717:1: ruleCOLON returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : kw= ':' ;
+    // InternalMasl.g:1761:1: ruleCOLON returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : kw= ':' ;
     public final AntlrDatatypeRuleToken ruleCOLON() throws RecognitionException {
         AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
 
@@ -4482,8 +4564,8 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalMasl.g:1723:2: (kw= ':' )
-            // InternalMasl.g:1724:2: kw= ':'
+            // InternalMasl.g:1767:2: (kw= ':' )
+            // InternalMasl.g:1768:2: kw= ':'
             {
             kw=(Token)match(input,12,FOLLOW_2); 
 
@@ -4510,7 +4592,7 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleCOMMA"
-    // InternalMasl.g:1732:1: entryRuleCOMMA returns [String current=null] : iv_ruleCOMMA= ruleCOMMA EOF ;
+    // InternalMasl.g:1776:1: entryRuleCOMMA returns [String current=null] : iv_ruleCOMMA= ruleCOMMA EOF ;
     public final String entryRuleCOMMA() throws RecognitionException {
         String current = null;
 
@@ -4518,8 +4600,8 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalMasl.g:1732:45: (iv_ruleCOMMA= ruleCOMMA EOF )
-            // InternalMasl.g:1733:2: iv_ruleCOMMA= ruleCOMMA EOF
+            // InternalMasl.g:1776:45: (iv_ruleCOMMA= ruleCOMMA EOF )
+            // InternalMasl.g:1777:2: iv_ruleCOMMA= ruleCOMMA EOF
             {
              newCompositeNode(grammarAccess.getCOMMARule()); 
             pushFollow(FOLLOW_1);
@@ -4546,7 +4628,7 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleCOMMA"
-    // InternalMasl.g:1739:1: ruleCOMMA returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : kw= ',' ;
+    // InternalMasl.g:1783:1: ruleCOMMA returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : kw= ',' ;
     public final AntlrDatatypeRuleToken ruleCOMMA() throws RecognitionException {
         AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
 
@@ -4556,8 +4638,8 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalMasl.g:1745:2: (kw= ',' )
-            // InternalMasl.g:1746:2: kw= ','
+            // InternalMasl.g:1789:2: (kw= ',' )
+            // InternalMasl.g:1790:2: kw= ','
             {
             kw=(Token)match(input,13,FOLLOW_2); 
 
@@ -4584,7 +4666,7 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleDOMAIN"
-    // InternalMasl.g:1754:1: entryRuleDOMAIN returns [String current=null] : iv_ruleDOMAIN= ruleDOMAIN EOF ;
+    // InternalMasl.g:1798:1: entryRuleDOMAIN returns [String current=null] : iv_ruleDOMAIN= ruleDOMAIN EOF ;
     public final String entryRuleDOMAIN() throws RecognitionException {
         String current = null;
 
@@ -4592,8 +4674,8 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalMasl.g:1754:46: (iv_ruleDOMAIN= ruleDOMAIN EOF )
-            // InternalMasl.g:1755:2: iv_ruleDOMAIN= ruleDOMAIN EOF
+            // InternalMasl.g:1798:46: (iv_ruleDOMAIN= ruleDOMAIN EOF )
+            // InternalMasl.g:1799:2: iv_ruleDOMAIN= ruleDOMAIN EOF
             {
              newCompositeNode(grammarAccess.getDOMAINRule()); 
             pushFollow(FOLLOW_1);
@@ -4620,7 +4702,7 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleDOMAIN"
-    // InternalMasl.g:1761:1: ruleDOMAIN returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : kw= 'domain' ;
+    // InternalMasl.g:1805:1: ruleDOMAIN returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : kw= 'domain' ;
     public final AntlrDatatypeRuleToken ruleDOMAIN() throws RecognitionException {
         AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
 
@@ -4630,8 +4712,8 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalMasl.g:1767:2: (kw= 'domain' )
-            // InternalMasl.g:1768:2: kw= 'domain'
+            // InternalMasl.g:1811:2: (kw= 'domain' )
+            // InternalMasl.g:1812:2: kw= 'domain'
             {
             kw=(Token)match(input,14,FOLLOW_2); 
 
@@ -4658,7 +4740,7 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleEND"
-    // InternalMasl.g:1776:1: entryRuleEND returns [String current=null] : iv_ruleEND= ruleEND EOF ;
+    // InternalMasl.g:1820:1: entryRuleEND returns [String current=null] : iv_ruleEND= ruleEND EOF ;
     public final String entryRuleEND() throws RecognitionException {
         String current = null;
 
@@ -4666,8 +4748,8 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalMasl.g:1776:43: (iv_ruleEND= ruleEND EOF )
-            // InternalMasl.g:1777:2: iv_ruleEND= ruleEND EOF
+            // InternalMasl.g:1820:43: (iv_ruleEND= ruleEND EOF )
+            // InternalMasl.g:1821:2: iv_ruleEND= ruleEND EOF
             {
              newCompositeNode(grammarAccess.getENDRule()); 
             pushFollow(FOLLOW_1);
@@ -4694,7 +4776,7 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleEND"
-    // InternalMasl.g:1783:1: ruleEND returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : kw= 'end' ;
+    // InternalMasl.g:1827:1: ruleEND returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : kw= 'end' ;
     public final AntlrDatatypeRuleToken ruleEND() throws RecognitionException {
         AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
 
@@ -4704,8 +4786,8 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalMasl.g:1789:2: (kw= 'end' )
-            // InternalMasl.g:1790:2: kw= 'end'
+            // InternalMasl.g:1833:2: (kw= 'end' )
+            // InternalMasl.g:1834:2: kw= 'end'
             {
             kw=(Token)match(input,15,FOLLOW_2); 
 
@@ -4732,7 +4814,7 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleEVENT"
-    // InternalMasl.g:1798:1: entryRuleEVENT returns [String current=null] : iv_ruleEVENT= ruleEVENT EOF ;
+    // InternalMasl.g:1842:1: entryRuleEVENT returns [String current=null] : iv_ruleEVENT= ruleEVENT EOF ;
     public final String entryRuleEVENT() throws RecognitionException {
         String current = null;
 
@@ -4740,8 +4822,8 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalMasl.g:1798:45: (iv_ruleEVENT= ruleEVENT EOF )
-            // InternalMasl.g:1799:2: iv_ruleEVENT= ruleEVENT EOF
+            // InternalMasl.g:1842:45: (iv_ruleEVENT= ruleEVENT EOF )
+            // InternalMasl.g:1843:2: iv_ruleEVENT= ruleEVENT EOF
             {
              newCompositeNode(grammarAccess.getEVENTRule()); 
             pushFollow(FOLLOW_1);
@@ -4768,7 +4850,7 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleEVENT"
-    // InternalMasl.g:1805:1: ruleEVENT returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : kw= 'event' ;
+    // InternalMasl.g:1849:1: ruleEVENT returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : kw= 'event' ;
     public final AntlrDatatypeRuleToken ruleEVENT() throws RecognitionException {
         AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
 
@@ -4778,8 +4860,8 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalMasl.g:1811:2: (kw= 'event' )
-            // InternalMasl.g:1812:2: kw= 'event'
+            // InternalMasl.g:1855:2: (kw= 'event' )
+            // InternalMasl.g:1856:2: kw= 'event'
             {
             kw=(Token)match(input,16,FOLLOW_2); 
 
@@ -4806,7 +4888,7 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleFUNCTION"
-    // InternalMasl.g:1820:1: entryRuleFUNCTION returns [String current=null] : iv_ruleFUNCTION= ruleFUNCTION EOF ;
+    // InternalMasl.g:1864:1: entryRuleFUNCTION returns [String current=null] : iv_ruleFUNCTION= ruleFUNCTION EOF ;
     public final String entryRuleFUNCTION() throws RecognitionException {
         String current = null;
 
@@ -4814,8 +4896,8 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalMasl.g:1820:48: (iv_ruleFUNCTION= ruleFUNCTION EOF )
-            // InternalMasl.g:1821:2: iv_ruleFUNCTION= ruleFUNCTION EOF
+            // InternalMasl.g:1864:48: (iv_ruleFUNCTION= ruleFUNCTION EOF )
+            // InternalMasl.g:1865:2: iv_ruleFUNCTION= ruleFUNCTION EOF
             {
              newCompositeNode(grammarAccess.getFUNCTIONRule()); 
             pushFollow(FOLLOW_1);
@@ -4842,7 +4924,7 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleFUNCTION"
-    // InternalMasl.g:1827:1: ruleFUNCTION returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : kw= 'function' ;
+    // InternalMasl.g:1871:1: ruleFUNCTION returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : kw= 'function' ;
     public final AntlrDatatypeRuleToken ruleFUNCTION() throws RecognitionException {
         AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
 
@@ -4852,8 +4934,8 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalMasl.g:1833:2: (kw= 'function' )
-            // InternalMasl.g:1834:2: kw= 'function'
+            // InternalMasl.g:1877:2: (kw= 'function' )
+            // InternalMasl.g:1878:2: kw= 'function'
             {
             kw=(Token)match(input,17,FOLLOW_2); 
 
@@ -4880,7 +4962,7 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleIN"
-    // InternalMasl.g:1842:1: entryRuleIN returns [String current=null] : iv_ruleIN= ruleIN EOF ;
+    // InternalMasl.g:1886:1: entryRuleIN returns [String current=null] : iv_ruleIN= ruleIN EOF ;
     public final String entryRuleIN() throws RecognitionException {
         String current = null;
 
@@ -4888,8 +4970,8 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalMasl.g:1842:42: (iv_ruleIN= ruleIN EOF )
-            // InternalMasl.g:1843:2: iv_ruleIN= ruleIN EOF
+            // InternalMasl.g:1886:42: (iv_ruleIN= ruleIN EOF )
+            // InternalMasl.g:1887:2: iv_ruleIN= ruleIN EOF
             {
              newCompositeNode(grammarAccess.getINRule()); 
             pushFollow(FOLLOW_1);
@@ -4916,7 +4998,7 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleIN"
-    // InternalMasl.g:1849:1: ruleIN returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : kw= 'in' ;
+    // InternalMasl.g:1893:1: ruleIN returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : kw= 'in' ;
     public final AntlrDatatypeRuleToken ruleIN() throws RecognitionException {
         AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
 
@@ -4926,8 +5008,8 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalMasl.g:1855:2: (kw= 'in' )
-            // InternalMasl.g:1856:2: kw= 'in'
+            // InternalMasl.g:1899:2: (kw= 'in' )
+            // InternalMasl.g:1900:2: kw= 'in'
             {
             kw=(Token)match(input,18,FOLLOW_2); 
 
@@ -4954,7 +5036,7 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleINSTANCE"
-    // InternalMasl.g:1864:1: entryRuleINSTANCE returns [String current=null] : iv_ruleINSTANCE= ruleINSTANCE EOF ;
+    // InternalMasl.g:1908:1: entryRuleINSTANCE returns [String current=null] : iv_ruleINSTANCE= ruleINSTANCE EOF ;
     public final String entryRuleINSTANCE() throws RecognitionException {
         String current = null;
 
@@ -4962,8 +5044,8 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalMasl.g:1864:48: (iv_ruleINSTANCE= ruleINSTANCE EOF )
-            // InternalMasl.g:1865:2: iv_ruleINSTANCE= ruleINSTANCE EOF
+            // InternalMasl.g:1908:48: (iv_ruleINSTANCE= ruleINSTANCE EOF )
+            // InternalMasl.g:1909:2: iv_ruleINSTANCE= ruleINSTANCE EOF
             {
              newCompositeNode(grammarAccess.getINSTANCERule()); 
             pushFollow(FOLLOW_1);
@@ -4990,7 +5072,7 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleINSTANCE"
-    // InternalMasl.g:1871:1: ruleINSTANCE returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : kw= 'instance' ;
+    // InternalMasl.g:1915:1: ruleINSTANCE returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : kw= 'instance' ;
     public final AntlrDatatypeRuleToken ruleINSTANCE() throws RecognitionException {
         AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
 
@@ -5000,8 +5082,8 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalMasl.g:1877:2: (kw= 'instance' )
-            // InternalMasl.g:1878:2: kw= 'instance'
+            // InternalMasl.g:1921:2: (kw= 'instance' )
+            // InternalMasl.g:1922:2: kw= 'instance'
             {
             kw=(Token)match(input,19,FOLLOW_2); 
 
@@ -5028,7 +5110,7 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleIS"
-    // InternalMasl.g:1886:1: entryRuleIS returns [String current=null] : iv_ruleIS= ruleIS EOF ;
+    // InternalMasl.g:1930:1: entryRuleIS returns [String current=null] : iv_ruleIS= ruleIS EOF ;
     public final String entryRuleIS() throws RecognitionException {
         String current = null;
 
@@ -5036,8 +5118,8 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalMasl.g:1886:42: (iv_ruleIS= ruleIS EOF )
-            // InternalMasl.g:1887:2: iv_ruleIS= ruleIS EOF
+            // InternalMasl.g:1930:42: (iv_ruleIS= ruleIS EOF )
+            // InternalMasl.g:1931:2: iv_ruleIS= ruleIS EOF
             {
              newCompositeNode(grammarAccess.getISRule()); 
             pushFollow(FOLLOW_1);
@@ -5064,7 +5146,7 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleIS"
-    // InternalMasl.g:1893:1: ruleIS returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : kw= 'is' ;
+    // InternalMasl.g:1937:1: ruleIS returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : kw= 'is' ;
     public final AntlrDatatypeRuleToken ruleIS() throws RecognitionException {
         AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
 
@@ -5074,8 +5156,8 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalMasl.g:1899:2: (kw= 'is' )
-            // InternalMasl.g:1900:2: kw= 'is'
+            // InternalMasl.g:1943:2: (kw= 'is' )
+            // InternalMasl.g:1944:2: kw= 'is'
             {
             kw=(Token)match(input,20,FOLLOW_2); 
 
@@ -5102,7 +5184,7 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleLPAREN"
-    // InternalMasl.g:1908:1: entryRuleLPAREN returns [String current=null] : iv_ruleLPAREN= ruleLPAREN EOF ;
+    // InternalMasl.g:1952:1: entryRuleLPAREN returns [String current=null] : iv_ruleLPAREN= ruleLPAREN EOF ;
     public final String entryRuleLPAREN() throws RecognitionException {
         String current = null;
 
@@ -5110,8 +5192,8 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalMasl.g:1908:46: (iv_ruleLPAREN= ruleLPAREN EOF )
-            // InternalMasl.g:1909:2: iv_ruleLPAREN= ruleLPAREN EOF
+            // InternalMasl.g:1952:46: (iv_ruleLPAREN= ruleLPAREN EOF )
+            // InternalMasl.g:1953:2: iv_ruleLPAREN= ruleLPAREN EOF
             {
              newCompositeNode(grammarAccess.getLPARENRule()); 
             pushFollow(FOLLOW_1);
@@ -5138,7 +5220,7 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleLPAREN"
-    // InternalMasl.g:1915:1: ruleLPAREN returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : kw= '(' ;
+    // InternalMasl.g:1959:1: ruleLPAREN returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : kw= '(' ;
     public final AntlrDatatypeRuleToken ruleLPAREN() throws RecognitionException {
         AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
 
@@ -5148,8 +5230,8 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalMasl.g:1921:2: (kw= '(' )
-            // InternalMasl.g:1922:2: kw= '('
+            // InternalMasl.g:1965:2: (kw= '(' )
+            // InternalMasl.g:1966:2: kw= '('
             {
             kw=(Token)match(input,21,FOLLOW_2); 
 
@@ -5176,7 +5258,7 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleOUT"
-    // InternalMasl.g:1930:1: entryRuleOUT returns [String current=null] : iv_ruleOUT= ruleOUT EOF ;
+    // InternalMasl.g:1974:1: entryRuleOUT returns [String current=null] : iv_ruleOUT= ruleOUT EOF ;
     public final String entryRuleOUT() throws RecognitionException {
         String current = null;
 
@@ -5184,8 +5266,8 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalMasl.g:1930:43: (iv_ruleOUT= ruleOUT EOF )
-            // InternalMasl.g:1931:2: iv_ruleOUT= ruleOUT EOF
+            // InternalMasl.g:1974:43: (iv_ruleOUT= ruleOUT EOF )
+            // InternalMasl.g:1975:2: iv_ruleOUT= ruleOUT EOF
             {
              newCompositeNode(grammarAccess.getOUTRule()); 
             pushFollow(FOLLOW_1);
@@ -5212,7 +5294,7 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleOUT"
-    // InternalMasl.g:1937:1: ruleOUT returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : kw= 'out' ;
+    // InternalMasl.g:1981:1: ruleOUT returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : kw= 'out' ;
     public final AntlrDatatypeRuleToken ruleOUT() throws RecognitionException {
         AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
 
@@ -5222,8 +5304,8 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalMasl.g:1943:2: (kw= 'out' )
-            // InternalMasl.g:1944:2: kw= 'out'
+            // InternalMasl.g:1987:2: (kw= 'out' )
+            // InternalMasl.g:1988:2: kw= 'out'
             {
             kw=(Token)match(input,22,FOLLOW_2); 
 
@@ -5250,7 +5332,7 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRulePRAGMATOK"
-    // InternalMasl.g:1952:1: entryRulePRAGMATOK returns [String current=null] : iv_rulePRAGMATOK= rulePRAGMATOK EOF ;
+    // InternalMasl.g:1996:1: entryRulePRAGMATOK returns [String current=null] : iv_rulePRAGMATOK= rulePRAGMATOK EOF ;
     public final String entryRulePRAGMATOK() throws RecognitionException {
         String current = null;
 
@@ -5258,8 +5340,8 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalMasl.g:1952:49: (iv_rulePRAGMATOK= rulePRAGMATOK EOF )
-            // InternalMasl.g:1953:2: iv_rulePRAGMATOK= rulePRAGMATOK EOF
+            // InternalMasl.g:1996:49: (iv_rulePRAGMATOK= rulePRAGMATOK EOF )
+            // InternalMasl.g:1997:2: iv_rulePRAGMATOK= rulePRAGMATOK EOF
             {
              newCompositeNode(grammarAccess.getPRAGMATOKRule()); 
             pushFollow(FOLLOW_1);
@@ -5286,7 +5368,7 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "rulePRAGMATOK"
-    // InternalMasl.g:1959:1: rulePRAGMATOK returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : kw= 'pragma' ;
+    // InternalMasl.g:2003:1: rulePRAGMATOK returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : kw= 'pragma' ;
     public final AntlrDatatypeRuleToken rulePRAGMATOK() throws RecognitionException {
         AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
 
@@ -5296,8 +5378,8 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalMasl.g:1965:2: (kw= 'pragma' )
-            // InternalMasl.g:1966:2: kw= 'pragma'
+            // InternalMasl.g:2009:2: (kw= 'pragma' )
+            // InternalMasl.g:2010:2: kw= 'pragma'
             {
             kw=(Token)match(input,23,FOLLOW_2); 
 
@@ -5324,7 +5406,7 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRulePRIVATE"
-    // InternalMasl.g:1974:1: entryRulePRIVATE returns [String current=null] : iv_rulePRIVATE= rulePRIVATE EOF ;
+    // InternalMasl.g:2018:1: entryRulePRIVATE returns [String current=null] : iv_rulePRIVATE= rulePRIVATE EOF ;
     public final String entryRulePRIVATE() throws RecognitionException {
         String current = null;
 
@@ -5332,8 +5414,8 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalMasl.g:1974:47: (iv_rulePRIVATE= rulePRIVATE EOF )
-            // InternalMasl.g:1975:2: iv_rulePRIVATE= rulePRIVATE EOF
+            // InternalMasl.g:2018:47: (iv_rulePRIVATE= rulePRIVATE EOF )
+            // InternalMasl.g:2019:2: iv_rulePRIVATE= rulePRIVATE EOF
             {
              newCompositeNode(grammarAccess.getPRIVATERule()); 
             pushFollow(FOLLOW_1);
@@ -5360,7 +5442,7 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "rulePRIVATE"
-    // InternalMasl.g:1981:1: rulePRIVATE returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : kw= 'private' ;
+    // InternalMasl.g:2025:1: rulePRIVATE returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : kw= 'private' ;
     public final AntlrDatatypeRuleToken rulePRIVATE() throws RecognitionException {
         AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
 
@@ -5370,8 +5452,8 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalMasl.g:1987:2: (kw= 'private' )
-            // InternalMasl.g:1988:2: kw= 'private'
+            // InternalMasl.g:2031:2: (kw= 'private' )
+            // InternalMasl.g:2032:2: kw= 'private'
             {
             kw=(Token)match(input,24,FOLLOW_2); 
 
@@ -5398,7 +5480,7 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRulePROJECT"
-    // InternalMasl.g:1996:1: entryRulePROJECT returns [String current=null] : iv_rulePROJECT= rulePROJECT EOF ;
+    // InternalMasl.g:2040:1: entryRulePROJECT returns [String current=null] : iv_rulePROJECT= rulePROJECT EOF ;
     public final String entryRulePROJECT() throws RecognitionException {
         String current = null;
 
@@ -5406,8 +5488,8 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalMasl.g:1996:47: (iv_rulePROJECT= rulePROJECT EOF )
-            // InternalMasl.g:1997:2: iv_rulePROJECT= rulePROJECT EOF
+            // InternalMasl.g:2040:47: (iv_rulePROJECT= rulePROJECT EOF )
+            // InternalMasl.g:2041:2: iv_rulePROJECT= rulePROJECT EOF
             {
              newCompositeNode(grammarAccess.getPROJECTRule()); 
             pushFollow(FOLLOW_1);
@@ -5434,7 +5516,7 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "rulePROJECT"
-    // InternalMasl.g:2003:1: rulePROJECT returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : kw= 'project' ;
+    // InternalMasl.g:2047:1: rulePROJECT returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : kw= 'project' ;
     public final AntlrDatatypeRuleToken rulePROJECT() throws RecognitionException {
         AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
 
@@ -5444,8 +5526,8 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalMasl.g:2009:2: (kw= 'project' )
-            // InternalMasl.g:2010:2: kw= 'project'
+            // InternalMasl.g:2053:2: (kw= 'project' )
+            // InternalMasl.g:2054:2: kw= 'project'
             {
             kw=(Token)match(input,25,FOLLOW_2); 
 
@@ -5472,7 +5554,7 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRulePUBLIC"
-    // InternalMasl.g:2018:1: entryRulePUBLIC returns [String current=null] : iv_rulePUBLIC= rulePUBLIC EOF ;
+    // InternalMasl.g:2062:1: entryRulePUBLIC returns [String current=null] : iv_rulePUBLIC= rulePUBLIC EOF ;
     public final String entryRulePUBLIC() throws RecognitionException {
         String current = null;
 
@@ -5480,8 +5562,8 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalMasl.g:2018:46: (iv_rulePUBLIC= rulePUBLIC EOF )
-            // InternalMasl.g:2019:2: iv_rulePUBLIC= rulePUBLIC EOF
+            // InternalMasl.g:2062:46: (iv_rulePUBLIC= rulePUBLIC EOF )
+            // InternalMasl.g:2063:2: iv_rulePUBLIC= rulePUBLIC EOF
             {
              newCompositeNode(grammarAccess.getPUBLICRule()); 
             pushFollow(FOLLOW_1);
@@ -5508,7 +5590,7 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "rulePUBLIC"
-    // InternalMasl.g:2025:1: rulePUBLIC returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : kw= 'public' ;
+    // InternalMasl.g:2069:1: rulePUBLIC returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : kw= 'public' ;
     public final AntlrDatatypeRuleToken rulePUBLIC() throws RecognitionException {
         AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
 
@@ -5518,8 +5600,8 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalMasl.g:2031:2: (kw= 'public' )
-            // InternalMasl.g:2032:2: kw= 'public'
+            // InternalMasl.g:2075:2: (kw= 'public' )
+            // InternalMasl.g:2076:2: kw= 'public'
             {
             kw=(Token)match(input,26,FOLLOW_2); 
 
@@ -5546,7 +5628,7 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleRETURN"
-    // InternalMasl.g:2040:1: entryRuleRETURN returns [String current=null] : iv_ruleRETURN= ruleRETURN EOF ;
+    // InternalMasl.g:2084:1: entryRuleRETURN returns [String current=null] : iv_ruleRETURN= ruleRETURN EOF ;
     public final String entryRuleRETURN() throws RecognitionException {
         String current = null;
 
@@ -5554,8 +5636,8 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalMasl.g:2040:46: (iv_ruleRETURN= ruleRETURN EOF )
-            // InternalMasl.g:2041:2: iv_ruleRETURN= ruleRETURN EOF
+            // InternalMasl.g:2084:46: (iv_ruleRETURN= ruleRETURN EOF )
+            // InternalMasl.g:2085:2: iv_ruleRETURN= ruleRETURN EOF
             {
              newCompositeNode(grammarAccess.getRETURNRule()); 
             pushFollow(FOLLOW_1);
@@ -5582,7 +5664,7 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleRETURN"
-    // InternalMasl.g:2047:1: ruleRETURN returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : kw= 'return' ;
+    // InternalMasl.g:2091:1: ruleRETURN returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : kw= 'return' ;
     public final AntlrDatatypeRuleToken ruleRETURN() throws RecognitionException {
         AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
 
@@ -5592,8 +5674,8 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalMasl.g:2053:2: (kw= 'return' )
-            // InternalMasl.g:2054:2: kw= 'return'
+            // InternalMasl.g:2097:2: (kw= 'return' )
+            // InternalMasl.g:2098:2: kw= 'return'
             {
             kw=(Token)match(input,27,FOLLOW_2); 
 
@@ -5620,7 +5702,7 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleRPAREN"
-    // InternalMasl.g:2062:1: entryRuleRPAREN returns [String current=null] : iv_ruleRPAREN= ruleRPAREN EOF ;
+    // InternalMasl.g:2106:1: entryRuleRPAREN returns [String current=null] : iv_ruleRPAREN= ruleRPAREN EOF ;
     public final String entryRuleRPAREN() throws RecognitionException {
         String current = null;
 
@@ -5628,8 +5710,8 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalMasl.g:2062:46: (iv_ruleRPAREN= ruleRPAREN EOF )
-            // InternalMasl.g:2063:2: iv_ruleRPAREN= ruleRPAREN EOF
+            // InternalMasl.g:2106:46: (iv_ruleRPAREN= ruleRPAREN EOF )
+            // InternalMasl.g:2107:2: iv_ruleRPAREN= ruleRPAREN EOF
             {
              newCompositeNode(grammarAccess.getRPARENRule()); 
             pushFollow(FOLLOW_1);
@@ -5656,7 +5738,7 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleRPAREN"
-    // InternalMasl.g:2069:1: ruleRPAREN returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : kw= ')' ;
+    // InternalMasl.g:2113:1: ruleRPAREN returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : kw= ')' ;
     public final AntlrDatatypeRuleToken ruleRPAREN() throws RecognitionException {
         AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
 
@@ -5666,8 +5748,8 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalMasl.g:2075:2: (kw= ')' )
-            // InternalMasl.g:2076:2: kw= ')'
+            // InternalMasl.g:2119:2: (kw= ')' )
+            // InternalMasl.g:2120:2: kw= ')'
             {
             kw=(Token)match(input,28,FOLLOW_2); 
 
@@ -5694,7 +5776,7 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleSCOPE"
-    // InternalMasl.g:2084:1: entryRuleSCOPE returns [String current=null] : iv_ruleSCOPE= ruleSCOPE EOF ;
+    // InternalMasl.g:2128:1: entryRuleSCOPE returns [String current=null] : iv_ruleSCOPE= ruleSCOPE EOF ;
     public final String entryRuleSCOPE() throws RecognitionException {
         String current = null;
 
@@ -5702,8 +5784,8 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalMasl.g:2084:45: (iv_ruleSCOPE= ruleSCOPE EOF )
-            // InternalMasl.g:2085:2: iv_ruleSCOPE= ruleSCOPE EOF
+            // InternalMasl.g:2128:45: (iv_ruleSCOPE= ruleSCOPE EOF )
+            // InternalMasl.g:2129:2: iv_ruleSCOPE= ruleSCOPE EOF
             {
              newCompositeNode(grammarAccess.getSCOPERule()); 
             pushFollow(FOLLOW_1);
@@ -5730,7 +5812,7 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleSCOPE"
-    // InternalMasl.g:2091:1: ruleSCOPE returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : kw= '::' ;
+    // InternalMasl.g:2135:1: ruleSCOPE returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : kw= '::' ;
     public final AntlrDatatypeRuleToken ruleSCOPE() throws RecognitionException {
         AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
 
@@ -5740,8 +5822,8 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalMasl.g:2097:2: (kw= '::' )
-            // InternalMasl.g:2098:2: kw= '::'
+            // InternalMasl.g:2141:2: (kw= '::' )
+            // InternalMasl.g:2142:2: kw= '::'
             {
             kw=(Token)match(input,29,FOLLOW_2); 
 
@@ -5768,7 +5850,7 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleSEMI"
-    // InternalMasl.g:2106:1: entryRuleSEMI returns [String current=null] : iv_ruleSEMI= ruleSEMI EOF ;
+    // InternalMasl.g:2150:1: entryRuleSEMI returns [String current=null] : iv_ruleSEMI= ruleSEMI EOF ;
     public final String entryRuleSEMI() throws RecognitionException {
         String current = null;
 
@@ -5776,8 +5858,8 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalMasl.g:2106:44: (iv_ruleSEMI= ruleSEMI EOF )
-            // InternalMasl.g:2107:2: iv_ruleSEMI= ruleSEMI EOF
+            // InternalMasl.g:2150:44: (iv_ruleSEMI= ruleSEMI EOF )
+            // InternalMasl.g:2151:2: iv_ruleSEMI= ruleSEMI EOF
             {
              newCompositeNode(grammarAccess.getSEMIRule()); 
             pushFollow(FOLLOW_1);
@@ -5804,7 +5886,7 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleSEMI"
-    // InternalMasl.g:2113:1: ruleSEMI returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : kw= ';' ;
+    // InternalMasl.g:2157:1: ruleSEMI returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : kw= ';' ;
     public final AntlrDatatypeRuleToken ruleSEMI() throws RecognitionException {
         AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
 
@@ -5814,8 +5896,8 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalMasl.g:2119:2: (kw= ';' )
-            // InternalMasl.g:2120:2: kw= ';'
+            // InternalMasl.g:2163:2: (kw= ';' )
+            // InternalMasl.g:2164:2: kw= ';'
             {
             kw=(Token)match(input,30,FOLLOW_2); 
 
@@ -5842,7 +5924,7 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleSERVICE"
-    // InternalMasl.g:2128:1: entryRuleSERVICE returns [String current=null] : iv_ruleSERVICE= ruleSERVICE EOF ;
+    // InternalMasl.g:2172:1: entryRuleSERVICE returns [String current=null] : iv_ruleSERVICE= ruleSERVICE EOF ;
     public final String entryRuleSERVICE() throws RecognitionException {
         String current = null;
 
@@ -5850,8 +5932,8 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalMasl.g:2128:47: (iv_ruleSERVICE= ruleSERVICE EOF )
-            // InternalMasl.g:2129:2: iv_ruleSERVICE= ruleSERVICE EOF
+            // InternalMasl.g:2172:47: (iv_ruleSERVICE= ruleSERVICE EOF )
+            // InternalMasl.g:2173:2: iv_ruleSERVICE= ruleSERVICE EOF
             {
              newCompositeNode(grammarAccess.getSERVICERule()); 
             pushFollow(FOLLOW_1);
@@ -5878,7 +5960,7 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleSERVICE"
-    // InternalMasl.g:2135:1: ruleSERVICE returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : kw= 'service' ;
+    // InternalMasl.g:2179:1: ruleSERVICE returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : kw= 'service' ;
     public final AntlrDatatypeRuleToken ruleSERVICE() throws RecognitionException {
         AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
 
@@ -5888,8 +5970,8 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalMasl.g:2141:2: (kw= 'service' )
-            // InternalMasl.g:2142:2: kw= 'service'
+            // InternalMasl.g:2185:2: (kw= 'service' )
+            // InternalMasl.g:2186:2: kw= 'service'
             {
             kw=(Token)match(input,31,FOLLOW_2); 
 
@@ -5916,7 +5998,7 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "entryRuleTERMINATOR"
-    // InternalMasl.g:2150:1: entryRuleTERMINATOR returns [String current=null] : iv_ruleTERMINATOR= ruleTERMINATOR EOF ;
+    // InternalMasl.g:2194:1: entryRuleTERMINATOR returns [String current=null] : iv_ruleTERMINATOR= ruleTERMINATOR EOF ;
     public final String entryRuleTERMINATOR() throws RecognitionException {
         String current = null;
 
@@ -5924,8 +6006,8 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
 
 
         try {
-            // InternalMasl.g:2150:50: (iv_ruleTERMINATOR= ruleTERMINATOR EOF )
-            // InternalMasl.g:2151:2: iv_ruleTERMINATOR= ruleTERMINATOR EOF
+            // InternalMasl.g:2194:50: (iv_ruleTERMINATOR= ruleTERMINATOR EOF )
+            // InternalMasl.g:2195:2: iv_ruleTERMINATOR= ruleTERMINATOR EOF
             {
              newCompositeNode(grammarAccess.getTERMINATORRule()); 
             pushFollow(FOLLOW_1);
@@ -5952,7 +6034,7 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
 
 
     // $ANTLR start "ruleTERMINATOR"
-    // InternalMasl.g:2157:1: ruleTERMINATOR returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : kw= 'terminator' ;
+    // InternalMasl.g:2201:1: ruleTERMINATOR returns [AntlrDatatypeRuleToken current=new AntlrDatatypeRuleToken()] : kw= 'terminator' ;
     public final AntlrDatatypeRuleToken ruleTERMINATOR() throws RecognitionException {
         AntlrDatatypeRuleToken current = new AntlrDatatypeRuleToken();
 
@@ -5962,8 +6044,8 @@ public class InternalMaslParser extends AbstractInternalAntlrParser {
         	enterRule();
 
         try {
-            // InternalMasl.g:2163:2: (kw= 'terminator' )
-            // InternalMasl.g:2164:2: kw= 'terminator'
+            // InternalMasl.g:2207:2: (kw= 'terminator' )
+            // InternalMasl.g:2208:2: kw= 'terminator'
             {
             kw=(Token)match(input,32,FOLLOW_2); 
 

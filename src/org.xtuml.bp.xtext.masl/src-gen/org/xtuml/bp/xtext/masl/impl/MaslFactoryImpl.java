@@ -83,6 +83,7 @@ public class MaslFactoryImpl extends EFactoryImpl implements MaslFactory
       case MaslPackage.PARAMETER_TYPE: return createParameterType();
       case MaslPackage.RETURN_TYPE: return createReturnType();
       case MaslPackage.TYPE_REFERENCE: return createtypeReference();
+      case MaslPackage.DEPRECATED_TYPE: return createdeprecatedType();
       case MaslPackage.NAMED_TYPE: return createNamedType();
       case MaslPackage.TYPE_NAME: return createTypeName();
       case MaslPackage.PRAGMA_LIST: return createPragmaList();
@@ -289,6 +290,17 @@ public class MaslFactoryImpl extends EFactoryImpl implements MaslFactory
   {
     typeReferenceImpl typeReference = new typeReferenceImpl();
     return typeReference;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public deprecatedType createdeprecatedType()
+  {
+    deprecatedTypeImpl deprecatedType = new deprecatedTypeImpl();
+    return deprecatedType;
   }
 
   /**

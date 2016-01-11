@@ -63,6 +63,11 @@
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Masl.ecore#//ReturnType/typeReference"/>
     </genClasses>
     <genClasses ecoreClass="Masl.ecore#//typeReference"/>
+    <genClasses ecoreClass="Masl.ecore#//deprecatedType">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Masl.ecore#//deprecatedType/INSTANCE"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Masl.ecore#//deprecatedType/EVENT"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Masl.ecore#//deprecatedType/SERVICE"/>
+    </genClasses>
     <genClasses ecoreClass="Masl.ecore#//NamedType">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Masl.ecore#//NamedType/anonymous"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Masl.ecore#//NamedType/domainName"/>

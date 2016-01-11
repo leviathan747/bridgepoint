@@ -57,7 +57,7 @@ terminatorFunctionDeclaration returns TerminatorFunctionDeclaration	: serviceVis
                                   				SEMI pragmaList=pragmaList
                               				;
 
-parameterList                 				: LPAREN
+parameterList         						: LPAREN{parameterList} // ensure a parameterList AST object is created even if there are no parameters
                                   				parameterDefinition+=parameterDefinition? ( COMMA parameterDefinition+=parameterDefinition )*                          
                                 			RPAREN
                               				;
@@ -98,9 +98,9 @@ typeReference                 				: namedTypeRef
                               				;
 
 
-deprecatedType                				: INSTANCE
-                              				| EVENT
-                              				| SERVICE
+deprecatedType                				: INSTANCE=INSTANCE
+                              				| EVENT=EVENT
+                              				| SERVICE=SERVICE
                               				;
 
 
@@ -119,7 +119,7 @@ typeName returns TypeName                 	: identifier=ID
 //---------------------------------------------------------
 
 
-pragmaList returns PragmaList               : (pragma+=pragma SEMI)*
+pragmaList returns PragmaList               : {PragmaList}(pragma+=pragma SEMI)*
                               				;
 
 pragma returns Pragma                        : PRAGMATOK pragmaName=pragmaName 

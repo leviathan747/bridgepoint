@@ -30,6 +30,7 @@ import org.xtuml.bp.xtext.masl.TerminatorFunctionDeclaration;
 import org.xtuml.bp.xtext.masl.TerminatorName;
 import org.xtuml.bp.xtext.masl.TerminatorServiceDeclaration;
 import org.xtuml.bp.xtext.masl.TypeName;
+import org.xtuml.bp.xtext.masl.deprecatedType;
 import org.xtuml.bp.xtext.masl.domainPrjItem;
 import org.xtuml.bp.xtext.masl.parameterList;
 import org.xtuml.bp.xtext.masl.projectItem;
@@ -169,6 +170,13 @@ public class MaslPackageImpl extends EPackageImpl implements MaslPackage
    * @generated
    */
   private EClass typeReferenceEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass deprecatedTypeEClass = null;
 
   /**
    * <!-- begin-user-doc -->
@@ -703,6 +711,46 @@ public class MaslPackageImpl extends EPackageImpl implements MaslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EClass getdeprecatedType()
+  {
+    return deprecatedTypeEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getdeprecatedType_INSTANCE()
+  {
+    return (EAttribute)deprecatedTypeEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getdeprecatedType_EVENT()
+  {
+    return (EAttribute)deprecatedTypeEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getdeprecatedType_SERVICE()
+  {
+    return (EAttribute)deprecatedTypeEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public EClass getNamedType()
   {
     return namedTypeEClass;
@@ -919,6 +967,11 @@ public class MaslPackageImpl extends EPackageImpl implements MaslPackage
 
     typeReferenceEClass = createEClass(TYPE_REFERENCE);
 
+    deprecatedTypeEClass = createEClass(DEPRECATED_TYPE);
+    createEAttribute(deprecatedTypeEClass, DEPRECATED_TYPE__INSTANCE);
+    createEAttribute(deprecatedTypeEClass, DEPRECATED_TYPE__EVENT);
+    createEAttribute(deprecatedTypeEClass, DEPRECATED_TYPE__SERVICE);
+
     namedTypeEClass = createEClass(NAMED_TYPE);
     createEAttribute(namedTypeEClass, NAMED_TYPE__ANONYMOUS);
     createEReference(namedTypeEClass, NAMED_TYPE__DOMAIN_NAME);
@@ -971,6 +1024,7 @@ public class MaslPackageImpl extends EPackageImpl implements MaslPackage
     terminatorDefinitionEClass.getESuperTypes().add(this.getdomainPrjItem());
     terminatorServiceDeclarationEClass.getESuperTypes().add(this.getterminatorItem());
     terminatorFunctionDeclarationEClass.getESuperTypes().add(this.getterminatorItem());
+    deprecatedTypeEClass.getESuperTypes().add(this.gettypeReference());
     namedTypeEClass.getESuperTypes().add(this.gettypeReference());
 
     // Initialize classes and features; add operations and parameters
@@ -1034,6 +1088,11 @@ public class MaslPackageImpl extends EPackageImpl implements MaslPackage
     initEReference(getReturnType_TypeReference(), this.gettypeReference(), null, "typeReference", null, 0, 1, ReturnType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(typeReferenceEClass, typeReference.class, "typeReference", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
+    initEClass(deprecatedTypeEClass, deprecatedType.class, "deprecatedType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getdeprecatedType_INSTANCE(), ecorePackage.getEString(), "INSTANCE", null, 0, 1, deprecatedType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getdeprecatedType_EVENT(), ecorePackage.getEString(), "EVENT", null, 0, 1, deprecatedType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getdeprecatedType_SERVICE(), ecorePackage.getEString(), "SERVICE", null, 0, 1, deprecatedType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     initEClass(namedTypeEClass, NamedType.class, "NamedType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getNamedType_Anonymous(), ecorePackage.getEString(), "anonymous", null, 0, 1, NamedType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);

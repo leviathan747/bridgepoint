@@ -166,6 +166,11 @@ public class MaslAdapterFactory extends AdapterFactoryImpl
         return createtypeReferenceAdapter();
       }
       @Override
+      public Adapter casedeprecatedType(deprecatedType object)
+      {
+        return createdeprecatedTypeAdapter();
+      }
+      @Override
       public Adapter caseNamedType(NamedType object)
       {
         return createNamedTypeAdapter();
@@ -478,6 +483,21 @@ public class MaslAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createtypeReferenceAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.xtuml.bp.xtext.masl.deprecatedType <em>deprecated Type</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.xtuml.bp.xtext.masl.deprecatedType
+   * @generated
+   */
+  public Adapter createdeprecatedTypeAdapter()
   {
     return null;
   }

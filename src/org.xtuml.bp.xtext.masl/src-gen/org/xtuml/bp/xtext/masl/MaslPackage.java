@@ -697,6 +697,52 @@ public interface MaslPackage extends EPackage
   int TYPE_REFERENCE_FEATURE_COUNT = 0;
 
   /**
+   * The meta object id for the '{@link org.xtuml.bp.xtext.masl.impl.deprecatedTypeImpl <em>deprecated Type</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.xtuml.bp.xtext.masl.impl.deprecatedTypeImpl
+   * @see org.xtuml.bp.xtext.masl.impl.MaslPackageImpl#getdeprecatedType()
+   * @generated
+   */
+  int DEPRECATED_TYPE = 18;
+
+  /**
+   * The feature id for the '<em><b>INSTANCE</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DEPRECATED_TYPE__INSTANCE = TYPE_REFERENCE_FEATURE_COUNT + 0;
+
+  /**
+   * The feature id for the '<em><b>EVENT</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DEPRECATED_TYPE__EVENT = TYPE_REFERENCE_FEATURE_COUNT + 1;
+
+  /**
+   * The feature id for the '<em><b>SERVICE</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DEPRECATED_TYPE__SERVICE = TYPE_REFERENCE_FEATURE_COUNT + 2;
+
+  /**
+   * The number of structural features of the '<em>deprecated Type</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DEPRECATED_TYPE_FEATURE_COUNT = TYPE_REFERENCE_FEATURE_COUNT + 3;
+
+  /**
    * The meta object id for the '{@link org.xtuml.bp.xtext.masl.impl.NamedTypeImpl <em>Named Type</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -704,7 +750,7 @@ public interface MaslPackage extends EPackage
    * @see org.xtuml.bp.xtext.masl.impl.MaslPackageImpl#getNamedType()
    * @generated
    */
-  int NAMED_TYPE = 18;
+  int NAMED_TYPE = 19;
 
   /**
    * The feature id for the '<em><b>Anonymous</b></em>' attribute.
@@ -750,7 +796,7 @@ public interface MaslPackage extends EPackage
    * @see org.xtuml.bp.xtext.masl.impl.MaslPackageImpl#getTypeName()
    * @generated
    */
-  int TYPE_NAME = 19;
+  int TYPE_NAME = 20;
 
   /**
    * The feature id for the '<em><b>Identifier</b></em>' attribute.
@@ -778,7 +824,7 @@ public interface MaslPackage extends EPackage
    * @see org.xtuml.bp.xtext.masl.impl.MaslPackageImpl#getPragmaList()
    * @generated
    */
-  int PRAGMA_LIST = 20;
+  int PRAGMA_LIST = 21;
 
   /**
    * The feature id for the '<em><b>Pragma</b></em>' containment reference list.
@@ -806,7 +852,7 @@ public interface MaslPackage extends EPackage
    * @see org.xtuml.bp.xtext.masl.impl.MaslPackageImpl#getPragma()
    * @generated
    */
-  int PRAGMA = 21;
+  int PRAGMA = 22;
 
   /**
    * The feature id for the '<em><b>Pragma Name</b></em>' containment reference.
@@ -843,7 +889,7 @@ public interface MaslPackage extends EPackage
    * @see org.xtuml.bp.xtext.masl.impl.MaslPackageImpl#getPragmaName()
    * @generated
    */
-  int PRAGMA_NAME = 22;
+  int PRAGMA_NAME = 23;
 
   /**
    * The feature id for the '<em><b>Identifier</b></em>' attribute.
@@ -1318,6 +1364,49 @@ public interface MaslPackage extends EPackage
    * @generated
    */
   EClass gettypeReference();
+
+  /**
+   * Returns the meta object for class '{@link org.xtuml.bp.xtext.masl.deprecatedType <em>deprecated Type</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>deprecated Type</em>'.
+   * @see org.xtuml.bp.xtext.masl.deprecatedType
+   * @generated
+   */
+  EClass getdeprecatedType();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.xtuml.bp.xtext.masl.deprecatedType#getINSTANCE <em>INSTANCE</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>INSTANCE</em>'.
+   * @see org.xtuml.bp.xtext.masl.deprecatedType#getINSTANCE()
+   * @see #getdeprecatedType()
+   * @generated
+   */
+  EAttribute getdeprecatedType_INSTANCE();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.xtuml.bp.xtext.masl.deprecatedType#getEVENT <em>EVENT</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>EVENT</em>'.
+   * @see org.xtuml.bp.xtext.masl.deprecatedType#getEVENT()
+   * @see #getdeprecatedType()
+   * @generated
+   */
+  EAttribute getdeprecatedType_EVENT();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.xtuml.bp.xtext.masl.deprecatedType#getSERVICE <em>SERVICE</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>SERVICE</em>'.
+   * @see org.xtuml.bp.xtext.masl.deprecatedType#getSERVICE()
+   * @see #getdeprecatedType()
+   * @generated
+   */
+  EAttribute getdeprecatedType_SERVICE();
 
   /**
    * Returns the meta object for class '{@link org.xtuml.bp.xtext.masl.NamedType <em>Named Type</em>}'.
@@ -1859,6 +1948,40 @@ public interface MaslPackage extends EPackage
      * @generated
      */
     EClass TYPE_REFERENCE = eINSTANCE.gettypeReference();
+
+    /**
+     * The meta object literal for the '{@link org.xtuml.bp.xtext.masl.impl.deprecatedTypeImpl <em>deprecated Type</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.xtuml.bp.xtext.masl.impl.deprecatedTypeImpl
+     * @see org.xtuml.bp.xtext.masl.impl.MaslPackageImpl#getdeprecatedType()
+     * @generated
+     */
+    EClass DEPRECATED_TYPE = eINSTANCE.getdeprecatedType();
+
+    /**
+     * The meta object literal for the '<em><b>INSTANCE</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute DEPRECATED_TYPE__INSTANCE = eINSTANCE.getdeprecatedType_INSTANCE();
+
+    /**
+     * The meta object literal for the '<em><b>EVENT</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute DEPRECATED_TYPE__EVENT = eINSTANCE.getdeprecatedType_EVENT();
+
+    /**
+     * The meta object literal for the '<em><b>SERVICE</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute DEPRECATED_TYPE__SERVICE = eINSTANCE.getdeprecatedType_SERVICE();
 
     /**
      * The meta object literal for the '{@link org.xtuml.bp.xtext.masl.impl.NamedTypeImpl <em>Named Type</em>}' class.
