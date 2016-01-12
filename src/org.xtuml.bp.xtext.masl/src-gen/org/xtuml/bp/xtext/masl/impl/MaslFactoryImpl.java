@@ -65,6 +65,8 @@ public class MaslFactoryImpl extends EFactoryImpl implements MaslFactory
   {
     switch (eClass.getClassifierID())
     {
+      case MaslPackage.TARGET: return createtarget();
+      case MaslPackage.DEFINITION: return createdefinition();
       case MaslPackage.PROJECT: return createProject();
       case MaslPackage.PROJECT_ITEM: return createprojectItem();
       case MaslPackage.DOMAIN: return createDomain();
@@ -89,9 +91,40 @@ public class MaslFactoryImpl extends EFactoryImpl implements MaslFactory
       case MaslPackage.PRAGMA_LIST: return createPragmaList();
       case MaslPackage.PRAGMA: return createPragma();
       case MaslPackage.PRAGMA_NAME: return createPragmaName();
+      case MaslPackage.OBJECT_NAME: return createObjectName();
+      case MaslPackage.SERVICE_TYPE: return createserviceType();
+      case MaslPackage.RELATIONSHIP_NAME: return createRelationshipName();
+      case MaslPackage.DOMAIN_SERVICE_DEFINITION: return createDomainServiceDefinition();
+      case MaslPackage.OBJECT_SERVICE_DEFINITION: return createObjectServiceDefinition();
+      case MaslPackage.TERMINATOR_SERVICE_DEFINITION: return createTerminatorServiceDefinition();
+      case MaslPackage.CODE_BLOCK: return createCodeBlock();
+      case MaslPackage.VARIABLE_DECLARATION: return createVariableDeclaration();
+      case MaslPackage.VARIABLE_NAME: return createVariableName();
       default:
         throw new IllegalArgumentException("The class '" + eClass.getName() + "' is not a valid classifier");
     }
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public target createtarget()
+  {
+    targetImpl target = new targetImpl();
+    return target;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public definition createdefinition()
+  {
+    definitionImpl definition = new definitionImpl();
+    return definition;
   }
 
   /**
@@ -356,6 +389,105 @@ public class MaslFactoryImpl extends EFactoryImpl implements MaslFactory
   {
     PragmaNameImpl pragmaName = new PragmaNameImpl();
     return pragmaName;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public ObjectName createObjectName()
+  {
+    ObjectNameImpl objectName = new ObjectNameImpl();
+    return objectName;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public serviceType createserviceType()
+  {
+    serviceTypeImpl serviceType = new serviceTypeImpl();
+    return serviceType;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public RelationshipName createRelationshipName()
+  {
+    RelationshipNameImpl relationshipName = new RelationshipNameImpl();
+    return relationshipName;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public DomainServiceDefinition createDomainServiceDefinition()
+  {
+    DomainServiceDefinitionImpl domainServiceDefinition = new DomainServiceDefinitionImpl();
+    return domainServiceDefinition;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public ObjectServiceDefinition createObjectServiceDefinition()
+  {
+    ObjectServiceDefinitionImpl objectServiceDefinition = new ObjectServiceDefinitionImpl();
+    return objectServiceDefinition;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public TerminatorServiceDefinition createTerminatorServiceDefinition()
+  {
+    TerminatorServiceDefinitionImpl terminatorServiceDefinition = new TerminatorServiceDefinitionImpl();
+    return terminatorServiceDefinition;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public CodeBlock createCodeBlock()
+  {
+    CodeBlockImpl codeBlock = new CodeBlockImpl();
+    return codeBlock;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public VariableDeclaration createVariableDeclaration()
+  {
+    VariableDeclarationImpl variableDeclaration = new VariableDeclarationImpl();
+    return variableDeclaration;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public VariableName createVariableName()
+  {
+    VariableNameImpl variableName = new VariableNameImpl();
+    return variableName;
   }
 
   /**

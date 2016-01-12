@@ -58,6 +58,53 @@ public interface MaslPackage extends EPackage
   MaslPackage eINSTANCE = org.xtuml.bp.xtext.masl.impl.MaslPackageImpl.init();
 
   /**
+   * The meta object id for the '{@link org.xtuml.bp.xtext.masl.impl.targetImpl <em>target</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.xtuml.bp.xtext.masl.impl.targetImpl
+   * @see org.xtuml.bp.xtext.masl.impl.MaslPackageImpl#gettarget()
+   * @generated
+   */
+  int TARGET = 0;
+
+  /**
+   * The feature id for the '<em><b>Definition</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int TARGET__DEFINITION = 0;
+
+  /**
+   * The number of structural features of the '<em>target</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int TARGET_FEATURE_COUNT = 1;
+
+  /**
+   * The meta object id for the '{@link org.xtuml.bp.xtext.masl.impl.definitionImpl <em>definition</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.xtuml.bp.xtext.masl.impl.definitionImpl
+   * @see org.xtuml.bp.xtext.masl.impl.MaslPackageImpl#getdefinition()
+   * @generated
+   */
+  int DEFINITION = 1;
+
+  /**
+   * The number of structural features of the '<em>definition</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DEFINITION_FEATURE_COUNT = 0;
+
+  /**
    * The meta object id for the '{@link org.xtuml.bp.xtext.masl.impl.ProjectImpl <em>Project</em>}' class.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -65,7 +112,7 @@ public interface MaslPackage extends EPackage
    * @see org.xtuml.bp.xtext.masl.impl.MaslPackageImpl#getProject()
    * @generated
    */
-  int PROJECT = 0;
+  int PROJECT = 2;
 
   /**
    * The feature id for the '<em><b>Project Name</b></em>' containment reference.
@@ -74,7 +121,7 @@ public interface MaslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int PROJECT__PROJECT_NAME = 0;
+  int PROJECT__PROJECT_NAME = DEFINITION_FEATURE_COUNT + 0;
 
   /**
    * The feature id for the '<em><b>Project Item</b></em>' containment reference list.
@@ -83,7 +130,7 @@ public interface MaslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int PROJECT__PROJECT_ITEM = 1;
+  int PROJECT__PROJECT_ITEM = DEFINITION_FEATURE_COUNT + 1;
 
   /**
    * The feature id for the '<em><b>Pragma List</b></em>' containment reference.
@@ -92,7 +139,7 @@ public interface MaslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int PROJECT__PRAGMA_LIST = 2;
+  int PROJECT__PRAGMA_LIST = DEFINITION_FEATURE_COUNT + 2;
 
   /**
    * The number of structural features of the '<em>Project</em>' class.
@@ -101,7 +148,7 @@ public interface MaslPackage extends EPackage
    * @generated
    * @ordered
    */
-  int PROJECT_FEATURE_COUNT = 3;
+  int PROJECT_FEATURE_COUNT = DEFINITION_FEATURE_COUNT + 3;
 
   /**
    * The meta object id for the '{@link org.xtuml.bp.xtext.masl.impl.projectItemImpl <em>project Item</em>}' class.
@@ -111,7 +158,7 @@ public interface MaslPackage extends EPackage
    * @see org.xtuml.bp.xtext.masl.impl.MaslPackageImpl#getprojectItem()
    * @generated
    */
-  int PROJECT_ITEM = 1;
+  int PROJECT_ITEM = 3;
 
   /**
    * The number of structural features of the '<em>project Item</em>' class.
@@ -130,7 +177,7 @@ public interface MaslPackage extends EPackage
    * @see org.xtuml.bp.xtext.masl.impl.MaslPackageImpl#getDomain()
    * @generated
    */
-  int DOMAIN = 2;
+  int DOMAIN = 4;
 
   /**
    * The feature id for the '<em><b>Domain Name</b></em>' containment reference.
@@ -176,7 +223,7 @@ public interface MaslPackage extends EPackage
    * @see org.xtuml.bp.xtext.masl.impl.MaslPackageImpl#getdomainPrjItem()
    * @generated
    */
-  int DOMAIN_PRJ_ITEM = 3;
+  int DOMAIN_PRJ_ITEM = 5;
 
   /**
    * The number of structural features of the '<em>domain Prj Item</em>' class.
@@ -195,7 +242,7 @@ public interface MaslPackage extends EPackage
    * @see org.xtuml.bp.xtext.masl.impl.MaslPackageImpl#getProjectName()
    * @generated
    */
-  int PROJECT_NAME = 4;
+  int PROJECT_NAME = 6;
 
   /**
    * The feature id for the '<em><b>Identifier</b></em>' attribute.
@@ -223,7 +270,7 @@ public interface MaslPackage extends EPackage
    * @see org.xtuml.bp.xtext.masl.impl.MaslPackageImpl#getDomainName()
    * @generated
    */
-  int DOMAIN_NAME = 5;
+  int DOMAIN_NAME = 7;
 
   /**
    * The feature id for the '<em><b>Identifier</b></em>' attribute.
@@ -251,7 +298,7 @@ public interface MaslPackage extends EPackage
    * @see org.xtuml.bp.xtext.masl.impl.MaslPackageImpl#getTerminatorName()
    * @generated
    */
-  int TERMINATOR_NAME = 6;
+  int TERMINATOR_NAME = 8;
 
   /**
    * The feature id for the '<em><b>Identifier</b></em>' attribute.
@@ -279,7 +326,7 @@ public interface MaslPackage extends EPackage
    * @see org.xtuml.bp.xtext.masl.impl.MaslPackageImpl#getTerminatorDefinition()
    * @generated
    */
-  int TERMINATOR_DEFINITION = 7;
+  int TERMINATOR_DEFINITION = 9;
 
   /**
    * The feature id for the '<em><b>Terminator Name</b></em>' containment reference.
@@ -325,7 +372,7 @@ public interface MaslPackage extends EPackage
    * @see org.xtuml.bp.xtext.masl.impl.MaslPackageImpl#getterminatorItem()
    * @generated
    */
-  int TERMINATOR_ITEM = 8;
+  int TERMINATOR_ITEM = 10;
 
   /**
    * The feature id for the '<em><b>Service Visibility</b></em>' attribute.
@@ -380,7 +427,7 @@ public interface MaslPackage extends EPackage
    * @see org.xtuml.bp.xtext.masl.impl.MaslPackageImpl#getTerminatorServiceDeclaration()
    * @generated
    */
-  int TERMINATOR_SERVICE_DECLARATION = 9;
+  int TERMINATOR_SERVICE_DECLARATION = 11;
 
   /**
    * The feature id for the '<em><b>Service Visibility</b></em>' attribute.
@@ -435,7 +482,7 @@ public interface MaslPackage extends EPackage
    * @see org.xtuml.bp.xtext.masl.impl.MaslPackageImpl#getTerminatorFunctionDeclaration()
    * @generated
    */
-  int TERMINATOR_FUNCTION_DECLARATION = 10;
+  int TERMINATOR_FUNCTION_DECLARATION = 12;
 
   /**
    * The feature id for the '<em><b>Service Visibility</b></em>' attribute.
@@ -499,7 +546,7 @@ public interface MaslPackage extends EPackage
    * @see org.xtuml.bp.xtext.masl.impl.MaslPackageImpl#getparameterList()
    * @generated
    */
-  int PARAMETER_LIST = 11;
+  int PARAMETER_LIST = 13;
 
   /**
    * The feature id for the '<em><b>Parameter Definition</b></em>' containment reference list.
@@ -527,7 +574,7 @@ public interface MaslPackage extends EPackage
    * @see org.xtuml.bp.xtext.masl.impl.MaslPackageImpl#getParameterDefinition()
    * @generated
    */
-  int PARAMETER_DEFINITION = 12;
+  int PARAMETER_DEFINITION = 14;
 
   /**
    * The feature id for the '<em><b>Parameter Name</b></em>' containment reference.
@@ -573,7 +620,7 @@ public interface MaslPackage extends EPackage
    * @see org.xtuml.bp.xtext.masl.impl.MaslPackageImpl#getServiceName()
    * @generated
    */
-  int SERVICE_NAME = 13;
+  int SERVICE_NAME = 15;
 
   /**
    * The feature id for the '<em><b>Identifier</b></em>' attribute.
@@ -601,7 +648,7 @@ public interface MaslPackage extends EPackage
    * @see org.xtuml.bp.xtext.masl.impl.MaslPackageImpl#getParameterName()
    * @generated
    */
-  int PARAMETER_NAME = 14;
+  int PARAMETER_NAME = 16;
 
   /**
    * The feature id for the '<em><b>Identifier</b></em>' attribute.
@@ -629,7 +676,7 @@ public interface MaslPackage extends EPackage
    * @see org.xtuml.bp.xtext.masl.impl.MaslPackageImpl#getParameterType()
    * @generated
    */
-  int PARAMETER_TYPE = 15;
+  int PARAMETER_TYPE = 17;
 
   /**
    * The feature id for the '<em><b>Type Reference</b></em>' containment reference.
@@ -657,7 +704,7 @@ public interface MaslPackage extends EPackage
    * @see org.xtuml.bp.xtext.masl.impl.MaslPackageImpl#getReturnType()
    * @generated
    */
-  int RETURN_TYPE = 16;
+  int RETURN_TYPE = 18;
 
   /**
    * The feature id for the '<em><b>Type Reference</b></em>' containment reference.
@@ -685,7 +732,7 @@ public interface MaslPackage extends EPackage
    * @see org.xtuml.bp.xtext.masl.impl.MaslPackageImpl#gettypeReference()
    * @generated
    */
-  int TYPE_REFERENCE = 17;
+  int TYPE_REFERENCE = 19;
 
   /**
    * The number of structural features of the '<em>type Reference</em>' class.
@@ -704,7 +751,7 @@ public interface MaslPackage extends EPackage
    * @see org.xtuml.bp.xtext.masl.impl.MaslPackageImpl#getdeprecatedType()
    * @generated
    */
-  int DEPRECATED_TYPE = 18;
+  int DEPRECATED_TYPE = 20;
 
   /**
    * The feature id for the '<em><b>INSTANCE</b></em>' attribute.
@@ -750,7 +797,7 @@ public interface MaslPackage extends EPackage
    * @see org.xtuml.bp.xtext.masl.impl.MaslPackageImpl#getNamedType()
    * @generated
    */
-  int NAMED_TYPE = 19;
+  int NAMED_TYPE = 21;
 
   /**
    * The feature id for the '<em><b>Anonymous</b></em>' attribute.
@@ -796,7 +843,7 @@ public interface MaslPackage extends EPackage
    * @see org.xtuml.bp.xtext.masl.impl.MaslPackageImpl#getTypeName()
    * @generated
    */
-  int TYPE_NAME = 20;
+  int TYPE_NAME = 22;
 
   /**
    * The feature id for the '<em><b>Identifier</b></em>' attribute.
@@ -824,7 +871,7 @@ public interface MaslPackage extends EPackage
    * @see org.xtuml.bp.xtext.masl.impl.MaslPackageImpl#getPragmaList()
    * @generated
    */
-  int PRAGMA_LIST = 21;
+  int PRAGMA_LIST = 23;
 
   /**
    * The feature id for the '<em><b>Pragma</b></em>' containment reference list.
@@ -852,7 +899,7 @@ public interface MaslPackage extends EPackage
    * @see org.xtuml.bp.xtext.masl.impl.MaslPackageImpl#getPragma()
    * @generated
    */
-  int PRAGMA = 22;
+  int PRAGMA = 24;
 
   /**
    * The feature id for the '<em><b>Pragma Name</b></em>' containment reference.
@@ -889,7 +936,7 @@ public interface MaslPackage extends EPackage
    * @see org.xtuml.bp.xtext.masl.impl.MaslPackageImpl#getPragmaName()
    * @generated
    */
-  int PRAGMA_NAME = 23;
+  int PRAGMA_NAME = 25;
 
   /**
    * The feature id for the '<em><b>Identifier</b></em>' attribute.
@@ -909,6 +956,523 @@ public interface MaslPackage extends EPackage
    */
   int PRAGMA_NAME_FEATURE_COUNT = 1;
 
+  /**
+   * The meta object id for the '{@link org.xtuml.bp.xtext.masl.impl.ObjectNameImpl <em>Object Name</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.xtuml.bp.xtext.masl.impl.ObjectNameImpl
+   * @see org.xtuml.bp.xtext.masl.impl.MaslPackageImpl#getObjectName()
+   * @generated
+   */
+  int OBJECT_NAME = 26;
+
+  /**
+   * The feature id for the '<em><b>Identifier</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int OBJECT_NAME__IDENTIFIER = 0;
+
+  /**
+   * The number of structural features of the '<em>Object Name</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int OBJECT_NAME_FEATURE_COUNT = 1;
+
+  /**
+   * The meta object id for the '{@link org.xtuml.bp.xtext.masl.impl.serviceTypeImpl <em>service Type</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.xtuml.bp.xtext.masl.impl.serviceTypeImpl
+   * @see org.xtuml.bp.xtext.masl.impl.MaslPackageImpl#getserviceType()
+   * @generated
+   */
+  int SERVICE_TYPE = 27;
+
+  /**
+   * The feature id for the '<em><b>INSTANCE</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int SERVICE_TYPE__INSTANCE = 0;
+
+  /**
+   * The feature id for the '<em><b>Relationship Name</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int SERVICE_TYPE__RELATIONSHIP_NAME = 1;
+
+  /**
+   * The number of structural features of the '<em>service Type</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int SERVICE_TYPE_FEATURE_COUNT = 2;
+
+  /**
+   * The meta object id for the '{@link org.xtuml.bp.xtext.masl.impl.RelationshipNameImpl <em>Relationship Name</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.xtuml.bp.xtext.masl.impl.RelationshipNameImpl
+   * @see org.xtuml.bp.xtext.masl.impl.MaslPackageImpl#getRelationshipName()
+   * @generated
+   */
+  int RELATIONSHIP_NAME = 28;
+
+  /**
+   * The feature id for the '<em><b>Relationship Name</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int RELATIONSHIP_NAME__RELATIONSHIP_NAME = 0;
+
+  /**
+   * The number of structural features of the '<em>Relationship Name</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int RELATIONSHIP_NAME_FEATURE_COUNT = 1;
+
+  /**
+   * The meta object id for the '{@link org.xtuml.bp.xtext.masl.impl.DomainServiceDefinitionImpl <em>Domain Service Definition</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.xtuml.bp.xtext.masl.impl.DomainServiceDefinitionImpl
+   * @see org.xtuml.bp.xtext.masl.impl.MaslPackageImpl#getDomainServiceDefinition()
+   * @generated
+   */
+  int DOMAIN_SERVICE_DEFINITION = 29;
+
+  /**
+   * The feature id for the '<em><b>Service Visibility</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DOMAIN_SERVICE_DEFINITION__SERVICE_VISIBILITY = DEFINITION_FEATURE_COUNT + 0;
+
+  /**
+   * The feature id for the '<em><b>Domain Name</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DOMAIN_SERVICE_DEFINITION__DOMAIN_NAME = DEFINITION_FEATURE_COUNT + 1;
+
+  /**
+   * The feature id for the '<em><b>Service Name</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DOMAIN_SERVICE_DEFINITION__SERVICE_NAME = DEFINITION_FEATURE_COUNT + 2;
+
+  /**
+   * The feature id for the '<em><b>Parameter List</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DOMAIN_SERVICE_DEFINITION__PARAMETER_LIST = DEFINITION_FEATURE_COUNT + 3;
+
+  /**
+   * The feature id for the '<em><b>Code Block</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DOMAIN_SERVICE_DEFINITION__CODE_BLOCK = DEFINITION_FEATURE_COUNT + 4;
+
+  /**
+   * The feature id for the '<em><b>Pargma List</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DOMAIN_SERVICE_DEFINITION__PARGMA_LIST = DEFINITION_FEATURE_COUNT + 5;
+
+  /**
+   * The feature id for the '<em><b>Return Type</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DOMAIN_SERVICE_DEFINITION__RETURN_TYPE = DEFINITION_FEATURE_COUNT + 6;
+
+  /**
+   * The number of structural features of the '<em>Domain Service Definition</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int DOMAIN_SERVICE_DEFINITION_FEATURE_COUNT = DEFINITION_FEATURE_COUNT + 7;
+
+  /**
+   * The meta object id for the '{@link org.xtuml.bp.xtext.masl.impl.ObjectServiceDefinitionImpl <em>Object Service Definition</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.xtuml.bp.xtext.masl.impl.ObjectServiceDefinitionImpl
+   * @see org.xtuml.bp.xtext.masl.impl.MaslPackageImpl#getObjectServiceDefinition()
+   * @generated
+   */
+  int OBJECT_SERVICE_DEFINITION = 30;
+
+  /**
+   * The feature id for the '<em><b>Service Visibility</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int OBJECT_SERVICE_DEFINITION__SERVICE_VISIBILITY = DEFINITION_FEATURE_COUNT + 0;
+
+  /**
+   * The feature id for the '<em><b>INSTANCE</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int OBJECT_SERVICE_DEFINITION__INSTANCE = DEFINITION_FEATURE_COUNT + 1;
+
+  /**
+   * The feature id for the '<em><b>Domain Name</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int OBJECT_SERVICE_DEFINITION__DOMAIN_NAME = DEFINITION_FEATURE_COUNT + 2;
+
+  /**
+   * The feature id for the '<em><b>Object Name</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int OBJECT_SERVICE_DEFINITION__OBJECT_NAME = DEFINITION_FEATURE_COUNT + 3;
+
+  /**
+   * The feature id for the '<em><b>Service Name</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int OBJECT_SERVICE_DEFINITION__SERVICE_NAME = DEFINITION_FEATURE_COUNT + 4;
+
+  /**
+   * The feature id for the '<em><b>Parameter List</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int OBJECT_SERVICE_DEFINITION__PARAMETER_LIST = DEFINITION_FEATURE_COUNT + 5;
+
+  /**
+   * The feature id for the '<em><b>Code Block</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int OBJECT_SERVICE_DEFINITION__CODE_BLOCK = DEFINITION_FEATURE_COUNT + 6;
+
+  /**
+   * The feature id for the '<em><b>Pragma List</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int OBJECT_SERVICE_DEFINITION__PRAGMA_LIST = DEFINITION_FEATURE_COUNT + 7;
+
+  /**
+   * The feature id for the '<em><b>Service Type</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int OBJECT_SERVICE_DEFINITION__SERVICE_TYPE = DEFINITION_FEATURE_COUNT + 8;
+
+  /**
+   * The feature id for the '<em><b>Return Type</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int OBJECT_SERVICE_DEFINITION__RETURN_TYPE = DEFINITION_FEATURE_COUNT + 9;
+
+  /**
+   * The number of structural features of the '<em>Object Service Definition</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int OBJECT_SERVICE_DEFINITION_FEATURE_COUNT = DEFINITION_FEATURE_COUNT + 10;
+
+  /**
+   * The meta object id for the '{@link org.xtuml.bp.xtext.masl.impl.TerminatorServiceDefinitionImpl <em>Terminator Service Definition</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.xtuml.bp.xtext.masl.impl.TerminatorServiceDefinitionImpl
+   * @see org.xtuml.bp.xtext.masl.impl.MaslPackageImpl#getTerminatorServiceDefinition()
+   * @generated
+   */
+  int TERMINATOR_SERVICE_DEFINITION = 31;
+
+  /**
+   * The feature id for the '<em><b>Service Visibility</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int TERMINATOR_SERVICE_DEFINITION__SERVICE_VISIBILITY = DEFINITION_FEATURE_COUNT + 0;
+
+  /**
+   * The feature id for the '<em><b>Domain Name</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int TERMINATOR_SERVICE_DEFINITION__DOMAIN_NAME = DEFINITION_FEATURE_COUNT + 1;
+
+  /**
+   * The feature id for the '<em><b>Terminator Name</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int TERMINATOR_SERVICE_DEFINITION__TERMINATOR_NAME = DEFINITION_FEATURE_COUNT + 2;
+
+  /**
+   * The feature id for the '<em><b>Service Name</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int TERMINATOR_SERVICE_DEFINITION__SERVICE_NAME = DEFINITION_FEATURE_COUNT + 3;
+
+  /**
+   * The feature id for the '<em><b>Parameter List</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int TERMINATOR_SERVICE_DEFINITION__PARAMETER_LIST = DEFINITION_FEATURE_COUNT + 4;
+
+  /**
+   * The feature id for the '<em><b>Code Block</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int TERMINATOR_SERVICE_DEFINITION__CODE_BLOCK = DEFINITION_FEATURE_COUNT + 5;
+
+  /**
+   * The feature id for the '<em><b>Pragma List</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int TERMINATOR_SERVICE_DEFINITION__PRAGMA_LIST = DEFINITION_FEATURE_COUNT + 6;
+
+  /**
+   * The feature id for the '<em><b>Return Type</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int TERMINATOR_SERVICE_DEFINITION__RETURN_TYPE = DEFINITION_FEATURE_COUNT + 7;
+
+  /**
+   * The number of structural features of the '<em>Terminator Service Definition</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int TERMINATOR_SERVICE_DEFINITION_FEATURE_COUNT = DEFINITION_FEATURE_COUNT + 8;
+
+  /**
+   * The meta object id for the '{@link org.xtuml.bp.xtext.masl.impl.CodeBlockImpl <em>Code Block</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.xtuml.bp.xtext.masl.impl.CodeBlockImpl
+   * @see org.xtuml.bp.xtext.masl.impl.MaslPackageImpl#getCodeBlock()
+   * @generated
+   */
+  int CODE_BLOCK = 32;
+
+  /**
+   * The feature id for the '<em><b>Variable Declaration</b></em>' containment reference list.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int CODE_BLOCK__VARIABLE_DECLARATION = 0;
+
+  /**
+   * The number of structural features of the '<em>Code Block</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int CODE_BLOCK_FEATURE_COUNT = 1;
+
+  /**
+   * The meta object id for the '{@link org.xtuml.bp.xtext.masl.impl.VariableDeclarationImpl <em>Variable Declaration</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.xtuml.bp.xtext.masl.impl.VariableDeclarationImpl
+   * @see org.xtuml.bp.xtext.masl.impl.MaslPackageImpl#getVariableDeclaration()
+   * @generated
+   */
+  int VARIABLE_DECLARATION = 33;
+
+  /**
+   * The feature id for the '<em><b>Variable Name</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int VARIABLE_DECLARATION__VARIABLE_NAME = 0;
+
+  /**
+   * The feature id for the '<em><b>READONLY</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int VARIABLE_DECLARATION__READONLY = 1;
+
+  /**
+   * The feature id for the '<em><b>Type Reference With CA</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int VARIABLE_DECLARATION__TYPE_REFERENCE_WITH_CA = 2;
+
+  /**
+   * The feature id for the '<em><b>Pragma List</b></em>' containment reference.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int VARIABLE_DECLARATION__PRAGMA_LIST = 3;
+
+  /**
+   * The number of structural features of the '<em>Variable Declaration</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int VARIABLE_DECLARATION_FEATURE_COUNT = 4;
+
+  /**
+   * The meta object id for the '{@link org.xtuml.bp.xtext.masl.impl.VariableNameImpl <em>Variable Name</em>}' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @see org.xtuml.bp.xtext.masl.impl.VariableNameImpl
+   * @see org.xtuml.bp.xtext.masl.impl.MaslPackageImpl#getVariableName()
+   * @generated
+   */
+  int VARIABLE_NAME = 34;
+
+  /**
+   * The feature id for the '<em><b>Identifier</b></em>' attribute.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int VARIABLE_NAME__IDENTIFIER = 0;
+
+  /**
+   * The number of structural features of the '<em>Variable Name</em>' class.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   * @ordered
+   */
+  int VARIABLE_NAME_FEATURE_COUNT = 1;
+
+
+  /**
+   * Returns the meta object for class '{@link org.xtuml.bp.xtext.masl.target <em>target</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>target</em>'.
+   * @see org.xtuml.bp.xtext.masl.target
+   * @generated
+   */
+  EClass gettarget();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link org.xtuml.bp.xtext.masl.target#getDefinition <em>Definition</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Definition</em>'.
+   * @see org.xtuml.bp.xtext.masl.target#getDefinition()
+   * @see #gettarget()
+   * @generated
+   */
+  EReference gettarget_Definition();
+
+  /**
+   * Returns the meta object for class '{@link org.xtuml.bp.xtext.masl.definition <em>definition</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>definition</em>'.
+   * @see org.xtuml.bp.xtext.masl.definition
+   * @generated
+   */
+  EClass getdefinition();
 
   /**
    * Returns the meta object for class '{@link org.xtuml.bp.xtext.masl.Project <em>Project</em>}'.
@@ -1547,6 +2111,481 @@ public interface MaslPackage extends EPackage
   EAttribute getPragmaName_Identifier();
 
   /**
+   * Returns the meta object for class '{@link org.xtuml.bp.xtext.masl.ObjectName <em>Object Name</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Object Name</em>'.
+   * @see org.xtuml.bp.xtext.masl.ObjectName
+   * @generated
+   */
+  EClass getObjectName();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.xtuml.bp.xtext.masl.ObjectName#getIdentifier <em>Identifier</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Identifier</em>'.
+   * @see org.xtuml.bp.xtext.masl.ObjectName#getIdentifier()
+   * @see #getObjectName()
+   * @generated
+   */
+  EAttribute getObjectName_Identifier();
+
+  /**
+   * Returns the meta object for class '{@link org.xtuml.bp.xtext.masl.serviceType <em>service Type</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>service Type</em>'.
+   * @see org.xtuml.bp.xtext.masl.serviceType
+   * @generated
+   */
+  EClass getserviceType();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.xtuml.bp.xtext.masl.serviceType#getINSTANCE <em>INSTANCE</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>INSTANCE</em>'.
+   * @see org.xtuml.bp.xtext.masl.serviceType#getINSTANCE()
+   * @see #getserviceType()
+   * @generated
+   */
+  EAttribute getserviceType_INSTANCE();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.xtuml.bp.xtext.masl.serviceType#getRelationshipName <em>Relationship Name</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Relationship Name</em>'.
+   * @see org.xtuml.bp.xtext.masl.serviceType#getRelationshipName()
+   * @see #getserviceType()
+   * @generated
+   */
+  EReference getserviceType_RelationshipName();
+
+  /**
+   * Returns the meta object for class '{@link org.xtuml.bp.xtext.masl.RelationshipName <em>Relationship Name</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Relationship Name</em>'.
+   * @see org.xtuml.bp.xtext.masl.RelationshipName
+   * @generated
+   */
+  EClass getRelationshipName();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.xtuml.bp.xtext.masl.RelationshipName#getRelationshipName <em>Relationship Name</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Relationship Name</em>'.
+   * @see org.xtuml.bp.xtext.masl.RelationshipName#getRelationshipName()
+   * @see #getRelationshipName()
+   * @generated
+   */
+  EAttribute getRelationshipName_RelationshipName();
+
+  /**
+   * Returns the meta object for class '{@link org.xtuml.bp.xtext.masl.DomainServiceDefinition <em>Domain Service Definition</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Domain Service Definition</em>'.
+   * @see org.xtuml.bp.xtext.masl.DomainServiceDefinition
+   * @generated
+   */
+  EClass getDomainServiceDefinition();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.xtuml.bp.xtext.masl.DomainServiceDefinition#getServiceVisibility <em>Service Visibility</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Service Visibility</em>'.
+   * @see org.xtuml.bp.xtext.masl.DomainServiceDefinition#getServiceVisibility()
+   * @see #getDomainServiceDefinition()
+   * @generated
+   */
+  EAttribute getDomainServiceDefinition_ServiceVisibility();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.xtuml.bp.xtext.masl.DomainServiceDefinition#getDomainName <em>Domain Name</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Domain Name</em>'.
+   * @see org.xtuml.bp.xtext.masl.DomainServiceDefinition#getDomainName()
+   * @see #getDomainServiceDefinition()
+   * @generated
+   */
+  EReference getDomainServiceDefinition_DomainName();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.xtuml.bp.xtext.masl.DomainServiceDefinition#getServiceName <em>Service Name</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Service Name</em>'.
+   * @see org.xtuml.bp.xtext.masl.DomainServiceDefinition#getServiceName()
+   * @see #getDomainServiceDefinition()
+   * @generated
+   */
+  EReference getDomainServiceDefinition_ServiceName();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.xtuml.bp.xtext.masl.DomainServiceDefinition#getParameterList <em>Parameter List</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Parameter List</em>'.
+   * @see org.xtuml.bp.xtext.masl.DomainServiceDefinition#getParameterList()
+   * @see #getDomainServiceDefinition()
+   * @generated
+   */
+  EReference getDomainServiceDefinition_ParameterList();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.xtuml.bp.xtext.masl.DomainServiceDefinition#getCodeBlock <em>Code Block</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Code Block</em>'.
+   * @see org.xtuml.bp.xtext.masl.DomainServiceDefinition#getCodeBlock()
+   * @see #getDomainServiceDefinition()
+   * @generated
+   */
+  EReference getDomainServiceDefinition_CodeBlock();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.xtuml.bp.xtext.masl.DomainServiceDefinition#getPargmaList <em>Pargma List</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Pargma List</em>'.
+   * @see org.xtuml.bp.xtext.masl.DomainServiceDefinition#getPargmaList()
+   * @see #getDomainServiceDefinition()
+   * @generated
+   */
+  EReference getDomainServiceDefinition_PargmaList();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.xtuml.bp.xtext.masl.DomainServiceDefinition#getReturnType <em>Return Type</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Return Type</em>'.
+   * @see org.xtuml.bp.xtext.masl.DomainServiceDefinition#getReturnType()
+   * @see #getDomainServiceDefinition()
+   * @generated
+   */
+  EReference getDomainServiceDefinition_ReturnType();
+
+  /**
+   * Returns the meta object for class '{@link org.xtuml.bp.xtext.masl.ObjectServiceDefinition <em>Object Service Definition</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Object Service Definition</em>'.
+   * @see org.xtuml.bp.xtext.masl.ObjectServiceDefinition
+   * @generated
+   */
+  EClass getObjectServiceDefinition();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.xtuml.bp.xtext.masl.ObjectServiceDefinition#getServiceVisibility <em>Service Visibility</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Service Visibility</em>'.
+   * @see org.xtuml.bp.xtext.masl.ObjectServiceDefinition#getServiceVisibility()
+   * @see #getObjectServiceDefinition()
+   * @generated
+   */
+  EAttribute getObjectServiceDefinition_ServiceVisibility();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.xtuml.bp.xtext.masl.ObjectServiceDefinition#getINSTANCE <em>INSTANCE</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>INSTANCE</em>'.
+   * @see org.xtuml.bp.xtext.masl.ObjectServiceDefinition#getINSTANCE()
+   * @see #getObjectServiceDefinition()
+   * @generated
+   */
+  EAttribute getObjectServiceDefinition_INSTANCE();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.xtuml.bp.xtext.masl.ObjectServiceDefinition#getDomainName <em>Domain Name</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Domain Name</em>'.
+   * @see org.xtuml.bp.xtext.masl.ObjectServiceDefinition#getDomainName()
+   * @see #getObjectServiceDefinition()
+   * @generated
+   */
+  EReference getObjectServiceDefinition_DomainName();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.xtuml.bp.xtext.masl.ObjectServiceDefinition#getObjectName <em>Object Name</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Object Name</em>'.
+   * @see org.xtuml.bp.xtext.masl.ObjectServiceDefinition#getObjectName()
+   * @see #getObjectServiceDefinition()
+   * @generated
+   */
+  EReference getObjectServiceDefinition_ObjectName();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.xtuml.bp.xtext.masl.ObjectServiceDefinition#getServiceName <em>Service Name</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Service Name</em>'.
+   * @see org.xtuml.bp.xtext.masl.ObjectServiceDefinition#getServiceName()
+   * @see #getObjectServiceDefinition()
+   * @generated
+   */
+  EReference getObjectServiceDefinition_ServiceName();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.xtuml.bp.xtext.masl.ObjectServiceDefinition#getParameterList <em>Parameter List</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Parameter List</em>'.
+   * @see org.xtuml.bp.xtext.masl.ObjectServiceDefinition#getParameterList()
+   * @see #getObjectServiceDefinition()
+   * @generated
+   */
+  EReference getObjectServiceDefinition_ParameterList();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.xtuml.bp.xtext.masl.ObjectServiceDefinition#getCodeBlock <em>Code Block</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Code Block</em>'.
+   * @see org.xtuml.bp.xtext.masl.ObjectServiceDefinition#getCodeBlock()
+   * @see #getObjectServiceDefinition()
+   * @generated
+   */
+  EReference getObjectServiceDefinition_CodeBlock();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.xtuml.bp.xtext.masl.ObjectServiceDefinition#getPragmaList <em>Pragma List</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Pragma List</em>'.
+   * @see org.xtuml.bp.xtext.masl.ObjectServiceDefinition#getPragmaList()
+   * @see #getObjectServiceDefinition()
+   * @generated
+   */
+  EReference getObjectServiceDefinition_PragmaList();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.xtuml.bp.xtext.masl.ObjectServiceDefinition#getServiceType <em>Service Type</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Service Type</em>'.
+   * @see org.xtuml.bp.xtext.masl.ObjectServiceDefinition#getServiceType()
+   * @see #getObjectServiceDefinition()
+   * @generated
+   */
+  EReference getObjectServiceDefinition_ServiceType();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.xtuml.bp.xtext.masl.ObjectServiceDefinition#getReturnType <em>Return Type</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Return Type</em>'.
+   * @see org.xtuml.bp.xtext.masl.ObjectServiceDefinition#getReturnType()
+   * @see #getObjectServiceDefinition()
+   * @generated
+   */
+  EReference getObjectServiceDefinition_ReturnType();
+
+  /**
+   * Returns the meta object for class '{@link org.xtuml.bp.xtext.masl.TerminatorServiceDefinition <em>Terminator Service Definition</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Terminator Service Definition</em>'.
+   * @see org.xtuml.bp.xtext.masl.TerminatorServiceDefinition
+   * @generated
+   */
+  EClass getTerminatorServiceDefinition();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.xtuml.bp.xtext.masl.TerminatorServiceDefinition#getServiceVisibility <em>Service Visibility</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Service Visibility</em>'.
+   * @see org.xtuml.bp.xtext.masl.TerminatorServiceDefinition#getServiceVisibility()
+   * @see #getTerminatorServiceDefinition()
+   * @generated
+   */
+  EAttribute getTerminatorServiceDefinition_ServiceVisibility();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.xtuml.bp.xtext.masl.TerminatorServiceDefinition#getDomainName <em>Domain Name</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Domain Name</em>'.
+   * @see org.xtuml.bp.xtext.masl.TerminatorServiceDefinition#getDomainName()
+   * @see #getTerminatorServiceDefinition()
+   * @generated
+   */
+  EReference getTerminatorServiceDefinition_DomainName();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.xtuml.bp.xtext.masl.TerminatorServiceDefinition#getTerminatorName <em>Terminator Name</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Terminator Name</em>'.
+   * @see org.xtuml.bp.xtext.masl.TerminatorServiceDefinition#getTerminatorName()
+   * @see #getTerminatorServiceDefinition()
+   * @generated
+   */
+  EReference getTerminatorServiceDefinition_TerminatorName();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.xtuml.bp.xtext.masl.TerminatorServiceDefinition#getServiceName <em>Service Name</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Service Name</em>'.
+   * @see org.xtuml.bp.xtext.masl.TerminatorServiceDefinition#getServiceName()
+   * @see #getTerminatorServiceDefinition()
+   * @generated
+   */
+  EReference getTerminatorServiceDefinition_ServiceName();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.xtuml.bp.xtext.masl.TerminatorServiceDefinition#getParameterList <em>Parameter List</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Parameter List</em>'.
+   * @see org.xtuml.bp.xtext.masl.TerminatorServiceDefinition#getParameterList()
+   * @see #getTerminatorServiceDefinition()
+   * @generated
+   */
+  EReference getTerminatorServiceDefinition_ParameterList();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.xtuml.bp.xtext.masl.TerminatorServiceDefinition#getCodeBlock <em>Code Block</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Code Block</em>'.
+   * @see org.xtuml.bp.xtext.masl.TerminatorServiceDefinition#getCodeBlock()
+   * @see #getTerminatorServiceDefinition()
+   * @generated
+   */
+  EReference getTerminatorServiceDefinition_CodeBlock();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.xtuml.bp.xtext.masl.TerminatorServiceDefinition#getPragmaList <em>Pragma List</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Pragma List</em>'.
+   * @see org.xtuml.bp.xtext.masl.TerminatorServiceDefinition#getPragmaList()
+   * @see #getTerminatorServiceDefinition()
+   * @generated
+   */
+  EReference getTerminatorServiceDefinition_PragmaList();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.xtuml.bp.xtext.masl.TerminatorServiceDefinition#getReturnType <em>Return Type</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Return Type</em>'.
+   * @see org.xtuml.bp.xtext.masl.TerminatorServiceDefinition#getReturnType()
+   * @see #getTerminatorServiceDefinition()
+   * @generated
+   */
+  EReference getTerminatorServiceDefinition_ReturnType();
+
+  /**
+   * Returns the meta object for class '{@link org.xtuml.bp.xtext.masl.CodeBlock <em>Code Block</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Code Block</em>'.
+   * @see org.xtuml.bp.xtext.masl.CodeBlock
+   * @generated
+   */
+  EClass getCodeBlock();
+
+  /**
+   * Returns the meta object for the containment reference list '{@link org.xtuml.bp.xtext.masl.CodeBlock#getVariableDeclaration <em>Variable Declaration</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference list '<em>Variable Declaration</em>'.
+   * @see org.xtuml.bp.xtext.masl.CodeBlock#getVariableDeclaration()
+   * @see #getCodeBlock()
+   * @generated
+   */
+  EReference getCodeBlock_VariableDeclaration();
+
+  /**
+   * Returns the meta object for class '{@link org.xtuml.bp.xtext.masl.VariableDeclaration <em>Variable Declaration</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Variable Declaration</em>'.
+   * @see org.xtuml.bp.xtext.masl.VariableDeclaration
+   * @generated
+   */
+  EClass getVariableDeclaration();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.xtuml.bp.xtext.masl.VariableDeclaration#getVariableName <em>Variable Name</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Variable Name</em>'.
+   * @see org.xtuml.bp.xtext.masl.VariableDeclaration#getVariableName()
+   * @see #getVariableDeclaration()
+   * @generated
+   */
+  EReference getVariableDeclaration_VariableName();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.xtuml.bp.xtext.masl.VariableDeclaration#getREADONLY <em>READONLY</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>READONLY</em>'.
+   * @see org.xtuml.bp.xtext.masl.VariableDeclaration#getREADONLY()
+   * @see #getVariableDeclaration()
+   * @generated
+   */
+  EAttribute getVariableDeclaration_READONLY();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.xtuml.bp.xtext.masl.VariableDeclaration#getTypeReferenceWithCA <em>Type Reference With CA</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Type Reference With CA</em>'.
+   * @see org.xtuml.bp.xtext.masl.VariableDeclaration#getTypeReferenceWithCA()
+   * @see #getVariableDeclaration()
+   * @generated
+   */
+  EReference getVariableDeclaration_TypeReferenceWithCA();
+
+  /**
+   * Returns the meta object for the containment reference '{@link org.xtuml.bp.xtext.masl.VariableDeclaration#getPragmaList <em>Pragma List</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the containment reference '<em>Pragma List</em>'.
+   * @see org.xtuml.bp.xtext.masl.VariableDeclaration#getPragmaList()
+   * @see #getVariableDeclaration()
+   * @generated
+   */
+  EReference getVariableDeclaration_PragmaList();
+
+  /**
+   * Returns the meta object for class '{@link org.xtuml.bp.xtext.masl.VariableName <em>Variable Name</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for class '<em>Variable Name</em>'.
+   * @see org.xtuml.bp.xtext.masl.VariableName
+   * @generated
+   */
+  EClass getVariableName();
+
+  /**
+   * Returns the meta object for the attribute '{@link org.xtuml.bp.xtext.masl.VariableName#getIdentifier <em>Identifier</em>}'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return the meta object for the attribute '<em>Identifier</em>'.
+   * @see org.xtuml.bp.xtext.masl.VariableName#getIdentifier()
+   * @see #getVariableName()
+   * @generated
+   */
+  EAttribute getVariableName_Identifier();
+
+  /**
    * Returns the factory that creates the instances of the model.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -1569,6 +2608,34 @@ public interface MaslPackage extends EPackage
    */
   interface Literals
   {
+    /**
+     * The meta object literal for the '{@link org.xtuml.bp.xtext.masl.impl.targetImpl <em>target</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.xtuml.bp.xtext.masl.impl.targetImpl
+     * @see org.xtuml.bp.xtext.masl.impl.MaslPackageImpl#gettarget()
+     * @generated
+     */
+    EClass TARGET = eINSTANCE.gettarget();
+
+    /**
+     * The meta object literal for the '<em><b>Definition</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference TARGET__DEFINITION = eINSTANCE.gettarget_Definition();
+
+    /**
+     * The meta object literal for the '{@link org.xtuml.bp.xtext.masl.impl.definitionImpl <em>definition</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.xtuml.bp.xtext.masl.impl.definitionImpl
+     * @see org.xtuml.bp.xtext.masl.impl.MaslPackageImpl#getdefinition()
+     * @generated
+     */
+    EClass DEFINITION = eINSTANCE.getdefinition();
+
     /**
      * The meta object literal for the '{@link org.xtuml.bp.xtext.masl.impl.ProjectImpl <em>Project</em>}' class.
      * <!-- begin-user-doc -->
@@ -2096,6 +3163,376 @@ public interface MaslPackage extends EPackage
      * @generated
      */
     EAttribute PRAGMA_NAME__IDENTIFIER = eINSTANCE.getPragmaName_Identifier();
+
+    /**
+     * The meta object literal for the '{@link org.xtuml.bp.xtext.masl.impl.ObjectNameImpl <em>Object Name</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.xtuml.bp.xtext.masl.impl.ObjectNameImpl
+     * @see org.xtuml.bp.xtext.masl.impl.MaslPackageImpl#getObjectName()
+     * @generated
+     */
+    EClass OBJECT_NAME = eINSTANCE.getObjectName();
+
+    /**
+     * The meta object literal for the '<em><b>Identifier</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute OBJECT_NAME__IDENTIFIER = eINSTANCE.getObjectName_Identifier();
+
+    /**
+     * The meta object literal for the '{@link org.xtuml.bp.xtext.masl.impl.serviceTypeImpl <em>service Type</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.xtuml.bp.xtext.masl.impl.serviceTypeImpl
+     * @see org.xtuml.bp.xtext.masl.impl.MaslPackageImpl#getserviceType()
+     * @generated
+     */
+    EClass SERVICE_TYPE = eINSTANCE.getserviceType();
+
+    /**
+     * The meta object literal for the '<em><b>INSTANCE</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute SERVICE_TYPE__INSTANCE = eINSTANCE.getserviceType_INSTANCE();
+
+    /**
+     * The meta object literal for the '<em><b>Relationship Name</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference SERVICE_TYPE__RELATIONSHIP_NAME = eINSTANCE.getserviceType_RelationshipName();
+
+    /**
+     * The meta object literal for the '{@link org.xtuml.bp.xtext.masl.impl.RelationshipNameImpl <em>Relationship Name</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.xtuml.bp.xtext.masl.impl.RelationshipNameImpl
+     * @see org.xtuml.bp.xtext.masl.impl.MaslPackageImpl#getRelationshipName()
+     * @generated
+     */
+    EClass RELATIONSHIP_NAME = eINSTANCE.getRelationshipName();
+
+    /**
+     * The meta object literal for the '<em><b>Relationship Name</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute RELATIONSHIP_NAME__RELATIONSHIP_NAME = eINSTANCE.getRelationshipName_RelationshipName();
+
+    /**
+     * The meta object literal for the '{@link org.xtuml.bp.xtext.masl.impl.DomainServiceDefinitionImpl <em>Domain Service Definition</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.xtuml.bp.xtext.masl.impl.DomainServiceDefinitionImpl
+     * @see org.xtuml.bp.xtext.masl.impl.MaslPackageImpl#getDomainServiceDefinition()
+     * @generated
+     */
+    EClass DOMAIN_SERVICE_DEFINITION = eINSTANCE.getDomainServiceDefinition();
+
+    /**
+     * The meta object literal for the '<em><b>Service Visibility</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute DOMAIN_SERVICE_DEFINITION__SERVICE_VISIBILITY = eINSTANCE.getDomainServiceDefinition_ServiceVisibility();
+
+    /**
+     * The meta object literal for the '<em><b>Domain Name</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference DOMAIN_SERVICE_DEFINITION__DOMAIN_NAME = eINSTANCE.getDomainServiceDefinition_DomainName();
+
+    /**
+     * The meta object literal for the '<em><b>Service Name</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference DOMAIN_SERVICE_DEFINITION__SERVICE_NAME = eINSTANCE.getDomainServiceDefinition_ServiceName();
+
+    /**
+     * The meta object literal for the '<em><b>Parameter List</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference DOMAIN_SERVICE_DEFINITION__PARAMETER_LIST = eINSTANCE.getDomainServiceDefinition_ParameterList();
+
+    /**
+     * The meta object literal for the '<em><b>Code Block</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference DOMAIN_SERVICE_DEFINITION__CODE_BLOCK = eINSTANCE.getDomainServiceDefinition_CodeBlock();
+
+    /**
+     * The meta object literal for the '<em><b>Pargma List</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference DOMAIN_SERVICE_DEFINITION__PARGMA_LIST = eINSTANCE.getDomainServiceDefinition_PargmaList();
+
+    /**
+     * The meta object literal for the '<em><b>Return Type</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference DOMAIN_SERVICE_DEFINITION__RETURN_TYPE = eINSTANCE.getDomainServiceDefinition_ReturnType();
+
+    /**
+     * The meta object literal for the '{@link org.xtuml.bp.xtext.masl.impl.ObjectServiceDefinitionImpl <em>Object Service Definition</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.xtuml.bp.xtext.masl.impl.ObjectServiceDefinitionImpl
+     * @see org.xtuml.bp.xtext.masl.impl.MaslPackageImpl#getObjectServiceDefinition()
+     * @generated
+     */
+    EClass OBJECT_SERVICE_DEFINITION = eINSTANCE.getObjectServiceDefinition();
+
+    /**
+     * The meta object literal for the '<em><b>Service Visibility</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute OBJECT_SERVICE_DEFINITION__SERVICE_VISIBILITY = eINSTANCE.getObjectServiceDefinition_ServiceVisibility();
+
+    /**
+     * The meta object literal for the '<em><b>INSTANCE</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute OBJECT_SERVICE_DEFINITION__INSTANCE = eINSTANCE.getObjectServiceDefinition_INSTANCE();
+
+    /**
+     * The meta object literal for the '<em><b>Domain Name</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference OBJECT_SERVICE_DEFINITION__DOMAIN_NAME = eINSTANCE.getObjectServiceDefinition_DomainName();
+
+    /**
+     * The meta object literal for the '<em><b>Object Name</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference OBJECT_SERVICE_DEFINITION__OBJECT_NAME = eINSTANCE.getObjectServiceDefinition_ObjectName();
+
+    /**
+     * The meta object literal for the '<em><b>Service Name</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference OBJECT_SERVICE_DEFINITION__SERVICE_NAME = eINSTANCE.getObjectServiceDefinition_ServiceName();
+
+    /**
+     * The meta object literal for the '<em><b>Parameter List</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference OBJECT_SERVICE_DEFINITION__PARAMETER_LIST = eINSTANCE.getObjectServiceDefinition_ParameterList();
+
+    /**
+     * The meta object literal for the '<em><b>Code Block</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference OBJECT_SERVICE_DEFINITION__CODE_BLOCK = eINSTANCE.getObjectServiceDefinition_CodeBlock();
+
+    /**
+     * The meta object literal for the '<em><b>Pragma List</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference OBJECT_SERVICE_DEFINITION__PRAGMA_LIST = eINSTANCE.getObjectServiceDefinition_PragmaList();
+
+    /**
+     * The meta object literal for the '<em><b>Service Type</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference OBJECT_SERVICE_DEFINITION__SERVICE_TYPE = eINSTANCE.getObjectServiceDefinition_ServiceType();
+
+    /**
+     * The meta object literal for the '<em><b>Return Type</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference OBJECT_SERVICE_DEFINITION__RETURN_TYPE = eINSTANCE.getObjectServiceDefinition_ReturnType();
+
+    /**
+     * The meta object literal for the '{@link org.xtuml.bp.xtext.masl.impl.TerminatorServiceDefinitionImpl <em>Terminator Service Definition</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.xtuml.bp.xtext.masl.impl.TerminatorServiceDefinitionImpl
+     * @see org.xtuml.bp.xtext.masl.impl.MaslPackageImpl#getTerminatorServiceDefinition()
+     * @generated
+     */
+    EClass TERMINATOR_SERVICE_DEFINITION = eINSTANCE.getTerminatorServiceDefinition();
+
+    /**
+     * The meta object literal for the '<em><b>Service Visibility</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute TERMINATOR_SERVICE_DEFINITION__SERVICE_VISIBILITY = eINSTANCE.getTerminatorServiceDefinition_ServiceVisibility();
+
+    /**
+     * The meta object literal for the '<em><b>Domain Name</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference TERMINATOR_SERVICE_DEFINITION__DOMAIN_NAME = eINSTANCE.getTerminatorServiceDefinition_DomainName();
+
+    /**
+     * The meta object literal for the '<em><b>Terminator Name</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference TERMINATOR_SERVICE_DEFINITION__TERMINATOR_NAME = eINSTANCE.getTerminatorServiceDefinition_TerminatorName();
+
+    /**
+     * The meta object literal for the '<em><b>Service Name</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference TERMINATOR_SERVICE_DEFINITION__SERVICE_NAME = eINSTANCE.getTerminatorServiceDefinition_ServiceName();
+
+    /**
+     * The meta object literal for the '<em><b>Parameter List</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference TERMINATOR_SERVICE_DEFINITION__PARAMETER_LIST = eINSTANCE.getTerminatorServiceDefinition_ParameterList();
+
+    /**
+     * The meta object literal for the '<em><b>Code Block</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference TERMINATOR_SERVICE_DEFINITION__CODE_BLOCK = eINSTANCE.getTerminatorServiceDefinition_CodeBlock();
+
+    /**
+     * The meta object literal for the '<em><b>Pragma List</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference TERMINATOR_SERVICE_DEFINITION__PRAGMA_LIST = eINSTANCE.getTerminatorServiceDefinition_PragmaList();
+
+    /**
+     * The meta object literal for the '<em><b>Return Type</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference TERMINATOR_SERVICE_DEFINITION__RETURN_TYPE = eINSTANCE.getTerminatorServiceDefinition_ReturnType();
+
+    /**
+     * The meta object literal for the '{@link org.xtuml.bp.xtext.masl.impl.CodeBlockImpl <em>Code Block</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.xtuml.bp.xtext.masl.impl.CodeBlockImpl
+     * @see org.xtuml.bp.xtext.masl.impl.MaslPackageImpl#getCodeBlock()
+     * @generated
+     */
+    EClass CODE_BLOCK = eINSTANCE.getCodeBlock();
+
+    /**
+     * The meta object literal for the '<em><b>Variable Declaration</b></em>' containment reference list feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference CODE_BLOCK__VARIABLE_DECLARATION = eINSTANCE.getCodeBlock_VariableDeclaration();
+
+    /**
+     * The meta object literal for the '{@link org.xtuml.bp.xtext.masl.impl.VariableDeclarationImpl <em>Variable Declaration</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.xtuml.bp.xtext.masl.impl.VariableDeclarationImpl
+     * @see org.xtuml.bp.xtext.masl.impl.MaslPackageImpl#getVariableDeclaration()
+     * @generated
+     */
+    EClass VARIABLE_DECLARATION = eINSTANCE.getVariableDeclaration();
+
+    /**
+     * The meta object literal for the '<em><b>Variable Name</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference VARIABLE_DECLARATION__VARIABLE_NAME = eINSTANCE.getVariableDeclaration_VariableName();
+
+    /**
+     * The meta object literal for the '<em><b>READONLY</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute VARIABLE_DECLARATION__READONLY = eINSTANCE.getVariableDeclaration_READONLY();
+
+    /**
+     * The meta object literal for the '<em><b>Type Reference With CA</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference VARIABLE_DECLARATION__TYPE_REFERENCE_WITH_CA = eINSTANCE.getVariableDeclaration_TypeReferenceWithCA();
+
+    /**
+     * The meta object literal for the '<em><b>Pragma List</b></em>' containment reference feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EReference VARIABLE_DECLARATION__PRAGMA_LIST = eINSTANCE.getVariableDeclaration_PragmaList();
+
+    /**
+     * The meta object literal for the '{@link org.xtuml.bp.xtext.masl.impl.VariableNameImpl <em>Variable Name</em>}' class.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @see org.xtuml.bp.xtext.masl.impl.VariableNameImpl
+     * @see org.xtuml.bp.xtext.masl.impl.MaslPackageImpl#getVariableName()
+     * @generated
+     */
+    EClass VARIABLE_NAME = eINSTANCE.getVariableName();
+
+    /**
+     * The meta object literal for the '<em><b>Identifier</b></em>' attribute feature.
+     * <!-- begin-user-doc -->
+     * <!-- end-user-doc -->
+     * @generated
+     */
+    EAttribute VARIABLE_NAME__IDENTIFIER = eINSTANCE.getVariableName_Identifier();
 
   }
 

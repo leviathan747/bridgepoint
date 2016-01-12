@@ -5,8 +5,6 @@ package org.xtuml.bp.xtext.masl;
 
 import org.eclipse.emf.common.util.EList;
 
-import org.eclipse.emf.ecore.EObject;
-
 /**
  * <!-- begin-user-doc -->
  * A representation of the model object '<em><b>Project</b></em>'.
@@ -25,7 +23,7 @@ import org.eclipse.emf.ecore.EObject;
  * @model
  * @generated
  */
-public interface Project extends EObject
+public interface Project extends definition
 {
   /**
    * Returns the value of the '<em><b>Project Name</b></em>' containment reference.

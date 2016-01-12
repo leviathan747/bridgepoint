@@ -76,6 +76,16 @@ public class MaslAdapterFactory extends AdapterFactoryImpl
     new MaslSwitch<Adapter>()
     {
       @Override
+      public Adapter casetarget(target object)
+      {
+        return createtargetAdapter();
+      }
+      @Override
+      public Adapter casedefinition(definition object)
+      {
+        return createdefinitionAdapter();
+      }
+      @Override
       public Adapter caseProject(Project object)
       {
         return createProjectAdapter();
@@ -196,6 +206,51 @@ public class MaslAdapterFactory extends AdapterFactoryImpl
         return createPragmaNameAdapter();
       }
       @Override
+      public Adapter caseObjectName(ObjectName object)
+      {
+        return createObjectNameAdapter();
+      }
+      @Override
+      public Adapter caseserviceType(serviceType object)
+      {
+        return createserviceTypeAdapter();
+      }
+      @Override
+      public Adapter caseRelationshipName(RelationshipName object)
+      {
+        return createRelationshipNameAdapter();
+      }
+      @Override
+      public Adapter caseDomainServiceDefinition(DomainServiceDefinition object)
+      {
+        return createDomainServiceDefinitionAdapter();
+      }
+      @Override
+      public Adapter caseObjectServiceDefinition(ObjectServiceDefinition object)
+      {
+        return createObjectServiceDefinitionAdapter();
+      }
+      @Override
+      public Adapter caseTerminatorServiceDefinition(TerminatorServiceDefinition object)
+      {
+        return createTerminatorServiceDefinitionAdapter();
+      }
+      @Override
+      public Adapter caseCodeBlock(CodeBlock object)
+      {
+        return createCodeBlockAdapter();
+      }
+      @Override
+      public Adapter caseVariableDeclaration(VariableDeclaration object)
+      {
+        return createVariableDeclarationAdapter();
+      }
+      @Override
+      public Adapter caseVariableName(VariableName object)
+      {
+        return createVariableNameAdapter();
+      }
+      @Override
       public Adapter defaultCase(EObject object)
       {
         return createEObjectAdapter();
@@ -216,6 +271,36 @@ public class MaslAdapterFactory extends AdapterFactoryImpl
     return modelSwitch.doSwitch((EObject)target);
   }
 
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.xtuml.bp.xtext.masl.target <em>target</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.xtuml.bp.xtext.masl.target
+   * @generated
+   */
+  public Adapter createtargetAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.xtuml.bp.xtext.masl.definition <em>definition</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.xtuml.bp.xtext.masl.definition
+   * @generated
+   */
+  public Adapter createdefinitionAdapter()
+  {
+    return null;
+  }
 
   /**
    * Creates a new adapter for an object of class '{@link org.xtuml.bp.xtext.masl.Project <em>Project</em>}'.
@@ -573,6 +658,141 @@ public class MaslAdapterFactory extends AdapterFactoryImpl
    * @generated
    */
   public Adapter createPragmaNameAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.xtuml.bp.xtext.masl.ObjectName <em>Object Name</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.xtuml.bp.xtext.masl.ObjectName
+   * @generated
+   */
+  public Adapter createObjectNameAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.xtuml.bp.xtext.masl.serviceType <em>service Type</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.xtuml.bp.xtext.masl.serviceType
+   * @generated
+   */
+  public Adapter createserviceTypeAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.xtuml.bp.xtext.masl.RelationshipName <em>Relationship Name</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.xtuml.bp.xtext.masl.RelationshipName
+   * @generated
+   */
+  public Adapter createRelationshipNameAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.xtuml.bp.xtext.masl.DomainServiceDefinition <em>Domain Service Definition</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.xtuml.bp.xtext.masl.DomainServiceDefinition
+   * @generated
+   */
+  public Adapter createDomainServiceDefinitionAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.xtuml.bp.xtext.masl.ObjectServiceDefinition <em>Object Service Definition</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.xtuml.bp.xtext.masl.ObjectServiceDefinition
+   * @generated
+   */
+  public Adapter createObjectServiceDefinitionAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.xtuml.bp.xtext.masl.TerminatorServiceDefinition <em>Terminator Service Definition</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.xtuml.bp.xtext.masl.TerminatorServiceDefinition
+   * @generated
+   */
+  public Adapter createTerminatorServiceDefinitionAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.xtuml.bp.xtext.masl.CodeBlock <em>Code Block</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.xtuml.bp.xtext.masl.CodeBlock
+   * @generated
+   */
+  public Adapter createCodeBlockAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.xtuml.bp.xtext.masl.VariableDeclaration <em>Variable Declaration</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.xtuml.bp.xtext.masl.VariableDeclaration
+   * @generated
+   */
+  public Adapter createVariableDeclarationAdapter()
+  {
+    return null;
+  }
+
+  /**
+   * Creates a new adapter for an object of class '{@link org.xtuml.bp.xtext.masl.VariableName <em>Variable Name</em>}'.
+   * <!-- begin-user-doc -->
+   * This default implementation returns null so that we can easily ignore cases;
+   * it's useful to ignore a case when inheritance will catch all the cases anyway.
+   * <!-- end-user-doc -->
+   * @return the new adapter.
+   * @see org.xtuml.bp.xtext.masl.VariableName
+   * @generated
+   */
+  public Adapter createVariableNameAdapter()
   {
     return null;
   }

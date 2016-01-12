@@ -24,6 +24,24 @@ public interface MaslFactory extends EFactory
   MaslFactory eINSTANCE = org.xtuml.bp.xtext.masl.impl.MaslFactoryImpl.init();
 
   /**
+   * Returns a new object of class '<em>target</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>target</em>'.
+   * @generated
+   */
+  target createtarget();
+
+  /**
+   * Returns a new object of class '<em>definition</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>definition</em>'.
+   * @generated
+   */
+  definition createdefinition();
+
+  /**
    * Returns a new object of class '<em>Project</em>'.
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -238,6 +256,87 @@ public interface MaslFactory extends EFactory
    * @generated
    */
   PragmaName createPragmaName();
+
+  /**
+   * Returns a new object of class '<em>Object Name</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Object Name</em>'.
+   * @generated
+   */
+  ObjectName createObjectName();
+
+  /**
+   * Returns a new object of class '<em>service Type</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>service Type</em>'.
+   * @generated
+   */
+  serviceType createserviceType();
+
+  /**
+   * Returns a new object of class '<em>Relationship Name</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Relationship Name</em>'.
+   * @generated
+   */
+  RelationshipName createRelationshipName();
+
+  /**
+   * Returns a new object of class '<em>Domain Service Definition</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Domain Service Definition</em>'.
+   * @generated
+   */
+  DomainServiceDefinition createDomainServiceDefinition();
+
+  /**
+   * Returns a new object of class '<em>Object Service Definition</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Object Service Definition</em>'.
+   * @generated
+   */
+  ObjectServiceDefinition createObjectServiceDefinition();
+
+  /**
+   * Returns a new object of class '<em>Terminator Service Definition</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Terminator Service Definition</em>'.
+   * @generated
+   */
+  TerminatorServiceDefinition createTerminatorServiceDefinition();
+
+  /**
+   * Returns a new object of class '<em>Code Block</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Code Block</em>'.
+   * @generated
+   */
+  CodeBlock createCodeBlock();
+
+  /**
+   * Returns a new object of class '<em>Variable Declaration</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Variable Declaration</em>'.
+   * @generated
+   */
+  VariableDeclaration createVariableDeclaration();
+
+  /**
+   * Returns a new object of class '<em>Variable Name</em>'.
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @return a new object of class '<em>Variable Name</em>'.
+   * @generated
+   */
+  VariableName createVariableName();
 
   /**
    * Returns the package supported by this factory.

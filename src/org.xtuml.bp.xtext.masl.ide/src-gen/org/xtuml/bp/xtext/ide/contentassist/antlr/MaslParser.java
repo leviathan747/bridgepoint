@@ -35,6 +35,7 @@ public class MaslParser extends AbstractContentAssistParser {
 			nameMappings = new HashMap<AbstractElement, String>() {
 				private static final long serialVersionUID = 1L;
 				{
+					put(grammarAccess.getDefinitionAccess().getAlternatives(), "rule__Definition__Alternatives");
 					put(grammarAccess.getTerminatorItemAccess().getAlternatives(), "rule__TerminatorItem__Alternatives");
 					put(grammarAccess.getServiceVisibilityAccess().getAlternatives(), "rule__ServiceVisibility__Alternatives");
 					put(grammarAccess.getParameterModeAccess().getAlternatives(), "rule__ParameterMode__Alternatives");
@@ -42,6 +43,7 @@ public class MaslParser extends AbstractContentAssistParser {
 					put(grammarAccess.getDeprecatedTypeAccess().getAlternatives(), "rule__DeprecatedType__Alternatives");
 					put(grammarAccess.getPragmaValueAccess().getAlternatives(), "rule__PragmaValue__Alternatives");
 					put(grammarAccess.getLiteralAccess().getAlternatives(), "rule__Literal__Alternatives");
+					put(grammarAccess.getStatementListAccess().getAlternatives_0(), "rule__StatementList__Alternatives_0");
 					put(grammarAccess.getTYPEAccess().getAlternatives(), "rule__TYPE__Alternatives");
 					put(grammarAccess.getProjectDefinitionAccess().getGroup(), "rule__ProjectDefinition__Group__0");
 					put(grammarAccess.getDomainPrjDefinitionAccess().getGroup(), "rule__DomainPrjDefinition__Group__0");
@@ -58,6 +60,18 @@ public class MaslParser extends AbstractContentAssistParser {
 					put(grammarAccess.getPragmaAccess().getGroup(), "rule__Pragma__Group__0");
 					put(grammarAccess.getPragmaAccess().getGroup_3(), "rule__Pragma__Group_3__0");
 					put(grammarAccess.getPragmaAccess().getGroup_3_1(), "rule__Pragma__Group_3_1__0");
+					put(grammarAccess.getServiceTypeAccess().getGroup(), "rule__ServiceType__Group__0");
+					put(grammarAccess.getServiceTypeAccess().getGroup_1(), "rule__ServiceType__Group_1__0");
+					put(grammarAccess.getDomainServiceDefinitionAccess().getGroup(), "rule__DomainServiceDefinition__Group__0");
+					put(grammarAccess.getDomainFunctionDefinitionAccess().getGroup(), "rule__DomainFunctionDefinition__Group__0");
+					put(grammarAccess.getObjectServiceDefinitionAccess().getGroup(), "rule__ObjectServiceDefinition__Group__0");
+					put(grammarAccess.getObjectFunctionDefinitionAccess().getGroup(), "rule__ObjectFunctionDefinition__Group__0");
+					put(grammarAccess.getTerminatorServiceDefinitionAccess().getGroup(), "rule__TerminatorServiceDefinition__Group__0");
+					put(grammarAccess.getTerminatorFunctionDefinitionAccess().getGroup(), "rule__TerminatorFunctionDefinition__Group__0");
+					put(grammarAccess.getCodeBlockAccess().getGroup(), "rule__CodeBlock__Group__0");
+					put(grammarAccess.getVariableDeclarationAccess().getGroup(), "rule__VariableDeclaration__Group__0");
+					put(grammarAccess.getStatementListAccess().getGroup(), "rule__StatementList__Group__0");
+					put(grammarAccess.getTargetAccess().getDefinitionAssignment(), "rule__Target__DefinitionAssignment");
 					put(grammarAccess.getProjectDefinitionAccess().getProjectNameAssignment_1(), "rule__ProjectDefinition__ProjectNameAssignment_1");
 					put(grammarAccess.getProjectDefinitionAccess().getProjectItemAssignment_3(), "rule__ProjectDefinition__ProjectItemAssignment_3");
 					put(grammarAccess.getProjectDefinitionAccess().getPragmaListAssignment_7(), "rule__ProjectDefinition__PragmaListAssignment_7");
@@ -100,6 +114,61 @@ public class MaslParser extends AbstractContentAssistParser {
 					put(grammarAccess.getPragmaAccess().getPragmaValueAssignment_3_0(), "rule__Pragma__PragmaValueAssignment_3_0");
 					put(grammarAccess.getPragmaAccess().getPragmaValueAssignment_3_1_1(), "rule__Pragma__PragmaValueAssignment_3_1_1");
 					put(grammarAccess.getPragmaNameAccess().getIdentifierAssignment(), "rule__PragmaName__IdentifierAssignment");
+					put(grammarAccess.getObjectNameAccess().getIdentifierAssignment(), "rule__ObjectName__IdentifierAssignment");
+					put(grammarAccess.getServiceTypeAccess().getINSTANCEAssignment_0(), "rule__ServiceType__INSTANCEAssignment_0");
+					put(grammarAccess.getServiceTypeAccess().getRelationshipNameAssignment_1_2(), "rule__ServiceType__RelationshipNameAssignment_1_2");
+					put(grammarAccess.getRelationshipNameAccess().getRelationshipNameAssignment(), "rule__RelationshipName__RelationshipNameAssignment");
+					put(grammarAccess.getDomainServiceDefinitionAccess().getServiceVisibilityAssignment_0(), "rule__DomainServiceDefinition__ServiceVisibilityAssignment_0");
+					put(grammarAccess.getDomainServiceDefinitionAccess().getDomainNameAssignment_2(), "rule__DomainServiceDefinition__DomainNameAssignment_2");
+					put(grammarAccess.getDomainServiceDefinitionAccess().getServiceNameAssignment_4(), "rule__DomainServiceDefinition__ServiceNameAssignment_4");
+					put(grammarAccess.getDomainServiceDefinitionAccess().getParameterListAssignment_5(), "rule__DomainServiceDefinition__ParameterListAssignment_5");
+					put(grammarAccess.getDomainServiceDefinitionAccess().getCodeBlockAssignment_7(), "rule__DomainServiceDefinition__CodeBlockAssignment_7");
+					put(grammarAccess.getDomainServiceDefinitionAccess().getPargmaListAssignment_10(), "rule__DomainServiceDefinition__PargmaListAssignment_10");
+					put(grammarAccess.getDomainFunctionDefinitionAccess().getServiceVisibilityAssignment_0(), "rule__DomainFunctionDefinition__ServiceVisibilityAssignment_0");
+					put(grammarAccess.getDomainFunctionDefinitionAccess().getDomainNameAssignment_2(), "rule__DomainFunctionDefinition__DomainNameAssignment_2");
+					put(grammarAccess.getDomainFunctionDefinitionAccess().getServiceNameAssignment_4(), "rule__DomainFunctionDefinition__ServiceNameAssignment_4");
+					put(grammarAccess.getDomainFunctionDefinitionAccess().getParameterListAssignment_5(), "rule__DomainFunctionDefinition__ParameterListAssignment_5");
+					put(grammarAccess.getDomainFunctionDefinitionAccess().getReturnTypeAssignment_7(), "rule__DomainFunctionDefinition__ReturnTypeAssignment_7");
+					put(grammarAccess.getDomainFunctionDefinitionAccess().getCodeBlockAssignment_9(), "rule__DomainFunctionDefinition__CodeBlockAssignment_9");
+					put(grammarAccess.getDomainFunctionDefinitionAccess().getPargmaListAssignment_12(), "rule__DomainFunctionDefinition__PargmaListAssignment_12");
+					put(grammarAccess.getObjectServiceDefinitionAccess().getServiceVisibilityAssignment_0(), "rule__ObjectServiceDefinition__ServiceVisibilityAssignment_0");
+					put(grammarAccess.getObjectServiceDefinitionAccess().getINSTANCEAssignment_1(), "rule__ObjectServiceDefinition__INSTANCEAssignment_1");
+					put(grammarAccess.getObjectServiceDefinitionAccess().getDomainNameAssignment_3(), "rule__ObjectServiceDefinition__DomainNameAssignment_3");
+					put(grammarAccess.getObjectServiceDefinitionAccess().getObjectNameAssignment_5(), "rule__ObjectServiceDefinition__ObjectNameAssignment_5");
+					put(grammarAccess.getObjectServiceDefinitionAccess().getServiceNameAssignment_7(), "rule__ObjectServiceDefinition__ServiceNameAssignment_7");
+					put(grammarAccess.getObjectServiceDefinitionAccess().getParameterListAssignment_8(), "rule__ObjectServiceDefinition__ParameterListAssignment_8");
+					put(grammarAccess.getObjectServiceDefinitionAccess().getCodeBlockAssignment_10(), "rule__ObjectServiceDefinition__CodeBlockAssignment_10");
+					put(grammarAccess.getObjectServiceDefinitionAccess().getPragmaListAssignment_13(), "rule__ObjectServiceDefinition__PragmaListAssignment_13");
+					put(grammarAccess.getObjectFunctionDefinitionAccess().getServiceVisibilityAssignment_0(), "rule__ObjectFunctionDefinition__ServiceVisibilityAssignment_0");
+					put(grammarAccess.getObjectFunctionDefinitionAccess().getServiceTypeAssignment_1(), "rule__ObjectFunctionDefinition__ServiceTypeAssignment_1");
+					put(grammarAccess.getObjectFunctionDefinitionAccess().getDomainNameAssignment_3(), "rule__ObjectFunctionDefinition__DomainNameAssignment_3");
+					put(grammarAccess.getObjectFunctionDefinitionAccess().getObjectNameAssignment_5(), "rule__ObjectFunctionDefinition__ObjectNameAssignment_5");
+					put(grammarAccess.getObjectFunctionDefinitionAccess().getServiceNameAssignment_7(), "rule__ObjectFunctionDefinition__ServiceNameAssignment_7");
+					put(grammarAccess.getObjectFunctionDefinitionAccess().getParameterListAssignment_8(), "rule__ObjectFunctionDefinition__ParameterListAssignment_8");
+					put(grammarAccess.getObjectFunctionDefinitionAccess().getReturnTypeAssignment_10(), "rule__ObjectFunctionDefinition__ReturnTypeAssignment_10");
+					put(grammarAccess.getObjectFunctionDefinitionAccess().getCodeBlockAssignment_12(), "rule__ObjectFunctionDefinition__CodeBlockAssignment_12");
+					put(grammarAccess.getObjectFunctionDefinitionAccess().getPragmaListAssignment_15(), "rule__ObjectFunctionDefinition__PragmaListAssignment_15");
+					put(grammarAccess.getTerminatorServiceDefinitionAccess().getServiceVisibilityAssignment_0(), "rule__TerminatorServiceDefinition__ServiceVisibilityAssignment_0");
+					put(grammarAccess.getTerminatorServiceDefinitionAccess().getDomainNameAssignment_2(), "rule__TerminatorServiceDefinition__DomainNameAssignment_2");
+					put(grammarAccess.getTerminatorServiceDefinitionAccess().getTerminatorNameAssignment_4(), "rule__TerminatorServiceDefinition__TerminatorNameAssignment_4");
+					put(grammarAccess.getTerminatorServiceDefinitionAccess().getServiceNameAssignment_6(), "rule__TerminatorServiceDefinition__ServiceNameAssignment_6");
+					put(grammarAccess.getTerminatorServiceDefinitionAccess().getParameterListAssignment_7(), "rule__TerminatorServiceDefinition__ParameterListAssignment_7");
+					put(grammarAccess.getTerminatorServiceDefinitionAccess().getCodeBlockAssignment_9(), "rule__TerminatorServiceDefinition__CodeBlockAssignment_9");
+					put(grammarAccess.getTerminatorServiceDefinitionAccess().getPragmaListAssignment_12(), "rule__TerminatorServiceDefinition__PragmaListAssignment_12");
+					put(grammarAccess.getTerminatorFunctionDefinitionAccess().getServiceVisibilityAssignment_0(), "rule__TerminatorFunctionDefinition__ServiceVisibilityAssignment_0");
+					put(grammarAccess.getTerminatorFunctionDefinitionAccess().getDomainNameAssignment_2(), "rule__TerminatorFunctionDefinition__DomainNameAssignment_2");
+					put(grammarAccess.getTerminatorFunctionDefinitionAccess().getTerminatorNameAssignment_4(), "rule__TerminatorFunctionDefinition__TerminatorNameAssignment_4");
+					put(grammarAccess.getTerminatorFunctionDefinitionAccess().getServiceNameAssignment_6(), "rule__TerminatorFunctionDefinition__ServiceNameAssignment_6");
+					put(grammarAccess.getTerminatorFunctionDefinitionAccess().getParameterListAssignment_7(), "rule__TerminatorFunctionDefinition__ParameterListAssignment_7");
+					put(grammarAccess.getTerminatorFunctionDefinitionAccess().getReturnTypeAssignment_9(), "rule__TerminatorFunctionDefinition__ReturnTypeAssignment_9");
+					put(grammarAccess.getTerminatorFunctionDefinitionAccess().getCodeBlockAssignment_11(), "rule__TerminatorFunctionDefinition__CodeBlockAssignment_11");
+					put(grammarAccess.getTerminatorFunctionDefinitionAccess().getPragmaListAssignment_14(), "rule__TerminatorFunctionDefinition__PragmaListAssignment_14");
+					put(grammarAccess.getCodeBlockAccess().getVariableDeclarationAssignment_0(), "rule__CodeBlock__VariableDeclarationAssignment_0");
+					put(grammarAccess.getVariableDeclarationAccess().getVariableNameAssignment_0(), "rule__VariableDeclaration__VariableNameAssignment_0");
+					put(grammarAccess.getVariableDeclarationAccess().getREADONLYAssignment_2(), "rule__VariableDeclaration__READONLYAssignment_2");
+					put(grammarAccess.getVariableDeclarationAccess().getTypeReferenceWithCAAssignment_3(), "rule__VariableDeclaration__TypeReferenceWithCAAssignment_3");
+					put(grammarAccess.getVariableDeclarationAccess().getPragmaListAssignment_5(), "rule__VariableDeclaration__PragmaListAssignment_5");
+					put(grammarAccess.getVariableNameAccess().getIdentifierAssignment(), "rule__VariableName__IdentifierAssignment");
 				}
 			};
 		}
@@ -110,7 +179,7 @@ public class MaslParser extends AbstractContentAssistParser {
 	protected Collection<FollowElement> getFollowElements(AbstractInternalContentAssistParser parser) {
 		try {
 			InternalMaslParser typedParser = (InternalMaslParser) parser;
-			typedParser.entryRuleprojectDefinition();
+			typedParser.entryRuletarget();
 			return typedParser.getFollowElements();
 		} catch(RecognitionException ex) {
 			throw new RuntimeException(ex);

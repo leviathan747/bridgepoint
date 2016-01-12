@@ -10,11 +10,15 @@ import org.eclipse.emf.ecore.EReference;
 
 import org.eclipse.emf.ecore.impl.EPackageImpl;
 
+import org.xtuml.bp.xtext.masl.CodeBlock;
 import org.xtuml.bp.xtext.masl.Domain;
 import org.xtuml.bp.xtext.masl.DomainName;
+import org.xtuml.bp.xtext.masl.DomainServiceDefinition;
 import org.xtuml.bp.xtext.masl.MaslFactory;
 import org.xtuml.bp.xtext.masl.MaslPackage;
 import org.xtuml.bp.xtext.masl.NamedType;
+import org.xtuml.bp.xtext.masl.ObjectName;
+import org.xtuml.bp.xtext.masl.ObjectServiceDefinition;
 import org.xtuml.bp.xtext.masl.ParameterDefinition;
 import org.xtuml.bp.xtext.masl.ParameterName;
 import org.xtuml.bp.xtext.masl.ParameterType;
@@ -23,17 +27,24 @@ import org.xtuml.bp.xtext.masl.PragmaList;
 import org.xtuml.bp.xtext.masl.PragmaName;
 import org.xtuml.bp.xtext.masl.Project;
 import org.xtuml.bp.xtext.masl.ProjectName;
+import org.xtuml.bp.xtext.masl.RelationshipName;
 import org.xtuml.bp.xtext.masl.ReturnType;
 import org.xtuml.bp.xtext.masl.ServiceName;
 import org.xtuml.bp.xtext.masl.TerminatorDefinition;
 import org.xtuml.bp.xtext.masl.TerminatorFunctionDeclaration;
 import org.xtuml.bp.xtext.masl.TerminatorName;
 import org.xtuml.bp.xtext.masl.TerminatorServiceDeclaration;
+import org.xtuml.bp.xtext.masl.TerminatorServiceDefinition;
 import org.xtuml.bp.xtext.masl.TypeName;
+import org.xtuml.bp.xtext.masl.VariableDeclaration;
+import org.xtuml.bp.xtext.masl.VariableName;
+import org.xtuml.bp.xtext.masl.definition;
 import org.xtuml.bp.xtext.masl.deprecatedType;
 import org.xtuml.bp.xtext.masl.domainPrjItem;
 import org.xtuml.bp.xtext.masl.parameterList;
 import org.xtuml.bp.xtext.masl.projectItem;
+import org.xtuml.bp.xtext.masl.serviceType;
+import org.xtuml.bp.xtext.masl.target;
 import org.xtuml.bp.xtext.masl.terminatorItem;
 import org.xtuml.bp.xtext.masl.typeReference;
 
@@ -45,6 +56,20 @@ import org.xtuml.bp.xtext.masl.typeReference;
  */
 public class MaslPackageImpl extends EPackageImpl implements MaslPackage
 {
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass targetEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass definitionEClass = null;
+
   /**
    * <!-- begin-user-doc -->
    * <!-- end-user-doc -->
@@ -214,6 +239,69 @@ public class MaslPackageImpl extends EPackageImpl implements MaslPackage
   private EClass pragmaNameEClass = null;
 
   /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass objectNameEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass serviceTypeEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass relationshipNameEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass domainServiceDefinitionEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass objectServiceDefinitionEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass terminatorServiceDefinitionEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass codeBlockEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass variableDeclarationEClass = null;
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  private EClass variableNameEClass = null;
+
+  /**
    * Creates an instance of the model <b>Package</b>, registered with
    * {@link org.eclipse.emf.ecore.EPackage.Registry EPackage.Registry} by the package
    * package URI value.
@@ -274,6 +362,36 @@ public class MaslPackageImpl extends EPackageImpl implements MaslPackage
     // Update the registry and return the package
     EPackage.Registry.INSTANCE.put(MaslPackage.eNS_URI, theMaslPackage);
     return theMaslPackage;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass gettarget()
+  {
+    return targetEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference gettarget_Definition()
+  {
+    return (EReference)targetEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getdefinition()
+  {
+    return definitionEClass;
   }
 
   /**
@@ -881,6 +999,446 @@ public class MaslPackageImpl extends EPackageImpl implements MaslPackage
    * <!-- end-user-doc -->
    * @generated
    */
+  public EClass getObjectName()
+  {
+    return objectNameEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getObjectName_Identifier()
+  {
+    return (EAttribute)objectNameEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getserviceType()
+  {
+    return serviceTypeEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getserviceType_INSTANCE()
+  {
+    return (EAttribute)serviceTypeEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getserviceType_RelationshipName()
+  {
+    return (EReference)serviceTypeEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getRelationshipName()
+  {
+    return relationshipNameEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getRelationshipName_RelationshipName()
+  {
+    return (EAttribute)relationshipNameEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getDomainServiceDefinition()
+  {
+    return domainServiceDefinitionEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getDomainServiceDefinition_ServiceVisibility()
+  {
+    return (EAttribute)domainServiceDefinitionEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getDomainServiceDefinition_DomainName()
+  {
+    return (EReference)domainServiceDefinitionEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getDomainServiceDefinition_ServiceName()
+  {
+    return (EReference)domainServiceDefinitionEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getDomainServiceDefinition_ParameterList()
+  {
+    return (EReference)domainServiceDefinitionEClass.getEStructuralFeatures().get(3);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getDomainServiceDefinition_CodeBlock()
+  {
+    return (EReference)domainServiceDefinitionEClass.getEStructuralFeatures().get(4);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getDomainServiceDefinition_PargmaList()
+  {
+    return (EReference)domainServiceDefinitionEClass.getEStructuralFeatures().get(5);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getDomainServiceDefinition_ReturnType()
+  {
+    return (EReference)domainServiceDefinitionEClass.getEStructuralFeatures().get(6);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getObjectServiceDefinition()
+  {
+    return objectServiceDefinitionEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getObjectServiceDefinition_ServiceVisibility()
+  {
+    return (EAttribute)objectServiceDefinitionEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getObjectServiceDefinition_INSTANCE()
+  {
+    return (EAttribute)objectServiceDefinitionEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getObjectServiceDefinition_DomainName()
+  {
+    return (EReference)objectServiceDefinitionEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getObjectServiceDefinition_ObjectName()
+  {
+    return (EReference)objectServiceDefinitionEClass.getEStructuralFeatures().get(3);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getObjectServiceDefinition_ServiceName()
+  {
+    return (EReference)objectServiceDefinitionEClass.getEStructuralFeatures().get(4);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getObjectServiceDefinition_ParameterList()
+  {
+    return (EReference)objectServiceDefinitionEClass.getEStructuralFeatures().get(5);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getObjectServiceDefinition_CodeBlock()
+  {
+    return (EReference)objectServiceDefinitionEClass.getEStructuralFeatures().get(6);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getObjectServiceDefinition_PragmaList()
+  {
+    return (EReference)objectServiceDefinitionEClass.getEStructuralFeatures().get(7);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getObjectServiceDefinition_ServiceType()
+  {
+    return (EReference)objectServiceDefinitionEClass.getEStructuralFeatures().get(8);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getObjectServiceDefinition_ReturnType()
+  {
+    return (EReference)objectServiceDefinitionEClass.getEStructuralFeatures().get(9);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getTerminatorServiceDefinition()
+  {
+    return terminatorServiceDefinitionEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getTerminatorServiceDefinition_ServiceVisibility()
+  {
+    return (EAttribute)terminatorServiceDefinitionEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getTerminatorServiceDefinition_DomainName()
+  {
+    return (EReference)terminatorServiceDefinitionEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getTerminatorServiceDefinition_TerminatorName()
+  {
+    return (EReference)terminatorServiceDefinitionEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getTerminatorServiceDefinition_ServiceName()
+  {
+    return (EReference)terminatorServiceDefinitionEClass.getEStructuralFeatures().get(3);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getTerminatorServiceDefinition_ParameterList()
+  {
+    return (EReference)terminatorServiceDefinitionEClass.getEStructuralFeatures().get(4);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getTerminatorServiceDefinition_CodeBlock()
+  {
+    return (EReference)terminatorServiceDefinitionEClass.getEStructuralFeatures().get(5);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getTerminatorServiceDefinition_PragmaList()
+  {
+    return (EReference)terminatorServiceDefinitionEClass.getEStructuralFeatures().get(6);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getTerminatorServiceDefinition_ReturnType()
+  {
+    return (EReference)terminatorServiceDefinitionEClass.getEStructuralFeatures().get(7);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getCodeBlock()
+  {
+    return codeBlockEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getCodeBlock_VariableDeclaration()
+  {
+    return (EReference)codeBlockEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getVariableDeclaration()
+  {
+    return variableDeclarationEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getVariableDeclaration_VariableName()
+  {
+    return (EReference)variableDeclarationEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getVariableDeclaration_READONLY()
+  {
+    return (EAttribute)variableDeclarationEClass.getEStructuralFeatures().get(1);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getVariableDeclaration_TypeReferenceWithCA()
+  {
+    return (EReference)variableDeclarationEClass.getEStructuralFeatures().get(2);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EReference getVariableDeclaration_PragmaList()
+  {
+    return (EReference)variableDeclarationEClass.getEStructuralFeatures().get(3);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EClass getVariableName()
+  {
+    return variableNameEClass;
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
+  public EAttribute getVariableName_Identifier()
+  {
+    return (EAttribute)variableNameEClass.getEStructuralFeatures().get(0);
+  }
+
+  /**
+   * <!-- begin-user-doc -->
+   * <!-- end-user-doc -->
+   * @generated
+   */
   public MaslFactory getMaslFactory()
   {
     return (MaslFactory)getEFactoryInstance();
@@ -906,6 +1464,11 @@ public class MaslPackageImpl extends EPackageImpl implements MaslPackage
     isCreated = true;
 
     // Create classes and their features
+    targetEClass = createEClass(TARGET);
+    createEReference(targetEClass, TARGET__DEFINITION);
+
+    definitionEClass = createEClass(DEFINITION);
+
     projectEClass = createEClass(PROJECT);
     createEReference(projectEClass, PROJECT__PROJECT_NAME);
     createEReference(projectEClass, PROJECT__PROJECT_ITEM);
@@ -989,6 +1552,59 @@ public class MaslPackageImpl extends EPackageImpl implements MaslPackage
 
     pragmaNameEClass = createEClass(PRAGMA_NAME);
     createEAttribute(pragmaNameEClass, PRAGMA_NAME__IDENTIFIER);
+
+    objectNameEClass = createEClass(OBJECT_NAME);
+    createEAttribute(objectNameEClass, OBJECT_NAME__IDENTIFIER);
+
+    serviceTypeEClass = createEClass(SERVICE_TYPE);
+    createEAttribute(serviceTypeEClass, SERVICE_TYPE__INSTANCE);
+    createEReference(serviceTypeEClass, SERVICE_TYPE__RELATIONSHIP_NAME);
+
+    relationshipNameEClass = createEClass(RELATIONSHIP_NAME);
+    createEAttribute(relationshipNameEClass, RELATIONSHIP_NAME__RELATIONSHIP_NAME);
+
+    domainServiceDefinitionEClass = createEClass(DOMAIN_SERVICE_DEFINITION);
+    createEAttribute(domainServiceDefinitionEClass, DOMAIN_SERVICE_DEFINITION__SERVICE_VISIBILITY);
+    createEReference(domainServiceDefinitionEClass, DOMAIN_SERVICE_DEFINITION__DOMAIN_NAME);
+    createEReference(domainServiceDefinitionEClass, DOMAIN_SERVICE_DEFINITION__SERVICE_NAME);
+    createEReference(domainServiceDefinitionEClass, DOMAIN_SERVICE_DEFINITION__PARAMETER_LIST);
+    createEReference(domainServiceDefinitionEClass, DOMAIN_SERVICE_DEFINITION__CODE_BLOCK);
+    createEReference(domainServiceDefinitionEClass, DOMAIN_SERVICE_DEFINITION__PARGMA_LIST);
+    createEReference(domainServiceDefinitionEClass, DOMAIN_SERVICE_DEFINITION__RETURN_TYPE);
+
+    objectServiceDefinitionEClass = createEClass(OBJECT_SERVICE_DEFINITION);
+    createEAttribute(objectServiceDefinitionEClass, OBJECT_SERVICE_DEFINITION__SERVICE_VISIBILITY);
+    createEAttribute(objectServiceDefinitionEClass, OBJECT_SERVICE_DEFINITION__INSTANCE);
+    createEReference(objectServiceDefinitionEClass, OBJECT_SERVICE_DEFINITION__DOMAIN_NAME);
+    createEReference(objectServiceDefinitionEClass, OBJECT_SERVICE_DEFINITION__OBJECT_NAME);
+    createEReference(objectServiceDefinitionEClass, OBJECT_SERVICE_DEFINITION__SERVICE_NAME);
+    createEReference(objectServiceDefinitionEClass, OBJECT_SERVICE_DEFINITION__PARAMETER_LIST);
+    createEReference(objectServiceDefinitionEClass, OBJECT_SERVICE_DEFINITION__CODE_BLOCK);
+    createEReference(objectServiceDefinitionEClass, OBJECT_SERVICE_DEFINITION__PRAGMA_LIST);
+    createEReference(objectServiceDefinitionEClass, OBJECT_SERVICE_DEFINITION__SERVICE_TYPE);
+    createEReference(objectServiceDefinitionEClass, OBJECT_SERVICE_DEFINITION__RETURN_TYPE);
+
+    terminatorServiceDefinitionEClass = createEClass(TERMINATOR_SERVICE_DEFINITION);
+    createEAttribute(terminatorServiceDefinitionEClass, TERMINATOR_SERVICE_DEFINITION__SERVICE_VISIBILITY);
+    createEReference(terminatorServiceDefinitionEClass, TERMINATOR_SERVICE_DEFINITION__DOMAIN_NAME);
+    createEReference(terminatorServiceDefinitionEClass, TERMINATOR_SERVICE_DEFINITION__TERMINATOR_NAME);
+    createEReference(terminatorServiceDefinitionEClass, TERMINATOR_SERVICE_DEFINITION__SERVICE_NAME);
+    createEReference(terminatorServiceDefinitionEClass, TERMINATOR_SERVICE_DEFINITION__PARAMETER_LIST);
+    createEReference(terminatorServiceDefinitionEClass, TERMINATOR_SERVICE_DEFINITION__CODE_BLOCK);
+    createEReference(terminatorServiceDefinitionEClass, TERMINATOR_SERVICE_DEFINITION__PRAGMA_LIST);
+    createEReference(terminatorServiceDefinitionEClass, TERMINATOR_SERVICE_DEFINITION__RETURN_TYPE);
+
+    codeBlockEClass = createEClass(CODE_BLOCK);
+    createEReference(codeBlockEClass, CODE_BLOCK__VARIABLE_DECLARATION);
+
+    variableDeclarationEClass = createEClass(VARIABLE_DECLARATION);
+    createEReference(variableDeclarationEClass, VARIABLE_DECLARATION__VARIABLE_NAME);
+    createEAttribute(variableDeclarationEClass, VARIABLE_DECLARATION__READONLY);
+    createEReference(variableDeclarationEClass, VARIABLE_DECLARATION__TYPE_REFERENCE_WITH_CA);
+    createEReference(variableDeclarationEClass, VARIABLE_DECLARATION__PRAGMA_LIST);
+
+    variableNameEClass = createEClass(VARIABLE_NAME);
+    createEAttribute(variableNameEClass, VARIABLE_NAME__IDENTIFIER);
   }
 
   /**
@@ -1020,14 +1636,23 @@ public class MaslPackageImpl extends EPackageImpl implements MaslPackage
     // Set bounds for type parameters
 
     // Add supertypes to classes
+    projectEClass.getESuperTypes().add(this.getdefinition());
     domainEClass.getESuperTypes().add(this.getprojectItem());
     terminatorDefinitionEClass.getESuperTypes().add(this.getdomainPrjItem());
     terminatorServiceDeclarationEClass.getESuperTypes().add(this.getterminatorItem());
     terminatorFunctionDeclarationEClass.getESuperTypes().add(this.getterminatorItem());
     deprecatedTypeEClass.getESuperTypes().add(this.gettypeReference());
     namedTypeEClass.getESuperTypes().add(this.gettypeReference());
+    domainServiceDefinitionEClass.getESuperTypes().add(this.getdefinition());
+    objectServiceDefinitionEClass.getESuperTypes().add(this.getdefinition());
+    terminatorServiceDefinitionEClass.getESuperTypes().add(this.getdefinition());
 
     // Initialize classes and features; add operations and parameters
+    initEClass(targetEClass, target.class, "target", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(gettarget_Definition(), this.getdefinition(), null, "definition", null, 0, -1, target.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(definitionEClass, definition.class, "definition", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+
     initEClass(projectEClass, Project.class, "Project", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEReference(getProject_ProjectName(), this.getProjectName(), null, "projectName", null, 0, 1, Project.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
     initEReference(getProject_ProjectItem(), this.getprojectItem(), null, "projectItem", null, 0, -1, Project.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
@@ -1111,6 +1736,59 @@ public class MaslPackageImpl extends EPackageImpl implements MaslPackage
 
     initEClass(pragmaNameEClass, PragmaName.class, "PragmaName", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
     initEAttribute(getPragmaName_Identifier(), ecorePackage.getEString(), "identifier", null, 0, 1, PragmaName.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(objectNameEClass, ObjectName.class, "ObjectName", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getObjectName_Identifier(), ecorePackage.getEString(), "identifier", null, 0, 1, ObjectName.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(serviceTypeEClass, serviceType.class, "serviceType", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getserviceType_INSTANCE(), ecorePackage.getEString(), "INSTANCE", null, 0, 1, serviceType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getserviceType_RelationshipName(), this.getRelationshipName(), null, "relationshipName", null, 0, 1, serviceType.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(relationshipNameEClass, RelationshipName.class, "RelationshipName", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getRelationshipName_RelationshipName(), ecorePackage.getEString(), "relationshipName", null, 0, 1, RelationshipName.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(domainServiceDefinitionEClass, DomainServiceDefinition.class, "DomainServiceDefinition", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getDomainServiceDefinition_ServiceVisibility(), ecorePackage.getEString(), "serviceVisibility", null, 0, 1, DomainServiceDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getDomainServiceDefinition_DomainName(), this.getDomainName(), null, "domainName", null, 0, 1, DomainServiceDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getDomainServiceDefinition_ServiceName(), this.getServiceName(), null, "serviceName", null, 0, 1, DomainServiceDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getDomainServiceDefinition_ParameterList(), this.getparameterList(), null, "parameterList", null, 0, 1, DomainServiceDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getDomainServiceDefinition_CodeBlock(), this.getCodeBlock(), null, "codeBlock", null, 0, 1, DomainServiceDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getDomainServiceDefinition_PargmaList(), this.getPragmaList(), null, "pargmaList", null, 0, 1, DomainServiceDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getDomainServiceDefinition_ReturnType(), this.getReturnType(), null, "returnType", null, 0, 1, DomainServiceDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(objectServiceDefinitionEClass, ObjectServiceDefinition.class, "ObjectServiceDefinition", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getObjectServiceDefinition_ServiceVisibility(), ecorePackage.getEString(), "serviceVisibility", null, 0, 1, ObjectServiceDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getObjectServiceDefinition_INSTANCE(), ecorePackage.getEString(), "INSTANCE", null, 0, 1, ObjectServiceDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getObjectServiceDefinition_DomainName(), this.getDomainName(), null, "domainName", null, 0, 1, ObjectServiceDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getObjectServiceDefinition_ObjectName(), this.getObjectName(), null, "objectName", null, 0, 1, ObjectServiceDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getObjectServiceDefinition_ServiceName(), this.getServiceName(), null, "serviceName", null, 0, 1, ObjectServiceDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getObjectServiceDefinition_ParameterList(), this.getparameterList(), null, "parameterList", null, 0, 1, ObjectServiceDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getObjectServiceDefinition_CodeBlock(), this.getCodeBlock(), null, "codeBlock", null, 0, 1, ObjectServiceDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getObjectServiceDefinition_PragmaList(), this.getPragmaList(), null, "pragmaList", null, 0, 1, ObjectServiceDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getObjectServiceDefinition_ServiceType(), this.getserviceType(), null, "serviceType", null, 0, 1, ObjectServiceDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getObjectServiceDefinition_ReturnType(), this.getReturnType(), null, "returnType", null, 0, 1, ObjectServiceDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(terminatorServiceDefinitionEClass, TerminatorServiceDefinition.class, "TerminatorServiceDefinition", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getTerminatorServiceDefinition_ServiceVisibility(), ecorePackage.getEString(), "serviceVisibility", null, 0, 1, TerminatorServiceDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getTerminatorServiceDefinition_DomainName(), this.getDomainName(), null, "domainName", null, 0, 1, TerminatorServiceDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getTerminatorServiceDefinition_TerminatorName(), this.getTerminatorName(), null, "terminatorName", null, 0, 1, TerminatorServiceDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getTerminatorServiceDefinition_ServiceName(), this.getServiceName(), null, "serviceName", null, 0, 1, TerminatorServiceDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getTerminatorServiceDefinition_ParameterList(), this.getparameterList(), null, "parameterList", null, 0, 1, TerminatorServiceDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getTerminatorServiceDefinition_CodeBlock(), this.getCodeBlock(), null, "codeBlock", null, 0, 1, TerminatorServiceDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getTerminatorServiceDefinition_PragmaList(), this.getPragmaList(), null, "pragmaList", null, 0, 1, TerminatorServiceDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getTerminatorServiceDefinition_ReturnType(), this.getReturnType(), null, "returnType", null, 0, 1, TerminatorServiceDefinition.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(codeBlockEClass, CodeBlock.class, "CodeBlock", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getCodeBlock_VariableDeclaration(), this.getVariableDeclaration(), null, "variableDeclaration", null, 0, -1, CodeBlock.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(variableDeclarationEClass, VariableDeclaration.class, "VariableDeclaration", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEReference(getVariableDeclaration_VariableName(), this.getVariableName(), null, "variableName", null, 0, 1, VariableDeclaration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEAttribute(getVariableDeclaration_READONLY(), ecorePackage.getEString(), "READONLY", null, 0, 1, VariableDeclaration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getVariableDeclaration_TypeReferenceWithCA(), this.gettypeReference(), null, "typeReferenceWithCA", null, 0, 1, VariableDeclaration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+    initEReference(getVariableDeclaration_PragmaList(), this.getPragmaList(), null, "pragmaList", null, 0, 1, VariableDeclaration.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, IS_COMPOSITE, !IS_RESOLVE_PROXIES, !IS_UNSETTABLE, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
+
+    initEClass(variableNameEClass, VariableName.class, "VariableName", !IS_ABSTRACT, !IS_INTERFACE, IS_GENERATED_INSTANCE_CLASS);
+    initEAttribute(getVariableName_Identifier(), ecorePackage.getEString(), "identifier", null, 0, 1, VariableName.class, !IS_TRANSIENT, !IS_VOLATILE, IS_CHANGEABLE, !IS_UNSETTABLE, !IS_ID, IS_UNIQUE, !IS_DERIVED, IS_ORDERED);
 
     // Create resource
     createResource(eNS_URI);

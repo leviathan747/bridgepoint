@@ -5,7 +5,11 @@
     updateClasspath="false" rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container"
     complianceLevel="6.0" copyrightFields="false" runtimeVersion="2.11">
   <genPackages prefix="Masl" basePackage="org.xtuml.bp.xtext" disposableProviderFactory="true"
-      fileExtensions="masl,prj,mod,tr" ecorePackage="Masl.ecore#/">
+      fileExtensions="masl,prj,mod,tr,svc,scn,al,int" ecorePackage="Masl.ecore#/">
+    <genClasses ecoreClass="Masl.ecore#//target">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Masl.ecore#//target/definition"/>
+    </genClasses>
+    <genClasses ecoreClass="Masl.ecore#//definition"/>
     <genClasses ecoreClass="Masl.ecore#//Project">
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Masl.ecore#//Project/projectName"/>
       <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Masl.ecore#//Project/projectItem"/>
@@ -85,6 +89,59 @@
     </genClasses>
     <genClasses ecoreClass="Masl.ecore#//PragmaName">
       <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Masl.ecore#//PragmaName/identifier"/>
+    </genClasses>
+    <genClasses ecoreClass="Masl.ecore#//ObjectName">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Masl.ecore#//ObjectName/identifier"/>
+    </genClasses>
+    <genClasses ecoreClass="Masl.ecore#//serviceType">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Masl.ecore#//serviceType/INSTANCE"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Masl.ecore#//serviceType/relationshipName"/>
+    </genClasses>
+    <genClasses ecoreClass="Masl.ecore#//RelationshipName">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Masl.ecore#//RelationshipName/relationshipName"/>
+    </genClasses>
+    <genClasses ecoreClass="Masl.ecore#//DomainServiceDefinition">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Masl.ecore#//DomainServiceDefinition/serviceVisibility"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Masl.ecore#//DomainServiceDefinition/domainName"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Masl.ecore#//DomainServiceDefinition/serviceName"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Masl.ecore#//DomainServiceDefinition/parameterList"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Masl.ecore#//DomainServiceDefinition/codeBlock"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Masl.ecore#//DomainServiceDefinition/pargmaList"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Masl.ecore#//DomainServiceDefinition/returnType"/>
+    </genClasses>
+    <genClasses ecoreClass="Masl.ecore#//ObjectServiceDefinition">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Masl.ecore#//ObjectServiceDefinition/serviceVisibility"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Masl.ecore#//ObjectServiceDefinition/INSTANCE"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Masl.ecore#//ObjectServiceDefinition/domainName"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Masl.ecore#//ObjectServiceDefinition/objectName"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Masl.ecore#//ObjectServiceDefinition/serviceName"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Masl.ecore#//ObjectServiceDefinition/parameterList"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Masl.ecore#//ObjectServiceDefinition/codeBlock"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Masl.ecore#//ObjectServiceDefinition/pragmaList"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Masl.ecore#//ObjectServiceDefinition/serviceType"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Masl.ecore#//ObjectServiceDefinition/returnType"/>
+    </genClasses>
+    <genClasses ecoreClass="Masl.ecore#//TerminatorServiceDefinition">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Masl.ecore#//TerminatorServiceDefinition/serviceVisibility"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Masl.ecore#//TerminatorServiceDefinition/domainName"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Masl.ecore#//TerminatorServiceDefinition/terminatorName"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Masl.ecore#//TerminatorServiceDefinition/serviceName"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Masl.ecore#//TerminatorServiceDefinition/parameterList"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Masl.ecore#//TerminatorServiceDefinition/codeBlock"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Masl.ecore#//TerminatorServiceDefinition/pragmaList"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Masl.ecore#//TerminatorServiceDefinition/returnType"/>
+    </genClasses>
+    <genClasses ecoreClass="Masl.ecore#//CodeBlock">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Masl.ecore#//CodeBlock/variableDeclaration"/>
+    </genClasses>
+    <genClasses ecoreClass="Masl.ecore#//VariableDeclaration">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Masl.ecore#//VariableDeclaration/variableName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Masl.ecore#//VariableDeclaration/READONLY"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Masl.ecore#//VariableDeclaration/typeReferenceWithCA"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference Masl.ecore#//VariableDeclaration/pragmaList"/>
+    </genClasses>
+    <genClasses ecoreClass="Masl.ecore#//VariableName">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute Masl.ecore#//VariableName/identifier"/>
     </genClasses>
   </genPackages>
 </genmodel:GenModel>

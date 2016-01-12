@@ -23,6 +23,67 @@ import org.eclipse.xtext.service.GrammarProvider;
 @Singleton
 public class MaslGrammarAccess extends AbstractGrammarElementFinder {
 	
+	public class TargetElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.xtuml.bp.xtext.Masl.target");
+		private final Assignment cDefinitionAssignment = (Assignment)rule.eContents().get(1);
+		private final RuleCall cDefinitionDefinitionParserRuleCall_0 = (RuleCall)cDefinitionAssignment.eContents().get(0);
+		
+		//target:
+		//	definition+=definition+;
+		@Override public ParserRule getRule() { return rule; }
+		
+		//definition+=definition+
+		public Assignment getDefinitionAssignment() { return cDefinitionAssignment; }
+		
+		//definition
+		public RuleCall getDefinitionDefinitionParserRuleCall_0() { return cDefinitionDefinitionParserRuleCall_0; }
+	}
+	public class DefinitionElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.xtuml.bp.xtext.Masl.definition");
+		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
+		private final RuleCall cProjectDefinitionParserRuleCall_0 = (RuleCall)cAlternatives.eContents().get(0);
+		private final RuleCall cObjectServiceDefinitionParserRuleCall_1 = (RuleCall)cAlternatives.eContents().get(1);
+		private final RuleCall cObjectFunctionDefinitionParserRuleCall_2 = (RuleCall)cAlternatives.eContents().get(2);
+		private final RuleCall cDomainServiceDefinitionParserRuleCall_3 = (RuleCall)cAlternatives.eContents().get(3);
+		private final RuleCall cDomainFunctionDefinitionParserRuleCall_4 = (RuleCall)cAlternatives.eContents().get(4);
+		private final RuleCall cTerminatorServiceDefinitionParserRuleCall_5 = (RuleCall)cAlternatives.eContents().get(5);
+		private final RuleCall cTerminatorFunctionDefinitionParserRuleCall_6 = (RuleCall)cAlternatives.eContents().get(6);
+		
+		//definition:
+		//	projectDefinition
+		//	| objectServiceDefinition
+		//	| objectFunctionDefinition
+		//	| domainServiceDefinition
+		//	| domainFunctionDefinition
+		//	| terminatorServiceDefinition
+		//	| terminatorFunctionDefinition;
+		@Override public ParserRule getRule() { return rule; }
+		
+		//projectDefinition | objectServiceDefinition | objectFunctionDefinition | domainServiceDefinition |
+		//domainFunctionDefinition | terminatorServiceDefinition | terminatorFunctionDefinition
+		public Alternatives getAlternatives() { return cAlternatives; }
+		
+		//projectDefinition
+		public RuleCall getProjectDefinitionParserRuleCall_0() { return cProjectDefinitionParserRuleCall_0; }
+		
+		//objectServiceDefinition
+		public RuleCall getObjectServiceDefinitionParserRuleCall_1() { return cObjectServiceDefinitionParserRuleCall_1; }
+		
+		//objectFunctionDefinition
+		public RuleCall getObjectFunctionDefinitionParserRuleCall_2() { return cObjectFunctionDefinitionParserRuleCall_2; }
+		
+		//domainServiceDefinition
+		public RuleCall getDomainServiceDefinitionParserRuleCall_3() { return cDomainServiceDefinitionParserRuleCall_3; }
+		
+		//domainFunctionDefinition
+		public RuleCall getDomainFunctionDefinitionParserRuleCall_4() { return cDomainFunctionDefinitionParserRuleCall_4; }
+		
+		//terminatorServiceDefinition
+		public RuleCall getTerminatorServiceDefinitionParserRuleCall_5() { return cTerminatorServiceDefinitionParserRuleCall_5; }
+		
+		//terminatorFunctionDefinition
+		public RuleCall getTerminatorFunctionDefinitionParserRuleCall_6() { return cTerminatorFunctionDefinitionParserRuleCall_6; }
+	}
 	public class ProjectDefinitionElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.xtuml.bp.xtext.Masl.projectDefinition");
 		private final Group cGroup = (Group)rule.eContents().get(1);
@@ -38,7 +99,6 @@ public class MaslGrammarAccess extends AbstractGrammarElementFinder {
 		private final Assignment cPragmaListAssignment_7 = (Assignment)cGroup.eContents().get(7);
 		private final RuleCall cPragmaListPragmaListParserRuleCall_7_0 = (RuleCall)cPragmaListAssignment_7.eContents().get(0);
 		
-		////target                        : projectDefinition+;
 		////---------------------------------------------------------
 		//// Project Definition
 		////---------------------------------------------------------
@@ -864,6 +924,833 @@ public class MaslGrammarAccess extends AbstractGrammarElementFinder {
 		//STRING
 		public RuleCall getSTRINGTerminalRuleCall_1() { return cSTRINGTerminalRuleCall_1; }
 	}
+	public class ObjectNameElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.xtuml.bp.xtext.Masl.objectName");
+		private final Assignment cIdentifierAssignment = (Assignment)rule.eContents().get(1);
+		private final RuleCall cIdentifierIDTerminalRuleCall_0 = (RuleCall)cIdentifierAssignment.eContents().get(0);
+		
+		////---------------------------------------------------------
+		//// Object Definition
+		////---------------------------------------------------------
+		//objectName ObjectName:
+		//	identifier=ID
+		@Override public ParserRule getRule() { return rule; }
+		
+		//identifier=ID
+		public Assignment getIdentifierAssignment() { return cIdentifierAssignment; }
+		
+		//ID
+		public RuleCall getIdentifierIDTerminalRuleCall_0() { return cIdentifierIDTerminalRuleCall_0; }
+	}
+	public class ServiceTypeElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.xtuml.bp.xtext.Masl.serviceType");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Assignment cINSTANCEAssignment_0 = (Assignment)cGroup.eContents().get(0);
+		private final RuleCall cINSTANCEINSTANCEParserRuleCall_0_0 = (RuleCall)cINSTANCEAssignment_0.eContents().get(0);
+		private final Group cGroup_1 = (Group)cGroup.eContents().get(1);
+		private final RuleCall cDEFERREDParserRuleCall_1_0 = (RuleCall)cGroup_1.eContents().get(0);
+		private final RuleCall cLPARENParserRuleCall_1_1 = (RuleCall)cGroup_1.eContents().get(1);
+		private final Assignment cRelationshipNameAssignment_1_2 = (Assignment)cGroup_1.eContents().get(2);
+		private final RuleCall cRelationshipNameRelationshipNameParserRuleCall_1_2_0 = (RuleCall)cRelationshipNameAssignment_1_2.eContents().get(0);
+		private final RuleCall cRPARENParserRuleCall_1_3 = (RuleCall)cGroup_1.eContents().get(3);
+		
+		//serviceType:
+		//	(INSTANCE=INSTANCE (DEFERRED LPAREN relationshipName=relationshipName RPAREN)?)?;
+		@Override public ParserRule getRule() { return rule; }
+		
+		//(INSTANCE=INSTANCE (DEFERRED LPAREN relationshipName=relationshipName RPAREN)?)?
+		public Group getGroup() { return cGroup; }
+		
+		//INSTANCE=INSTANCE
+		public Assignment getINSTANCEAssignment_0() { return cINSTANCEAssignment_0; }
+		
+		//INSTANCE
+		public RuleCall getINSTANCEINSTANCEParserRuleCall_0_0() { return cINSTANCEINSTANCEParserRuleCall_0_0; }
+		
+		//(DEFERRED LPAREN relationshipName=relationshipName RPAREN)?
+		public Group getGroup_1() { return cGroup_1; }
+		
+		//DEFERRED
+		public RuleCall getDEFERREDParserRuleCall_1_0() { return cDEFERREDParserRuleCall_1_0; }
+		
+		//LPAREN
+		public RuleCall getLPARENParserRuleCall_1_1() { return cLPARENParserRuleCall_1_1; }
+		
+		//relationshipName=relationshipName
+		public Assignment getRelationshipNameAssignment_1_2() { return cRelationshipNameAssignment_1_2; }
+		
+		//relationshipName
+		public RuleCall getRelationshipNameRelationshipNameParserRuleCall_1_2_0() { return cRelationshipNameRelationshipNameParserRuleCall_1_2_0; }
+		
+		//RPAREN
+		public RuleCall getRPARENParserRuleCall_1_3() { return cRPARENParserRuleCall_1_3; }
+	}
+	public class RelationshipNameElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.xtuml.bp.xtext.Masl.relationshipName");
+		private final Assignment cRelationshipNameAssignment = (Assignment)rule.eContents().get(1);
+		private final RuleCall cRelationshipNameRELATIONSHIP_NAMETerminalRuleCall_0 = (RuleCall)cRelationshipNameAssignment.eContents().get(0);
+		
+		////---------------------------------------------------------
+		//// Relationship Definition
+		////---------------------------------------------------------
+		//relationshipName RelationshipName:
+		//	relationshipName=RELATIONSHIP_NAME
+		@Override public ParserRule getRule() { return rule; }
+		
+		//relationshipName=RELATIONSHIP_NAME
+		public Assignment getRelationshipNameAssignment() { return cRelationshipNameAssignment; }
+		
+		//RELATIONSHIP_NAME
+		public RuleCall getRelationshipNameRELATIONSHIP_NAMETerminalRuleCall_0() { return cRelationshipNameRELATIONSHIP_NAMETerminalRuleCall_0; }
+	}
+	public class DomainServiceDefinitionElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.xtuml.bp.xtext.Masl.domainServiceDefinition");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Assignment cServiceVisibilityAssignment_0 = (Assignment)cGroup.eContents().get(0);
+		private final RuleCall cServiceVisibilityServiceVisibilityParserRuleCall_0_0 = (RuleCall)cServiceVisibilityAssignment_0.eContents().get(0);
+		private final RuleCall cSERVICEParserRuleCall_1 = (RuleCall)cGroup.eContents().get(1);
+		private final Assignment cDomainNameAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final RuleCall cDomainNameDomainNameParserRuleCall_2_0 = (RuleCall)cDomainNameAssignment_2.eContents().get(0);
+		private final RuleCall cSCOPEParserRuleCall_3 = (RuleCall)cGroup.eContents().get(3);
+		private final Assignment cServiceNameAssignment_4 = (Assignment)cGroup.eContents().get(4);
+		private final RuleCall cServiceNameServiceNameParserRuleCall_4_0 = (RuleCall)cServiceNameAssignment_4.eContents().get(0);
+		private final Assignment cParameterListAssignment_5 = (Assignment)cGroup.eContents().get(5);
+		private final RuleCall cParameterListParameterListParserRuleCall_5_0 = (RuleCall)cParameterListAssignment_5.eContents().get(0);
+		private final RuleCall cISParserRuleCall_6 = (RuleCall)cGroup.eContents().get(6);
+		private final Assignment cCodeBlockAssignment_7 = (Assignment)cGroup.eContents().get(7);
+		private final RuleCall cCodeBlockCodeBlockParserRuleCall_7_0 = (RuleCall)cCodeBlockAssignment_7.eContents().get(0);
+		private final RuleCall cSERVICEParserRuleCall_8 = (RuleCall)cGroup.eContents().get(8);
+		private final RuleCall cSEMIParserRuleCall_9 = (RuleCall)cGroup.eContents().get(9);
+		private final Assignment cPargmaListAssignment_10 = (Assignment)cGroup.eContents().get(10);
+		private final RuleCall cPargmaListPragmaListParserRuleCall_10_0 = (RuleCall)cPargmaListAssignment_10.eContents().get(0);
+		
+		////---------------------------------------------------------
+		//// Dynamic Behaviour
+		////---------------------------------------------------------
+		//domainServiceDefinition DomainServiceDefinition:
+		//	serviceVisibility=serviceVisibility SERVICE
+		//	domainName=domainName SCOPE serviceName=serviceName
+		//	parameterList=parameterList IS
+		//	codeBlock=codeBlock
+		//	SERVICE? SEMI pargmaList=pragmaList
+		@Override public ParserRule getRule() { return rule; }
+		
+		//serviceVisibility=serviceVisibility SERVICE domainName=domainName SCOPE serviceName=serviceName
+		//parameterList=parameterList IS codeBlock=codeBlock SERVICE? SEMI pargmaList=pragmaList
+		public Group getGroup() { return cGroup; }
+		
+		//serviceVisibility=serviceVisibility
+		public Assignment getServiceVisibilityAssignment_0() { return cServiceVisibilityAssignment_0; }
+		
+		//serviceVisibility
+		public RuleCall getServiceVisibilityServiceVisibilityParserRuleCall_0_0() { return cServiceVisibilityServiceVisibilityParserRuleCall_0_0; }
+		
+		//SERVICE
+		public RuleCall getSERVICEParserRuleCall_1() { return cSERVICEParserRuleCall_1; }
+		
+		//domainName=domainName
+		public Assignment getDomainNameAssignment_2() { return cDomainNameAssignment_2; }
+		
+		//domainName
+		public RuleCall getDomainNameDomainNameParserRuleCall_2_0() { return cDomainNameDomainNameParserRuleCall_2_0; }
+		
+		//SCOPE
+		public RuleCall getSCOPEParserRuleCall_3() { return cSCOPEParserRuleCall_3; }
+		
+		//serviceName=serviceName
+		public Assignment getServiceNameAssignment_4() { return cServiceNameAssignment_4; }
+		
+		//serviceName
+		public RuleCall getServiceNameServiceNameParserRuleCall_4_0() { return cServiceNameServiceNameParserRuleCall_4_0; }
+		
+		//parameterList=parameterList
+		public Assignment getParameterListAssignment_5() { return cParameterListAssignment_5; }
+		
+		//parameterList
+		public RuleCall getParameterListParameterListParserRuleCall_5_0() { return cParameterListParameterListParserRuleCall_5_0; }
+		
+		//IS
+		public RuleCall getISParserRuleCall_6() { return cISParserRuleCall_6; }
+		
+		//codeBlock=codeBlock
+		public Assignment getCodeBlockAssignment_7() { return cCodeBlockAssignment_7; }
+		
+		//codeBlock
+		public RuleCall getCodeBlockCodeBlockParserRuleCall_7_0() { return cCodeBlockCodeBlockParserRuleCall_7_0; }
+		
+		//SERVICE?
+		public RuleCall getSERVICEParserRuleCall_8() { return cSERVICEParserRuleCall_8; }
+		
+		//SEMI
+		public RuleCall getSEMIParserRuleCall_9() { return cSEMIParserRuleCall_9; }
+		
+		//pargmaList=pragmaList
+		public Assignment getPargmaListAssignment_10() { return cPargmaListAssignment_10; }
+		
+		//pragmaList
+		public RuleCall getPargmaListPragmaListParserRuleCall_10_0() { return cPargmaListPragmaListParserRuleCall_10_0; }
+	}
+	public class DomainFunctionDefinitionElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.xtuml.bp.xtext.Masl.domainFunctionDefinition");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Assignment cServiceVisibilityAssignment_0 = (Assignment)cGroup.eContents().get(0);
+		private final RuleCall cServiceVisibilityServiceVisibilityParserRuleCall_0_0 = (RuleCall)cServiceVisibilityAssignment_0.eContents().get(0);
+		private final RuleCall cFUNCTIONParserRuleCall_1 = (RuleCall)cGroup.eContents().get(1);
+		private final Assignment cDomainNameAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final RuleCall cDomainNameDomainNameParserRuleCall_2_0 = (RuleCall)cDomainNameAssignment_2.eContents().get(0);
+		private final RuleCall cSCOPEParserRuleCall_3 = (RuleCall)cGroup.eContents().get(3);
+		private final Assignment cServiceNameAssignment_4 = (Assignment)cGroup.eContents().get(4);
+		private final RuleCall cServiceNameServiceNameParserRuleCall_4_0 = (RuleCall)cServiceNameAssignment_4.eContents().get(0);
+		private final Assignment cParameterListAssignment_5 = (Assignment)cGroup.eContents().get(5);
+		private final RuleCall cParameterListParameterListParserRuleCall_5_0 = (RuleCall)cParameterListAssignment_5.eContents().get(0);
+		private final RuleCall cRETURNParserRuleCall_6 = (RuleCall)cGroup.eContents().get(6);
+		private final Assignment cReturnTypeAssignment_7 = (Assignment)cGroup.eContents().get(7);
+		private final RuleCall cReturnTypeReturnTypeParserRuleCall_7_0 = (RuleCall)cReturnTypeAssignment_7.eContents().get(0);
+		private final RuleCall cISParserRuleCall_8 = (RuleCall)cGroup.eContents().get(8);
+		private final Assignment cCodeBlockAssignment_9 = (Assignment)cGroup.eContents().get(9);
+		private final RuleCall cCodeBlockCodeBlockParserRuleCall_9_0 = (RuleCall)cCodeBlockAssignment_9.eContents().get(0);
+		private final RuleCall cFUNCTIONParserRuleCall_10 = (RuleCall)cGroup.eContents().get(10);
+		private final RuleCall cSEMIParserRuleCall_11 = (RuleCall)cGroup.eContents().get(11);
+		private final Assignment cPargmaListAssignment_12 = (Assignment)cGroup.eContents().get(12);
+		private final RuleCall cPargmaListPragmaListParserRuleCall_12_0 = (RuleCall)cPargmaListAssignment_12.eContents().get(0);
+		
+		//domainFunctionDefinition DomainServiceDefinition:
+		//	serviceVisibility=serviceVisibility FUNCTION
+		//	domainName=domainName SCOPE serviceName=serviceName
+		//	parameterList=parameterList
+		//	RETURN returnType=returnType IS codeBlock=codeBlock
+		//	FUNCTION? SEMI pargmaList=pragmaList
+		@Override public ParserRule getRule() { return rule; }
+		
+		//serviceVisibility=serviceVisibility FUNCTION domainName=domainName SCOPE serviceName=serviceName
+		//parameterList=parameterList RETURN returnType=returnType IS codeBlock=codeBlock FUNCTION? SEMI pargmaList=pragmaList
+		public Group getGroup() { return cGroup; }
+		
+		//serviceVisibility=serviceVisibility
+		public Assignment getServiceVisibilityAssignment_0() { return cServiceVisibilityAssignment_0; }
+		
+		//serviceVisibility
+		public RuleCall getServiceVisibilityServiceVisibilityParserRuleCall_0_0() { return cServiceVisibilityServiceVisibilityParserRuleCall_0_0; }
+		
+		//FUNCTION
+		public RuleCall getFUNCTIONParserRuleCall_1() { return cFUNCTIONParserRuleCall_1; }
+		
+		//domainName=domainName
+		public Assignment getDomainNameAssignment_2() { return cDomainNameAssignment_2; }
+		
+		//domainName
+		public RuleCall getDomainNameDomainNameParserRuleCall_2_0() { return cDomainNameDomainNameParserRuleCall_2_0; }
+		
+		//SCOPE
+		public RuleCall getSCOPEParserRuleCall_3() { return cSCOPEParserRuleCall_3; }
+		
+		//serviceName=serviceName
+		public Assignment getServiceNameAssignment_4() { return cServiceNameAssignment_4; }
+		
+		//serviceName
+		public RuleCall getServiceNameServiceNameParserRuleCall_4_0() { return cServiceNameServiceNameParserRuleCall_4_0; }
+		
+		//parameterList=parameterList
+		public Assignment getParameterListAssignment_5() { return cParameterListAssignment_5; }
+		
+		//parameterList
+		public RuleCall getParameterListParameterListParserRuleCall_5_0() { return cParameterListParameterListParserRuleCall_5_0; }
+		
+		//RETURN
+		public RuleCall getRETURNParserRuleCall_6() { return cRETURNParserRuleCall_6; }
+		
+		//returnType=returnType
+		public Assignment getReturnTypeAssignment_7() { return cReturnTypeAssignment_7; }
+		
+		//returnType
+		public RuleCall getReturnTypeReturnTypeParserRuleCall_7_0() { return cReturnTypeReturnTypeParserRuleCall_7_0; }
+		
+		//IS
+		public RuleCall getISParserRuleCall_8() { return cISParserRuleCall_8; }
+		
+		//codeBlock=codeBlock
+		public Assignment getCodeBlockAssignment_9() { return cCodeBlockAssignment_9; }
+		
+		//codeBlock
+		public RuleCall getCodeBlockCodeBlockParserRuleCall_9_0() { return cCodeBlockCodeBlockParserRuleCall_9_0; }
+		
+		//FUNCTION?
+		public RuleCall getFUNCTIONParserRuleCall_10() { return cFUNCTIONParserRuleCall_10; }
+		
+		//SEMI
+		public RuleCall getSEMIParserRuleCall_11() { return cSEMIParserRuleCall_11; }
+		
+		//pargmaList=pragmaList
+		public Assignment getPargmaListAssignment_12() { return cPargmaListAssignment_12; }
+		
+		//pragmaList
+		public RuleCall getPargmaListPragmaListParserRuleCall_12_0() { return cPargmaListPragmaListParserRuleCall_12_0; }
+	}
+	public class ObjectServiceDefinitionElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.xtuml.bp.xtext.Masl.objectServiceDefinition");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Assignment cServiceVisibilityAssignment_0 = (Assignment)cGroup.eContents().get(0);
+		private final RuleCall cServiceVisibilityServiceVisibilityParserRuleCall_0_0 = (RuleCall)cServiceVisibilityAssignment_0.eContents().get(0);
+		private final Assignment cINSTANCEAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final RuleCall cINSTANCEINSTANCEParserRuleCall_1_0 = (RuleCall)cINSTANCEAssignment_1.eContents().get(0);
+		private final RuleCall cSERVICEParserRuleCall_2 = (RuleCall)cGroup.eContents().get(2);
+		private final Assignment cDomainNameAssignment_3 = (Assignment)cGroup.eContents().get(3);
+		private final RuleCall cDomainNameDomainNameParserRuleCall_3_0 = (RuleCall)cDomainNameAssignment_3.eContents().get(0);
+		private final RuleCall cSCOPEParserRuleCall_4 = (RuleCall)cGroup.eContents().get(4);
+		private final Assignment cObjectNameAssignment_5 = (Assignment)cGroup.eContents().get(5);
+		private final RuleCall cObjectNameObjectNameParserRuleCall_5_0 = (RuleCall)cObjectNameAssignment_5.eContents().get(0);
+		private final RuleCall cDOTParserRuleCall_6 = (RuleCall)cGroup.eContents().get(6);
+		private final Assignment cServiceNameAssignment_7 = (Assignment)cGroup.eContents().get(7);
+		private final RuleCall cServiceNameServiceNameParserRuleCall_7_0 = (RuleCall)cServiceNameAssignment_7.eContents().get(0);
+		private final Assignment cParameterListAssignment_8 = (Assignment)cGroup.eContents().get(8);
+		private final RuleCall cParameterListParameterListParserRuleCall_8_0 = (RuleCall)cParameterListAssignment_8.eContents().get(0);
+		private final RuleCall cISParserRuleCall_9 = (RuleCall)cGroup.eContents().get(9);
+		private final Assignment cCodeBlockAssignment_10 = (Assignment)cGroup.eContents().get(10);
+		private final RuleCall cCodeBlockCodeBlockParserRuleCall_10_0 = (RuleCall)cCodeBlockAssignment_10.eContents().get(0);
+		private final RuleCall cSERVICEParserRuleCall_11 = (RuleCall)cGroup.eContents().get(11);
+		private final RuleCall cSEMIParserRuleCall_12 = (RuleCall)cGroup.eContents().get(12);
+		private final Assignment cPragmaListAssignment_13 = (Assignment)cGroup.eContents().get(13);
+		private final RuleCall cPragmaListPragmaListParserRuleCall_13_0 = (RuleCall)cPragmaListAssignment_13.eContents().get(0);
+		
+		//objectServiceDefinition ObjectServiceDefinition:
+		//	serviceVisibility=serviceVisibility INSTANCE=INSTANCE? SERVICE
+		//	domainName=domainName SCOPE objectName=objectName DOT serviceName=serviceName
+		//	parameterList=parameterList IS codeBlock=codeBlock
+		//	SERVICE? SEMI pragmaList=pragmaList
+		@Override public ParserRule getRule() { return rule; }
+		
+		//serviceVisibility=serviceVisibility INSTANCE=INSTANCE? SERVICE domainName=domainName SCOPE objectName=objectName DOT
+		//serviceName=serviceName parameterList=parameterList IS codeBlock=codeBlock SERVICE? SEMI pragmaList=pragmaList
+		public Group getGroup() { return cGroup; }
+		
+		//serviceVisibility=serviceVisibility
+		public Assignment getServiceVisibilityAssignment_0() { return cServiceVisibilityAssignment_0; }
+		
+		//serviceVisibility
+		public RuleCall getServiceVisibilityServiceVisibilityParserRuleCall_0_0() { return cServiceVisibilityServiceVisibilityParserRuleCall_0_0; }
+		
+		//INSTANCE=INSTANCE?
+		public Assignment getINSTANCEAssignment_1() { return cINSTANCEAssignment_1; }
+		
+		//INSTANCE
+		public RuleCall getINSTANCEINSTANCEParserRuleCall_1_0() { return cINSTANCEINSTANCEParserRuleCall_1_0; }
+		
+		//SERVICE
+		public RuleCall getSERVICEParserRuleCall_2() { return cSERVICEParserRuleCall_2; }
+		
+		//domainName=domainName
+		public Assignment getDomainNameAssignment_3() { return cDomainNameAssignment_3; }
+		
+		//domainName
+		public RuleCall getDomainNameDomainNameParserRuleCall_3_0() { return cDomainNameDomainNameParserRuleCall_3_0; }
+		
+		//SCOPE
+		public RuleCall getSCOPEParserRuleCall_4() { return cSCOPEParserRuleCall_4; }
+		
+		//objectName=objectName
+		public Assignment getObjectNameAssignment_5() { return cObjectNameAssignment_5; }
+		
+		//objectName
+		public RuleCall getObjectNameObjectNameParserRuleCall_5_0() { return cObjectNameObjectNameParserRuleCall_5_0; }
+		
+		//DOT
+		public RuleCall getDOTParserRuleCall_6() { return cDOTParserRuleCall_6; }
+		
+		//serviceName=serviceName
+		public Assignment getServiceNameAssignment_7() { return cServiceNameAssignment_7; }
+		
+		//serviceName
+		public RuleCall getServiceNameServiceNameParserRuleCall_7_0() { return cServiceNameServiceNameParserRuleCall_7_0; }
+		
+		//parameterList=parameterList
+		public Assignment getParameterListAssignment_8() { return cParameterListAssignment_8; }
+		
+		//parameterList
+		public RuleCall getParameterListParameterListParserRuleCall_8_0() { return cParameterListParameterListParserRuleCall_8_0; }
+		
+		//IS
+		public RuleCall getISParserRuleCall_9() { return cISParserRuleCall_9; }
+		
+		//codeBlock=codeBlock
+		public Assignment getCodeBlockAssignment_10() { return cCodeBlockAssignment_10; }
+		
+		//codeBlock
+		public RuleCall getCodeBlockCodeBlockParserRuleCall_10_0() { return cCodeBlockCodeBlockParserRuleCall_10_0; }
+		
+		//SERVICE?
+		public RuleCall getSERVICEParserRuleCall_11() { return cSERVICEParserRuleCall_11; }
+		
+		//SEMI
+		public RuleCall getSEMIParserRuleCall_12() { return cSEMIParserRuleCall_12; }
+		
+		//pragmaList=pragmaList
+		public Assignment getPragmaListAssignment_13() { return cPragmaListAssignment_13; }
+		
+		//pragmaList
+		public RuleCall getPragmaListPragmaListParserRuleCall_13_0() { return cPragmaListPragmaListParserRuleCall_13_0; }
+	}
+	public class ObjectFunctionDefinitionElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.xtuml.bp.xtext.Masl.objectFunctionDefinition");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Assignment cServiceVisibilityAssignment_0 = (Assignment)cGroup.eContents().get(0);
+		private final RuleCall cServiceVisibilityServiceVisibilityParserRuleCall_0_0 = (RuleCall)cServiceVisibilityAssignment_0.eContents().get(0);
+		private final Assignment cServiceTypeAssignment_1 = (Assignment)cGroup.eContents().get(1);
+		private final RuleCall cServiceTypeServiceTypeParserRuleCall_1_0 = (RuleCall)cServiceTypeAssignment_1.eContents().get(0);
+		private final RuleCall cFUNCTIONParserRuleCall_2 = (RuleCall)cGroup.eContents().get(2);
+		private final Assignment cDomainNameAssignment_3 = (Assignment)cGroup.eContents().get(3);
+		private final RuleCall cDomainNameDomainNameParserRuleCall_3_0 = (RuleCall)cDomainNameAssignment_3.eContents().get(0);
+		private final RuleCall cSCOPEParserRuleCall_4 = (RuleCall)cGroup.eContents().get(4);
+		private final Assignment cObjectNameAssignment_5 = (Assignment)cGroup.eContents().get(5);
+		private final RuleCall cObjectNameObjectNameParserRuleCall_5_0 = (RuleCall)cObjectNameAssignment_5.eContents().get(0);
+		private final RuleCall cDOTParserRuleCall_6 = (RuleCall)cGroup.eContents().get(6);
+		private final Assignment cServiceNameAssignment_7 = (Assignment)cGroup.eContents().get(7);
+		private final RuleCall cServiceNameServiceNameParserRuleCall_7_0 = (RuleCall)cServiceNameAssignment_7.eContents().get(0);
+		private final Assignment cParameterListAssignment_8 = (Assignment)cGroup.eContents().get(8);
+		private final RuleCall cParameterListParameterListParserRuleCall_8_0 = (RuleCall)cParameterListAssignment_8.eContents().get(0);
+		private final RuleCall cRETURNParserRuleCall_9 = (RuleCall)cGroup.eContents().get(9);
+		private final Assignment cReturnTypeAssignment_10 = (Assignment)cGroup.eContents().get(10);
+		private final RuleCall cReturnTypeReturnTypeParserRuleCall_10_0 = (RuleCall)cReturnTypeAssignment_10.eContents().get(0);
+		private final RuleCall cISParserRuleCall_11 = (RuleCall)cGroup.eContents().get(11);
+		private final Assignment cCodeBlockAssignment_12 = (Assignment)cGroup.eContents().get(12);
+		private final RuleCall cCodeBlockCodeBlockParserRuleCall_12_0 = (RuleCall)cCodeBlockAssignment_12.eContents().get(0);
+		private final RuleCall cFUNCTIONParserRuleCall_13 = (RuleCall)cGroup.eContents().get(13);
+		private final RuleCall cSEMIParserRuleCall_14 = (RuleCall)cGroup.eContents().get(14);
+		private final Assignment cPragmaListAssignment_15 = (Assignment)cGroup.eContents().get(15);
+		private final RuleCall cPragmaListPragmaListParserRuleCall_15_0 = (RuleCall)cPragmaListAssignment_15.eContents().get(0);
+		
+		//objectFunctionDefinition ObjectServiceDefinition:
+		//	serviceVisibility=serviceVisibility serviceType=serviceType FUNCTION
+		//	domainName=domainName SCOPE objectName=objectName DOT serviceName=serviceName
+		//	parameterList=parameterList
+		//	RETURN returnType=returnType IS codeBlock=codeBlock
+		//	FUNCTION? SEMI pragmaList=pragmaList
+		@Override public ParserRule getRule() { return rule; }
+		
+		//serviceVisibility=serviceVisibility serviceType=serviceType FUNCTION domainName=domainName SCOPE objectName=objectName
+		//DOT serviceName=serviceName parameterList=parameterList RETURN returnType=returnType IS codeBlock=codeBlock FUNCTION?
+		//SEMI pragmaList=pragmaList
+		public Group getGroup() { return cGroup; }
+		
+		//serviceVisibility=serviceVisibility
+		public Assignment getServiceVisibilityAssignment_0() { return cServiceVisibilityAssignment_0; }
+		
+		//serviceVisibility
+		public RuleCall getServiceVisibilityServiceVisibilityParserRuleCall_0_0() { return cServiceVisibilityServiceVisibilityParserRuleCall_0_0; }
+		
+		//serviceType=serviceType
+		public Assignment getServiceTypeAssignment_1() { return cServiceTypeAssignment_1; }
+		
+		//serviceType
+		public RuleCall getServiceTypeServiceTypeParserRuleCall_1_0() { return cServiceTypeServiceTypeParserRuleCall_1_0; }
+		
+		//FUNCTION
+		public RuleCall getFUNCTIONParserRuleCall_2() { return cFUNCTIONParserRuleCall_2; }
+		
+		//domainName=domainName
+		public Assignment getDomainNameAssignment_3() { return cDomainNameAssignment_3; }
+		
+		//domainName
+		public RuleCall getDomainNameDomainNameParserRuleCall_3_0() { return cDomainNameDomainNameParserRuleCall_3_0; }
+		
+		//SCOPE
+		public RuleCall getSCOPEParserRuleCall_4() { return cSCOPEParserRuleCall_4; }
+		
+		//objectName=objectName
+		public Assignment getObjectNameAssignment_5() { return cObjectNameAssignment_5; }
+		
+		//objectName
+		public RuleCall getObjectNameObjectNameParserRuleCall_5_0() { return cObjectNameObjectNameParserRuleCall_5_0; }
+		
+		//DOT
+		public RuleCall getDOTParserRuleCall_6() { return cDOTParserRuleCall_6; }
+		
+		//serviceName=serviceName
+		public Assignment getServiceNameAssignment_7() { return cServiceNameAssignment_7; }
+		
+		//serviceName
+		public RuleCall getServiceNameServiceNameParserRuleCall_7_0() { return cServiceNameServiceNameParserRuleCall_7_0; }
+		
+		//parameterList=parameterList
+		public Assignment getParameterListAssignment_8() { return cParameterListAssignment_8; }
+		
+		//parameterList
+		public RuleCall getParameterListParameterListParserRuleCall_8_0() { return cParameterListParameterListParserRuleCall_8_0; }
+		
+		//RETURN
+		public RuleCall getRETURNParserRuleCall_9() { return cRETURNParserRuleCall_9; }
+		
+		//returnType=returnType
+		public Assignment getReturnTypeAssignment_10() { return cReturnTypeAssignment_10; }
+		
+		//returnType
+		public RuleCall getReturnTypeReturnTypeParserRuleCall_10_0() { return cReturnTypeReturnTypeParserRuleCall_10_0; }
+		
+		//IS
+		public RuleCall getISParserRuleCall_11() { return cISParserRuleCall_11; }
+		
+		//codeBlock=codeBlock
+		public Assignment getCodeBlockAssignment_12() { return cCodeBlockAssignment_12; }
+		
+		//codeBlock
+		public RuleCall getCodeBlockCodeBlockParserRuleCall_12_0() { return cCodeBlockCodeBlockParserRuleCall_12_0; }
+		
+		//FUNCTION?
+		public RuleCall getFUNCTIONParserRuleCall_13() { return cFUNCTIONParserRuleCall_13; }
+		
+		//SEMI
+		public RuleCall getSEMIParserRuleCall_14() { return cSEMIParserRuleCall_14; }
+		
+		//pragmaList=pragmaList
+		public Assignment getPragmaListAssignment_15() { return cPragmaListAssignment_15; }
+		
+		//pragmaList
+		public RuleCall getPragmaListPragmaListParserRuleCall_15_0() { return cPragmaListPragmaListParserRuleCall_15_0; }
+	}
+	public class TerminatorServiceDefinitionElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.xtuml.bp.xtext.Masl.terminatorServiceDefinition");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Assignment cServiceVisibilityAssignment_0 = (Assignment)cGroup.eContents().get(0);
+		private final RuleCall cServiceVisibilityServiceVisibilityParserRuleCall_0_0 = (RuleCall)cServiceVisibilityAssignment_0.eContents().get(0);
+		private final RuleCall cSERVICEParserRuleCall_1 = (RuleCall)cGroup.eContents().get(1);
+		private final Assignment cDomainNameAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final RuleCall cDomainNameDomainNameParserRuleCall_2_0 = (RuleCall)cDomainNameAssignment_2.eContents().get(0);
+		private final RuleCall cSCOPEParserRuleCall_3 = (RuleCall)cGroup.eContents().get(3);
+		private final Assignment cTerminatorNameAssignment_4 = (Assignment)cGroup.eContents().get(4);
+		private final RuleCall cTerminatorNameTerminatorNameParserRuleCall_4_0 = (RuleCall)cTerminatorNameAssignment_4.eContents().get(0);
+		private final RuleCall cTERMINATOR_SCOPEParserRuleCall_5 = (RuleCall)cGroup.eContents().get(5);
+		private final Assignment cServiceNameAssignment_6 = (Assignment)cGroup.eContents().get(6);
+		private final RuleCall cServiceNameServiceNameParserRuleCall_6_0 = (RuleCall)cServiceNameAssignment_6.eContents().get(0);
+		private final Assignment cParameterListAssignment_7 = (Assignment)cGroup.eContents().get(7);
+		private final RuleCall cParameterListParameterListParserRuleCall_7_0 = (RuleCall)cParameterListAssignment_7.eContents().get(0);
+		private final RuleCall cISParserRuleCall_8 = (RuleCall)cGroup.eContents().get(8);
+		private final Assignment cCodeBlockAssignment_9 = (Assignment)cGroup.eContents().get(9);
+		private final RuleCall cCodeBlockCodeBlockParserRuleCall_9_0 = (RuleCall)cCodeBlockAssignment_9.eContents().get(0);
+		private final RuleCall cSERVICEParserRuleCall_10 = (RuleCall)cGroup.eContents().get(10);
+		private final RuleCall cSEMIParserRuleCall_11 = (RuleCall)cGroup.eContents().get(11);
+		private final Assignment cPragmaListAssignment_12 = (Assignment)cGroup.eContents().get(12);
+		private final RuleCall cPragmaListPragmaListParserRuleCall_12_0 = (RuleCall)cPragmaListAssignment_12.eContents().get(0);
+		
+		//terminatorServiceDefinition TerminatorServiceDefinition:
+		//	serviceVisibility=serviceVisibility SERVICE
+		//	domainName=domainName SCOPE terminatorName=terminatorName TERMINATOR_SCOPE serviceName=serviceName
+		//	parameterList=parameterList IS
+		//	codeBlock=codeBlock
+		//	SERVICE? SEMI pragmaList=pragmaList
+		@Override public ParserRule getRule() { return rule; }
+		
+		//serviceVisibility=serviceVisibility SERVICE domainName=domainName SCOPE terminatorName=terminatorName TERMINATOR_SCOPE
+		//serviceName=serviceName parameterList=parameterList IS codeBlock=codeBlock SERVICE? SEMI pragmaList=pragmaList
+		public Group getGroup() { return cGroup; }
+		
+		//serviceVisibility=serviceVisibility
+		public Assignment getServiceVisibilityAssignment_0() { return cServiceVisibilityAssignment_0; }
+		
+		//serviceVisibility
+		public RuleCall getServiceVisibilityServiceVisibilityParserRuleCall_0_0() { return cServiceVisibilityServiceVisibilityParserRuleCall_0_0; }
+		
+		//SERVICE
+		public RuleCall getSERVICEParserRuleCall_1() { return cSERVICEParserRuleCall_1; }
+		
+		//domainName=domainName
+		public Assignment getDomainNameAssignment_2() { return cDomainNameAssignment_2; }
+		
+		//domainName
+		public RuleCall getDomainNameDomainNameParserRuleCall_2_0() { return cDomainNameDomainNameParserRuleCall_2_0; }
+		
+		//SCOPE
+		public RuleCall getSCOPEParserRuleCall_3() { return cSCOPEParserRuleCall_3; }
+		
+		//terminatorName=terminatorName
+		public Assignment getTerminatorNameAssignment_4() { return cTerminatorNameAssignment_4; }
+		
+		//terminatorName
+		public RuleCall getTerminatorNameTerminatorNameParserRuleCall_4_0() { return cTerminatorNameTerminatorNameParserRuleCall_4_0; }
+		
+		//TERMINATOR_SCOPE
+		public RuleCall getTERMINATOR_SCOPEParserRuleCall_5() { return cTERMINATOR_SCOPEParserRuleCall_5; }
+		
+		//serviceName=serviceName
+		public Assignment getServiceNameAssignment_6() { return cServiceNameAssignment_6; }
+		
+		//serviceName
+		public RuleCall getServiceNameServiceNameParserRuleCall_6_0() { return cServiceNameServiceNameParserRuleCall_6_0; }
+		
+		//parameterList=parameterList
+		public Assignment getParameterListAssignment_7() { return cParameterListAssignment_7; }
+		
+		//parameterList
+		public RuleCall getParameterListParameterListParserRuleCall_7_0() { return cParameterListParameterListParserRuleCall_7_0; }
+		
+		//IS
+		public RuleCall getISParserRuleCall_8() { return cISParserRuleCall_8; }
+		
+		//codeBlock=codeBlock
+		public Assignment getCodeBlockAssignment_9() { return cCodeBlockAssignment_9; }
+		
+		//codeBlock
+		public RuleCall getCodeBlockCodeBlockParserRuleCall_9_0() { return cCodeBlockCodeBlockParserRuleCall_9_0; }
+		
+		//SERVICE?
+		public RuleCall getSERVICEParserRuleCall_10() { return cSERVICEParserRuleCall_10; }
+		
+		//SEMI
+		public RuleCall getSEMIParserRuleCall_11() { return cSEMIParserRuleCall_11; }
+		
+		//pragmaList=pragmaList
+		public Assignment getPragmaListAssignment_12() { return cPragmaListAssignment_12; }
+		
+		//pragmaList
+		public RuleCall getPragmaListPragmaListParserRuleCall_12_0() { return cPragmaListPragmaListParserRuleCall_12_0; }
+	}
+	public class TerminatorFunctionDefinitionElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.xtuml.bp.xtext.Masl.terminatorFunctionDefinition");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Assignment cServiceVisibilityAssignment_0 = (Assignment)cGroup.eContents().get(0);
+		private final RuleCall cServiceVisibilityServiceVisibilityParserRuleCall_0_0 = (RuleCall)cServiceVisibilityAssignment_0.eContents().get(0);
+		private final RuleCall cFUNCTIONParserRuleCall_1 = (RuleCall)cGroup.eContents().get(1);
+		private final Assignment cDomainNameAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final RuleCall cDomainNameDomainNameParserRuleCall_2_0 = (RuleCall)cDomainNameAssignment_2.eContents().get(0);
+		private final RuleCall cSCOPEParserRuleCall_3 = (RuleCall)cGroup.eContents().get(3);
+		private final Assignment cTerminatorNameAssignment_4 = (Assignment)cGroup.eContents().get(4);
+		private final RuleCall cTerminatorNameTerminatorNameParserRuleCall_4_0 = (RuleCall)cTerminatorNameAssignment_4.eContents().get(0);
+		private final RuleCall cTERMINATOR_SCOPEParserRuleCall_5 = (RuleCall)cGroup.eContents().get(5);
+		private final Assignment cServiceNameAssignment_6 = (Assignment)cGroup.eContents().get(6);
+		private final RuleCall cServiceNameServiceNameParserRuleCall_6_0 = (RuleCall)cServiceNameAssignment_6.eContents().get(0);
+		private final Assignment cParameterListAssignment_7 = (Assignment)cGroup.eContents().get(7);
+		private final RuleCall cParameterListParameterListParserRuleCall_7_0 = (RuleCall)cParameterListAssignment_7.eContents().get(0);
+		private final RuleCall cRETURNParserRuleCall_8 = (RuleCall)cGroup.eContents().get(8);
+		private final Assignment cReturnTypeAssignment_9 = (Assignment)cGroup.eContents().get(9);
+		private final RuleCall cReturnTypeReturnTypeParserRuleCall_9_0 = (RuleCall)cReturnTypeAssignment_9.eContents().get(0);
+		private final RuleCall cISParserRuleCall_10 = (RuleCall)cGroup.eContents().get(10);
+		private final Assignment cCodeBlockAssignment_11 = (Assignment)cGroup.eContents().get(11);
+		private final RuleCall cCodeBlockCodeBlockParserRuleCall_11_0 = (RuleCall)cCodeBlockAssignment_11.eContents().get(0);
+		private final RuleCall cFUNCTIONParserRuleCall_12 = (RuleCall)cGroup.eContents().get(12);
+		private final RuleCall cSEMIParserRuleCall_13 = (RuleCall)cGroup.eContents().get(13);
+		private final Assignment cPragmaListAssignment_14 = (Assignment)cGroup.eContents().get(14);
+		private final RuleCall cPragmaListPragmaListParserRuleCall_14_0 = (RuleCall)cPragmaListAssignment_14.eContents().get(0);
+		
+		//terminatorFunctionDefinition TerminatorServiceDefinition:
+		//	serviceVisibility=serviceVisibility FUNCTION
+		//	domainName=domainName SCOPE terminatorName=terminatorName TERMINATOR_SCOPE serviceName=serviceName
+		//	parameterList=parameterList RETURN returnType=returnType IS
+		//	codeBlock=codeBlock
+		//	FUNCTION? SEMI pragmaList=pragmaList
+		@Override public ParserRule getRule() { return rule; }
+		
+		//serviceVisibility=serviceVisibility FUNCTION domainName=domainName SCOPE terminatorName=terminatorName TERMINATOR_SCOPE
+		//serviceName=serviceName parameterList=parameterList RETURN returnType=returnType IS codeBlock=codeBlock FUNCTION? SEMI
+		//pragmaList=pragmaList
+		public Group getGroup() { return cGroup; }
+		
+		//serviceVisibility=serviceVisibility
+		public Assignment getServiceVisibilityAssignment_0() { return cServiceVisibilityAssignment_0; }
+		
+		//serviceVisibility
+		public RuleCall getServiceVisibilityServiceVisibilityParserRuleCall_0_0() { return cServiceVisibilityServiceVisibilityParserRuleCall_0_0; }
+		
+		//FUNCTION
+		public RuleCall getFUNCTIONParserRuleCall_1() { return cFUNCTIONParserRuleCall_1; }
+		
+		//domainName=domainName
+		public Assignment getDomainNameAssignment_2() { return cDomainNameAssignment_2; }
+		
+		//domainName
+		public RuleCall getDomainNameDomainNameParserRuleCall_2_0() { return cDomainNameDomainNameParserRuleCall_2_0; }
+		
+		//SCOPE
+		public RuleCall getSCOPEParserRuleCall_3() { return cSCOPEParserRuleCall_3; }
+		
+		//terminatorName=terminatorName
+		public Assignment getTerminatorNameAssignment_4() { return cTerminatorNameAssignment_4; }
+		
+		//terminatorName
+		public RuleCall getTerminatorNameTerminatorNameParserRuleCall_4_0() { return cTerminatorNameTerminatorNameParserRuleCall_4_0; }
+		
+		//TERMINATOR_SCOPE
+		public RuleCall getTERMINATOR_SCOPEParserRuleCall_5() { return cTERMINATOR_SCOPEParserRuleCall_5; }
+		
+		//serviceName=serviceName
+		public Assignment getServiceNameAssignment_6() { return cServiceNameAssignment_6; }
+		
+		//serviceName
+		public RuleCall getServiceNameServiceNameParserRuleCall_6_0() { return cServiceNameServiceNameParserRuleCall_6_0; }
+		
+		//parameterList=parameterList
+		public Assignment getParameterListAssignment_7() { return cParameterListAssignment_7; }
+		
+		//parameterList
+		public RuleCall getParameterListParameterListParserRuleCall_7_0() { return cParameterListParameterListParserRuleCall_7_0; }
+		
+		//RETURN
+		public RuleCall getRETURNParserRuleCall_8() { return cRETURNParserRuleCall_8; }
+		
+		//returnType=returnType
+		public Assignment getReturnTypeAssignment_9() { return cReturnTypeAssignment_9; }
+		
+		//returnType
+		public RuleCall getReturnTypeReturnTypeParserRuleCall_9_0() { return cReturnTypeReturnTypeParserRuleCall_9_0; }
+		
+		//IS
+		public RuleCall getISParserRuleCall_10() { return cISParserRuleCall_10; }
+		
+		//codeBlock=codeBlock
+		public Assignment getCodeBlockAssignment_11() { return cCodeBlockAssignment_11; }
+		
+		//codeBlock
+		public RuleCall getCodeBlockCodeBlockParserRuleCall_11_0() { return cCodeBlockCodeBlockParserRuleCall_11_0; }
+		
+		//FUNCTION?
+		public RuleCall getFUNCTIONParserRuleCall_12() { return cFUNCTIONParserRuleCall_12; }
+		
+		//SEMI
+		public RuleCall getSEMIParserRuleCall_13() { return cSEMIParserRuleCall_13; }
+		
+		//pragmaList=pragmaList
+		public Assignment getPragmaListAssignment_14() { return cPragmaListAssignment_14; }
+		
+		//pragmaList
+		public RuleCall getPragmaListPragmaListParserRuleCall_14_0() { return cPragmaListPragmaListParserRuleCall_14_0; }
+	}
+	public class CodeBlockElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.xtuml.bp.xtext.Masl.codeBlock");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Assignment cVariableDeclarationAssignment_0 = (Assignment)cGroup.eContents().get(0);
+		private final RuleCall cVariableDeclarationVariableDeclarationParserRuleCall_0_0 = (RuleCall)cVariableDeclarationAssignment_0.eContents().get(0);
+		private final RuleCall cBEGINParserRuleCall_1 = (RuleCall)cGroup.eContents().get(1);
+		private final RuleCall cStatementListParserRuleCall_2 = (RuleCall)cGroup.eContents().get(2);
+		private final RuleCall cENDParserRuleCall_3 = (RuleCall)cGroup.eContents().get(3);
+		
+		////---------------------------------------------------------
+		//// Code Blocks
+		////---------------------------------------------------------
+		//codeBlock CodeBlock:
+		//	variableDeclaration+=variableDeclaration*
+		//	BEGIN
+		//	statementList
+		//	END
+		@Override public ParserRule getRule() { return rule; }
+		
+		//variableDeclaration+=variableDeclaration* BEGIN statementList END
+		public Group getGroup() { return cGroup; }
+		
+		//variableDeclaration+=variableDeclaration*
+		public Assignment getVariableDeclarationAssignment_0() { return cVariableDeclarationAssignment_0; }
+		
+		//variableDeclaration
+		public RuleCall getVariableDeclarationVariableDeclarationParserRuleCall_0_0() { return cVariableDeclarationVariableDeclarationParserRuleCall_0_0; }
+		
+		//BEGIN
+		public RuleCall getBEGINParserRuleCall_1() { return cBEGINParserRuleCall_1; }
+		
+		//statementList
+		public RuleCall getStatementListParserRuleCall_2() { return cStatementListParserRuleCall_2; }
+		
+		//END
+		public RuleCall getENDParserRuleCall_3() { return cENDParserRuleCall_3; }
+	}
+	public class VariableDeclarationElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.xtuml.bp.xtext.Masl.variableDeclaration");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Assignment cVariableNameAssignment_0 = (Assignment)cGroup.eContents().get(0);
+		private final RuleCall cVariableNameVariableNameParserRuleCall_0_0 = (RuleCall)cVariableNameAssignment_0.eContents().get(0);
+		private final RuleCall cCOLONParserRuleCall_1 = (RuleCall)cGroup.eContents().get(1);
+		private final Assignment cREADONLYAssignment_2 = (Assignment)cGroup.eContents().get(2);
+		private final RuleCall cREADONLYREADONLYParserRuleCall_2_0 = (RuleCall)cREADONLYAssignment_2.eContents().get(0);
+		private final Assignment cTypeReferenceWithCAAssignment_3 = (Assignment)cGroup.eContents().get(3);
+		private final RuleCall cTypeReferenceWithCATypeReferenceParserRuleCall_3_0 = (RuleCall)cTypeReferenceWithCAAssignment_3.eContents().get(0);
+		private final RuleCall cSEMIParserRuleCall_4 = (RuleCall)cGroup.eContents().get(4);
+		private final Assignment cPragmaListAssignment_5 = (Assignment)cGroup.eContents().get(5);
+		private final RuleCall cPragmaListPragmaListParserRuleCall_5_0 = (RuleCall)cPragmaListAssignment_5.eContents().get(0);
+		
+		//variableDeclaration VariableDeclaration:
+		//	variableName=variableName COLON
+		//	READONLY=READONLY? typeReferenceWithCA=typeReference
+		//	SEMI pragmaList=pragmaList
+		@Override public ParserRule getRule() { return rule; }
+		
+		//variableName=variableName COLON READONLY=READONLY? typeReferenceWithCA=typeReference SEMI pragmaList=pragmaList
+		public Group getGroup() { return cGroup; }
+		
+		//variableName=variableName
+		public Assignment getVariableNameAssignment_0() { return cVariableNameAssignment_0; }
+		
+		//variableName
+		public RuleCall getVariableNameVariableNameParserRuleCall_0_0() { return cVariableNameVariableNameParserRuleCall_0_0; }
+		
+		//COLON
+		public RuleCall getCOLONParserRuleCall_1() { return cCOLONParserRuleCall_1; }
+		
+		//READONLY=READONLY?
+		public Assignment getREADONLYAssignment_2() { return cREADONLYAssignment_2; }
+		
+		//READONLY
+		public RuleCall getREADONLYREADONLYParserRuleCall_2_0() { return cREADONLYREADONLYParserRuleCall_2_0; }
+		
+		//typeReferenceWithCA=typeReference
+		public Assignment getTypeReferenceWithCAAssignment_3() { return cTypeReferenceWithCAAssignment_3; }
+		
+		//typeReference
+		public RuleCall getTypeReferenceWithCATypeReferenceParserRuleCall_3_0() { return cTypeReferenceWithCATypeReferenceParserRuleCall_3_0; }
+		
+		//SEMI
+		public RuleCall getSEMIParserRuleCall_4() { return cSEMIParserRuleCall_4; }
+		
+		//pragmaList=pragmaList
+		public Assignment getPragmaListAssignment_5() { return cPragmaListAssignment_5; }
+		
+		//pragmaList
+		public RuleCall getPragmaListPragmaListParserRuleCall_5_0() { return cPragmaListPragmaListParserRuleCall_5_0; }
+	}
+	public class VariableNameElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.xtuml.bp.xtext.Masl.variableName");
+		private final Assignment cIdentifierAssignment = (Assignment)rule.eContents().get(1);
+		private final RuleCall cIdentifierIDTerminalRuleCall_0 = (RuleCall)cIdentifierAssignment.eContents().get(0);
+		
+		//variableName VariableName:
+		//	identifier=ID
+		@Override public ParserRule getRule() { return rule; }
+		
+		//identifier=ID
+		public Assignment getIdentifierAssignment() { return cIdentifierAssignment; }
+		
+		//ID
+		public RuleCall getIdentifierIDTerminalRuleCall_0() { return cIdentifierIDTerminalRuleCall_0; }
+	}
+	public class StatementListElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.xtuml.bp.xtext.Masl.statementList");
+		private final Group cGroup = (Group)rule.eContents().get(1);
+		private final Alternatives cAlternatives_0 = (Alternatives)cGroup.eContents().get(0);
+		private final RuleCall cIDTerminalRuleCall_0_0 = (RuleCall)cAlternatives_0.eContents().get(0);
+		private final RuleCall cINTTerminalRuleCall_0_1 = (RuleCall)cAlternatives_0.eContents().get(1);
+		private final RuleCall cSTRINGTerminalRuleCall_0_2 = (RuleCall)cAlternatives_0.eContents().get(2);
+		private final RuleCall cWSTerminalRuleCall_0_3 = (RuleCall)cAlternatives_0.eContents().get(3);
+		private final RuleCall cANY_OTHERTerminalRuleCall_0_4 = (RuleCall)cAlternatives_0.eContents().get(4);
+		
+		//statementList:
+		//	=> (ID | INT | STRING | WS | ANY_OTHER)*;
+		@Override public ParserRule getRule() { return rule; }
+		
+		//=> (ID | INT | STRING | WS | ANY_OTHER)*
+		public Group getGroup() { return cGroup; }
+		
+		//(ID | INT | STRING | WS | ANY_OTHER)
+		public Alternatives getAlternatives_0() { return cAlternatives_0; }
+		
+		//ID
+		public RuleCall getIDTerminalRuleCall_0_0() { return cIDTerminalRuleCall_0_0; }
+		
+		//INT
+		public RuleCall getINTTerminalRuleCall_0_1() { return cINTTerminalRuleCall_0_1; }
+		
+		//STRING
+		public RuleCall getSTRINGTerminalRuleCall_0_2() { return cSTRINGTerminalRuleCall_0_2; }
+		
+		//WS
+		public RuleCall getWSTerminalRuleCall_0_3() { return cWSTerminalRuleCall_0_3; }
+		
+		//ANY_OTHER
+		public RuleCall getANY_OTHERTerminalRuleCall_0_4() { return cANY_OTHERTerminalRuleCall_0_4; }
+	}
 	public class ANONYMOUSElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.xtuml.bp.xtext.Masl.ANONYMOUS");
 		private final Keyword cAnonymousKeyword = (Keyword)rule.eContents().get(1);
@@ -875,6 +1762,28 @@ public class MaslGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//'anonymous'
 		public Keyword getAnonymousKeyword() { return cAnonymousKeyword; }
+	}
+	public class ASSIGNElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.xtuml.bp.xtext.Masl.ASSIGN");
+		private final Keyword cColonEqualsSignKeyword = (Keyword)rule.eContents().get(1);
+		
+		//ASSIGN:
+		//	':=';
+		@Override public ParserRule getRule() { return rule; }
+		
+		//':='
+		public Keyword getColonEqualsSignKeyword() { return cColonEqualsSignKeyword; }
+	}
+	public class BEGINElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.xtuml.bp.xtext.Masl.BEGIN");
+		private final Keyword cBeginKeyword = (Keyword)rule.eContents().get(1);
+		
+		//BEGIN:
+		//	'begin';
+		@Override public ParserRule getRule() { return rule; }
+		
+		//'begin'
+		public Keyword getBeginKeyword() { return cBeginKeyword; }
 	}
 	public class COLONElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.xtuml.bp.xtext.Masl.COLON");
@@ -898,6 +1807,17 @@ public class MaslGrammarAccess extends AbstractGrammarElementFinder {
 		//','
 		public Keyword getCommaKeyword() { return cCommaKeyword; }
 	}
+	public class DEFERREDElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.xtuml.bp.xtext.Masl.DEFERRED");
+		private final Keyword cDeferredKeyword = (Keyword)rule.eContents().get(1);
+		
+		//DEFERRED:
+		//	'deferred';
+		@Override public ParserRule getRule() { return rule; }
+		
+		//'deferred'
+		public Keyword getDeferredKeyword() { return cDeferredKeyword; }
+	}
 	public class DOMAINElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.xtuml.bp.xtext.Masl.DOMAIN");
 		private final Keyword cDomainKeyword = (Keyword)rule.eContents().get(1);
@@ -908,6 +1828,17 @@ public class MaslGrammarAccess extends AbstractGrammarElementFinder {
 		
 		//'domain'
 		public Keyword getDomainKeyword() { return cDomainKeyword; }
+	}
+	public class DOTElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.xtuml.bp.xtext.Masl.DOT");
+		private final Keyword cFullStopKeyword = (Keyword)rule.eContents().get(1);
+		
+		//DOT:
+		//	'.';
+		@Override public ParserRule getRule() { return rule; }
+		
+		//'.'
+		public Keyword getFullStopKeyword() { return cFullStopKeyword; }
 	}
 	public class ENDElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.xtuml.bp.xtext.Masl.END");
@@ -1052,6 +1983,17 @@ public class MaslGrammarAccess extends AbstractGrammarElementFinder {
 		//'public'
 		public Keyword getPublicKeyword() { return cPublicKeyword; }
 	}
+	public class READONLYElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.xtuml.bp.xtext.Masl.READONLY");
+		private final Keyword cReadonlyKeyword = (Keyword)rule.eContents().get(1);
+		
+		//READONLY:
+		//	'readonly';
+		@Override public ParserRule getRule() { return rule; }
+		
+		//'readonly'
+		public Keyword getReadonlyKeyword() { return cReadonlyKeyword; }
+	}
 	public class RETURNElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.xtuml.bp.xtext.Masl.RETURN");
 		private final Keyword cReturnKeyword = (Keyword)rule.eContents().get(1);
@@ -1118,6 +2060,17 @@ public class MaslGrammarAccess extends AbstractGrammarElementFinder {
 		//'terminator'
 		public Keyword getTerminatorKeyword() { return cTerminatorKeyword; }
 	}
+	public class TERMINATOR_SCOPEElements extends AbstractParserRuleElementFinder {
+		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.xtuml.bp.xtext.Masl.TERMINATOR_SCOPE");
+		private final Keyword cTildeGreaterThanSignKeyword = (Keyword)rule.eContents().get(1);
+		
+		//TERMINATOR_SCOPE:
+		//	'~>';
+		@Override public ParserRule getRule() { return rule; }
+		
+		//'~>'
+		public Keyword getTildeGreaterThanSignKeyword() { return cTildeGreaterThanSignKeyword; }
+	}
 	public class TYPEElements extends AbstractParserRuleElementFinder {
 		private final ParserRule rule = (ParserRule) GrammarUtil.findRuleForName(getGrammar(), "org.xtuml.bp.xtext.Masl.TYPE");
 		private final Alternatives cAlternatives = (Alternatives)rule.eContents().get(1);
@@ -1139,6 +2092,8 @@ public class MaslGrammarAccess extends AbstractGrammarElementFinder {
 	}
 	
 	
+	private final TargetElements pTarget;
+	private final DefinitionElements pDefinition;
 	private final ProjectDefinitionElements pProjectDefinition;
 	private final ProjectItemElements pProjectItem;
 	private final DomainPrjDefinitionElements pDomainPrjDefinition;
@@ -1167,10 +2122,28 @@ public class MaslGrammarAccess extends AbstractGrammarElementFinder {
 	private final PragmaValueElements pPragmaValue;
 	private final PragmaNameElements pPragmaName;
 	private final LiteralElements pLiteral;
+	private final ObjectNameElements pObjectName;
+	private final ServiceTypeElements pServiceType;
+	private final RelationshipNameElements pRelationshipName;
+	private final DomainServiceDefinitionElements pDomainServiceDefinition;
+	private final DomainFunctionDefinitionElements pDomainFunctionDefinition;
+	private final ObjectServiceDefinitionElements pObjectServiceDefinition;
+	private final ObjectFunctionDefinitionElements pObjectFunctionDefinition;
+	private final TerminatorServiceDefinitionElements pTerminatorServiceDefinition;
+	private final TerminatorFunctionDefinitionElements pTerminatorFunctionDefinition;
+	private final CodeBlockElements pCodeBlock;
+	private final VariableDeclarationElements pVariableDeclaration;
+	private final VariableNameElements pVariableName;
+	private final StatementListElements pStatementList;
+	private final TerminalRule tRELATIONSHIP_NAME;
 	private final ANONYMOUSElements pANONYMOUS;
+	private final ASSIGNElements pASSIGN;
+	private final BEGINElements pBEGIN;
 	private final COLONElements pCOLON;
 	private final COMMAElements pCOMMA;
+	private final DEFERREDElements pDEFERRED;
 	private final DOMAINElements pDOMAIN;
+	private final DOTElements pDOT;
 	private final ENDElements pEND;
 	private final EVENTElements pEVENT;
 	private final FUNCTIONElements pFUNCTION;
@@ -1184,12 +2157,14 @@ public class MaslGrammarAccess extends AbstractGrammarElementFinder {
 	private final PRIVATEElements pPRIVATE;
 	private final PROJECTElements pPROJECT;
 	private final PUBLICElements pPUBLIC;
+	private final READONLYElements pREADONLY;
 	private final RETURNElements pRETURN;
 	private final RPARENElements pRPAREN;
 	private final SCOPEElements pSCOPE;
 	private final SEMIElements pSEMI;
 	private final SERVICEElements pSERVICE;
 	private final TERMINATORElements pTERMINATOR;
+	private final TERMINATOR_SCOPEElements pTERMINATOR_SCOPE;
 	private final TYPEElements pTYPE;
 	
 	private final Grammar grammar;
@@ -1201,6 +2176,8 @@ public class MaslGrammarAccess extends AbstractGrammarElementFinder {
 			TerminalsGrammarAccess gaTerminals) {
 		this.grammar = internalFindGrammar(grammarProvider);
 		this.gaTerminals = gaTerminals;
+		this.pTarget = new TargetElements();
+		this.pDefinition = new DefinitionElements();
 		this.pProjectDefinition = new ProjectDefinitionElements();
 		this.pProjectItem = new ProjectItemElements();
 		this.pDomainPrjDefinition = new DomainPrjDefinitionElements();
@@ -1229,10 +2206,28 @@ public class MaslGrammarAccess extends AbstractGrammarElementFinder {
 		this.pPragmaValue = new PragmaValueElements();
 		this.pPragmaName = new PragmaNameElements();
 		this.pLiteral = new LiteralElements();
+		this.pObjectName = new ObjectNameElements();
+		this.pServiceType = new ServiceTypeElements();
+		this.pRelationshipName = new RelationshipNameElements();
+		this.pDomainServiceDefinition = new DomainServiceDefinitionElements();
+		this.pDomainFunctionDefinition = new DomainFunctionDefinitionElements();
+		this.pObjectServiceDefinition = new ObjectServiceDefinitionElements();
+		this.pObjectFunctionDefinition = new ObjectFunctionDefinitionElements();
+		this.pTerminatorServiceDefinition = new TerminatorServiceDefinitionElements();
+		this.pTerminatorFunctionDefinition = new TerminatorFunctionDefinitionElements();
+		this.pCodeBlock = new CodeBlockElements();
+		this.pVariableDeclaration = new VariableDeclarationElements();
+		this.pVariableName = new VariableNameElements();
+		this.pStatementList = new StatementListElements();
+		this.tRELATIONSHIP_NAME = (TerminalRule) GrammarUtil.findRuleForName(getGrammar(), "org.xtuml.bp.xtext.Masl.RELATIONSHIP_NAME");
 		this.pANONYMOUS = new ANONYMOUSElements();
+		this.pASSIGN = new ASSIGNElements();
+		this.pBEGIN = new BEGINElements();
 		this.pCOLON = new COLONElements();
 		this.pCOMMA = new COMMAElements();
+		this.pDEFERRED = new DEFERREDElements();
 		this.pDOMAIN = new DOMAINElements();
+		this.pDOT = new DOTElements();
 		this.pEND = new ENDElements();
 		this.pEVENT = new EVENTElements();
 		this.pFUNCTION = new FUNCTIONElements();
@@ -1246,12 +2241,14 @@ public class MaslGrammarAccess extends AbstractGrammarElementFinder {
 		this.pPRIVATE = new PRIVATEElements();
 		this.pPROJECT = new PROJECTElements();
 		this.pPUBLIC = new PUBLICElements();
+		this.pREADONLY = new READONLYElements();
 		this.pRETURN = new RETURNElements();
 		this.pRPAREN = new RPARENElements();
 		this.pSCOPE = new SCOPEElements();
 		this.pSEMI = new SEMIElements();
 		this.pSERVICE = new SERVICEElements();
 		this.pTERMINATOR = new TERMINATORElements();
+		this.pTERMINATOR_SCOPE = new TERMINATOR_SCOPEElements();
 		this.pTYPE = new TYPEElements();
 	}
 	
@@ -1282,7 +2279,32 @@ public class MaslGrammarAccess extends AbstractGrammarElementFinder {
 	}
 
 	
-	////target                        : projectDefinition+;
+	//target:
+	//	definition+=definition+;
+	public TargetElements getTargetAccess() {
+		return pTarget;
+	}
+	
+	public ParserRule getTargetRule() {
+		return getTargetAccess().getRule();
+	}
+	
+	//definition:
+	//	projectDefinition
+	//	| objectServiceDefinition
+	//	| objectFunctionDefinition
+	//	| domainServiceDefinition
+	//	| domainFunctionDefinition
+	//	| terminatorServiceDefinition
+	//	| terminatorFunctionDefinition;
+	public DefinitionElements getDefinitionAccess() {
+		return pDefinition;
+	}
+	
+	public ParserRule getDefinitionRule() {
+		return getDefinitionAccess().getRule();
+	}
+	
 	////---------------------------------------------------------
 	//// Project Definition
 	////---------------------------------------------------------
@@ -1595,6 +2617,182 @@ public class MaslGrammarAccess extends AbstractGrammarElementFinder {
 		return getLiteralAccess().getRule();
 	}
 	
+	////---------------------------------------------------------
+	//// Object Definition
+	////---------------------------------------------------------
+	//objectName ObjectName:
+	//	identifier=ID
+	public ObjectNameElements getObjectNameAccess() {
+		return pObjectName;
+	}
+	
+	public ParserRule getObjectNameRule() {
+		return getObjectNameAccess().getRule();
+	}
+	
+	//serviceType:
+	//	(INSTANCE=INSTANCE (DEFERRED LPAREN relationshipName=relationshipName RPAREN)?)?;
+	public ServiceTypeElements getServiceTypeAccess() {
+		return pServiceType;
+	}
+	
+	public ParserRule getServiceTypeRule() {
+		return getServiceTypeAccess().getRule();
+	}
+	
+	////---------------------------------------------------------
+	//// Relationship Definition
+	////---------------------------------------------------------
+	//relationshipName RelationshipName:
+	//	relationshipName=RELATIONSHIP_NAME
+	public RelationshipNameElements getRelationshipNameAccess() {
+		return pRelationshipName;
+	}
+	
+	public ParserRule getRelationshipNameRule() {
+		return getRelationshipNameAccess().getRule();
+	}
+	
+	////---------------------------------------------------------
+	//// Dynamic Behaviour
+	////---------------------------------------------------------
+	//domainServiceDefinition DomainServiceDefinition:
+	//	serviceVisibility=serviceVisibility SERVICE
+	//	domainName=domainName SCOPE serviceName=serviceName
+	//	parameterList=parameterList IS
+	//	codeBlock=codeBlock
+	//	SERVICE? SEMI pargmaList=pragmaList
+	public DomainServiceDefinitionElements getDomainServiceDefinitionAccess() {
+		return pDomainServiceDefinition;
+	}
+	
+	public ParserRule getDomainServiceDefinitionRule() {
+		return getDomainServiceDefinitionAccess().getRule();
+	}
+	
+	//domainFunctionDefinition DomainServiceDefinition:
+	//	serviceVisibility=serviceVisibility FUNCTION
+	//	domainName=domainName SCOPE serviceName=serviceName
+	//	parameterList=parameterList
+	//	RETURN returnType=returnType IS codeBlock=codeBlock
+	//	FUNCTION? SEMI pargmaList=pragmaList
+	public DomainFunctionDefinitionElements getDomainFunctionDefinitionAccess() {
+		return pDomainFunctionDefinition;
+	}
+	
+	public ParserRule getDomainFunctionDefinitionRule() {
+		return getDomainFunctionDefinitionAccess().getRule();
+	}
+	
+	//objectServiceDefinition ObjectServiceDefinition:
+	//	serviceVisibility=serviceVisibility INSTANCE=INSTANCE? SERVICE
+	//	domainName=domainName SCOPE objectName=objectName DOT serviceName=serviceName
+	//	parameterList=parameterList IS codeBlock=codeBlock
+	//	SERVICE? SEMI pragmaList=pragmaList
+	public ObjectServiceDefinitionElements getObjectServiceDefinitionAccess() {
+		return pObjectServiceDefinition;
+	}
+	
+	public ParserRule getObjectServiceDefinitionRule() {
+		return getObjectServiceDefinitionAccess().getRule();
+	}
+	
+	//objectFunctionDefinition ObjectServiceDefinition:
+	//	serviceVisibility=serviceVisibility serviceType=serviceType FUNCTION
+	//	domainName=domainName SCOPE objectName=objectName DOT serviceName=serviceName
+	//	parameterList=parameterList
+	//	RETURN returnType=returnType IS codeBlock=codeBlock
+	//	FUNCTION? SEMI pragmaList=pragmaList
+	public ObjectFunctionDefinitionElements getObjectFunctionDefinitionAccess() {
+		return pObjectFunctionDefinition;
+	}
+	
+	public ParserRule getObjectFunctionDefinitionRule() {
+		return getObjectFunctionDefinitionAccess().getRule();
+	}
+	
+	//terminatorServiceDefinition TerminatorServiceDefinition:
+	//	serviceVisibility=serviceVisibility SERVICE
+	//	domainName=domainName SCOPE terminatorName=terminatorName TERMINATOR_SCOPE serviceName=serviceName
+	//	parameterList=parameterList IS
+	//	codeBlock=codeBlock
+	//	SERVICE? SEMI pragmaList=pragmaList
+	public TerminatorServiceDefinitionElements getTerminatorServiceDefinitionAccess() {
+		return pTerminatorServiceDefinition;
+	}
+	
+	public ParserRule getTerminatorServiceDefinitionRule() {
+		return getTerminatorServiceDefinitionAccess().getRule();
+	}
+	
+	//terminatorFunctionDefinition TerminatorServiceDefinition:
+	//	serviceVisibility=serviceVisibility FUNCTION
+	//	domainName=domainName SCOPE terminatorName=terminatorName TERMINATOR_SCOPE serviceName=serviceName
+	//	parameterList=parameterList RETURN returnType=returnType IS
+	//	codeBlock=codeBlock
+	//	FUNCTION? SEMI pragmaList=pragmaList
+	public TerminatorFunctionDefinitionElements getTerminatorFunctionDefinitionAccess() {
+		return pTerminatorFunctionDefinition;
+	}
+	
+	public ParserRule getTerminatorFunctionDefinitionRule() {
+		return getTerminatorFunctionDefinitionAccess().getRule();
+	}
+	
+	////---------------------------------------------------------
+	//// Code Blocks
+	////---------------------------------------------------------
+	//codeBlock CodeBlock:
+	//	variableDeclaration+=variableDeclaration*
+	//	BEGIN
+	//	statementList
+	//	END
+	public CodeBlockElements getCodeBlockAccess() {
+		return pCodeBlock;
+	}
+	
+	public ParserRule getCodeBlockRule() {
+		return getCodeBlockAccess().getRule();
+	}
+	
+	//variableDeclaration VariableDeclaration:
+	//	variableName=variableName COLON
+	//	READONLY=READONLY? typeReferenceWithCA=typeReference
+	//	SEMI pragmaList=pragmaList
+	public VariableDeclarationElements getVariableDeclarationAccess() {
+		return pVariableDeclaration;
+	}
+	
+	public ParserRule getVariableDeclarationRule() {
+		return getVariableDeclarationAccess().getRule();
+	}
+	
+	//variableName VariableName:
+	//	identifier=ID
+	public VariableNameElements getVariableNameAccess() {
+		return pVariableName;
+	}
+	
+	public ParserRule getVariableNameRule() {
+		return getVariableNameAccess().getRule();
+	}
+	
+	//statementList:
+	//	=> (ID | INT | STRING | WS | ANY_OTHER)*;
+	public StatementListElements getStatementListAccess() {
+		return pStatementList;
+	}
+	
+	public ParserRule getStatementListRule() {
+		return getStatementListAccess().getRule();
+	}
+	
+	//terminal RELATIONSHIP_NAME:
+	//	'R' '1'..'9' INT*;
+	public TerminalRule getRELATIONSHIP_NAMERule() {
+		return tRELATIONSHIP_NAME;
+	}
+	
 	//// Keywords
 	//ANONYMOUS:
 	//	'anonymous';
@@ -1604,6 +2802,26 @@ public class MaslGrammarAccess extends AbstractGrammarElementFinder {
 	
 	public ParserRule getANONYMOUSRule() {
 		return getANONYMOUSAccess().getRule();
+	}
+	
+	//ASSIGN:
+	//	':=';
+	public ASSIGNElements getASSIGNAccess() {
+		return pASSIGN;
+	}
+	
+	public ParserRule getASSIGNRule() {
+		return getASSIGNAccess().getRule();
+	}
+	
+	//BEGIN:
+	//	'begin';
+	public BEGINElements getBEGINAccess() {
+		return pBEGIN;
+	}
+	
+	public ParserRule getBEGINRule() {
+		return getBEGINAccess().getRule();
 	}
 	
 	//COLON:
@@ -1626,6 +2844,16 @@ public class MaslGrammarAccess extends AbstractGrammarElementFinder {
 		return getCOMMAAccess().getRule();
 	}
 	
+	//DEFERRED:
+	//	'deferred';
+	public DEFERREDElements getDEFERREDAccess() {
+		return pDEFERRED;
+	}
+	
+	public ParserRule getDEFERREDRule() {
+		return getDEFERREDAccess().getRule();
+	}
+	
 	//DOMAIN:
 	//	'domain';
 	public DOMAINElements getDOMAINAccess() {
@@ -1634,6 +2862,16 @@ public class MaslGrammarAccess extends AbstractGrammarElementFinder {
 	
 	public ParserRule getDOMAINRule() {
 		return getDOMAINAccess().getRule();
+	}
+	
+	//DOT:
+	//	'.';
+	public DOTElements getDOTAccess() {
+		return pDOT;
+	}
+	
+	public ParserRule getDOTRule() {
+		return getDOTAccess().getRule();
 	}
 	
 	//END:
@@ -1766,6 +3004,16 @@ public class MaslGrammarAccess extends AbstractGrammarElementFinder {
 		return getPUBLICAccess().getRule();
 	}
 	
+	//READONLY:
+	//	'readonly';
+	public READONLYElements getREADONLYAccess() {
+		return pREADONLY;
+	}
+	
+	public ParserRule getREADONLYRule() {
+		return getREADONLYAccess().getRule();
+	}
+	
 	//RETURN:
 	//	'return';
 	public RETURNElements getRETURNAccess() {
@@ -1824,6 +3072,16 @@ public class MaslGrammarAccess extends AbstractGrammarElementFinder {
 	
 	public ParserRule getTERMINATORRule() {
 		return getTERMINATORAccess().getRule();
+	}
+	
+	//TERMINATOR_SCOPE:
+	//	'~>';
+	public TERMINATOR_SCOPEElements getTERMINATOR_SCOPEAccess() {
+		return pTERMINATOR_SCOPE;
+	}
+	
+	public ParserRule getTERMINATOR_SCOPERule() {
+		return getTERMINATOR_SCOPEAccess().getRule();
 	}
 	
 	//TYPE:

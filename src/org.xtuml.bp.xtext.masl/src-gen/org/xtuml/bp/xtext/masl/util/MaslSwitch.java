@@ -73,10 +73,25 @@ public class MaslSwitch<T> extends Switch<T>
   {
     switch (classifierID)
     {
+      case MaslPackage.TARGET:
+      {
+        target target = (target)theEObject;
+        T result = casetarget(target);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case MaslPackage.DEFINITION:
+      {
+        definition definition = (definition)theEObject;
+        T result = casedefinition(definition);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       case MaslPackage.PROJECT:
       {
         Project project = (Project)theEObject;
         T result = caseProject(project);
+        if (result == null) result = casedefinition(project);
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
@@ -247,8 +262,106 @@ public class MaslSwitch<T> extends Switch<T>
         if (result == null) result = defaultCase(theEObject);
         return result;
       }
+      case MaslPackage.OBJECT_NAME:
+      {
+        ObjectName objectName = (ObjectName)theEObject;
+        T result = caseObjectName(objectName);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case MaslPackage.SERVICE_TYPE:
+      {
+        serviceType serviceType = (serviceType)theEObject;
+        T result = caseserviceType(serviceType);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case MaslPackage.RELATIONSHIP_NAME:
+      {
+        RelationshipName relationshipName = (RelationshipName)theEObject;
+        T result = caseRelationshipName(relationshipName);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case MaslPackage.DOMAIN_SERVICE_DEFINITION:
+      {
+        DomainServiceDefinition domainServiceDefinition = (DomainServiceDefinition)theEObject;
+        T result = caseDomainServiceDefinition(domainServiceDefinition);
+        if (result == null) result = casedefinition(domainServiceDefinition);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case MaslPackage.OBJECT_SERVICE_DEFINITION:
+      {
+        ObjectServiceDefinition objectServiceDefinition = (ObjectServiceDefinition)theEObject;
+        T result = caseObjectServiceDefinition(objectServiceDefinition);
+        if (result == null) result = casedefinition(objectServiceDefinition);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case MaslPackage.TERMINATOR_SERVICE_DEFINITION:
+      {
+        TerminatorServiceDefinition terminatorServiceDefinition = (TerminatorServiceDefinition)theEObject;
+        T result = caseTerminatorServiceDefinition(terminatorServiceDefinition);
+        if (result == null) result = casedefinition(terminatorServiceDefinition);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case MaslPackage.CODE_BLOCK:
+      {
+        CodeBlock codeBlock = (CodeBlock)theEObject;
+        T result = caseCodeBlock(codeBlock);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case MaslPackage.VARIABLE_DECLARATION:
+      {
+        VariableDeclaration variableDeclaration = (VariableDeclaration)theEObject;
+        T result = caseVariableDeclaration(variableDeclaration);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
+      case MaslPackage.VARIABLE_NAME:
+      {
+        VariableName variableName = (VariableName)theEObject;
+        T result = caseVariableName(variableName);
+        if (result == null) result = defaultCase(theEObject);
+        return result;
+      }
       default: return defaultCase(theEObject);
     }
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>target</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>target</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T casetarget(target object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>definition</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>definition</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T casedefinition(definition object)
+  {
+    return null;
   }
 
   /**
@@ -631,6 +744,150 @@ public class MaslSwitch<T> extends Switch<T>
    * @generated
    */
   public T casePragmaName(PragmaName object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Object Name</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Object Name</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseObjectName(ObjectName object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>service Type</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>service Type</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseserviceType(serviceType object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Relationship Name</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Relationship Name</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseRelationshipName(RelationshipName object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Domain Service Definition</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Domain Service Definition</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseDomainServiceDefinition(DomainServiceDefinition object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Object Service Definition</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Object Service Definition</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseObjectServiceDefinition(ObjectServiceDefinition object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Terminator Service Definition</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Terminator Service Definition</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseTerminatorServiceDefinition(TerminatorServiceDefinition object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Code Block</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Code Block</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseCodeBlock(CodeBlock object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Variable Declaration</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Variable Declaration</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseVariableDeclaration(VariableDeclaration object)
+  {
+    return null;
+  }
+
+  /**
+   * Returns the result of interpreting the object as an instance of '<em>Variable Name</em>'.
+   * <!-- begin-user-doc -->
+   * This implementation returns null;
+   * returning a non-null result will terminate the switch.
+   * <!-- end-user-doc -->
+   * @param object the target of the switch.
+   * @return the result of interpreting the object as an instance of '<em>Variable Name</em>'.
+   * @see #doSwitch(org.eclipse.emf.ecore.EObject) doSwitch(EObject)
+   * @generated
+   */
+  public T caseVariableName(VariableName object)
   {
     return null;
   }

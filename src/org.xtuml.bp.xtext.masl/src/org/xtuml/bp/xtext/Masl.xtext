@@ -2,7 +2,16 @@ grammar org.xtuml.bp.xtext.Masl with org.eclipse.xtext.common.Terminals
 
 generate masl "http://www.xtuml.org/bp/xtext/Masl"
 
-//target                        : projectDefinition+;
+target                          : definition+=definition+;
+
+definition                      : projectDefinition
+                                | objectServiceDefinition 
+                                | objectFunctionDefinition 
+                                | domainServiceDefinition 
+                                | domainFunctionDefinition 
+                                | terminatorServiceDefinition 
+                                | terminatorFunctionDefinition 
+                                ;
 
 //---------------------------------------------------------
 // Project Definition
@@ -138,14 +147,108 @@ pragmaName returns PragmaName             	: identifier=ID
 literal						  				: INT
 							  				| STRING
 							  				;
+
+
+//---------------------------------------------------------
+// Object Definition
+//---------------------------------------------------------
+
+objectName returns ObjectName                                                   : identifier=ID;
+
+serviceType                   : (INSTANCE=INSTANCE (DEFERRED LPAREN relationshipName=relationshipName RPAREN)?)?
+                              ;
+
+//---------------------------------------------------------
+// Relationship Definition
+//---------------------------------------------------------
+
+relationshipName returns RelationshipName                                       : relationshipName=RELATIONSHIP_NAME;
+
+//---------------------------------------------------------
+// Dynamic Behaviour
+//---------------------------------------------------------
+
+domainServiceDefinition returns DomainServiceDefinition                         : serviceVisibility=serviceVisibility SERVICE 
+                                                                                domainName=domainName SCOPE serviceName=serviceName 
+                                                                                parameterList=parameterList IS 
+                                                                                codeBlock=codeBlock 
+                                                                                SERVICE? SEMI pargmaList=pragmaList
+                                                                                ;
+
+domainFunctionDefinition returns DomainServiceDefinition                        : serviceVisibility=serviceVisibility FUNCTION
+                                                                                domainName=domainName SCOPE serviceName=serviceName 
+                                                                                parameterList=parameterList
+                                                                                RETURN returnType=returnType IS codeBlock=codeBlock 
+                                                                                FUNCTION? SEMI pargmaList=pragmaList
+                                                                                ;
+
+objectServiceDefinition returns ObjectServiceDefinition                         : serviceVisibility=serviceVisibility (INSTANCE=INSTANCE)? SERVICE 
+                                                                                domainName=domainName SCOPE objectName=objectName DOT serviceName=serviceName 
+                                                                                parameterList=parameterList IS codeBlock=codeBlock 
+                                                                                SERVICE? SEMI pragmaList=pragmaList
+                                                                                ;
+
+
+objectFunctionDefinition returns ObjectServiceDefinition                        : serviceVisibility=serviceVisibility serviceType=serviceType FUNCTION
+                                                                                domainName=domainName SCOPE objectName=objectName DOT serviceName=serviceName 
+                                                                                parameterList=parameterList
+                                                                                RETURN returnType=returnType IS codeBlock=codeBlock 
+                                                                                FUNCTION? SEMI pragmaList=pragmaList
+                                                                                ;
+
+
+terminatorServiceDefinition returns TerminatorServiceDefinition                 : serviceVisibility=serviceVisibility SERVICE 
+                                                                                domainName=domainName SCOPE terminatorName=terminatorName TERMINATOR_SCOPE serviceName=serviceName 
+                                                                                parameterList=parameterList IS 
+                                                                                codeBlock=codeBlock
+                                                                                SERVICE? SEMI pragmaList=pragmaList
+                                                                                ;
+
+
+terminatorFunctionDefinition returns TerminatorServiceDefinition                : serviceVisibility=serviceVisibility FUNCTION 
+                                                                                domainName=domainName SCOPE terminatorName=terminatorName TERMINATOR_SCOPE serviceName=serviceName 
+                                                                                parameterList=parameterList RETURN returnType=returnType IS 
+                                                                                codeBlock=codeBlock
+                                                                                FUNCTION? SEMI pragmaList=pragmaList
+                                                                                ;
+
+
+//---------------------------------------------------------
+// Code Blocks
+//---------------------------------------------------------
+
+codeBlock returns CodeBlock                                                     : (variableDeclaration+=variableDeclaration)*
+                                                                                BEGIN
+                                                                                    statementList
+                                                                                END
+                                                                                ;
+
+variableDeclaration returns VariableDeclaration                                 : variableName=variableName COLON
+                                                                                (READONLY=READONLY)? typeReferenceWithCA=typeReference
+                                                                                SEMI pragmaList=pragmaList
+                                                                                ;
+
+variableName returns VariableName                                               : identifier=ID
+                                                                                ;
+
+statementList                                                                   : => (ID|INT|STRING|WS|ANY_OTHER)*;
+
+
+
 					  
 							  
+// Identifiers
+terminal RELATIONSHIP_NAME             : 'R' '1' .. '9' INT*;
                               
 // Keywords
 ANONYMOUS                     : 'anonymous';
+ASSIGN                        : ':=';
+BEGIN                         : 'begin';
 COLON                         : ':';
 COMMA                         : ',';
+DEFERRED                      : 'deferred';  
 DOMAIN                        : 'domain';                  
+DOT                           : '.';
 END                           : 'end';                     
 EVENT                         : 'event';
 FUNCTION                      : 'function';                
@@ -159,10 +262,12 @@ PRAGMATOK                     : 'pragma';
 PRIVATE                       : 'private';                 
 PROJECT                       : 'project';
 PUBLIC                        : 'public';                  
+READONLY                      : 'readonly';
 RETURN                        : 'return';                  
 RPAREN                        : ')';
 SCOPE                         : '::';
 SEMI                          : ';';
 SERVICE                       : 'service';                 
 TERMINATOR                    : 'terminator';
+TERMINATOR_SCOPE              : '~>';
 TYPE                          : 'type' | 'subtype';

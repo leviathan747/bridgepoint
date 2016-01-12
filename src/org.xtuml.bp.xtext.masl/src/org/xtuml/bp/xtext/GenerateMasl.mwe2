@@ -30,7 +30,7 @@ Workflow {
 		}
 		language = StandardLanguage {
 			name = "org.xtuml.bp.xtext.Masl"
-			fileExtensions = "masl,prj,mod,tr"
+			fileExtensions = "masl,prj,mod,tr,svc,scn,al,int"
 
 			serializer = {
 				generateStub = false

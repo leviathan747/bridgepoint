@@ -27,7 +27,7 @@ public class MaslParser extends AbstractAntlrParser {
 
 	@Override 
 	protected String getDefaultRuleName() {
-		return "projectDefinition";
+		return "target";
 	}
 
 	public MaslGrammarAccess getGrammarAccess() {

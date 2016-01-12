@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="masl" nsURI="http://www.xtuml.org/bp/xtext/Masl" nsPrefix="masl">
-  <eClassifiers xsi:type="ecore:EClass" name="Project">
+  <eClassifiers xsi:type="ecore:EClass" name="target">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="definition" upperBound="-1"
+        eType="#//definition" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="definition"/>
+  <eClassifiers xsi:type="ecore:EClass" name="Project" eSuperTypes="#//definition">
     <eStructuralFeatures xsi:type="ecore:EReference" name="projectName" eType="#//ProjectName"
         containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="projectItem" upperBound="-1"
@@ -102,6 +107,85 @@
         upperBound="-1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="PragmaName">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="identifier" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ObjectName">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="identifier" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="serviceType">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="INSTANCE" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="relationshipName" eType="#//RelationshipName"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="RelationshipName">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="relationshipName" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="DomainServiceDefinition" eSuperTypes="#//definition">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="serviceVisibility" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="domainName" eType="#//DomainName"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="serviceName" eType="#//ServiceName"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="parameterList" eType="#//parameterList"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="codeBlock" eType="#//CodeBlock"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="pargmaList" eType="#//PragmaList"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="returnType" eType="#//ReturnType"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ObjectServiceDefinition" eSuperTypes="#//definition">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="serviceVisibility" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="INSTANCE" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="domainName" eType="#//DomainName"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="objectName" eType="#//ObjectName"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="serviceName" eType="#//ServiceName"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="parameterList" eType="#//parameterList"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="codeBlock" eType="#//CodeBlock"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="pragmaList" eType="#//PragmaList"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="serviceType" eType="#//serviceType"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="returnType" eType="#//ReturnType"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="TerminatorServiceDefinition" eSuperTypes="#//definition">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="serviceVisibility" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="domainName" eType="#//DomainName"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="terminatorName" eType="#//TerminatorName"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="serviceName" eType="#//ServiceName"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="parameterList" eType="#//parameterList"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="codeBlock" eType="#//CodeBlock"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="pragmaList" eType="#//PragmaList"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="returnType" eType="#//ReturnType"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="CodeBlock">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="variableDeclaration" upperBound="-1"
+        eType="#//VariableDeclaration" containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="VariableDeclaration">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="variableName" eType="#//VariableName"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="READONLY" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="typeReferenceWithCA" eType="#//typeReference"
+        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="pragmaList" eType="#//PragmaList"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="VariableName">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="identifier" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
 </ecore:EPackage>

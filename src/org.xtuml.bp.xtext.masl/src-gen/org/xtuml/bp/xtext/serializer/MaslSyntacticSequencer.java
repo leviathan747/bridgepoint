@@ -20,26 +20,44 @@ import org.xtuml.bp.xtext.services.MaslGrammarAccess;
 public class MaslSyntacticSequencer extends AbstractSyntacticSequencer {
 
 	protected MaslGrammarAccess grammarAccess;
+	protected AbstractElementAlias match_domainFunctionDefinition_FUNCTIONParserRuleCall_10_q;
 	protected AbstractElementAlias match_domainPrjDefinition_DOMAINParserRuleCall_5_q;
+	protected AbstractElementAlias match_domainServiceDefinition_SERVICEParserRuleCall_8_q;
+	protected AbstractElementAlias match_objectFunctionDefinition_FUNCTIONParserRuleCall_13_q;
+	protected AbstractElementAlias match_objectServiceDefinition_SERVICEParserRuleCall_11_q;
 	protected AbstractElementAlias match_projectDefinition_PROJECTParserRuleCall_5_q;
 	protected AbstractElementAlias match_terminatorDefinition_TERMINATORParserRuleCall_5_q;
+	protected AbstractElementAlias match_terminatorFunctionDefinition_FUNCTIONParserRuleCall_12_q;
+	protected AbstractElementAlias match_terminatorServiceDefinition_SERVICEParserRuleCall_10_q;
 	
 	@Inject
 	protected void init(IGrammarAccess access) {
 		grammarAccess = (MaslGrammarAccess) access;
+		match_domainFunctionDefinition_FUNCTIONParserRuleCall_10_q = new TokenAlias(false, true, grammarAccess.getDomainFunctionDefinitionAccess().getFUNCTIONParserRuleCall_10());
 		match_domainPrjDefinition_DOMAINParserRuleCall_5_q = new TokenAlias(false, true, grammarAccess.getDomainPrjDefinitionAccess().getDOMAINParserRuleCall_5());
+		match_domainServiceDefinition_SERVICEParserRuleCall_8_q = new TokenAlias(false, true, grammarAccess.getDomainServiceDefinitionAccess().getSERVICEParserRuleCall_8());
+		match_objectFunctionDefinition_FUNCTIONParserRuleCall_13_q = new TokenAlias(false, true, grammarAccess.getObjectFunctionDefinitionAccess().getFUNCTIONParserRuleCall_13());
+		match_objectServiceDefinition_SERVICEParserRuleCall_11_q = new TokenAlias(false, true, grammarAccess.getObjectServiceDefinitionAccess().getSERVICEParserRuleCall_11());
 		match_projectDefinition_PROJECTParserRuleCall_5_q = new TokenAlias(false, true, grammarAccess.getProjectDefinitionAccess().getPROJECTParserRuleCall_5());
 		match_terminatorDefinition_TERMINATORParserRuleCall_5_q = new TokenAlias(false, true, grammarAccess.getTerminatorDefinitionAccess().getTERMINATORParserRuleCall_5());
+		match_terminatorFunctionDefinition_FUNCTIONParserRuleCall_12_q = new TokenAlias(false, true, grammarAccess.getTerminatorFunctionDefinitionAccess().getFUNCTIONParserRuleCall_12());
+		match_terminatorServiceDefinition_SERVICEParserRuleCall_10_q = new TokenAlias(false, true, grammarAccess.getTerminatorServiceDefinitionAccess().getSERVICEParserRuleCall_10());
 	}
 	
 	@Override
 	protected String getUnassignedRuleCallToken(EObject semanticObject, RuleCall ruleCall, INode node) {
-		if (ruleCall.getRule() == grammarAccess.getCOLONRule())
+		if (ruleCall.getRule() == grammarAccess.getBEGINRule())
+			return getBEGINToken(semanticObject, ruleCall, node);
+		else if (ruleCall.getRule() == grammarAccess.getCOLONRule())
 			return getCOLONToken(semanticObject, ruleCall, node);
 		else if (ruleCall.getRule() == grammarAccess.getCOMMARule())
 			return getCOMMAToken(semanticObject, ruleCall, node);
+		else if (ruleCall.getRule() == grammarAccess.getDEFERREDRule())
+			return getDEFERREDToken(semanticObject, ruleCall, node);
 		else if (ruleCall.getRule() == grammarAccess.getDOMAINRule())
 			return getDOMAINToken(semanticObject, ruleCall, node);
+		else if (ruleCall.getRule() == grammarAccess.getDOTRule())
+			return getDOTToken(semanticObject, ruleCall, node);
 		else if (ruleCall.getRule() == grammarAccess.getENDRule())
 			return getENDToken(semanticObject, ruleCall, node);
 		else if (ruleCall.getRule() == grammarAccess.getFUNCTIONRule())
@@ -64,7 +82,20 @@ public class MaslSyntacticSequencer extends AbstractSyntacticSequencer {
 			return getSERVICEToken(semanticObject, ruleCall, node);
 		else if (ruleCall.getRule() == grammarAccess.getTERMINATORRule())
 			return getTERMINATORToken(semanticObject, ruleCall, node);
+		else if (ruleCall.getRule() == grammarAccess.getTERMINATOR_SCOPERule())
+			return getTERMINATOR_SCOPEToken(semanticObject, ruleCall, node);
+		else if (ruleCall.getRule() == grammarAccess.getStatementListRule())
+			return getstatementListToken(semanticObject, ruleCall, node);
 		return "";
+	}
+	
+	/**
+	 * BEGIN                         : 'begin';
+	 */
+	protected String getBEGINToken(EObject semanticObject, RuleCall ruleCall, INode node) {
+		if (node != null)
+			return getTokenText(node);
+		return "begin";
 	}
 	
 	/**
@@ -86,12 +117,30 @@ public class MaslSyntacticSequencer extends AbstractSyntacticSequencer {
 	}
 	
 	/**
+	 * DEFERRED                      : 'deferred';
+	 */
+	protected String getDEFERREDToken(EObject semanticObject, RuleCall ruleCall, INode node) {
+		if (node != null)
+			return getTokenText(node);
+		return "deferred";
+	}
+	
+	/**
 	 * DOMAIN                        : 'domain';
 	 */
 	protected String getDOMAINToken(EObject semanticObject, RuleCall ruleCall, INode node) {
 		if (node != null)
 			return getTokenText(node);
 		return "domain";
+	}
+	
+	/**
+	 * DOT                           : '.';
+	 */
+	protected String getDOTToken(EObject semanticObject, RuleCall ruleCall, INode node) {
+		if (node != null)
+			return getTokenText(node);
+		return ".";
 	}
 	
 	/**
@@ -202,22 +251,63 @@ public class MaslSyntacticSequencer extends AbstractSyntacticSequencer {
 		return "terminator";
 	}
 	
+	/**
+	 * TERMINATOR_SCOPE              : '~>';
+	 */
+	protected String getTERMINATOR_SCOPEToken(EObject semanticObject, RuleCall ruleCall, INode node) {
+		if (node != null)
+			return getTokenText(node);
+		return "~>";
+	}
+	
+	/**
+	 * statementList                                                                   : => (ID|INT|STRING|WS|ANY_OTHER)*;
+	 */
+	protected String getstatementListToken(EObject semanticObject, RuleCall ruleCall, INode node) {
+		if (node != null)
+			return getTokenText(node);
+		return "";
+	}
+	
 	@Override
 	protected void emitUnassignedTokens(EObject semanticObject, ISynTransition transition, INode fromNode, INode toNode) {
 		if (transition.getAmbiguousSyntaxes().isEmpty()) return;
 		List<INode> transitionNodes = collectNodes(fromNode, toNode);
 		for (AbstractElementAlias syntax : transition.getAmbiguousSyntaxes()) {
 			List<INode> syntaxNodes = getNodesFor(transitionNodes, syntax);
-			if (match_domainPrjDefinition_DOMAINParserRuleCall_5_q.equals(syntax))
+			if (match_domainFunctionDefinition_FUNCTIONParserRuleCall_10_q.equals(syntax))
+				emit_domainFunctionDefinition_FUNCTIONParserRuleCall_10_q(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if (match_domainPrjDefinition_DOMAINParserRuleCall_5_q.equals(syntax))
 				emit_domainPrjDefinition_DOMAINParserRuleCall_5_q(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if (match_domainServiceDefinition_SERVICEParserRuleCall_8_q.equals(syntax))
+				emit_domainServiceDefinition_SERVICEParserRuleCall_8_q(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if (match_objectFunctionDefinition_FUNCTIONParserRuleCall_13_q.equals(syntax))
+				emit_objectFunctionDefinition_FUNCTIONParserRuleCall_13_q(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if (match_objectServiceDefinition_SERVICEParserRuleCall_11_q.equals(syntax))
+				emit_objectServiceDefinition_SERVICEParserRuleCall_11_q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if (match_projectDefinition_PROJECTParserRuleCall_5_q.equals(syntax))
 				emit_projectDefinition_PROJECTParserRuleCall_5_q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else if (match_terminatorDefinition_TERMINATORParserRuleCall_5_q.equals(syntax))
 				emit_terminatorDefinition_TERMINATORParserRuleCall_5_q(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if (match_terminatorFunctionDefinition_FUNCTIONParserRuleCall_12_q.equals(syntax))
+				emit_terminatorFunctionDefinition_FUNCTIONParserRuleCall_12_q(semanticObject, getLastNavigableState(), syntaxNodes);
+			else if (match_terminatorServiceDefinition_SERVICEParserRuleCall_10_q.equals(syntax))
+				emit_terminatorServiceDefinition_SERVICEParserRuleCall_10_q(semanticObject, getLastNavigableState(), syntaxNodes);
 			else acceptNodes(getLastNavigableState(), syntaxNodes);
 		}
 	}
 
+	/**
+	 * Ambiguous syntax:
+	 *     FUNCTION?
+	 *
+	 * This ambiguous syntax occurs at:
+	 *     codeBlock=codeBlock (ambiguity) SEMI pargmaList=pragmaList
+	 */
+	protected void emit_domainFunctionDefinition_FUNCTIONParserRuleCall_10_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+		acceptNodes(transition, nodes);
+	}
+	
 	/**
 	 * Ambiguous syntax:
 	 *     DOMAIN?
@@ -227,6 +317,39 @@ public class MaslSyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     domainPrjItem+=domainPrjItem END (ambiguity) SEMI pragmaList=pragmaList
 	 */
 	protected void emit_domainPrjDefinition_DOMAINParserRuleCall_5_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+		acceptNodes(transition, nodes);
+	}
+	
+	/**
+	 * Ambiguous syntax:
+	 *     SERVICE?
+	 *
+	 * This ambiguous syntax occurs at:
+	 *     codeBlock=codeBlock (ambiguity) SEMI pargmaList=pragmaList
+	 */
+	protected void emit_domainServiceDefinition_SERVICEParserRuleCall_8_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+		acceptNodes(transition, nodes);
+	}
+	
+	/**
+	 * Ambiguous syntax:
+	 *     FUNCTION?
+	 *
+	 * This ambiguous syntax occurs at:
+	 *     codeBlock=codeBlock (ambiguity) SEMI pragmaList=pragmaList
+	 */
+	protected void emit_objectFunctionDefinition_FUNCTIONParserRuleCall_13_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+		acceptNodes(transition, nodes);
+	}
+	
+	/**
+	 * Ambiguous syntax:
+	 *     SERVICE?
+	 *
+	 * This ambiguous syntax occurs at:
+	 *     codeBlock=codeBlock (ambiguity) SEMI pragmaList=pragmaList
+	 */
+	protected void emit_objectServiceDefinition_SERVICEParserRuleCall_11_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	
@@ -251,6 +374,28 @@ public class MaslSyntacticSequencer extends AbstractSyntacticSequencer {
 	 *     terminatorName=terminatorName IS END (ambiguity) SEMI pragmaList=pragmaList
 	 */
 	protected void emit_terminatorDefinition_TERMINATORParserRuleCall_5_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+		acceptNodes(transition, nodes);
+	}
+	
+	/**
+	 * Ambiguous syntax:
+	 *     FUNCTION?
+	 *
+	 * This ambiguous syntax occurs at:
+	 *     codeBlock=codeBlock (ambiguity) SEMI pragmaList=pragmaList
+	 */
+	protected void emit_terminatorFunctionDefinition_FUNCTIONParserRuleCall_12_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
+		acceptNodes(transition, nodes);
+	}
+	
+	/**
+	 * Ambiguous syntax:
+	 *     SERVICE?
+	 *
+	 * This ambiguous syntax occurs at:
+	 *     codeBlock=codeBlock (ambiguity) SEMI pragmaList=pragmaList
+	 */
+	protected void emit_terminatorServiceDefinition_SERVICEParserRuleCall_10_q(EObject semanticObject, ISynNavigable transition, List<INode> nodes) {
 		acceptNodes(transition, nodes);
 	}
 	

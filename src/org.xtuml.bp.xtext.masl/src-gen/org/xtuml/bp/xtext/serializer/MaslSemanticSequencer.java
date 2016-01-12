@@ -14,10 +14,14 @@ import org.eclipse.xtext.serializer.ISerializationContext;
 import org.eclipse.xtext.serializer.acceptor.SequenceFeeder;
 import org.eclipse.xtext.serializer.sequencer.AbstractDelegatingSemanticSequencer;
 import org.eclipse.xtext.serializer.sequencer.ITransientValueService.ValueTransient;
+import org.xtuml.bp.xtext.masl.CodeBlock;
 import org.xtuml.bp.xtext.masl.Domain;
 import org.xtuml.bp.xtext.masl.DomainName;
+import org.xtuml.bp.xtext.masl.DomainServiceDefinition;
 import org.xtuml.bp.xtext.masl.MaslPackage;
 import org.xtuml.bp.xtext.masl.NamedType;
+import org.xtuml.bp.xtext.masl.ObjectName;
+import org.xtuml.bp.xtext.masl.ObjectServiceDefinition;
 import org.xtuml.bp.xtext.masl.ParameterDefinition;
 import org.xtuml.bp.xtext.masl.ParameterName;
 import org.xtuml.bp.xtext.masl.ParameterType;
@@ -26,15 +30,21 @@ import org.xtuml.bp.xtext.masl.PragmaList;
 import org.xtuml.bp.xtext.masl.PragmaName;
 import org.xtuml.bp.xtext.masl.Project;
 import org.xtuml.bp.xtext.masl.ProjectName;
+import org.xtuml.bp.xtext.masl.RelationshipName;
 import org.xtuml.bp.xtext.masl.ReturnType;
 import org.xtuml.bp.xtext.masl.ServiceName;
 import org.xtuml.bp.xtext.masl.TerminatorDefinition;
 import org.xtuml.bp.xtext.masl.TerminatorFunctionDeclaration;
 import org.xtuml.bp.xtext.masl.TerminatorName;
 import org.xtuml.bp.xtext.masl.TerminatorServiceDeclaration;
+import org.xtuml.bp.xtext.masl.TerminatorServiceDefinition;
 import org.xtuml.bp.xtext.masl.TypeName;
+import org.xtuml.bp.xtext.masl.VariableDeclaration;
+import org.xtuml.bp.xtext.masl.VariableName;
 import org.xtuml.bp.xtext.masl.deprecatedType;
 import org.xtuml.bp.xtext.masl.parameterList;
+import org.xtuml.bp.xtext.masl.serviceType;
+import org.xtuml.bp.xtext.masl.target;
 import org.xtuml.bp.xtext.services.MaslGrammarAccess;
 
 @SuppressWarnings("all")
@@ -51,15 +61,49 @@ public class MaslSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 		Set<Parameter> parameters = context.getEnabledBooleanParameters();
 		if (epackage == MaslPackage.eINSTANCE)
 			switch (semanticObject.eClass().getClassifierID()) {
+			case MaslPackage.CODE_BLOCK:
+				sequence_codeBlock(context, (CodeBlock) semanticObject); 
+				return; 
 			case MaslPackage.DOMAIN:
 				sequence_domainPrjDefinition(context, (Domain) semanticObject); 
 				return; 
 			case MaslPackage.DOMAIN_NAME:
 				sequence_domainName(context, (DomainName) semanticObject); 
 				return; 
+			case MaslPackage.DOMAIN_SERVICE_DEFINITION:
+				if (rule == grammarAccess.getDomainFunctionDefinitionRule()) {
+					sequence_domainFunctionDefinition(context, (DomainServiceDefinition) semanticObject); 
+					return; 
+				}
+				else if (rule == grammarAccess.getDefinitionRule()) {
+					sequence_domainFunctionDefinition_domainServiceDefinition(context, (DomainServiceDefinition) semanticObject); 
+					return; 
+				}
+				else if (rule == grammarAccess.getDomainServiceDefinitionRule()) {
+					sequence_domainServiceDefinition(context, (DomainServiceDefinition) semanticObject); 
+					return; 
+				}
+				else break;
 			case MaslPackage.NAMED_TYPE:
 				sequence_namedTypeRef(context, (NamedType) semanticObject); 
 				return; 
+			case MaslPackage.OBJECT_NAME:
+				sequence_objectName(context, (ObjectName) semanticObject); 
+				return; 
+			case MaslPackage.OBJECT_SERVICE_DEFINITION:
+				if (rule == grammarAccess.getObjectFunctionDefinitionRule()) {
+					sequence_objectFunctionDefinition(context, (ObjectServiceDefinition) semanticObject); 
+					return; 
+				}
+				else if (rule == grammarAccess.getDefinitionRule()) {
+					sequence_objectFunctionDefinition_objectServiceDefinition(context, (ObjectServiceDefinition) semanticObject); 
+					return; 
+				}
+				else if (rule == grammarAccess.getObjectServiceDefinitionRule()) {
+					sequence_objectServiceDefinition(context, (ObjectServiceDefinition) semanticObject); 
+					return; 
+				}
+				else break;
 			case MaslPackage.PARAMETER_DEFINITION:
 				sequence_parameterDefinition(context, (ParameterDefinition) semanticObject); 
 				return; 
@@ -84,6 +128,9 @@ public class MaslSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 			case MaslPackage.PROJECT_NAME:
 				sequence_projectName(context, (ProjectName) semanticObject); 
 				return; 
+			case MaslPackage.RELATIONSHIP_NAME:
+				sequence_relationshipName(context, (RelationshipName) semanticObject); 
+				return; 
 			case MaslPackage.RETURN_TYPE:
 				sequence_returnType(context, (ReturnType) semanticObject); 
 				return; 
@@ -102,8 +149,28 @@ public class MaslSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 			case MaslPackage.TERMINATOR_SERVICE_DECLARATION:
 				sequence_terminatorServiceDeclaration(context, (TerminatorServiceDeclaration) semanticObject); 
 				return; 
+			case MaslPackage.TERMINATOR_SERVICE_DEFINITION:
+				if (rule == grammarAccess.getTerminatorFunctionDefinitionRule()) {
+					sequence_terminatorFunctionDefinition(context, (TerminatorServiceDefinition) semanticObject); 
+					return; 
+				}
+				else if (rule == grammarAccess.getDefinitionRule()) {
+					sequence_terminatorFunctionDefinition_terminatorServiceDefinition(context, (TerminatorServiceDefinition) semanticObject); 
+					return; 
+				}
+				else if (rule == grammarAccess.getTerminatorServiceDefinitionRule()) {
+					sequence_terminatorServiceDefinition(context, (TerminatorServiceDefinition) semanticObject); 
+					return; 
+				}
+				else break;
 			case MaslPackage.TYPE_NAME:
 				sequence_typeName(context, (TypeName) semanticObject); 
+				return; 
+			case MaslPackage.VARIABLE_DECLARATION:
+				sequence_variableDeclaration(context, (VariableDeclaration) semanticObject); 
+				return; 
+			case MaslPackage.VARIABLE_NAME:
+				sequence_variableName(context, (VariableName) semanticObject); 
 				return; 
 			case MaslPackage.DEPRECATED_TYPE:
 				sequence_deprecatedType(context, (deprecatedType) semanticObject); 
@@ -111,10 +178,28 @@ public class MaslSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 			case MaslPackage.PARAMETER_LIST:
 				sequence_parameterList(context, (parameterList) semanticObject); 
 				return; 
+			case MaslPackage.SERVICE_TYPE:
+				sequence_serviceType(context, (serviceType) semanticObject); 
+				return; 
+			case MaslPackage.TARGET:
+				sequence_target(context, (target) semanticObject); 
+				return; 
 			}
 		if (errorAcceptor != null)
 			errorAcceptor.accept(diagnosticProvider.createInvalidContextOrTypeDiagnostic(semanticObject, context));
 	}
+	
+	/**
+	 * Contexts:
+	 *     codeBlock returns CodeBlock
+	 *
+	 * Constraint:
+	 *     variableDeclaration+=variableDeclaration+
+	 */
+	protected void sequence_codeBlock(ISerializationContext context, CodeBlock semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
 	
 	/**
 	 * Contexts:
@@ -125,6 +210,80 @@ public class MaslSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 *     (INSTANCE=INSTANCE | EVENT=EVENT | SERVICE=SERVICE)
 	 */
 	protected void sequence_deprecatedType(ISerializationContext context, deprecatedType semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     domainFunctionDefinition returns DomainServiceDefinition
+	 *
+	 * Constraint:
+	 *     (
+	 *         serviceVisibility=serviceVisibility 
+	 *         domainName=domainName 
+	 *         serviceName=serviceName 
+	 *         parameterList=parameterList 
+	 *         returnType=returnType 
+	 *         codeBlock=codeBlock 
+	 *         pargmaList=pragmaList
+	 *     )
+	 */
+	protected void sequence_domainFunctionDefinition(ISerializationContext context, DomainServiceDefinition semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, MaslPackage.Literals.DOMAIN_SERVICE_DEFINITION__SERVICE_VISIBILITY) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, MaslPackage.Literals.DOMAIN_SERVICE_DEFINITION__SERVICE_VISIBILITY));
+			if (transientValues.isValueTransient(semanticObject, MaslPackage.Literals.DOMAIN_SERVICE_DEFINITION__DOMAIN_NAME) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, MaslPackage.Literals.DOMAIN_SERVICE_DEFINITION__DOMAIN_NAME));
+			if (transientValues.isValueTransient(semanticObject, MaslPackage.Literals.DOMAIN_SERVICE_DEFINITION__SERVICE_NAME) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, MaslPackage.Literals.DOMAIN_SERVICE_DEFINITION__SERVICE_NAME));
+			if (transientValues.isValueTransient(semanticObject, MaslPackage.Literals.DOMAIN_SERVICE_DEFINITION__PARAMETER_LIST) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, MaslPackage.Literals.DOMAIN_SERVICE_DEFINITION__PARAMETER_LIST));
+			if (transientValues.isValueTransient(semanticObject, MaslPackage.Literals.DOMAIN_SERVICE_DEFINITION__RETURN_TYPE) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, MaslPackage.Literals.DOMAIN_SERVICE_DEFINITION__RETURN_TYPE));
+			if (transientValues.isValueTransient(semanticObject, MaslPackage.Literals.DOMAIN_SERVICE_DEFINITION__CODE_BLOCK) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, MaslPackage.Literals.DOMAIN_SERVICE_DEFINITION__CODE_BLOCK));
+			if (transientValues.isValueTransient(semanticObject, MaslPackage.Literals.DOMAIN_SERVICE_DEFINITION__PARGMA_LIST) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, MaslPackage.Literals.DOMAIN_SERVICE_DEFINITION__PARGMA_LIST));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getDomainFunctionDefinitionAccess().getServiceVisibilityServiceVisibilityParserRuleCall_0_0(), semanticObject.getServiceVisibility());
+		feeder.accept(grammarAccess.getDomainFunctionDefinitionAccess().getDomainNameDomainNameParserRuleCall_2_0(), semanticObject.getDomainName());
+		feeder.accept(grammarAccess.getDomainFunctionDefinitionAccess().getServiceNameServiceNameParserRuleCall_4_0(), semanticObject.getServiceName());
+		feeder.accept(grammarAccess.getDomainFunctionDefinitionAccess().getParameterListParameterListParserRuleCall_5_0(), semanticObject.getParameterList());
+		feeder.accept(grammarAccess.getDomainFunctionDefinitionAccess().getReturnTypeReturnTypeParserRuleCall_7_0(), semanticObject.getReturnType());
+		feeder.accept(grammarAccess.getDomainFunctionDefinitionAccess().getCodeBlockCodeBlockParserRuleCall_9_0(), semanticObject.getCodeBlock());
+		feeder.accept(grammarAccess.getDomainFunctionDefinitionAccess().getPargmaListPragmaListParserRuleCall_12_0(), semanticObject.getPargmaList());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     definition returns DomainServiceDefinition
+	 *
+	 * Constraint:
+	 *     (
+	 *         (
+	 *             serviceVisibility=serviceVisibility 
+	 *             domainName=domainName 
+	 *             serviceName=serviceName 
+	 *             parameterList=parameterList 
+	 *             codeBlock=codeBlock 
+	 *             pargmaList=pragmaList
+	 *         ) | 
+	 *         (
+	 *             serviceVisibility=serviceVisibility 
+	 *             domainName=domainName 
+	 *             serviceName=serviceName 
+	 *             parameterList=parameterList 
+	 *             returnType=returnType 
+	 *             codeBlock=codeBlock 
+	 *             pargmaList=pragmaList
+	 *         )
+	 *     )
+	 */
+	protected void sequence_domainFunctionDefinition_domainServiceDefinition(ISerializationContext context, DomainServiceDefinition semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -162,6 +321,46 @@ public class MaslSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	
 	/**
 	 * Contexts:
+	 *     domainServiceDefinition returns DomainServiceDefinition
+	 *
+	 * Constraint:
+	 *     (
+	 *         serviceVisibility=serviceVisibility 
+	 *         domainName=domainName 
+	 *         serviceName=serviceName 
+	 *         parameterList=parameterList 
+	 *         codeBlock=codeBlock 
+	 *         pargmaList=pragmaList
+	 *     )
+	 */
+	protected void sequence_domainServiceDefinition(ISerializationContext context, DomainServiceDefinition semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, MaslPackage.Literals.DOMAIN_SERVICE_DEFINITION__SERVICE_VISIBILITY) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, MaslPackage.Literals.DOMAIN_SERVICE_DEFINITION__SERVICE_VISIBILITY));
+			if (transientValues.isValueTransient(semanticObject, MaslPackage.Literals.DOMAIN_SERVICE_DEFINITION__DOMAIN_NAME) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, MaslPackage.Literals.DOMAIN_SERVICE_DEFINITION__DOMAIN_NAME));
+			if (transientValues.isValueTransient(semanticObject, MaslPackage.Literals.DOMAIN_SERVICE_DEFINITION__SERVICE_NAME) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, MaslPackage.Literals.DOMAIN_SERVICE_DEFINITION__SERVICE_NAME));
+			if (transientValues.isValueTransient(semanticObject, MaslPackage.Literals.DOMAIN_SERVICE_DEFINITION__PARAMETER_LIST) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, MaslPackage.Literals.DOMAIN_SERVICE_DEFINITION__PARAMETER_LIST));
+			if (transientValues.isValueTransient(semanticObject, MaslPackage.Literals.DOMAIN_SERVICE_DEFINITION__CODE_BLOCK) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, MaslPackage.Literals.DOMAIN_SERVICE_DEFINITION__CODE_BLOCK));
+			if (transientValues.isValueTransient(semanticObject, MaslPackage.Literals.DOMAIN_SERVICE_DEFINITION__PARGMA_LIST) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, MaslPackage.Literals.DOMAIN_SERVICE_DEFINITION__PARGMA_LIST));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getDomainServiceDefinitionAccess().getServiceVisibilityServiceVisibilityParserRuleCall_0_0(), semanticObject.getServiceVisibility());
+		feeder.accept(grammarAccess.getDomainServiceDefinitionAccess().getDomainNameDomainNameParserRuleCall_2_0(), semanticObject.getDomainName());
+		feeder.accept(grammarAccess.getDomainServiceDefinitionAccess().getServiceNameServiceNameParserRuleCall_4_0(), semanticObject.getServiceName());
+		feeder.accept(grammarAccess.getDomainServiceDefinitionAccess().getParameterListParameterListParserRuleCall_5_0(), semanticObject.getParameterList());
+		feeder.accept(grammarAccess.getDomainServiceDefinitionAccess().getCodeBlockCodeBlockParserRuleCall_7_0(), semanticObject.getCodeBlock());
+		feeder.accept(grammarAccess.getDomainServiceDefinitionAccess().getPargmaListPragmaListParserRuleCall_10_0(), semanticObject.getPargmaList());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Contexts:
 	 *     typeReference returns NamedType
 	 *     namedTypeRef returns NamedType
 	 *
@@ -169,6 +368,131 @@ public class MaslSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	 *     (anonymous=ANONYMOUS? domainName=domainName? typeName=typeName)
 	 */
 	protected void sequence_namedTypeRef(ISerializationContext context, NamedType semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     objectFunctionDefinition returns ObjectServiceDefinition
+	 *
+	 * Constraint:
+	 *     (
+	 *         serviceVisibility=serviceVisibility 
+	 *         serviceType=serviceType 
+	 *         domainName=domainName 
+	 *         objectName=objectName 
+	 *         serviceName=serviceName 
+	 *         parameterList=parameterList 
+	 *         returnType=returnType 
+	 *         codeBlock=codeBlock 
+	 *         pragmaList=pragmaList
+	 *     )
+	 */
+	protected void sequence_objectFunctionDefinition(ISerializationContext context, ObjectServiceDefinition semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, MaslPackage.Literals.OBJECT_SERVICE_DEFINITION__SERVICE_VISIBILITY) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, MaslPackage.Literals.OBJECT_SERVICE_DEFINITION__SERVICE_VISIBILITY));
+			if (transientValues.isValueTransient(semanticObject, MaslPackage.Literals.OBJECT_SERVICE_DEFINITION__SERVICE_TYPE) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, MaslPackage.Literals.OBJECT_SERVICE_DEFINITION__SERVICE_TYPE));
+			if (transientValues.isValueTransient(semanticObject, MaslPackage.Literals.OBJECT_SERVICE_DEFINITION__DOMAIN_NAME) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, MaslPackage.Literals.OBJECT_SERVICE_DEFINITION__DOMAIN_NAME));
+			if (transientValues.isValueTransient(semanticObject, MaslPackage.Literals.OBJECT_SERVICE_DEFINITION__OBJECT_NAME) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, MaslPackage.Literals.OBJECT_SERVICE_DEFINITION__OBJECT_NAME));
+			if (transientValues.isValueTransient(semanticObject, MaslPackage.Literals.OBJECT_SERVICE_DEFINITION__SERVICE_NAME) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, MaslPackage.Literals.OBJECT_SERVICE_DEFINITION__SERVICE_NAME));
+			if (transientValues.isValueTransient(semanticObject, MaslPackage.Literals.OBJECT_SERVICE_DEFINITION__PARAMETER_LIST) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, MaslPackage.Literals.OBJECT_SERVICE_DEFINITION__PARAMETER_LIST));
+			if (transientValues.isValueTransient(semanticObject, MaslPackage.Literals.OBJECT_SERVICE_DEFINITION__RETURN_TYPE) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, MaslPackage.Literals.OBJECT_SERVICE_DEFINITION__RETURN_TYPE));
+			if (transientValues.isValueTransient(semanticObject, MaslPackage.Literals.OBJECT_SERVICE_DEFINITION__CODE_BLOCK) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, MaslPackage.Literals.OBJECT_SERVICE_DEFINITION__CODE_BLOCK));
+			if (transientValues.isValueTransient(semanticObject, MaslPackage.Literals.OBJECT_SERVICE_DEFINITION__PRAGMA_LIST) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, MaslPackage.Literals.OBJECT_SERVICE_DEFINITION__PRAGMA_LIST));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getObjectFunctionDefinitionAccess().getServiceVisibilityServiceVisibilityParserRuleCall_0_0(), semanticObject.getServiceVisibility());
+		feeder.accept(grammarAccess.getObjectFunctionDefinitionAccess().getServiceTypeServiceTypeParserRuleCall_1_0(), semanticObject.getServiceType());
+		feeder.accept(grammarAccess.getObjectFunctionDefinitionAccess().getDomainNameDomainNameParserRuleCall_3_0(), semanticObject.getDomainName());
+		feeder.accept(grammarAccess.getObjectFunctionDefinitionAccess().getObjectNameObjectNameParserRuleCall_5_0(), semanticObject.getObjectName());
+		feeder.accept(grammarAccess.getObjectFunctionDefinitionAccess().getServiceNameServiceNameParserRuleCall_7_0(), semanticObject.getServiceName());
+		feeder.accept(grammarAccess.getObjectFunctionDefinitionAccess().getParameterListParameterListParserRuleCall_8_0(), semanticObject.getParameterList());
+		feeder.accept(grammarAccess.getObjectFunctionDefinitionAccess().getReturnTypeReturnTypeParserRuleCall_10_0(), semanticObject.getReturnType());
+		feeder.accept(grammarAccess.getObjectFunctionDefinitionAccess().getCodeBlockCodeBlockParserRuleCall_12_0(), semanticObject.getCodeBlock());
+		feeder.accept(grammarAccess.getObjectFunctionDefinitionAccess().getPragmaListPragmaListParserRuleCall_15_0(), semanticObject.getPragmaList());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     definition returns ObjectServiceDefinition
+	 *
+	 * Constraint:
+	 *     (
+	 *         (
+	 *             serviceVisibility=serviceVisibility 
+	 *             INSTANCE=INSTANCE? 
+	 *             domainName=domainName 
+	 *             objectName=objectName 
+	 *             serviceName=serviceName 
+	 *             parameterList=parameterList 
+	 *             codeBlock=codeBlock 
+	 *             pragmaList=pragmaList
+	 *         ) | 
+	 *         (
+	 *             serviceVisibility=serviceVisibility 
+	 *             serviceType=serviceType 
+	 *             domainName=domainName 
+	 *             objectName=objectName 
+	 *             serviceName=serviceName 
+	 *             parameterList=parameterList 
+	 *             returnType=returnType 
+	 *             codeBlock=codeBlock 
+	 *             pragmaList=pragmaList
+	 *         )
+	 *     )
+	 */
+	protected void sequence_objectFunctionDefinition_objectServiceDefinition(ISerializationContext context, ObjectServiceDefinition semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     objectName returns ObjectName
+	 *
+	 * Constraint:
+	 *     identifier=ID
+	 */
+	protected void sequence_objectName(ISerializationContext context, ObjectName semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, MaslPackage.Literals.OBJECT_NAME__IDENTIFIER) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, MaslPackage.Literals.OBJECT_NAME__IDENTIFIER));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getObjectNameAccess().getIdentifierIDTerminalRuleCall_0(), semanticObject.getIdentifier());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     objectServiceDefinition returns ObjectServiceDefinition
+	 *
+	 * Constraint:
+	 *     (
+	 *         serviceVisibility=serviceVisibility 
+	 *         INSTANCE=INSTANCE? 
+	 *         domainName=domainName 
+	 *         objectName=objectName 
+	 *         serviceName=serviceName 
+	 *         parameterList=parameterList 
+	 *         codeBlock=codeBlock 
+	 *         pragmaList=pragmaList
+	 *     )
+	 */
+	protected void sequence_objectServiceDefinition(ISerializationContext context, ObjectServiceDefinition semanticObject) {
 		genericSequencer.createSequence(context, semanticObject);
 	}
 	
@@ -289,6 +613,7 @@ public class MaslSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	
 	/**
 	 * Contexts:
+	 *     definition returns Project
 	 *     projectDefinition returns Project
 	 *
 	 * Constraint:
@@ -313,6 +638,24 @@ public class MaslSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
 		feeder.accept(grammarAccess.getProjectNameAccess().getIdentifierIDTerminalRuleCall_0(), semanticObject.getIdentifier());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     relationshipName returns RelationshipName
+	 *
+	 * Constraint:
+	 *     relationshipName=RELATIONSHIP_NAME
+	 */
+	protected void sequence_relationshipName(ISerializationContext context, RelationshipName semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, MaslPackage.Literals.RELATIONSHIP_NAME__RELATIONSHIP_NAME) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, MaslPackage.Literals.RELATIONSHIP_NAME__RELATIONSHIP_NAME));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getRelationshipNameAccess().getRelationshipNameRELATIONSHIP_NAMETerminalRuleCall_0(), semanticObject.getRelationshipName());
 		feeder.finish();
 	}
 	
@@ -350,6 +693,30 @@ public class MaslSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
 		feeder.accept(grammarAccess.getServiceNameAccess().getIdentifierIDTerminalRuleCall_0(), semanticObject.getIdentifier());
 		feeder.finish();
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     serviceType returns serviceType
+	 *
+	 * Constraint:
+	 *     (INSTANCE=INSTANCE relationshipName=relationshipName?)
+	 */
+	protected void sequence_serviceType(ISerializationContext context, serviceType semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     target returns target
+	 *
+	 * Constraint:
+	 *     definition+=definition+
+	 */
+	protected void sequence_target(ISerializationContext context, target semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
@@ -394,6 +761,86 @@ public class MaslSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 		feeder.accept(grammarAccess.getTerminatorFunctionDeclarationAccess().getReturnTypeReturnTypeParserRuleCall_5_0(), semanticObject.getReturnType());
 		feeder.accept(grammarAccess.getTerminatorFunctionDeclarationAccess().getPragmaListPragmaListParserRuleCall_7_0(), semanticObject.getPragmaList());
 		feeder.finish();
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     terminatorFunctionDefinition returns TerminatorServiceDefinition
+	 *
+	 * Constraint:
+	 *     (
+	 *         serviceVisibility=serviceVisibility 
+	 *         domainName=domainName 
+	 *         terminatorName=terminatorName 
+	 *         serviceName=serviceName 
+	 *         parameterList=parameterList 
+	 *         returnType=returnType 
+	 *         codeBlock=codeBlock 
+	 *         pragmaList=pragmaList
+	 *     )
+	 */
+	protected void sequence_terminatorFunctionDefinition(ISerializationContext context, TerminatorServiceDefinition semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, MaslPackage.Literals.TERMINATOR_SERVICE_DEFINITION__SERVICE_VISIBILITY) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, MaslPackage.Literals.TERMINATOR_SERVICE_DEFINITION__SERVICE_VISIBILITY));
+			if (transientValues.isValueTransient(semanticObject, MaslPackage.Literals.TERMINATOR_SERVICE_DEFINITION__DOMAIN_NAME) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, MaslPackage.Literals.TERMINATOR_SERVICE_DEFINITION__DOMAIN_NAME));
+			if (transientValues.isValueTransient(semanticObject, MaslPackage.Literals.TERMINATOR_SERVICE_DEFINITION__TERMINATOR_NAME) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, MaslPackage.Literals.TERMINATOR_SERVICE_DEFINITION__TERMINATOR_NAME));
+			if (transientValues.isValueTransient(semanticObject, MaslPackage.Literals.TERMINATOR_SERVICE_DEFINITION__SERVICE_NAME) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, MaslPackage.Literals.TERMINATOR_SERVICE_DEFINITION__SERVICE_NAME));
+			if (transientValues.isValueTransient(semanticObject, MaslPackage.Literals.TERMINATOR_SERVICE_DEFINITION__PARAMETER_LIST) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, MaslPackage.Literals.TERMINATOR_SERVICE_DEFINITION__PARAMETER_LIST));
+			if (transientValues.isValueTransient(semanticObject, MaslPackage.Literals.TERMINATOR_SERVICE_DEFINITION__RETURN_TYPE) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, MaslPackage.Literals.TERMINATOR_SERVICE_DEFINITION__RETURN_TYPE));
+			if (transientValues.isValueTransient(semanticObject, MaslPackage.Literals.TERMINATOR_SERVICE_DEFINITION__CODE_BLOCK) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, MaslPackage.Literals.TERMINATOR_SERVICE_DEFINITION__CODE_BLOCK));
+			if (transientValues.isValueTransient(semanticObject, MaslPackage.Literals.TERMINATOR_SERVICE_DEFINITION__PRAGMA_LIST) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, MaslPackage.Literals.TERMINATOR_SERVICE_DEFINITION__PRAGMA_LIST));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getTerminatorFunctionDefinitionAccess().getServiceVisibilityServiceVisibilityParserRuleCall_0_0(), semanticObject.getServiceVisibility());
+		feeder.accept(grammarAccess.getTerminatorFunctionDefinitionAccess().getDomainNameDomainNameParserRuleCall_2_0(), semanticObject.getDomainName());
+		feeder.accept(grammarAccess.getTerminatorFunctionDefinitionAccess().getTerminatorNameTerminatorNameParserRuleCall_4_0(), semanticObject.getTerminatorName());
+		feeder.accept(grammarAccess.getTerminatorFunctionDefinitionAccess().getServiceNameServiceNameParserRuleCall_6_0(), semanticObject.getServiceName());
+		feeder.accept(grammarAccess.getTerminatorFunctionDefinitionAccess().getParameterListParameterListParserRuleCall_7_0(), semanticObject.getParameterList());
+		feeder.accept(grammarAccess.getTerminatorFunctionDefinitionAccess().getReturnTypeReturnTypeParserRuleCall_9_0(), semanticObject.getReturnType());
+		feeder.accept(grammarAccess.getTerminatorFunctionDefinitionAccess().getCodeBlockCodeBlockParserRuleCall_11_0(), semanticObject.getCodeBlock());
+		feeder.accept(grammarAccess.getTerminatorFunctionDefinitionAccess().getPragmaListPragmaListParserRuleCall_14_0(), semanticObject.getPragmaList());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     definition returns TerminatorServiceDefinition
+	 *
+	 * Constraint:
+	 *     (
+	 *         (
+	 *             serviceVisibility=serviceVisibility 
+	 *             domainName=domainName 
+	 *             terminatorName=terminatorName 
+	 *             serviceName=serviceName 
+	 *             parameterList=parameterList 
+	 *             codeBlock=codeBlock 
+	 *             pragmaList=pragmaList
+	 *         ) | 
+	 *         (
+	 *             serviceVisibility=serviceVisibility 
+	 *             domainName=domainName 
+	 *             terminatorName=terminatorName 
+	 *             serviceName=serviceName 
+	 *             parameterList=parameterList 
+	 *             returnType=returnType 
+	 *             codeBlock=codeBlock 
+	 *             pragmaList=pragmaList
+	 *         )
+	 *     )
+	 */
+	protected void sequence_terminatorFunctionDefinition_terminatorServiceDefinition(ISerializationContext context, TerminatorServiceDefinition semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
 	}
 	
 	
@@ -445,6 +892,50 @@ public class MaslSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 	
 	/**
 	 * Contexts:
+	 *     terminatorServiceDefinition returns TerminatorServiceDefinition
+	 *
+	 * Constraint:
+	 *     (
+	 *         serviceVisibility=serviceVisibility 
+	 *         domainName=domainName 
+	 *         terminatorName=terminatorName 
+	 *         serviceName=serviceName 
+	 *         parameterList=parameterList 
+	 *         codeBlock=codeBlock 
+	 *         pragmaList=pragmaList
+	 *     )
+	 */
+	protected void sequence_terminatorServiceDefinition(ISerializationContext context, TerminatorServiceDefinition semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, MaslPackage.Literals.TERMINATOR_SERVICE_DEFINITION__SERVICE_VISIBILITY) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, MaslPackage.Literals.TERMINATOR_SERVICE_DEFINITION__SERVICE_VISIBILITY));
+			if (transientValues.isValueTransient(semanticObject, MaslPackage.Literals.TERMINATOR_SERVICE_DEFINITION__DOMAIN_NAME) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, MaslPackage.Literals.TERMINATOR_SERVICE_DEFINITION__DOMAIN_NAME));
+			if (transientValues.isValueTransient(semanticObject, MaslPackage.Literals.TERMINATOR_SERVICE_DEFINITION__TERMINATOR_NAME) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, MaslPackage.Literals.TERMINATOR_SERVICE_DEFINITION__TERMINATOR_NAME));
+			if (transientValues.isValueTransient(semanticObject, MaslPackage.Literals.TERMINATOR_SERVICE_DEFINITION__SERVICE_NAME) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, MaslPackage.Literals.TERMINATOR_SERVICE_DEFINITION__SERVICE_NAME));
+			if (transientValues.isValueTransient(semanticObject, MaslPackage.Literals.TERMINATOR_SERVICE_DEFINITION__PARAMETER_LIST) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, MaslPackage.Literals.TERMINATOR_SERVICE_DEFINITION__PARAMETER_LIST));
+			if (transientValues.isValueTransient(semanticObject, MaslPackage.Literals.TERMINATOR_SERVICE_DEFINITION__CODE_BLOCK) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, MaslPackage.Literals.TERMINATOR_SERVICE_DEFINITION__CODE_BLOCK));
+			if (transientValues.isValueTransient(semanticObject, MaslPackage.Literals.TERMINATOR_SERVICE_DEFINITION__PRAGMA_LIST) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, MaslPackage.Literals.TERMINATOR_SERVICE_DEFINITION__PRAGMA_LIST));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getTerminatorServiceDefinitionAccess().getServiceVisibilityServiceVisibilityParserRuleCall_0_0(), semanticObject.getServiceVisibility());
+		feeder.accept(grammarAccess.getTerminatorServiceDefinitionAccess().getDomainNameDomainNameParserRuleCall_2_0(), semanticObject.getDomainName());
+		feeder.accept(grammarAccess.getTerminatorServiceDefinitionAccess().getTerminatorNameTerminatorNameParserRuleCall_4_0(), semanticObject.getTerminatorName());
+		feeder.accept(grammarAccess.getTerminatorServiceDefinitionAccess().getServiceNameServiceNameParserRuleCall_6_0(), semanticObject.getServiceName());
+		feeder.accept(grammarAccess.getTerminatorServiceDefinitionAccess().getParameterListParameterListParserRuleCall_7_0(), semanticObject.getParameterList());
+		feeder.accept(grammarAccess.getTerminatorServiceDefinitionAccess().getCodeBlockCodeBlockParserRuleCall_9_0(), semanticObject.getCodeBlock());
+		feeder.accept(grammarAccess.getTerminatorServiceDefinitionAccess().getPragmaListPragmaListParserRuleCall_12_0(), semanticObject.getPragmaList());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Contexts:
 	 *     typeName returns TypeName
 	 *
 	 * Constraint:
@@ -457,6 +948,36 @@ public class MaslSemanticSequencer extends AbstractDelegatingSemanticSequencer {
 		}
 		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
 		feeder.accept(grammarAccess.getTypeNameAccess().getIdentifierIDTerminalRuleCall_0(), semanticObject.getIdentifier());
+		feeder.finish();
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     variableDeclaration returns VariableDeclaration
+	 *
+	 * Constraint:
+	 *     (variableName=variableName READONLY=READONLY? typeReferenceWithCA=typeReference pragmaList=pragmaList)
+	 */
+	protected void sequence_variableDeclaration(ISerializationContext context, VariableDeclaration semanticObject) {
+		genericSequencer.createSequence(context, semanticObject);
+	}
+	
+	
+	/**
+	 * Contexts:
+	 *     variableName returns VariableName
+	 *
+	 * Constraint:
+	 *     identifier=ID
+	 */
+	protected void sequence_variableName(ISerializationContext context, VariableName semanticObject) {
+		if (errorAcceptor != null) {
+			if (transientValues.isValueTransient(semanticObject, MaslPackage.Literals.VARIABLE_NAME__IDENTIFIER) == ValueTransient.YES)
+				errorAcceptor.accept(diagnosticProvider.createFeatureValueMissing(semanticObject, MaslPackage.Literals.VARIABLE_NAME__IDENTIFIER));
+		}
+		SequenceFeeder feeder = createSequencerFeeder(context, semanticObject);
+		feeder.accept(grammarAccess.getVariableNameAccess().getIdentifierIDTerminalRuleCall_0(), semanticObject.getIdentifier());
 		feeder.finish();
 	}
 	

@@ -14,7 +14,6 @@ import org.eclipse.emf.ecore.EClass;
 import org.eclipse.emf.ecore.InternalEObject;
 
 import org.eclipse.emf.ecore.impl.ENotificationImpl;
-import org.eclipse.emf.ecore.impl.MinimalEObjectImpl;
 
 import org.eclipse.emf.ecore.util.EObjectContainmentEList;
 import org.eclipse.emf.ecore.util.InternalEList;
@@ -40,7 +39,7 @@ import org.xtuml.bp.xtext.masl.projectItem;
  *
  * @generated
  */
-public class ProjectImpl extends MinimalEObjectImpl.Container implements Project
+public class ProjectImpl extends definitionImpl implements Project
 {
   /**
    * The cached value of the '{@link #getProjectName() <em>Project Name</em>}' containment reference.
