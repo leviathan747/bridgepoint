@@ -22,16 +22,13 @@ import org.xtuml.bp.xtext.MaslStandaloneSetup;
 public class Main {
 
 	public static void main(String[] args) {
-		/*
 		if (args.length == 0) {
 			System.err.println("Aborting: no path to EMF resource provided!");
 			return;
 		}
-		*/
 		Injector injector = new MaslStandaloneSetup().createInjectorAndDoEMFRegistration();
 		Main main = injector.getInstance(Main.class);
-		//main.runGenerator(args[0]);
-		main.runGenerator("src/org/xtuml/bp/xtext/samples/SAC_PROC.prj");
+		main.runGenerator(args[0]);
 	}
 
 	@Inject
