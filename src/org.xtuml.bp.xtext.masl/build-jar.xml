@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project default="create_run_jar" name="Create Runnable Jar for Project org.xtuml.bp.xtext.masl with Jar-in-Jar Loader">
+    <!--this file was created by Eclipse Runnable JAR file Export Wizard-->
+    <!--ANT 1.7 is required-->
+    <!--define folder properties-->
+    <property name="dir.buildfile" value="."/>
+    <property name="dir.workspace" value="/media/psf/Home/xtuml/workspace"/>
+    <property name="dir.jarfile" value="${dir.buildfile}"/>
+    <target name="create_run_jar">
+        <jar destfile="${dir.jarfile}/masl-generator.jar">
+            <manifest>
+                <attribute name="Main-Class" value="org.eclipse.jdt.internal.jarinjarloader.JarRsrcLoader"/>
+                <attribute name="Rsrc-Main-Class" value="org.xtuml.bp.xtext.generator.Main"/>
+                <attribute name="Class-Path" value="."/>
+                <attribute name="Rsrc-Class-Path" value="./ org.eclipse.xtext_2.9.1.v201512180746.jar org.eclipse.emf.ecore.xmi_2.11.1.v20150805-0538.jar org.eclipse.emf.ecore_2.11.1.v20150805-0538.jar org.eclipse.emf.common_2.11.0.v20150805-0538.jar org.antlr.runtime_3.2.0.v201101311130.jar com.google.inject_3.0.0.v201312141243.jar org.eclipse.emf.mwe.core_1.3.13.v201512160556.jar org.apache.commons.cli_1.2.0.v201404270220.jar org.eclipse.emf.mwe2.runtime_2.8.3.v201512160556.jar org.eclipse.emf.mwe.utils_1.3.13.v201512160556.jar org.eclipse.xtext.util_2.9.1.v201512180746.jar com.google.guava_15.0.0.v201403281430.jar javax.inject_1.0.0.v20091030.jar org.eclipse.xtext.xbase_2.9.1.v201512180746.jar org.eclipse.xtext.common.types_2.9.1.v201512180746.jar org.eclipse.xtend.lib_2.9.1.v201512180746.jar org.eclipse.xtext.xbase.lib_2.9.1.v201512180746.jar org.eclipse.xtend.lib.macro_2.9.1.v201512180746.jar org.eclipse.equinox.common_3.7.0.v20150402-1709.jar org.antlr.runtime_4.3.0.v201502022030.jar org.eclipse.xtext.xtext.generator_2.9.1.v201512180746.jar org.eclipse.emf.codegen.ecore_2.11.0.v20150806-0404.jar org.eclipse.emf.codegen_2.11.0.v20150806-0404.jar org.eclipse.emf.mwe2.launch_2.8.3.v201512160634.jar org.eclipse.emf.mwe2.language_2.8.3.v201512160634.jar org.eclipse.emf.mwe2.lib_2.8.3.v201512160556.jar org.objectweb.asm_5.0.1.v201404251740.jar org.apache.commons.logging_1.1.1.v201101211721.jar org.apache.log4j_1.2.15.v201012070815.jar com.ibm.icu_54.1.1.v201501272100.jar"/>
+            </manifest>
+            <zipfileset src="jar-in-jar-loader.zip"/>
+            <fileset dir="${dir.jarfile}/bin"/>
+            <zipfileset dir="/media/psf/Home/xtuml/BridgePoint_5.2.0_ipr/BridgePoint/eclipse/plugins" includes="org.eclipse.xtext_2.9.1.v201512180746.jar"/>
+            <zipfileset dir="/media/psf/Home/xtuml/BridgePoint_5.2.0_ipr/BridgePoint/eclipse/plugins" includes="org.eclipse.emf.ecore.xmi_2.11.1.v20150805-0538.jar"/>
+            <zipfileset dir="/media/psf/Home/xtuml/BridgePoint_5.2.0_ipr/BridgePoint/eclipse/plugins" includes="org.eclipse.emf.ecore_2.11.1.v20150805-0538.jar"/>
+            <zipfileset dir="/media/psf/Home/xtuml/BridgePoint_5.2.0_ipr/BridgePoint/eclipse/plugins" includes="org.eclipse.emf.common_2.11.0.v20150805-0538.jar"/>
+            <zipfileset dir="/media/psf/Home/xtuml/BridgePoint_5.2.0_ipr/BridgePoint/eclipse/plugins" includes="org.antlr.runtime_3.2.0.v201101311130.jar"/>
+            <zipfileset dir="/media/psf/Home/xtuml/BridgePoint_5.2.0_ipr/BridgePoint/eclipse/plugins" includes="com.google.inject_3.0.0.v201312141243.jar"/>
+            <zipfileset dir="/media/psf/Home/xtuml/BridgePoint_5.2.0_ipr/BridgePoint/eclipse/plugins" includes="org.eclipse.emf.mwe.core_1.3.13.v201512160556.jar"/>
+            <zipfileset dir="/media/psf/Home/xtuml/BridgePoint_5.2.0_ipr/BridgePoint/eclipse/plugins" includes="org.apache.commons.cli_1.2.0.v201404270220.jar"/>
+            <zipfileset dir="/media/psf/Home/xtuml/BridgePoint_5.2.0_ipr/BridgePoint/eclipse/plugins" includes="org.eclipse.emf.mwe2.runtime_2.8.3.v201512160556.jar"/>
+            <zipfileset dir="/media/psf/Home/xtuml/BridgePoint_5.2.0_ipr/BridgePoint/eclipse/plugins" includes="org.eclipse.emf.mwe.utils_1.3.13.v201512160556.jar"/>
+            <zipfileset dir="/media/psf/Home/xtuml/BridgePoint_5.2.0_ipr/BridgePoint/eclipse/plugins" includes="org.eclipse.xtext.util_2.9.1.v201512180746.jar"/>
+            <zipfileset dir="/media/psf/Home/xtuml/BridgePoint_5.2.0_ipr/BridgePoint/eclipse/plugins" includes="com.google.guava_15.0.0.v201403281430.jar"/>
+            <zipfileset dir="/media/psf/Home/xtuml/BridgePoint_5.2.0_ipr/BridgePoint/eclipse/plugins" includes="javax.inject_1.0.0.v20091030.jar"/>
+            <zipfileset dir="/media/psf/Home/xtuml/BridgePoint_5.2.0_ipr/BridgePoint/eclipse/plugins" includes="org.eclipse.xtext.xbase_2.9.1.v201512180746.jar"/>
+            <zipfileset dir="/media/psf/Home/xtuml/BridgePoint_5.2.0_ipr/BridgePoint/eclipse/plugins" includes="org.eclipse.xtext.common.types_2.9.1.v201512180746.jar"/>
+            <zipfileset dir="/media/psf/Home/xtuml/BridgePoint_5.2.0_ipr/BridgePoint/eclipse/plugins" includes="org.eclipse.xtend.lib_2.9.1.v201512180746.jar"/>
+            <zipfileset dir="/media/psf/Home/xtuml/BridgePoint_5.2.0_ipr/BridgePoint/eclipse/plugins" includes="org.eclipse.xtext.xbase.lib_2.9.1.v201512180746.jar"/>
+            <zipfileset dir="/media/psf/Home/xtuml/BridgePoint_5.2.0_ipr/BridgePoint/eclipse/plugins" includes="org.eclipse.xtend.lib.macro_2.9.1.v201512180746.jar"/>
+            <zipfileset dir="/media/psf/Home/xtuml/BridgePoint_5.2.0_ipr/BridgePoint/eclipse/plugins" includes="org.eclipse.equinox.common_3.7.0.v20150402-1709.jar"/>
+            <zipfileset dir="/media/psf/Home/xtuml/BridgePoint_5.2.0_ipr/BridgePoint/eclipse/plugins" includes="org.antlr.runtime_4.3.0.v201502022030.jar"/>
+            <zipfileset dir="/media/psf/Home/xtuml/BridgePoint_5.2.0_ipr/BridgePoint/eclipse/plugins" includes="org.eclipse.xtext.xtext.generator_2.9.1.v201512180746.jar"/>
+            <zipfileset dir="/media/psf/Home/xtuml/BridgePoint_5.2.0_ipr/BridgePoint/eclipse/plugins" includes="org.eclipse.emf.codegen.ecore_2.11.0.v20150806-0404.jar"/>
+            <zipfileset dir="/media/psf/Home/xtuml/BridgePoint_5.2.0_ipr/BridgePoint/eclipse/plugins" includes="org.eclipse.emf.codegen_2.11.0.v20150806-0404.jar"/>
+            <zipfileset dir="/media/psf/Home/xtuml/BridgePoint_5.2.0_ipr/BridgePoint/eclipse/plugins" includes="org.eclipse.emf.mwe2.launch_2.8.3.v201512160634.jar"/>
+            <zipfileset dir="/media/psf/Home/xtuml/BridgePoint_5.2.0_ipr/BridgePoint/eclipse/plugins" includes="org.eclipse.emf.mwe2.language_2.8.3.v201512160634.jar"/>
+            <zipfileset dir="/media/psf/Home/xtuml/BridgePoint_5.2.0_ipr/BridgePoint/eclipse/plugins" includes="org.eclipse.emf.mwe2.lib_2.8.3.v201512160556.jar"/>
+            <zipfileset dir="/media/psf/Home/xtuml/BridgePoint_5.2.0_ipr/BridgePoint/eclipse/plugins" includes="org.objectweb.asm_5.0.1.v201404251740.jar"/>
+            <zipfileset dir="/media/psf/Home/xtuml/BridgePoint_5.2.0_ipr/BridgePoint/eclipse/plugins" includes="org.apache.commons.logging_1.1.1.v201101211721.jar"/>
+            <zipfileset dir="/media/psf/Home/xtuml/BridgePoint_5.2.0_ipr/BridgePoint/eclipse/plugins" includes="org.apache.log4j_1.2.15.v201012070815.jar"/>
+            <zipfileset dir="/media/psf/Home/xtuml/BridgePoint_5.2.0_ipr/BridgePoint/eclipse/plugins" includes="com.ibm.icu_54.1.1.v201501272100.jar"/>
+        </jar>
+    </target>
+</project>

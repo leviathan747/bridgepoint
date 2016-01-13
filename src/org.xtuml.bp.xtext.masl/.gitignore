@@ -3,3 +3,4 @@ bin/
 *.java._trace
 *.gitignore
 *.xtextbin
+masl-generator.jar
