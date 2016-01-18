@@ -24,39 +24,42 @@ public class MaslImportParser {
 
     // parse a MASL file
     public void parse( String fn ) {
-        /*
 
-        MaslPLexer lex = new MaslPLexer( new ANTLRFileStream( fn ) );
-        CommonTokenStream tokens = new CommonTokenStream( lex );
+        MaslLexer              lex;
+        CommonTokenStream       tokens;
+        MaslParser             parser;
+        CommonTree              tree;
+        CommonTreeNodeStream    nodes;
+        MaslWalker                  walker;
 
-        MaslPParser parser = new MaslPParser( tokens );
-        CommonTree tree = ( CommonTree )parser.target().getTree();
-
-        //System.out.println(tree.toStringTree());
-        String s_tree = tree.toStringTree();
-        int depth = 0;
-        for (int i = 0; i < s_tree.length(); i++){
-            char c = s_tree.charAt(i);        
-            switch ( c ) {
-                case '(':
-                    System.out.print("\n");
-                    for (int j = 0; j < depth; j++) System.out.print("  ");
-                    System.out.print("(");
-                    depth++;
-                    break;
-                case ')':
-                    depth--;
-                    //System.out.print("\n");
-                    //for (int j = 0; j < depth; j++) System.out.print("  ");
-                    System.out.print(")");
-                    break;
-                default:
-                    System.out.print(c);
-                    break;
-            }
+        try {
+            lex = new MaslLexer( new ANTLRFileStream( fn ) );
+        } catch ( IOException e ) {
+            System.out.println( e );
+            return;
         }
-        System.out.println();
-        */
+
+        tokens = new CommonTokenStream( lex );
+        parser = new MaslParser( tokens );
+
+        try {
+            tree = ( CommonTree )parser.target().getTree();
+        } catch ( RecognitionException e ) {
+            System.out.println( e );
+            return;
+        }
+
+        nodes = new CommonTreeNodeStream(tree);
+        walker = new MaslWalker( nodes );
+        walker.setPopulation( population );
+
+        try {
+            walker.target();
+        } catch ( RecognitionException e ) {
+            System.out.println( e );
+            return;
+        }
+
     }
 }
 

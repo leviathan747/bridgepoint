@@ -1,4 +1,4 @@
-grammar MaslP;
+grammar Masl;
 
 options
 {
