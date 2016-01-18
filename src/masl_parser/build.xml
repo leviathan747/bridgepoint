@@ -1,4 +1,4 @@
-<project name="MASLParser" default="dist" basedir=".">
+<project name="MASLParser" default="compile" basedir=".">
     <description>
     </description>
 
