@@ -26,7 +26,17 @@
             </classpath>
             <arg value="-fo"/>
             <arg value="${src-gen}"/>
-            <arg value="${src}/Masl.g"/>
+            <arg value="${src}/MaslLexer.g"/>
+        </java>
+        <java classname="org.antlr.Tool">
+            <classpath>
+                <fileset dir="${lib}">
+                    <include name="**/*.jar" />
+                </fileset>
+            </classpath>
+            <arg value="-fo"/>
+            <arg value="${src-gen}"/>
+            <arg value="${src}/MaslParser.g"/>
         </java>
         <java classname="org.antlr.Tool">
             <classpath>

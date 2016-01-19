@@ -2,7 +2,7 @@ tree grammar MaslWalker;
 
 options
 {
-  tokenVocab=Masl;
+  tokenVocab=MaslParser;
   ASTLabelType=CommonTree;
 }
 
@@ -21,14 +21,28 @@ import java.util.Collections;
 // external interface
 private Population population = null;
 
-// public constructor
+// set the population interface
 public void setPopulation ( Population population ) {
     if ( population != null )
         this.population = population;
     else
         this.population = null;
 }
+
+// call to the interface with null checking
+private void populate( String classname, String[] args ) {
+    // check args
+    if ( population == null ) {
+        System.err.println( "No external interface set." );
+        return;
+    }
+
+    // call the interface
+    population.populate( classname, args );
 }
+
+}
+
 
 target                        : definition+;
 
@@ -54,7 +68,7 @@ projectDefinition
                                    projectName              {
                                                               String[] args = new String[1];
                                                               args[0] = $projectName.name;
-                                                              population.populate( "project", args);
+                                                              populate( "project", args);
                                                             }
                                    ( projectDomainDefinition {}
                                    )*
@@ -66,7 +80,7 @@ projectDomainDefinition
                                     domainName              { 
                                                                 String[] args = new String[1];
                                                                 args[0] = $domainName.name;
-                                                                population.populate( "domain", args);
+                                                                populate( "domain", args);
                                                             }
                                    ( projectTerminatorDefinition    
                                    )*
@@ -138,7 +152,7 @@ projectTerminatorDefinition
                                                                   terminatorName = $terminatorName.name;
                                                                   String[] args = new String[1];
                                                                   args[0] = $terminatorName.name;
-                                                                  population.populate( "terminator", args);
+                                                                  populate( "terminator", args);
                                                               }
                                    pragmaList                 {}
                                    ( projectTerminatorServiceDeclaration[terminatorName] )*
@@ -161,7 +175,7 @@ projectTerminatorServiceDeclaration[String terminatorName]
                                    pragmaList
                                  )
                                                             {
-                                                                  population.populate( "activity", args);
+                                                                  populate( "activity", args);
                                                             }
                               ;
 
@@ -183,7 +197,7 @@ returns [String name]
                                                                   args[1] = $parameterType.type;
                                                                   args[2] = $parameterMode.mode;
                                                                   args[3] = prevParamName;
-                                                                  population.populate( "parameter", args);
+                                                                  populate( "parameter", args);
                                                             }
                               ;
                               
@@ -254,7 +268,7 @@ pragma
                                                                 /*  TODO fill in pragma
                                                                 String[] args = new String[1];
                                                                 args[0] = $terminatorName.name;
-                                                                population.populate( "terminator", args);
+                                                                populate( "terminator", args);
                                                                 */
                                                             }
                               ;
