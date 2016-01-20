@@ -10,16 +10,22 @@ public class MaslDSLExporter implements Population {
         // print the classname
         System.out.print( classname );
 
-        // print a comma delimiter if there are args
-        if ( args.length > 0 ) System.out.print( "," );
+        // if there are args
+        if ( args.length > 0 && args[0] != null ) {
 
-        // print all args
-        for ( int i = 0; i < args.length; i++ ) {
-            // print arg
-            System.out.print( args[i] );
+            System.out.print( "," );
 
-            // print comma if not the last arg
-            if ( i < (args.length - 1) ) System.out.print( "," );
+            // print all args
+            for ( int i = 0; i < args.length; i++ ) {
+                // print arg
+                System.out.print( args[i] );
+
+                // print comma if not the last arg
+                if ( i < (args.length - 1) ) {
+                    if ( args[i+1] == null ) break;
+                    System.out.print( "," );
+                }
+            }
         }
 
         // print newline
