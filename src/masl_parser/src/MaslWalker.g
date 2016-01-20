@@ -971,22 +971,34 @@ pragma
 //returns [PragmaDefinition def]
 
                               : ^( PRAGMA
-                                   pragmaName
+                                   pragmaName               
+                                                            {
+                                                                args[0] = $pragmaName.name;
+                                                                populate( "pragma", args );
+                                                            }
                                    ( pragmaValue            
+                                                            {
+                                                                args[0] = $pragmaValue.value;
+                                                                populate( "pragmaitem", args );
+                                                                populate( "pragmaitem", args );
+                                                            } 
                                    )*
                                  )                          
+                                                            {
+                                                                populate( "pragma", args );
+                                                            }
                               ;
 
 pragmaValue
 returns [ String value ]
-                              : identifier                  
-                              | literalExpression           
+                              : identifier                  { $value = $identifier.name; }
+                              | literalExpression           { $value = $literalExpression.exp; }
                               ;
 
 pragmaName
 returns [ String name ]
                               : ^( PRAGMA_NAME
-                                   identifier               
+                                   identifier               { $name = $identifier.name; }
                                  )
                               ;
 
@@ -1688,18 +1700,19 @@ primeExpression
                               ;
 
 literalExpression
+returns [String exp]
 //returns [Expression exp]
-                              : IntegerLiteral              
-                              | RealLiteral                 
-                              | CharacterLiteral            
-                              | StringLiteral               
-                              | TimestampLiteral            
-                              | DurationLiteral             
-                              | TRUE                        
-                              | FALSE                       
-                              | NULL                        
-                              | FLUSH                       
-                              | ENDL                        
-                              | THIS                        
-                              | CONSOLE                     
+                              : IntegerLiteral              { $exp = $IntegerLiteral.text; }
+                              | RealLiteral                 { $exp = $RealLiteral.text; }
+                              | CharacterLiteral            { $exp = $CharacterLiteral.text; }
+                              | StringLiteral               { $exp = $StringLiteral.text; }
+                              | TimestampLiteral            { $exp = $TimestampLiteral.text; }
+                              | DurationLiteral             { $exp = $DurationLiteral.text; }
+                              | TRUE                        { $exp = $TRUE.text; }
+                              | FALSE                       { $exp = $FALSE.text; }
+                              | NULL                        { $exp = $NULL.text; }
+                              | FLUSH                       { $exp = $FLUSH.text; }
+                              | ENDL                        { $exp = $ENDL.text; }
+                              | THIS                        { $exp = $THIS.text; }
+                              | CONSOLE                     { $exp = $CONSOLE.text; }
                               ; 
