@@ -83,23 +83,35 @@ projectDefinition
 //returns [Project project]
 
                               : ^( PROJECT
-                                   projectName              {
+                                   projectName
+                                                            {
                                                               args[0] = $projectName.name;
                                                               populate( "project", args );
                                                             }
                                    ( projectDomainDefinition 
                                    )*
                                    pragmaList)              
+                                                            {
+                                                              populate( "project", args );  // end project
+                                                            }
+
                               ;
 
 projectDomainDefinition
 //returns [ProjectDomain domain]
                               : ^( DOMAIN
                                    projectDomainReference   
+                                                            {
+                                                                args[0] = $projectDomainReference.ref;
+                                                                populate( "domain", args );
+                                                            }
                                    ( projectTerminatorDefinition    
                                    )*
                                    pragmaList               
                                  )                          
+                                                            {
+                                                                populate( "domain", args ); // end domain
+                                                            }
                               ;
 
 
@@ -141,25 +153,25 @@ returns [String name]
                               ;
 
 domainReference
+returns [String ref]
 //returns [Domain.Reference ref]
-                              : domainName                  
+                              : domainName                  { $ref = $domainName.name; }
                               ;
 
 
 projectDomainReference
+returns [String ref]
 //returns [Domain.Reference ref]
-                              : domainName                  {
-                                                                args[0] = $domainName.name;
-                                                                populate( "domain", args );
-                                                            }
+                              : domainName                  { $ref = $domainName.name; }
                               ;
 
 
 
 optionalDomainReference
+returns [String ref]
 //returns [Domain.Reference ref, boolean defaulted]
-                              : domainReference             
-                              | /* blank */                 
+                              : domainReference             { $ref = $domainReference.ref; }
+                              | /* blank */                 { $ref = ""; }
                               ;
 
 
@@ -344,15 +356,16 @@ unconstrainedArrayDefinition
 //---------------------------------------------------------
 
 typeReference
+returns [String type]
 //returns [BasicType type]
-                              : namedTypeRef                
-                              | constrainedArrayTypeRef     
-                              | instanceTypeRef             
-                              | sequenceTypeRef             
-                              | arrayTypeRef                
-                              | setTypeRef                  
-                              | bagTypeRef                  
-                              | dictionaryTypeRef           
+                              : namedTypeRef                { $type = $namedTypeRef.type; }
+                              | constrainedArrayTypeRef     { $type = "levi"; }//$constrainedArrayTypeRef.type }
+                              | instanceTypeRef             { $type = "levi"; }//$instanceTypeRef.type }
+                              | sequenceTypeRef             { $type = "levi"; }//$sequenceTypeRef.type }
+                              | arrayTypeRef                { $type = "levi"; }//$arrayTypeRef.type }
+                              | setTypeRef                  { $type = "levi"; }//$setTypeRef.type }
+                              | bagTypeRef                  { $type = "levi"; }//$bagTypeRef.type }
+                              | dictionaryTypeRef           { $type = "levi"; }//$dictionaryTypeRef.type }
                               ;
 
 instanceTypeRef
@@ -364,12 +377,22 @@ instanceTypeRef
                               ;
 
 namedTypeRef
+returns [String type]
 //returns [BasicType type]
                               : ^( NAMED_TYPE
                                    optionalDomainReference
                                    typeName
                                    ANONYMOUS?
                                  )                          
+                                                            { 
+                                                                String t = "";
+                                                                if ( $ANONYMOUS != null )
+                                                                    t += ( $ANONYMOUS + " " );
+                                                                if ( $optionalDomainReference.ref != "" )
+                                                                    t += ( $optionalDomainReference.ref + "::" );
+                                                                t += $typeName.name;
+                                                                $type = t;
+                                                            }
                               ;
 
 userDefinedTypeRef
@@ -434,7 +457,7 @@ dictionaryTypeRef
 typeName
 returns [String name]
                               : ^( TYPE_NAME
-                                   identifier )             
+                                   identifier )             { $name = $identifier.name; }
                               ;
 
 arrayBounds
@@ -465,21 +488,20 @@ domainTerminatorDefinition
                               ;
 
 projectTerminatorDefinition
-@init
-{
-    String terminatorName;
-}
 
                               : ^( TERMINATOR_DEFINITION
-                                   terminatorName             {
-                                                                  terminatorName = $terminatorName.name;
+                                   terminatorName
+                                                              {
                                                                   args[0] = $terminatorName.name;
                                                                   populate( "terminator", args );
                                                               }
                                    pragmaList                 
-                                   ( projectTerminatorServiceDeclaration[terminatorName]//[terminator] 
+                                   ( projectTerminatorServiceDeclaration//[terminator] 
                                    )*
                                  )
+                                                              {
+                                                                populate( "terminator", args );  // end terminator
+                                                              }
                               ;
 
 
@@ -495,22 +517,27 @@ terminatorServiceDeclaration//[DomainTerminator terminator]
                                                             
                               ;
 
-projectTerminatorServiceDeclaration[String terminatorName]//[ProjectTerminator terminator]
+projectTerminatorServiceDeclaration//[ProjectTerminator terminator]
                               : ^( TERMINATOR_SERVICE_DECLARATION
                                    serviceVisibility
                                    serviceName              
+                                                            {
+                                                                  args[0] = $serviceVisibility.visibility;
+                                                                  args[1] = $serviceName.name;
+                                                                  if ( $TERMINATOR_SERVICE_DECLARATION.text.equals("service") )
+                                                                      populate( "service", args );
+                                                                  else
+                                                                      populate( "function", args );
+                                                            }
                                    parameterList
                                    (returnType)?
                                    pragmaList
                                  )
                                                             {
-                                                                  args[0] = $serviceName.name;
-                                                                  args[1] = terminatorName;
-                                                                  if ( $returnType.type == null )
-                                                                      args[2] = "service";      // default to service
+                                                                  if ( $TERMINATOR_SERVICE_DECLARATION.text.equals("service") )
+                                                                      populate( "service", args );      // end service
                                                                   else
-                                                                      args[2] = "function";      // default to service
-                                                                  populate( "activity", args);
+                                                                      populate( "function", args );     // end function
                                                             }
                                                             
                               ;
@@ -761,46 +788,41 @@ domainServiceDeclaration
                               ;
 
 
-parameterDefinition[String prevParamName]
-returns [String name]
+parameterDefinition
 //returns [ParameterDefinition parameter]
                               : ^( PARAMETER_DEFINITION
                                    parameterName
                                    parameterMode
-                                   parameterType)           {
-                                                                  $name = $parameterName.name;
+                                                            {
                                                                   args[0] = $parameterName.name;
-                                                                  args[1] = $parameterType.type;
-                                                                  args[2] = $parameterMode.mode;
-                                                                  args[3] = prevParamName;
+                                                                  args[1] = $parameterMode.mode;
                                                                   populate( "parameter", args );
+                                                            }
+                                   parameterType)           
+                                                            {
+                                                                  populate( "parameter", args );  // end parameter
                                                             }
                               ;
                               
 parameterList
-@init
-{
-    String prevParamName = "";
-}
 //returns [List<ParameterDefinition> params]
 
-                              : ( parameterDefinition[prevParamName]       { prevParamName = $parameterDefinition.name; }
-                                )*
+                              : ( parameterDefinition )*
                               ;
 
 
 serviceVisibility
 returns [String visibility]
 //returns [Visibility visibility]
-                              : PRIVATE                     { $visibility = "private"; }
-                              | PUBLIC                      { $visibility = "public"; }
+                              : PRIVATE                     { $visibility = $PRIVATE.text; }
+                              | PUBLIC                      { $visibility = $PUBLIC.text; }
                               ;
 
 parameterMode
 returns [String mode]
 //returns [ParameterModeType mode]
-                              : IN                          { $mode = "in"; }
-                              | OUT                         { $mode = "out"; }
+                              : IN                          { $mode = $IN.text; }
+                              | OUT                         { $mode = $OUT.text; }
                               ;
 
 
@@ -820,14 +842,23 @@ parameterType
 returns [String type]
 //returns [BasicType type]
                               : ^( PARAMETER_TYPE
-                                   typeReference )           { $type = "LeviType"; } //TODO hardcoded type
+                                   typeReference )
+                                                              {
+                                                                  args[0] = $typeReference.type;
+                                                                  populate( "parametertype", args );
+                                                                  populate( "parametertype", args );  // end parametertype
+                                                              }
                               ;
 
 returnType
-returns [String type]
 //returns [BasicType type]
                               : ^( RETURN_TYPE
-                                   typeReference )           { $type = "LeviType"; } //TODO hardcoded type
+                                   typeReference )
+                                                              {
+                                                                  args[0] = $typeReference.type;
+                                                                  populate( "returntype", args );
+                                                                  populate( "returntype", args );  // end returntype
+                                                              }
                               ;
 
 
