@@ -609,9 +609,10 @@ fullObjectReference
 
 
 optionalObjectReference
+returns [String ref]
 //returns [ObjectNameExpression ref]
-                              : objectReference             
-                              | /* blank */                 
+                              : objectReference             { $ref = $objectReference.ref; }
+                              | /* blank */                 { $ref = ""; }
                               ;
 attributeName
 returns [String name]
@@ -745,6 +746,10 @@ objectServiceDeclaration
                                                             {
                                                                   args[0] = $serviceVisibility.visibility;
                                                                   args[1] = $serviceName.name;
+                                                                  if ( $INSTANCE != null )
+                                                                      args[2] = $INSTANCE.text;
+                                                                  if ( $relationshipReference.ref != null )
+                                                                      args[3] = $relationshipReference.ref;
                                                                   if ( $OBJECT_SERVICE_DECLARATION.text.equals("service") )
                                                                       populate( "service", args );
                                                                   else
@@ -788,47 +793,65 @@ eventDefinition
                               : ^( EVENT         
                                    eventName                
                                    eventType                
+                                                            {
+                                                                args[0] = $eventName.name;
+                                                                args[1] = $eventType.type;
+                                                                populate( "event", args );
+                                                            }
                                    parameterList
                                    pragmaList               
                                  )
+                                                            {
+                                                                populate( "event", args );  // end event
+                                                            }
                                                             
                               ;
 
 eventName
 returns [String name]
                               : ^( EVENT_NAME
-                                   identifier )             
+                                   identifier )             { $name = $identifier.name; }
                               ;
 
 eventType
+returns [String type]
 //returns [EventType type]
-                              : ASSIGNER                    
-                              | CREATION                    
-                              | NORMAL                      
+                              : ASSIGNER                    { $type = $ASSIGNER.text; }
+                              | CREATION                    { $type = $CREATION.text; }
+                              | NORMAL                      { $type = "normal"; }
                               ;
 
 stateDeclaration
                               : ^( STATE
                                    stateName                
                                    stateType               
+                                                            {
+                                                                args[0] = $stateName.name;
+                                                                args[1] = $stateType.type;
+                                                                populate( "state", args );
+                                                            }
                                    parameterList
                                    pragmaList              
                                 )                           
+                                                            {
+                                                                populate( "state", args );  // end state
+                                                            }
                               ;
 
 stateName
 returns [String name]
                               : ^( STATE_NAME
-                                   identifier )             
+                                   identifier )             { $name = $identifier.name; }
                               ;
 
 stateType
+returns [String type]
 //returns [StateType type]
-                              : ASSIGNER                    
-                              | START                       
-                              | CREATION                    
-                              | TERMINAL                    
-                              | NORMAL                      
+                              : ASSIGNER                    { $type = $ASSIGNER.text; }
+                              | START                       { $type = $START.text; }
+                              | CREATION                    { $type = $CREATION.text; }
+                              | TERMINAL                    { $type = $TERMINAL.text; }
+                              | NORMAL                      { $type = "normal"; }
                               ;
 
 
@@ -836,17 +859,25 @@ transitionTable
 
                               : ^( TRANSITION_TABLE
                                    transTableType
+                                                            {
+                                                                args[0] = $transTableType.type;
+                                                                populate( "statemachine", args );
+                                                            }
                                    ( transitionRow          
                                    )+
                                    pragmaList
                                  )                          
+                                                            {
+                                                                populate( "statemachine", args );   // end statemachine
+                                                            }
                               ;
 
 
 transTableType
+returns [String type]
 //returns [boolean isAssigner]
-                              : ASSIGNER                    
-                              | NORMAL                      
+                              : ASSIGNER                    { $type = $ASSIGNER.text; }
+                              | NORMAL                      { $type = "normal"; }
                               ;
 
 transitionRow
@@ -854,44 +885,68 @@ transitionRow
 
                               : ^( TRANSITION_ROW
                                    startState
-                                   ( transitionOption       
+                                   ( transitionOption[$startState.name]
                                    )+
+                                                            {
+                                                                args[0] = $startState.name;
+                                                                populate( "transitionrowpragmalist", args );
+                                                            }
                                    pragmaList
+                                                            {
+                                                                populate( "transitionrowpragmalist", args );    // end transitionrowpragmalist
+                                                            }
                                 )                           
                               ;
 
-transitionOption
+transitionOption[String startState]
 //returns [TransitionOption option]
                               : ^( TRANSITION_OPTION
                                    incomingEvent
                                    endState
                                  )                          
+                                                            {
+                                                                args[0] = startState;
+                                                                args[1] = $incomingEvent.ref;
+                                                                args[2] = $endState.name;
+                                                                populate( "transition", args );
+                                                                populate( "transition", args ); // end transition
+                                                            }
                               ;
 
 incomingEvent
+returns [String ref]
 //returns [EventExpression ref]
                               : ^( EVENT
-                                   eventReference           
+                                   eventReference           { $ref = $eventReference.ref; }
                                  )
                               ;
 
 startState
 returns [String name]
-                              : NON_EXISTENT
-                              | stateName                   
+                              : NON_EXISTENT                { $name = $NON_EXISTENT.text; }
+                              | stateName                   { $name = $stateName.name; }
                               ;
 
 endState
+returns [String name]
 //returns [String name, TransitionType type]
-                              : stateName                   
-                              | IGNORE                      
-                              | CANNOT_HAPPEN               
+                              : stateName                   { $name = $stateName.name; }
+                              | IGNORE                      { $name = $IGNORE.text; }
+                              | CANNOT_HAPPEN               { $name = $CANNOT_HAPPEN.text; }
                               ;
 
 eventReference
+returns [String ref]
 //returns [EventExpression ref]
                               : optionalObjectReference
                                 eventName                   
+                                                            { 
+                                                                String r = "";
+                                                                if ( $optionalObjectReference.ref != "" )
+                                                                    r += ( $optionalObjectReference.ref + "::" );
+                                                                r += $eventName.name;
+                                                                $ref = r;
+                                                            }
                               ;
 
 
