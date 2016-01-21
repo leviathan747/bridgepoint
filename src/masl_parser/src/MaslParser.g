@@ -458,7 +458,7 @@ objectItem                    : attributeDefinition
 attributeDefinition           : attributeName COLON 
                                 attModifiers attReferentials? typeReference 
                                 (ASSIGN defaultValue=constExpression)? 
-                                SEMI pragmaList                                           -> ^( ATTRIBUTE_DEFINITION 
+                                SEMI pragmaList                                           -> ^( ATTRIBUTE_DEFINITION[$defaultValue.text]
                                                                                                 attributeName 
                                                                                                 attModifiers? 
                                                                                                 attReferentials? 

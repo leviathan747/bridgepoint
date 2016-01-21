@@ -18,6 +18,11 @@ scope WhereClauseScope
 }
 */
 
+@header
+{
+import java.util.ArrayList;
+}
+
 @annotations
 {
 @SuppressWarnings("all")
@@ -132,6 +137,10 @@ domainDefinition
                                                                                              
                               : ^( DOMAIN
                                    domainName                    
+                                                            {
+                                                                args[0] = $domainName.name;
+                                                                populate( "domain", args );
+                                                            }
                                    ( objectDeclaration           
                                    | domainServiceDeclaration    
                                    | domainTerminatorDefinition    
@@ -143,6 +152,9 @@ domainDefinition
                                    )*
                                    pragmaList                    
                                  )                              
+                                                            {
+                                                                populate( "domain", args );
+                                                            }
                               ;
 
 domainName
@@ -481,10 +493,17 @@ domainTerminatorDefinition
 
                               : ^( TERMINATOR_DEFINITION
                                    terminatorName             
+                                                              {
+                                                                  args[0] = $terminatorName.name;
+                                                                  populate( "terminator", args );
+                                                              }
                                    pragmaList                 
                                    ( terminatorServiceDeclaration//[terminator] 
                                    )*
                                  )
+                                                              {
+                                                                populate( "terminator", args );  // end terminator
+                                                              }
                               ;
 
 projectTerminatorDefinition
@@ -510,10 +529,24 @@ terminatorServiceDeclaration//[DomainTerminator terminator]
                               : ^( TERMINATOR_SERVICE_DECLARATION
                                    serviceVisibility
                                    serviceName
+                                                            {
+                                                                  args[0] = $serviceVisibility.visibility;
+                                                                  args[1] = $serviceName.name;
+                                                                  if ( $TERMINATOR_SERVICE_DECLARATION.text.equals("service") )
+                                                                      populate( "service", args );
+                                                                  else
+                                                                      populate( "function", args );
+                                                            }
                                    parameterList
                                    returnType?
                                    pragmaList
                                  )
+                                                            {
+                                                                  if ( $TERMINATOR_SERVICE_DECLARATION.text.equals("service") )
+                                                                      populate( "service", args );      // end service
+                                                                  else
+                                                                      populate( "function", args );     // end function
+                                                            }
                                                             
                               ;
 
@@ -550,14 +583,22 @@ projectTerminatorServiceDeclaration//[ProjectTerminator terminator]
 objectName
 returns [String name]
                               : ^( OBJECT_NAME
-                                   identifier )             
+                                   identifier )             { $name = $identifier.name; }
                               ;
 
 
 objectReference
+returns [String ref]
 //returns [ObjectNameExpression ref]
                               : optionalDomainReference
                                 objectName                  
+                                                            { 
+                                                                String r = "";
+                                                                if ( $optionalDomainReference.ref != "" )
+                                                                    r += ( $optionalDomainReference.ref + "::" );
+                                                                r += $objectName.name;
+                                                                $ref = r;
+                                                            }
                               ;
 
 fullObjectReference
@@ -575,12 +616,13 @@ optionalObjectReference
 attributeName
 returns [String name]
                               : ^( ATTRIBUTE_NAME
-                                   identifier )             
+                                   identifier )             { $name = $identifier.name; }
                               ;
 
 objectDeclaration
                               : ^( OBJECT_DECLARATION
                                    objectName 
+
                                    pragmaList
                                  )                          
                                  
@@ -591,6 +633,10 @@ objectDefinition
                                                                                              
                               : ^( OBJECT_DEFINITION
                                    objectName               
+                                                            {
+                                                                args[0] = $objectName.name;
+                                                                populate( "object", args );
+                                                            }
                                    ( attributeDefinition      
                                    | identifierDefinition     
                                    | objectServiceDeclaration 
@@ -600,6 +646,9 @@ objectDefinition
                                    )*
                                    pragmaList                 
                                  )
+                                                            {
+                                                                populate( "object", args ); // end object
+                                                            }
                               ;
 
 attributeDefinition
@@ -607,12 +656,32 @@ attributeDefinition
                               : ^( ATTRIBUTE_DEFINITION
                                    attributeName            
                                    PREFERRED? UNIQUE?
+                                                            {
+                                                                args[0] = $attributeName.name;
+                                                                if ( $PREFERRED != null )
+                                                                    args[1] = "true";
+                                                                else args[1] = "false";
+                                                                if ( $UNIQUE != null )
+                                                                    args[2] = "true";
+                                                                else args[2] = "false";
+                                                                if ( $ATTRIBUTE_DEFINITION != null )
+                                                                    args[3] = $ATTRIBUTE_DEFINITION.text;
+                                                                populate( "attribute", args );
+                                                            }
                                    ( attReferential         
                                    )*
                                    typeReference
+                                                            {
+                                                                args[0] = $typeReference.type;
+                                                                populate( "attributetype", args );
+                                                                populate( "attributetype", args );  // end attributetype
+                                                            }
                                    expression?
                                    pragmaList
                                  )                          
+                                                            {
+                                                                populate( "attribute", args );  // end attribute
+                                                            }
 
                               ;
 
@@ -622,20 +691,48 @@ attReferential
                                    relationshipSpec//[new ObjectNameExpression(null,currentObject),false,false]
                                    attributeName
                                  )                          
+                                                            {
+                                                                args[0] = $attributeName.name;
+                                                                args[1] = $relationshipSpec.spec.get(0);
+                                                                args[2] = $relationshipSpec.spec.get(1);
+                                                                args[3] = $relationshipSpec.spec.get(2);
+                                                                populate( "referential", args );
+                                                                populate( "referential", args );    // end referential
+                                                            }
                               ;
 
 
 relationshipSpec//[Expression lhs, boolean allowToAssoc, boolean forceToAssoc]
+returns [List<String> spec]
 //returns [RelationshipSpecification.Reference rel]
+@init
+{
+    ArrayList<String> s = new ArrayList<String>();
+}
                               : ^( RELATIONSHIP_SPEC
                                    relationshipReference    
-                                   ( objOrRole objectReference? )?
+                                                            {
+                                                                s.add( 0, $relationshipReference.ref );
+                                                            }
+                                   ( objOrRole
+                                                            {
+                                                                s.add( 1, $objOrRole.name );
+                                                            }
+                                   ( objectReference
+                                                            {
+                                                                s.add( 2, $objectReference.ref );
+                                                            }
+                                   )? 
+                                   )?
                                  ) 													
+                                                            {
+                                                                $spec = s;
+                                                            }
                               ;
 
 objOrRole
 returns [String name]
-                              : identifier                  
+                              : identifier                  { $name = $identifier.name; }
                               ;
 
 
@@ -645,20 +742,46 @@ objectServiceDeclaration
                                    ( INSTANCE
                                      relationshipReference?)?
                                    serviceName
+                                                            {
+                                                                  args[0] = $serviceVisibility.visibility;
+                                                                  args[1] = $serviceName.name;
+                                                                  if ( $OBJECT_SERVICE_DECLARATION.text.equals("service") )
+                                                                      populate( "service", args );
+                                                                  else
+                                                                      populate( "function", args );
+                                                            }
                                    parameterList
                                    returnType?
                                    pragmaList
                                  )                          
+                                                            {
+                                                                  if ( $OBJECT_SERVICE_DECLARATION.text.equals("service") )
+                                                                      populate( "service", args );      // end service
+                                                                  else
+                                                                      populate( "function", args );     // end function
+                                                            }
                               ;
 
 
 identifierDefinition
 
                               : ^( IDENTIFIER
-                                   ( attributeName     
+                                                            {
+                                                                args[0] = "this_is_an_identifier";  // TODO figure out what to do with this
+                                                                populate( "identifier", args );
+                                                            }
+                                   ( attributeName          
+                                                            {
+                                                                args[0] = $attributeName.name;
+                                                                populate( "attribute", args );
+                                                                populate( "attribute", args );  // end attribute
+                                                            }
                                    )+
                                    pragmaList
                                  )                     
+                                                            {
+                                                                populate( "identifier", args );  // end attribute
+                                                            }
                               ;
 
 eventDefinition
@@ -944,14 +1067,22 @@ relationshipName
 returns [String name]
                               : ^( RELATIONSHIP_NAME
                                    RelationshipName  
-                                 )                          
+                                 )                          { $name = $RelationshipName.text; }
                               ;
                               
 
 relationshipReference
+returns [String ref]
 //returns [RelationshipDeclaration.Reference ref]
                               : optionalDomainReference
                                 relationshipName            
+                                                            { 
+                                                                String r = "";
+                                                                if ( $optionalDomainReference.ref != "" )
+                                                                    r += ( $optionalDomainReference.ref + "::" );
+                                                                r += $relationshipName.name;
+                                                                $ref = r;
+                                                            }
                               ;
 
 
@@ -980,12 +1111,12 @@ pragma
                                                             {
                                                                 args[0] = $pragmaValue.value;
                                                                 populate( "pragmaitem", args );
-                                                                populate( "pragmaitem", args );
+                                                                populate( "pragmaitem", args ); // end pragmaitem
                                                             } 
                                    )*
                                  )                          
                                                             {
-                                                                populate( "pragma", args );
+                                                                populate( "pragma", args ); // end pragma
                                                             }
                               ;
 
