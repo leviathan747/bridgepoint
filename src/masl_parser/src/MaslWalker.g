@@ -195,14 +195,22 @@ exceptionDeclaration
                               : ^( EXCEPTION
                                    exceptionName            
                                    exceptionVisibility      
+                                                              {
+                                                                  args[0] = $exceptionName.name;
+                                                                  args[1] = $exceptionVisibility.visibility;
+                                                                  populate( "exception", args );
+                                                              }
                                    pragmaList               
                                  )                          
+                                                              {
+                                                                  populate( "exception", args );    // end exception
+                                                              }
                               ;
 
 exceptionName
 returns [ String name ]
                               : ^( EXCEPTION_NAME
-                                   identifier)              
+                                   identifier)              { $name = $identifier.name; }
                               ;
 
 exceptionReference
@@ -213,9 +221,10 @@ exceptionReference
                                 
 
 exceptionVisibility
+returns [String visibility]
 //returns [ Visibility visibility ]
-                              : PRIVATE                     
-                              | PUBLIC                      
+                              : PRIVATE                     { $visibility = $PRIVATE.text; }
+                              | PUBLIC                      { $visibility = $PUBLIC.text; }
                               ;
 
 //---------------------------------------------------------
@@ -227,8 +236,16 @@ typeForwardDeclaration
                               : ^( TYPE_DECLARATION
                                    typeName                 
                                    typeVisibility
+                                                              {
+                                                                  args[0] = $typeName.name;
+                                                                  args[1] = $typeVisibility.visibility;
+                                                                  populate( "type", args );
+                                                              }
                                    pragmaList				
                                  )                          
+                                                              {
+                                                                  populate( "type", args ); // end type
+                                                              }
                               ;
                               
 
@@ -237,9 +254,17 @@ typeDeclaration
                               : ^( TYPE
                                    typeName                 
                                    typeVisibility
+                                                              {
+                                                                  args[0] = $typeName.name;
+                                                                  args[1] = $typeVisibility.visibility;
+                                                                  populate( "type", args );
+                                                              }
                                    pragmaList				
                                    typeDefinition			
                                  )                          
+                                                              {
+                                                                  populate( "type", args ); // end type
+                                                              }
                               ;
                               
 
@@ -253,9 +278,10 @@ typeDefinition
                               ;
 
 typeVisibility
+returns [String visibility]
 //returns [Visibility visibility]
-                              : PRIVATE                     
-                              | PUBLIC                      
+                              : PRIVATE                     { $visibility = $PRIVATE.text; }
+                              | PUBLIC                      { $visibility = $PUBLIC.text; }
                               ;
 
 
@@ -622,10 +648,16 @@ returns [String name]
 
 objectDeclaration
                               : ^( OBJECT_DECLARATION
-                                   objectName 
-
+                                   objectName
+                                                            {
+                                                                args[0] = $objectName.name;
+                                                                populate( "object", args );
+                                                            }
                                    pragmaList
                                  )                          
+                                                            {
+                                                                populate( "object", args ); // end object
+                                                            }
                                  
                               ;
 
@@ -958,10 +990,24 @@ domainServiceDeclaration
                               : ^( DOMAIN_SERVICE_DECLARATION
                                    serviceVisibility
                                    serviceName
+                                                            {
+                                                                  args[0] = $serviceVisibility.visibility;
+                                                                  args[1] = $serviceName.name;
+                                                                  if ( $DOMAIN_SERVICE_DECLARATION.text.equals("service") )
+                                                                      populate( "service", args );
+                                                                  else
+                                                                      populate( "function", args );
+                                                            }
                                    parameterList
                                    returnType?
                                    pragmaList
                                  )
+                                                            {
+                                                                  if ( $DOMAIN_SERVICE_DECLARATION.text.equals("service") )
+                                                                      populate( "service", args );      // end service
+                                                                  else
+                                                                      populate( "function", args );     // end function
+                                                            }
                                                             
                               ;
 
