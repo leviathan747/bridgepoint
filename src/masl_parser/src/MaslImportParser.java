@@ -5,7 +5,8 @@ import org.antlr.runtime.tree.*;
 public class MaslImportParser {
 
     // private fields
-    private Population population;          // external interface
+    private Population  population;         // external interface
+    private String      current_file;       // current file parsing
 
     // public constructor
     public MaslImportParser( Population population ) {
@@ -13,17 +14,29 @@ public class MaslImportParser {
             this.population = population;
         else
             this.population = null;
+
+        current_file = null;
+    }
+
+    // public getter for current_file
+    public String getFile() {
+        return current_file;
     }
 
     public void parseAll( String[] files ) {
         // parse all MASL files
         for ( String file : files ) {
-            parse( file );
+            parse( "target", file );
         }
     }
 
     // parse a MASL file
-    public void parse( String fn ) {
+    public void parse( String rule, String fn ) {
+        // check args and set current file
+        if ( fn == null || rule == null )
+            return;
+
+        current_file = fn;
 
         MaslLexer              lex;
         CommonTokenStream       tokens;
@@ -35,7 +48,7 @@ public class MaslImportParser {
         try {
             lex = new MaslLexer( new ANTLRFileStream( fn ) );
         } catch ( IOException e ) {
-            System.out.println( e );
+            System.err.println( e );
             return;
         }
 
@@ -45,20 +58,71 @@ public class MaslImportParser {
         try {
             tree = ( CommonTree )parser.target().getTree();
         } catch ( RecognitionException e ) {
-            System.out.println( e );
+            System.err.println( e );
             return;
         }
 
         nodes = new CommonTreeNodeStream(tree);
         walker = new MaslWalker( nodes );
         walker.setPopulation( population );
+        walker.setMaslParser( this );
 
-        try {
-            walker.target();
-        } catch ( RecognitionException e ) {
-            System.out.println( e );
-            return;
+        // Walk the chosen rule
+        switch ( rule ) {
+            case "target":
+                try {
+                    walker.target();
+                } catch ( RecognitionException e ) {
+                    System.err.println( e );
+                    return;
+                }
+                break;
+            case "objectServiceDefinition":
+                try {
+                    walker.objectServiceDefinition();
+                } catch ( RecognitionException e ) {
+                    System.err.println( e );
+                    return;
+                }
+                break;
+            case "stateDefinition":
+                try {
+                    walker.stateDefinition();
+                } catch ( RecognitionException e ) {
+                    System.err.println( e );
+                    return;
+                }
+                break;
+            case "domainServiceDefinition":
+                try {
+                    walker.domainServiceDefinition();
+                } catch ( RecognitionException e ) {
+                    System.err.println( e );
+                    return;
+                }
+                break;
+            case "terminatorServiceDefinition":
+                try {
+                    walker.terminatorServiceDefinition();
+                } catch ( RecognitionException e ) {
+                    System.err.println( e );
+                    return;
+                }
+                break;
+            case "projectTerminatorServiceDefinition":
+                try {
+                    walker.projectTerminatorServiceDefinition();
+                } catch ( RecognitionException e ) {
+                    System.err.println( e );
+                    return;
+                }
+                break;
+            default:
+                System.err.println( "Unrecognized rule." );
+                break;
         }
+
+        current_file = null;
 
     }
 }

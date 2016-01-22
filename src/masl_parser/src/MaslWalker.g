@@ -35,6 +35,9 @@ import java.util.HashMap;
 // external interface
 private Population population = null;
 
+// parent masl parser
+private MaslImportParser masl_parser = null;
+
 // argument array to pass to interface
 private String[] args = new String[8];
 
@@ -44,6 +47,14 @@ public void setPopulation ( Population population ) {
         this.population = population;
     else
         this.population = null;
+}
+
+// set the parent masl parser
+public void setMaslParser( MaslImportParser p ) {
+    if ( p != null )
+        this.masl_parser = p;
+    else
+        this.masl_parser = null;
 }
 
 // call to the interface with null checking
@@ -63,6 +74,11 @@ private void populate( String classname, String[] args ) {
 
     // null out the args
     for ( int i = 0; i < args.length; i++ ) args[i] = null;
+}
+
+// get the current file
+private String getFile() {
+    return masl_parser.getFile();
 }
 
 }
@@ -708,8 +724,8 @@ attributeDefinition
                                    typeReference
                                                             {
                                                                 args[0] = $typeReference.type;
-                                                                populate( "attributetype", args );
-                                                                populate( "attributetype", args );  // end attributetype
+                                                                populate( "type", args );
+                                                                populate( "type", args );  // end type
                                                             }
                                    expression?
                                    pragmaList
@@ -1071,8 +1087,8 @@ returns [String type]
                                    typeReference )
                                                               {
                                                                   args[0] = $typeReference.type;
-                                                                  populate( "parametertype", args );
-                                                                  populate( "parametertype", args );  // end parametertype
+                                                                  populate( "type", args );
+                                                                  populate( "type", args );  // end type
                                                               }
                               ;
 
@@ -1082,8 +1098,8 @@ returnType
                                    typeReference )
                                                               {
                                                                   args[0] = $typeReference.type;
-                                                                  populate( "returntype", args );
-                                                                  populate( "returntype", args );  // end returntype
+                                                                  populate( "type", args );
+                                                                  populate( "type", args );  // end type
                                                               }
                               ;
 
@@ -1317,16 +1333,34 @@ returns [ String name ]
 domainServiceDefinition//[DomainService service]
 //scope NameScope;
 
-
                               : ^( DOMAIN_SERVICE_DEFINITION
                                    serviceVisibility
                                    domainReference
                                    serviceName
+                                                            {
+                                                                  args[0] = $serviceVisibility.visibility;
+                                                                  args[1] = $serviceName.name;
+                                                                  if ( $DOMAIN_SERVICE_DEFINITION.text.equals("service") )
+                                                                      populate( "service", args );
+                                                                  else
+                                                                      populate( "function", args );
+                                                            }
                                    parameterList
                                    returnType?
-                                   codeBlock[false]
+                                   codeBlock
+                                                            {
+                                                                args[0] = getFile();
+                                                                populate( "codeblock", args );
+                                                                populate( "codeblock", args );  // end codeblock
+                                                            }
                                    pragmaList                  
                                  )                                                   
+                                                            {
+                                                                  if ( $DOMAIN_SERVICE_DEFINITION.text.equals("service") )
+                                                                      populate( "service", args );      // end service
+                                                                  else
+                                                                      populate( "function", args );     // end function
+                                                            }
                                                             
                               ;
 
@@ -1340,29 +1374,65 @@ terminatorServiceDefinition//[DomainTerminatorService service]
                                    domainReference
                                    terminatorName
                                    serviceName
+                                                            {
+                                                                  args[0] = $serviceVisibility.visibility;
+                                                                  args[1] = $serviceName.name;
+                                                                  if ( $TERMINATOR_SERVICE_DEFINITION.text.equals("service") )
+                                                                      populate( "service", args );
+                                                                  else
+                                                                      populate( "function", args );
+                                                            }
                                    parameterList
+                                                            {
+                                                                args[0] = getFile();
+                                                                populate( "codeblock", args );
+                                                                populate( "codeblock", args );  // end codeblock
+                                                            }
                                    returnType?
-                                   codeBlock[false]
+                                   codeBlock
                                    pragmaList                  
                                  )                                                   
+                                                            {
+                                                                  if ( $TERMINATOR_SERVICE_DEFINITION.text.equals("service") )
+                                                                      populate( "service", args );      // end service
+                                                                  else
+                                                                      populate( "function", args );     // end function
+                                                            }
                                                             
                               ;
 
 
 projectTerminatorServiceDefinition//[ProjectTerminatorService service]
 //scope NameScope;
-
-
                               : ^( TERMINATOR_SERVICE_DEFINITION
                                    serviceVisibility
                                    domainReference
                                    terminatorName
                                    serviceName
+                                                            {
+                                                                  args[0] = $serviceVisibility.visibility;
+                                                                  args[1] = $serviceName.name;
+                                                                  if ( $TERMINATOR_SERVICE_DEFINITION.text.equals("service") )
+                                                                      populate( "service", args );
+                                                                  else
+                                                                      populate( "function", args );
+                                                            }
                                    parameterList
                                    returnType?
-                                   codeBlock[false]
+                                   codeBlock         
+                                                            {
+                                                                args[0] = getFile();
+                                                                populate( "codeblock", args );
+                                                                populate( "codeblock", args );  // end codeblock
+                                                            }
                                    pragmaList                  
                                  )                                                   
+                                                            {
+                                                                  if ( $TERMINATOR_SERVICE_DEFINITION.text.equals("service") )
+                                                                      populate( "service", args );      // end service
+                                                                  else
+                                                                      populate( "function", args );     // end function
+                                                            }
                                                             
                               ;
 
@@ -1377,11 +1447,32 @@ objectServiceDefinition//[ObjectService service]
                                    INSTANCE?
                                    fullObjectReference
                                    serviceName
+                                                            {
+                                                                  args[0] = $serviceVisibility.visibility;
+                                                                  args[1] = $serviceName.name;
+                                                                  if ( $INSTANCE != null )
+                                                                      args[2] = $INSTANCE.text;
+                                                                  if ( $OBJECT_SERVICE_DEFINITION.text.equals("service") )
+                                                                      populate( "service", args );
+                                                                  else
+                                                                      populate( "function", args );
+                                                            }
                                    parameterList
                                    returnType?
-                                   codeBlock[false]
+                                   codeBlock
+                                                            {
+                                                                args[0] = getFile();
+                                                                populate( "codeblock", args );
+                                                                populate( "codeblock", args );  // end codeblock
+                                                            }
                                    pragmaList                           
                                  )                          
+                                                            {
+                                                                  if ( $OBJECT_SERVICE_DEFINITION.text.equals("service") )
+                                                                      populate( "service", args );      // end service
+                                                                  else
+                                                                      populate( "function", args );     // end function
+                                                            }
                               ;
 
 
@@ -1393,10 +1484,23 @@ stateDefinition//[State stateDef]
                                    stateType
                                    fullObjectReference
                                    stateName
+                                                            {
+                                                                args[0] = $stateName.name;
+                                                                args[1] = $stateType.type;
+                                                                populate( "state", args );
+                                                            }
                                    parameterList
-                                   codeBlock[false]
+                                   codeBlock
+                                                            {
+                                                                args[0] = getFile();
+                                                                populate( "codeblock", args );
+                                                                populate( "codeblock", args );  // end codeblock
+                                                            }
                                    pragmaList                
                                  )                          
+                                                            {
+                                                                populate( "state", args );  // end state
+                                                            }
                               ;
 
 
@@ -1408,7 +1512,7 @@ stateDefinition//[State stateDef]
 statement
 //returns [Statement st]
                               : ^( STATEMENT
-                                   ( codeBlock[false]       
+                                   ( codeBlock       
                                    | assignmentStatement    
                                    | streamStatement        
                                    | callStatement          
@@ -1676,7 +1780,7 @@ loopVariableSpec
 // Code Blocks
 //---------------------------------------------------------
 
-codeBlock[boolean topLevel]
+codeBlock
 //returns [ CodeBlock st ]
 //scope NameScope;
                               :^( CODE_BLOCK                

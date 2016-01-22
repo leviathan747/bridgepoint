@@ -11,7 +11,12 @@ public class Main {
         }
 
         // parse all MASL files
-        parser.parseAll( args );
+        //parser.parseAll( args );
+
+        if ( args.length < 2 )
+            parser.parse( "target", args[0] );
+        else
+            parser.parse( args[0], args[1] );
     }
 }
 

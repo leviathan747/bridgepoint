@@ -760,11 +760,11 @@ pragmaName                    : identifier                                      
 
 
 
-domainServiceDefinition       : serviceVisibility SERVICE 
+domainServiceDefinition       : serviceVisibility serv=SERVICE 
                                 domainName SCOPE serviceName 
                                 parameterList IS 
                                 codeBlock 
-                                SERVICE? SEMI pragmaList                                  -> ^( DOMAIN_SERVICE_DEFINITION 
+                                SERVICE? SEMI pragmaList                                  -> ^( DOMAIN_SERVICE_DEFINITION[$serv]
                                                                                                 serviceVisibility 
                                                                                                 domainName 
                                                                                                 serviceName 
@@ -773,11 +773,11 @@ domainServiceDefinition       : serviceVisibility SERVICE
                                                                                                 pragmaList? )                               
                               ;
 
-domainFunctionDefinition      : serviceVisibility FUNCTION 
+domainFunctionDefinition      : serviceVisibility func=FUNCTION 
                                   domainName SCOPE serviceName 
                                   parameterList 
                                   RETURN returnType IS codeBlock 
-                                FUNCTION? SEMI pragmaList                                 -> ^( DOMAIN_SERVICE_DEFINITION 
+                                FUNCTION? SEMI pragmaList                                 -> ^( DOMAIN_SERVICE_DEFINITION[$func]
                                                                                                 serviceVisibility 
                                                                                                 domainName 
                                                                                                 serviceName 
@@ -789,10 +789,10 @@ domainFunctionDefinition      : serviceVisibility FUNCTION
 
 
 
-objectServiceDefinition       : serviceVisibility INSTANCE? SERVICE 
+objectServiceDefinition       : serviceVisibility INSTANCE? serv=SERVICE 
                                   domainName SCOPE objectName DOT serviceName 
                                   parameterList IS codeBlock 
-                                SERVICE? SEMI pragmaList                                  -> ^( OBJECT_SERVICE_DEFINITION 
+                                SERVICE? SEMI pragmaList                                  -> ^( OBJECT_SERVICE_DEFINITION[$serv]
                                                                                                 serviceVisibility 
                                                                                                 INSTANCE? 
                                                                                                 domainName 
@@ -803,11 +803,11 @@ objectServiceDefinition       : serviceVisibility INSTANCE? SERVICE
                                                                                                 pragmaList? )
                               ;
 
-terminatorServiceDefinition   : serviceVisibility SERVICE 
+terminatorServiceDefinition   : serviceVisibility serv=SERVICE 
                                 domainName SCOPE terminatorName TERMINATOR_SCOPE serviceName 
                                 parameterList IS 
                                 codeBlock 
-                                SERVICE? SEMI pragmaList                                  -> ^( TERMINATOR_SERVICE_DEFINITION 
+                                SERVICE? SEMI pragmaList                                  -> ^( TERMINATOR_SERVICE_DEFINITION[$serv]
                                                                                                 serviceVisibility 
                                                                                                 domainName
                                                                                                 terminatorName 
@@ -817,11 +817,11 @@ terminatorServiceDefinition   : serviceVisibility SERVICE
                                                                                                 pragmaList? )                               
                               ;
 
-terminatorFunctionDefinition  : serviceVisibility FUNCTION 
+terminatorFunctionDefinition  : serviceVisibility func=FUNCTION 
                                 domainName SCOPE terminatorName TERMINATOR_SCOPE serviceName 
                                 parameterList RETURN returnType IS 
                                 codeBlock 
-                                FUNCTION? SEMI pragmaList                                 -> ^( TERMINATOR_SERVICE_DEFINITION 
+                                FUNCTION? SEMI pragmaList                                 -> ^( TERMINATOR_SERVICE_DEFINITION[$func]
                                                                                                 serviceVisibility 
                                                                                                 domainName
                                                                                                 terminatorName 
@@ -833,11 +833,11 @@ terminatorFunctionDefinition  : serviceVisibility FUNCTION
                               ;
 
 
-objectFunctionDefinition      : serviceVisibility serviceType FUNCTION 
+objectFunctionDefinition      : serviceVisibility serviceType func=FUNCTION 
                                   domainName SCOPE objectName DOT serviceName 
                                   parameterList 
                                   RETURN returnType IS codeBlock 
-                                FUNCTION? SEMI pragmaList                                 -> ^( OBJECT_SERVICE_DEFINITION 
+                                FUNCTION? SEMI pragmaList                                 -> ^( OBJECT_SERVICE_DEFINITION[$func]
                                                                                                 serviceVisibility 
                                                                                                 serviceType? 
                                                                                                 domainName 
