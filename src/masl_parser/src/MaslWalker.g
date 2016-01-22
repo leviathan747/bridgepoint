@@ -21,6 +21,8 @@ scope WhereClauseScope
 @header
 {
 import java.util.ArrayList;
+import java.util.Map;
+import java.util.HashMap;
 }
 
 @annotations
@@ -1102,10 +1104,32 @@ relationshipDefinition
 regularRelationshipDefinition
                               : ^( REGULAR_RELATIONSHIP_DEFINITION
                                    relationshipName
+                                                            {
+                                                                args[0] = $relationshipName.name;
+                                                                populate( "normalrelationship", args );
+                                                            }
                                    leftToRight=halfRelationshipDefinition
                                    rightToLeft=halfRelationshipDefinition
+                                                            {
+                                                                args[0] = $leftToRight.half.get( "from" );
+                                                                args[1] = $leftToRight.half.get( "to" );
+
+                                                                args[2] = $leftToRight.half.get( "mult" );
+                                                                args[3] = $leftToRight.half.get( "role" );
+                                                                args[4] = $leftToRight.half.get( "cond" );
+                                                                
+                                                                args[5] = $rightToLeft.half.get( "mult" );
+                                                                args[6] = $rightToLeft.half.get( "role" );
+                                                                args[7] = $rightToLeft.half.get( "cond" );
+
+                                                                populate( "participation", args );
+                                                                populate( "participation", args );  // end participation
+                                                            }
                                    pragmaList
                                  )                          
+                                                            {
+                                                                populate( "normalrelationship", args );   // end normalrelationship
+                                                            }
                               ;
 
 
@@ -1115,13 +1139,40 @@ assocRelationshipDefinition
                                    leftToRight=halfRelationshipDefinition
                                    rightToLeft=halfRelationshipDefinition
                                    assocObj=objectReference
+                                                            {
+                                                                args[0] = $relationshipName.name;
+                                                                args[1] = $assocObj.ref;
+                                                                populate( "associativerelationship", args );
+
+                                                                args[0] = $leftToRight.half.get( "from" );
+                                                                args[1] = $leftToRight.half.get( "to" );
+
+                                                                args[2] = $leftToRight.half.get( "mult" );
+                                                                args[3] = $leftToRight.half.get( "role" );
+                                                                args[4] = $leftToRight.half.get( "cond" );
+                                                                
+                                                                args[5] = $rightToLeft.half.get( "mult" );
+                                                                args[6] = $rightToLeft.half.get( "role" );
+                                                                args[7] = $rightToLeft.half.get( "cond" );
+
+                                                                populate( "participation", args );
+                                                                populate( "participation", args );  // end participation
+                                                            }
                                    pragmaList
                                  )                          
+                                                            {
+                                                                populate( "associativerelationship", args );   // end associativerelationship
+                                                            }
 
                               ;
 
 halfRelationshipDefinition
+returns [Map<String,String> half]
 //returns [HalfRelationship half]
+@init
+{
+    HashMap<String,String> h = new HashMap<String,String>();
+}
                               : ^( HALF_RELATIONSHIP
                                    from=objectReference
                                    conditionality
@@ -1129,6 +1180,14 @@ halfRelationshipDefinition
                                    multiplicity
                                    to=objectReference
                                  )                          
+                                                            {
+                                                                h.put( "from", $from.ref );
+                                                                h.put( "cond", $conditionality.cond );
+                                                                h.put( "role", $rolePhrase.role );
+                                                                h.put( "mult", $multiplicity.mult );
+                                                                h.put( "to", $to.ref );
+                                                                $half = h;
+                                                            }
                               ;
 
 
@@ -1137,30 +1196,45 @@ subtypeRelationshipDefinition
 
                               : ^( SUBTYPE_RELATIONSHIP_DEFINITION
                                    relationshipName
+                                                            {
+                                                                args[0] = $relationshipName.name;
+                                                                populate( "subsuperrelationship", args );
+                                                            }
                                    supertype=objectReference
                                    (subtype=objectReference   
+                                                            {
+                                                                args[0] = $supertype.ref;
+                                                                args[1] = $subtype.ref;
+                                                                populate( "participation", args );
+                                                                populate( "participation", args );  // end participation
+                                                            }
                                    )+
                                    pragmaList
                                  )                          
+                                                            {
+                                                                populate( "subsuperrelationship", args );   // end subsuperrelationship
+                                                            }
 
                               ;
 
 rolePhrase
 returns [String role]
                               : ^( ROLE_PHRASE
-                                   identifier )             
+                                   identifier )             { $role = $identifier.name; }
                               ;
 
 conditionality
+returns [String cond]
 //returns [boolean cond]
-                              : UNCONDITIONALLY             
-                              | CONDITIONALLY               
+                              : UNCONDITIONALLY             { $cond = $UNCONDITIONALLY.text; }
+                              | CONDITIONALLY               { $cond = $CONDITIONALLY.text; }
                               ;
 
 multiplicity
+returns [String mult]
 //returns [MultiplicityType mult]
-                              : ONE                         
-                              | MANY                        
+                              : ONE                         { $mult = $ONE.text; }
+                              | MANY                        { $mult = $MANY.text; }
                               ;
 
 
