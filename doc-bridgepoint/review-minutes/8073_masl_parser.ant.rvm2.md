@@ -13,10 +13,10 @@ Present:  Bob, Cort, Keith, Levi
 <pre>
 
 -- Num Type  Who  Section  Comment
-_- 01  min   cds  4.1      "independent" --> "independently"
-_- 02  min   bob  5.1.4.1  Raise issue for this question. Make child of [2.3]
-_- 03  min   bob  5.2.2    Reword to be more accurate (we didn't hit any problems it was just more efficient)
-_- 04  min   cds  5.3.1    Missing a word
+x- 01  min   cds  4.1      "independent" --> "independently"
+x- 02  min   bob  5.1.4.1  Raise issue for this question. Make child of [2.3]
+x- 03  min   bob  5.2.2    Reword to be more accurate (we didn't hit any problems it was just more efficient)
+x- 04  min   cds  5.3.1    Missing a word
 
 </pre>
    

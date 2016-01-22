@@ -43,7 +43,7 @@ proceed with eyes wide open about becoming dependent on bloated frameworks.
 4. Requirements
 ---------------
 
-4.1 The parser shall run independent of the eclipse GUI in the command line  
+4.1 The parser shall run independently of the eclipse GUI in the command line  
 4.2 The parser shall be derived from the ANTLR grammar of MASL provided by user
 [[2.6]](#2.6)  
 4.2.1 If Xtext is chosen, a mechanism shall be defined that provides a clear and
@@ -124,13 +124,13 @@ of the import capability.
 5.2.1 We have been given a grammar of MASL by the user in ANTLR. It is very simple to use ANTLR to compile this
 grammar and use it to walk the AST.
 
-5.2.2 Because of some of the problems with using Xtext for the parser, we will implement the parser with ANTLR
-and reanalyze Xtext for use with the editor in phase 2.
+5.2.2 Because Xtext is not necessary for the parser in phase 1, we will take the path of least resistence and 
+implement the parser with ANTLR. We will reanalyze Xtext for use with the editor in phase 2.
 
 5.3 Execution flow
 
-5.3.1 The parser shall be implemented as a library. It shall be called externally MASL files as arguments. The
-parser in turn will make invocations on an interface to the model of MASL.
+5.3.1 The parser shall be implemented as a library. It shall be invoked externally with MASL files as arguments.
+The parser in turn will make invocations through an interface to the model of MASL.
 
 5.3.2 This flow will facilitate flexibility of use. It will also allow easy testing through the defined interface
 and a stubbed test model of MASL.
