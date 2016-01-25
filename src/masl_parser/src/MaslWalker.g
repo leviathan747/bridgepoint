@@ -47,6 +47,9 @@ public void setPopulation ( Population population ) {
         this.population = population;
     else
         this.population = null;
+
+    // fill args initially with empty strings
+    for ( int i = 0; i < args.length; i++ ) args[i] = "";
 }
 
 // set the parent masl parser
@@ -72,8 +75,8 @@ private void populate( String classname, String[] args ) {
     // call the interface
     population.populate( classname, args );
 
-    // null out the args
-    for ( int i = 0; i < args.length; i++ ) args[i] = null;
+    // fill args with empty strings
+    for ( int i = 0; i < args.length; i++ ) args[i] = "";
 }
 
 // get the current file
@@ -1122,29 +1125,15 @@ regularRelationshipDefinition
                                    relationshipName
                                                             {
                                                                 args[0] = $relationshipName.name;
-                                                                populate( "normalrelationship", args );
+                                                                populate( "regularrel", args );
                                                             }
                                    leftToRight=halfRelationshipDefinition
                                    rightToLeft=halfRelationshipDefinition
-                                                            {
-                                                                args[0] = $leftToRight.half.get( "from" );
-                                                                args[1] = $leftToRight.half.get( "to" );
-
-                                                                args[2] = $leftToRight.half.get( "mult" );
-                                                                args[3] = $leftToRight.half.get( "role" );
-                                                                args[4] = $leftToRight.half.get( "cond" );
-                                                                
-                                                                args[5] = $rightToLeft.half.get( "mult" );
-                                                                args[6] = $rightToLeft.half.get( "role" );
-                                                                args[7] = $rightToLeft.half.get( "cond" );
-
-                                                                populate( "participation", args );
-                                                                populate( "participation", args );  // end participation
-                                                            }
                                    pragmaList
                                  )                          
                                                             {
-                                                                populate( "normalrelationship", args );   // end normalrelationship
+                                                                populate( "participation", args );  // end participation
+                                                                populate( "regularrel", args );   // end regularrel
                                                             }
                               ;
 
@@ -1152,43 +1141,31 @@ regularRelationshipDefinition
 assocRelationshipDefinition
                               : ^( ASSOCIATIVE_RELATIONSHIP_DEFINITION
                                    relationshipName
+                                                            {
+                                                                args[0] = $relationshipName.name;
+                                                                populate( "associative", args );
+                                                            }
                                    leftToRight=halfRelationshipDefinition
                                    rightToLeft=halfRelationshipDefinition
                                    assocObj=objectReference
                                                             {
+                                                                populate( "participation", args );  // end participation
+
+                                                                // update with the associative object
                                                                 args[0] = $relationshipName.name;
                                                                 args[1] = $assocObj.ref;
-                                                                populate( "associativerelationship", args );
-
-                                                                args[0] = $leftToRight.half.get( "from" );
-                                                                args[1] = $leftToRight.half.get( "to" );
-
-                                                                args[2] = $leftToRight.half.get( "mult" );
-                                                                args[3] = $leftToRight.half.get( "role" );
-                                                                args[4] = $leftToRight.half.get( "cond" );
-                                                                
-                                                                args[5] = $rightToLeft.half.get( "mult" );
-                                                                args[6] = $rightToLeft.half.get( "role" );
-                                                                args[7] = $rightToLeft.half.get( "cond" );
-
-                                                                populate( "participation", args );
-                                                                populate( "participation", args );  // end participation
+                                                                populate( "associative", args );
                                                             }
                                    pragmaList
                                  )                          
                                                             {
-                                                                populate( "associativerelationship", args );   // end associativerelationship
+                                                                populate( "associative", args );   // end associativerelationship
                                                             }
 
                               ;
 
 halfRelationshipDefinition
-returns [Map<String,String> half]
 //returns [HalfRelationship half]
-@init
-{
-    HashMap<String,String> h = new HashMap<String,String>();
-}
                               : ^( HALF_RELATIONSHIP
                                    from=objectReference
                                    conditionality
@@ -1196,13 +1173,14 @@ returns [Map<String,String> half]
                                    multiplicity
                                    to=objectReference
                                  )                          
-                                                            {
-                                                                h.put( "from", $from.ref );
-                                                                h.put( "cond", $conditionality.cond );
-                                                                h.put( "role", $rolePhrase.role );
-                                                                h.put( "mult", $multiplicity.mult );
-                                                                h.put( "to", $to.ref );
-                                                                $half = h;
+                                                            { 
+                                                                // populate a side of participation
+                                                                args[0] = $from.ref;
+                                                                args[1] = $rolePhrase.role;
+                                                                args[2] = $conditionality.cond;
+                                                                args[3] = $multiplicity.mult;
+                                                                args[4] = $to.ref;
+                                                                populate( "participation", args );
                                                             }
                               ;
 
@@ -1214,13 +1192,13 @@ subtypeRelationshipDefinition
                                    relationshipName
                                                             {
                                                                 args[0] = $relationshipName.name;
-                                                                populate( "subsuperrelationship", args );
+                                                                populate( "subsuper", args );
                                                             }
                                    supertype=objectReference
                                    (subtype=objectReference   
                                                             {
                                                                 args[0] = $supertype.ref;
-                                                                args[1] = $subtype.ref;
+                                                                args[4] = $subtype.ref;
                                                                 populate( "participation", args );
                                                                 populate( "participation", args );  // end participation
                                                             }
@@ -1228,7 +1206,7 @@ subtypeRelationshipDefinition
                                    pragmaList
                                  )                          
                                                             {
-                                                                populate( "subsuperrelationship", args );   // end subsuperrelationship
+                                                                populate( "subsuper", args );   // end subsuper
                                                             }
 
                               ;
