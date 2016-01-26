@@ -1204,9 +1204,11 @@ subtypeRelationshipDefinition
                                                                 args[0] = $subtype.ref;
                                                                 args[4] = $supertype.ref;
                                                                 populate( "participation", args );
-                                                                populate( "participation", args );  // end participation
                                                             }
                                    )+
+                                                            {
+                                                                populate( "participation", args );  // end participation
+                                                            }
                                    pragmaList
                                  )                          
                                                             {
