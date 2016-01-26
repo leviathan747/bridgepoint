@@ -727,8 +727,8 @@ attributeDefinition
                                    typeReference
                                                             {
                                                                 args[0] = $typeReference.type;
-                                                                populate( "type", args );
-                                                                populate( "type", args );  // end type
+                                                                populate( "typeref", args );
+                                                                populate( "typeref", args );  // end type
                                                             }
                                    expression?
                                    pragmaList
@@ -1090,8 +1090,8 @@ returns [String type]
                                    typeReference )
                                                               {
                                                                   args[0] = $typeReference.type;
-                                                                  populate( "type", args );
-                                                                  populate( "type", args );  // end type
+                                                                  populate( "typeref", args );
+                                                                  populate( "typeref", args );  // end type
                                                               }
                               ;
 
@@ -1101,8 +1101,8 @@ returnType
                                    typeReference )
                                                               {
                                                                   args[0] = $typeReference.type;
-                                                                  populate( "type", args );
-                                                                  populate( "type", args );  // end type
+                                                                  populate( "typeref", args );
+                                                                  populate( "typeref", args );  // end type
                                                               }
                               ;
 
