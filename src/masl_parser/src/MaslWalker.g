@@ -1044,15 +1044,15 @@ parameterDefinition
                                                                   populate( "parameter", args );
                                                             }
                                    parameterType)           
-                                                            {
-                                                                  populate( "parameter", args );  // end parameter
-                                                            }
                               ;
                               
 parameterList
 //returns [List<ParameterDefinition> params]
 
                               : ( parameterDefinition )*
+                                                            {
+                                                                  populate( "parameter", args );  // end parameter
+                                                            }
                               ;
 
 
@@ -1195,10 +1195,14 @@ subtypeRelationshipDefinition
                                                                 populate( "subsuper", args );
                                                             }
                                    supertype=objectReference
-                                   (subtype=objectReference   
                                                             {
                                                                 args[0] = $supertype.ref;
-                                                                args[4] = $subtype.ref;
+                                                                populate( "participation", args );
+                                                            }
+                                   (subtype=objectReference   
+                                                            {
+                                                                args[0] = $subtype.ref;
+                                                                args[4] = $supertype.ref;
                                                                 populate( "participation", args );
                                                                 populate( "participation", args );  // end participation
                                                             }
