@@ -713,11 +713,11 @@ attributeDefinition
                                                             {
                                                                 args[0] = $attributeName.name;
                                                                 if ( $PREFERRED != null )
-                                                                    args[1] = "true";
-                                                                else args[1] = "false";
+                                                                    args[1] = $PREFERRED.text;
+                                                                else args[1] = "";
                                                                 if ( $UNIQUE != null )
-                                                                    args[2] = "true";
-                                                                else args[2] = "false";
+                                                                    args[2] = $UNIQUE.text;
+                                                                else args[2] = "";
                                                                 if ( $ATTRIBUTE_DEFINITION != null )
                                                                     args[3] = $ATTRIBUTE_DEFINITION.text;
                                                                 populate( "attribute", args );
@@ -746,10 +746,11 @@ attReferential
                                    attributeName
                                  )                          
                                                             {
-                                                                args[0] = $attributeName.name;
+                                                                args[0] = $relationshipSpec.spec.get(1);
                                                                 args[1] = $relationshipSpec.spec.get(0);
-                                                                args[2] = $relationshipSpec.spec.get(1);
-                                                                args[3] = $relationshipSpec.spec.get(2);
+                                                                args[2] = $relationshipSpec.spec.get(2);
+                                                                args[3] = $relationshipSpec.spec.get(3);
+                                                                args[4] = $attributeName.name;
                                                                 populate( "referential", args );
                                                                 populate( "referential", args );    // end referential
                                                             }
@@ -766,15 +767,16 @@ returns [List<String> spec]
                               : ^( RELATIONSHIP_SPEC
                                    relationshipReference    
                                                             {
-                                                                s.add( 0, $relationshipReference.ref );
+                                                                s.add( 0, $relationshipReference.ref.get(0) );
+                                                                s.add( 1, $relationshipReference.ref.get(1) );
                                                             }
                                    ( objOrRole
                                                             {
-                                                                s.add( 1, $objOrRole.name );
+                                                                s.add( 2, $objOrRole.name );
                                                             }
                                    ( objectReference
                                                             {
-                                                                s.add( 2, $objectReference.ref );
+                                                                s.add( 3, $objectReference.ref );
                                                             }
                                    )? 
                                    )?
@@ -802,7 +804,7 @@ objectServiceDeclaration
                                                                   if ( $INSTANCE != null )
                                                                       args[2] = $INSTANCE.text;
                                                                   if ( $relationshipReference.ref != null )
-                                                                      args[3] = $relationshipReference.ref;
+                                                                      args[3] = $relationshipReference.ref.get(0) + "::" + $relationshipReference.ref.get(1);
                                                                   if ( $OBJECT_SERVICE_DECLARATION.text.equals("service") )
                                                                       populate( "service", args );
                                                                   else
@@ -1247,15 +1249,14 @@ returns [String name]
                               
 
 relationshipReference
-returns [String ref]
+returns [List<String> ref]
 //returns [RelationshipDeclaration.Reference ref]
                               : optionalDomainReference
                                 relationshipName            
                                                             { 
-                                                                String r = "";
-                                                                if ( $optionalDomainReference.ref != "" )
-                                                                    r += ( $optionalDomainReference.ref + "::" );
-                                                                r += $relationshipName.name;
+                                                                ArrayList<String> r = new ArrayList<String>();
+                                                                r.add( 0, $optionalDomainReference.ref );
+                                                                r.add( 1, $relationshipName.name );
                                                                 $ref = r;
                                                             }
                               ;
