@@ -917,14 +917,14 @@ transitionTable
                                    transTableType
                                                             {
                                                                 args[0] = $transTableType.type;
-                                                                populate( "statemachine", args );
+                                                                populate( "transitiontable", args );
                                                             }
                                    ( transitionRow          
                                    )+
                                    pragmaList[""]
                                  )                          
                                                             {
-                                                                populate( "statemachine", args );   // end statemachine
+                                                                populate( "transitiontable", args );   // end transitiontable
                                                             }
                               ;
 
@@ -943,14 +943,7 @@ transitionRow
                                    startState
                                    ( transitionOption[$startState.name]
                                    )+
-                                                            {
-                                                                args[0] = $startState.name;
-                                                                populate( "transitionrowpragmalist", args );
-                                                            }
-                                   pragmaList[""]
-                                                            {
-                                                                populate( "transitionrowpragmalist", args );    // end transitionrowpragmalist
-                                                            }
+                                   pragmaList[$startState.name + "_pragmalist"]
                                 )                           
                               ;
 
