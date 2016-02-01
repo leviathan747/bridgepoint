@@ -116,7 +116,7 @@ projectDefinition
                                                             }
                                    ( projectDomainDefinition 
                                    )*
-                                   pragmaList)              
+                                   pragmaList[""])              
                                                             {
                                                               populate( "project", args );  // end project
                                                             }
@@ -133,7 +133,7 @@ projectDomainDefinition
                                                             }
                                    ( projectTerminatorDefinition    
                                    )*
-                                   pragmaList               
+                                   pragmaList[""]               
                                  )                          
                                                             {
                                                                 populate( "domain", args ); // end domain
@@ -171,7 +171,7 @@ domainDefinition
                                    | typeForwardDeclaration             
                                    | exceptionDeclaration        
                                    )*
-                                   pragmaList                    
+                                   pragmaList[""]                    
                                  )                              
                                                             {
                                                                 populate( "domain", args );
@@ -221,7 +221,7 @@ exceptionDeclaration
                                                                   args[1] = $exceptionVisibility.visibility;
                                                                   populate( "exception", args );
                                                               }
-                                   pragmaList               
+                                   pragmaList[""]               
                                  )                          
                                                               {
                                                                   populate( "exception", args );    // end exception
@@ -262,7 +262,7 @@ typeForwardDeclaration
                                                                   args[1] = $typeVisibility.visibility;
                                                                   populate( "type", args );
                                                               }
-                                   pragmaList				
+                                   pragmaList[""]				
                                  )                          
                                                               {
                                                                   populate( "type", args ); // end type
@@ -280,7 +280,7 @@ typeDeclaration
                                                                   args[1] = $typeVisibility.visibility;
                                                                   populate( "type", args );
                                                               }
-                                   pragmaList				
+                                   pragmaList[""]				
                                    typeDefinition			
                                  )                          
                                                               {
@@ -364,7 +364,7 @@ structureComponentDefinition
                                    componentName
                                    typeReference
                                    expression?
-                                   pragmaList
+                                   pragmaList[""]
                                  )                          
                               ;
 
@@ -544,7 +544,7 @@ domainTerminatorDefinition
                                                                   args[0] = $terminatorName.name;
                                                                   populate( "terminator", args );
                                                               }
-                                   pragmaList                 
+                                   pragmaList[""]                 
                                    ( terminatorServiceDeclaration//[terminator] 
                                    )*
                                  )
@@ -561,7 +561,7 @@ projectTerminatorDefinition
                                                                   args[0] = $terminatorName.name;
                                                                   populate( "terminator", args );
                                                               }
-                                   pragmaList                 
+                                   pragmaList[""]                 
                                    ( projectTerminatorServiceDeclaration//[terminator] 
                                    )*
                                  )
@@ -586,7 +586,7 @@ terminatorServiceDeclaration//[DomainTerminator terminator]
                                                             }
                                    parameterList
                                    returnType?
-                                   pragmaList
+                                   pragmaList[""]
                                  )
                                                             {
                                                                   if ( $TERMINATOR_SERVICE_DECLARATION.text.equals("service") )
@@ -611,7 +611,7 @@ projectTerminatorServiceDeclaration//[ProjectTerminator terminator]
                                                             }
                                    parameterList
                                    (returnType)?
-                                   pragmaList
+                                   pragmaList[""]
                                  )
                                                             {
                                                                   if ( $TERMINATOR_SERVICE_DECLARATION.text.equals("service") )
@@ -674,7 +674,7 @@ objectDeclaration
                                                                 args[0] = $objectName.name;
                                                                 populate( "object", args );
                                                             }
-                                   pragmaList
+                                   pragmaList["declaration"]
                                  )                          
                                                             {
                                                                 populate( "object", args ); // end object
@@ -698,7 +698,7 @@ objectDefinition
                                    | stateDeclaration         
                                    | transitionTable          
                                    )*
-                                   pragmaList                 
+                                   pragmaList["definition"]                 
                                  )
                                                             {
                                                                 populate( "object", args ); // end object
@@ -731,7 +731,7 @@ attributeDefinition
                                                                 populate( "typeref", args );  // end type
                                                             }
                                    expression?
-                                   pragmaList
+                                   pragmaList[""]
                                  )                          
                                                             {
                                                                 populate( "attribute", args );  // end attribute
@@ -746,10 +746,10 @@ attReferential
                                    attributeName
                                  )                          
                                                             {
-                                                                args[0] = $relationshipSpec.spec.get(1);
-                                                                args[1] = $relationshipSpec.spec.get(0);
-                                                                args[2] = $relationshipSpec.spec.get(2);
-                                                                args[3] = $relationshipSpec.spec.get(3);
+                                                                args[0] = $relationshipSpec.spec[1];
+                                                                args[1] = $relationshipSpec.spec[0];
+                                                                args[2] = $relationshipSpec.spec[2];
+                                                                args[3] = $relationshipSpec.spec[3];
                                                                 args[4] = $attributeName.name;
                                                                 populate( "referential", args );
                                                                 populate( "referential", args );    // end referential
@@ -758,25 +758,26 @@ attReferential
 
 
 relationshipSpec//[Expression lhs, boolean allowToAssoc, boolean forceToAssoc]
-returns [List<String> spec]
+returns [String[\] spec]
 //returns [RelationshipSpecification.Reference rel]
 @init
 {
-    ArrayList<String> s = new ArrayList<String>();
+    String[] s = new String[4];
+    for ( int i = 0; i < s.length; i++ ) s[i] = "";
 }
                               : ^( RELATIONSHIP_SPEC
                                    relationshipReference    
                                                             {
-                                                                s.add( 0, $relationshipReference.ref.get(0) );
-                                                                s.add( 1, $relationshipReference.ref.get(1) );
+                                                                s[0] = $relationshipReference.ref.get(0);
+                                                                s[1] = $relationshipReference.ref.get(1);
                                                             }
                                    ( objOrRole
                                                             {
-                                                                s.add( 2, $objOrRole.name );
+                                                                s[2] = $objOrRole.name;
                                                             }
                                    ( objectReference
                                                             {
-                                                                s.add( 3, $objectReference.ref );
+                                                                s[3] = $objectReference.ref;
                                                             }
                                    )? 
                                    )?
@@ -812,7 +813,7 @@ objectServiceDeclaration
                                                             }
                                    parameterList
                                    returnType?
-                                   pragmaList
+                                   pragmaList[""]
                                  )                          
                                                             {
                                                                   if ( $OBJECT_SERVICE_DECLARATION.text.equals("service") )
@@ -837,7 +838,7 @@ identifierDefinition
                                                                 populate( "attribute", args );  // end attribute
                                                             }
                                    )+
-                                   pragmaList
+                                   pragmaList[""]
                                  )                     
                                                             {
                                                                 populate( "identifier", args );  // end attribute
@@ -854,7 +855,7 @@ eventDefinition
                                                                 populate( "event", args );
                                                             }
                                    parameterList
-                                   pragmaList               
+                                   pragmaList[""]               
                                  )
                                                             {
                                                                 populate( "event", args );  // end event
@@ -886,7 +887,7 @@ stateDeclaration
                                                                 populate( "state", args );
                                                             }
                                    parameterList
-                                   pragmaList              
+                                   pragmaList[""]              
                                 )                           
                                                             {
                                                                 populate( "state", args );  // end state
@@ -920,7 +921,7 @@ transitionTable
                                                             }
                                    ( transitionRow          
                                    )+
-                                   pragmaList
+                                   pragmaList[""]
                                  )                          
                                                             {
                                                                 populate( "statemachine", args );   // end statemachine
@@ -946,7 +947,7 @@ transitionRow
                                                                 args[0] = $startState.name;
                                                                 populate( "transitionrowpragmalist", args );
                                                             }
-                                   pragmaList
+                                   pragmaList[""]
                                                             {
                                                                 populate( "transitionrowpragmalist", args );    // end transitionrowpragmalist
                                                             }
@@ -1023,7 +1024,7 @@ domainServiceDeclaration
                                                             }
                                    parameterList
                                    returnType?
-                                   pragmaList
+                                   pragmaList[""]
                                  )
                                                             {
                                                                   if ( $DOMAIN_SERVICE_DECLARATION.text.equals("service") )
@@ -1049,11 +1050,19 @@ parameterDefinition
                               ;
                               
 parameterList
+@init
+{
+    int num_params = 0;
+}
 //returns [List<ParameterDefinition> params]
 
-                              : ( parameterDefinition )*
+                              : ( parameterDefinition       { num_params++; }
+                               )*
                                                             {
-                                                                  populate( "parameter", args );  // end parameter
+                                                                // send end parameter for each nested parameter definition
+                                                                for (int i = 0; i < num_params; i++) {
+                                                                    populate( "parameter", args );  // end parameter
+                                                                }
                                                             }
                               ;
 
@@ -1131,10 +1140,12 @@ regularRelationshipDefinition
                                                             }
                                    leftToRight=halfRelationshipDefinition
                                    rightToLeft=halfRelationshipDefinition
-                                   pragmaList
-                                 )                          
                                                             {
                                                                 populate( "participation", args );  // end participation
+                                                            }
+                                   pragmaList[""]
+                                 )                          
+                                                            {
                                                                 populate( "regularrel", args );   // end regularrel
                                                             }
                               ;
@@ -1158,7 +1169,7 @@ assocRelationshipDefinition
                                                                 args[1] = $assocObj.ref;
                                                                 populate( "associative", args );
                                                             }
-                                   pragmaList
+                                   pragmaList[""]
                                  )                          
                                                             {
                                                                 populate( "associative", args );   // end associativerelationship
@@ -1211,7 +1222,7 @@ subtypeRelationshipDefinition
                                                             {
                                                                 populate( "participation", args );  // end participation
                                                             }
-                                   pragmaList
+                                   pragmaList[""]
                                  )                          
                                                             {
                                                                 populate( "subsuper", args );   // end subsuper
@@ -1267,20 +1278,21 @@ returns [List<String> ref]
 //---------------------------------------------------------
 
 
-pragmaList
+pragmaList[String list]
 //returns [ PragmaList pragmas ]
 
-                              : ( pragma                    
+                              : ( pragma[list]                    
                                 )*                          
                               ;
 
-pragma
+pragma[String list]
 //returns [PragmaDefinition def]
 
                               : ^( PRAGMA
                                    pragmaName               
                                                             {
                                                                 args[0] = $pragmaName.name;
+                                                                args[1] = list;
                                                                 populate( "pragma", args );
                                                             }
                                    ( pragmaValue            
@@ -1338,7 +1350,7 @@ domainServiceDefinition//[DomainService service]
                                                                 populate( "codeblock", args );
                                                                 populate( "codeblock", args );  // end codeblock
                                                             }
-                                   pragmaList                  
+                                   pragmaList[""]                  
                                  )                                                   
                                                             {
                                                                   if ( $DOMAIN_SERVICE_DEFINITION.text.equals("service") )
@@ -1375,7 +1387,7 @@ terminatorServiceDefinition//[DomainTerminatorService service]
                                                             }
                                    returnType?
                                    codeBlock
-                                   pragmaList                  
+                                   pragmaList[""]                  
                                  )                                                   
                                                             {
                                                                   if ( $TERMINATOR_SERVICE_DEFINITION.text.equals("service") )
@@ -1410,7 +1422,7 @@ projectTerminatorServiceDefinition//[ProjectTerminatorService service]
                                                                 populate( "codeblock", args );
                                                                 populate( "codeblock", args );  // end codeblock
                                                             }
-                                   pragmaList                  
+                                   pragmaList[""]                  
                                  )                                                   
                                                             {
                                                                   if ( $TERMINATOR_SERVICE_DEFINITION.text.equals("service") )
@@ -1450,7 +1462,7 @@ objectServiceDefinition//[ObjectService service]
                                                                 populate( "codeblock", args );
                                                                 populate( "codeblock", args );  // end codeblock
                                                             }
-                                   pragmaList                           
+                                   pragmaList[""]                           
                                  )                          
                                                             {
                                                                   if ( $OBJECT_SERVICE_DEFINITION.text.equals("service") )
@@ -1481,7 +1493,7 @@ stateDefinition//[State stateDef]
                                                                 populate( "codeblock", args );
                                                                 populate( "codeblock", args );  // end codeblock
                                                             }
-                                   pragmaList                
+                                   pragmaList[""]                
                                  )                          
                                                             {
                                                                 populate( "state", args );  // end state
@@ -1517,7 +1529,7 @@ statement
                                    | whileStatement         
                                    |                        
                                    )
-                                   pragmaList               
+                                   pragmaList[""]               
                                  )
                               ;
 
@@ -1789,7 +1801,7 @@ variableDeclaration
                                    READONLY?
                                    typeReference
                                    expression?
-                                   pragmaList )             
+                                   pragmaList[""] )             
                               ;
 
 
