@@ -874,7 +874,7 @@ returns [String type]
 //returns [EventType type]
                               : ASSIGNER                    { $type = $ASSIGNER.text; }
                               | CREATION                    { $type = $CREATION.text; }
-                              | NORMAL                      { $type = "normal"; }
+                              | NORMAL                      { $type = ""; }
                               ;
 
 stateDeclaration
@@ -907,7 +907,7 @@ returns [String type]
                               | START                       { $type = $START.text; }
                               | CREATION                    { $type = $CREATION.text; }
                               | TERMINAL                    { $type = $TERMINAL.text; }
-                              | NORMAL                      { $type = "normal"; }
+                              | NORMAL                      { $type = ""; }
                               ;
 
 
@@ -933,7 +933,7 @@ transTableType
 returns [String type]
 //returns [boolean isAssigner]
                               : ASSIGNER                    { $type = $ASSIGNER.text; }
-                              | NORMAL                      { $type = "normal"; }
+                              | NORMAL                      { $type = ""; }
                               ;
 
 transitionRow
