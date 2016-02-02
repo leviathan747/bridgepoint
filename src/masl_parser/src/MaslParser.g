@@ -549,7 +549,7 @@ stateName                     : identifier                                      
                                                                                                 identifier);
 
 stateType                     : ASSIGNER                                                  -> ASSIGNER
-                              | ASSIGNER START                                            -> START
+                              | ASSIGNER START                                            -> START[$ASSIGNER.text + " " + $START.text]
                               | CREATION                                                  -> CREATION
                               | TERMINAL                                                  -> TERMINAL
                               | /* blank */                                               -> NORMAL
