@@ -726,13 +726,11 @@ attributeDefinition
                                                             {
                                                                 args[0] = $typeReference.type;
                                                                 populate( "typeref", args );
-                                                                populate( "typeref", args );  // end type
                                                             }
                                    (expression
                                                             {
                                                                 args[0] = $ATTRIBUTE_DEFINITION.text;
                                                                 populate( "expression", args );
-                                                                populate( "expression", args ); // end expression
                                                             }
                                    )?
                                    pragmaList[""]
@@ -756,7 +754,6 @@ attReferential
                                                                 args[3] = $relationshipSpec.spec[3];
                                                                 args[4] = $attributeName.name;
                                                                 populate( "referential", args );
-                                                                populate( "referential", args );    // end referential
                                                             }
                               ;
 
@@ -961,7 +958,6 @@ transitionOption[String startState]
                                                                 args[1] = $incomingEvent.ref;
                                                                 args[2] = $endState.name;
                                                                 populate( "transition", args );
-                                                                populate( "transition", args ); // end transition
                                                             }
                               ;
 
@@ -1098,7 +1094,6 @@ returns [String type]
                                                               {
                                                                   args[0] = $typeReference.type;
                                                                   populate( "typeref", args );
-                                                                  populate( "typeref", args );  // end type
                                                               }
                               ;
 
@@ -1109,7 +1104,6 @@ returnType
                                                               {
                                                                   args[0] = $typeReference.type;
                                                                   populate( "typeref", args );
-                                                                  populate( "typeref", args );  // end type
                                                               }
                               ;
 
@@ -1295,7 +1289,6 @@ pragma[String list]
                                                             {
                                                                 args[0] = $pragmaValue.value;
                                                                 populate( "pragmaitem", args );
-                                                                populate( "pragmaitem", args ); // end pragmaitem
                                                             } 
                                    )*
                                  )                          
