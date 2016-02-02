@@ -718,8 +718,6 @@ attributeDefinition
                                                                 if ( $UNIQUE != null )
                                                                     args[2] = $UNIQUE.text;
                                                                 else args[2] = "";
-                                                                if ( $ATTRIBUTE_DEFINITION != null )
-                                                                    args[3] = $ATTRIBUTE_DEFINITION.text;
                                                                 populate( "attribute", args );
                                                             }
                                    ( attReferential         
@@ -730,7 +728,13 @@ attributeDefinition
                                                                 populate( "typeref", args );
                                                                 populate( "typeref", args );  // end type
                                                             }
-                                   expression?
+                                   (expression
+                                                            {
+                                                                args[0] = $ATTRIBUTE_DEFINITION.text;
+                                                                populate( "expression", args );
+                                                                populate( "expression", args ); // end expression
+                                                            }
+                                   )?
                                    pragmaList[""]
                                  )                          
                                                             {
@@ -828,7 +832,6 @@ identifierDefinition
 
                               : ^( IDENTIFIER
                                                             {
-                                                                args[0] = "this_is_an_identifier";  // TODO figure out what to do with this
                                                                 populate( "identifier", args );
                                                             }
                                    ( attributeName          
