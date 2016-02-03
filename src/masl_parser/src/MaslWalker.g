@@ -579,20 +579,14 @@ terminatorServiceDeclaration//[DomainTerminator terminator]
                                                             {
                                                                   args[0] = $serviceVisibility.visibility;
                                                                   args[1] = $serviceName.name;
-                                                                  if ( $TERMINATOR_SERVICE_DECLARATION.text.equals("service") )
-                                                                      populate( "service", args );
-                                                                  else
-                                                                      populate( "function", args );
+                                                                  populate( "routine", args );
                                                             }
                                    parameterList
                                    returnType?
                                    pragmaList[""]
                                  )
                                                             {
-                                                                  if ( $TERMINATOR_SERVICE_DECLARATION.text.equals("service") )
-                                                                      populate( "service", args );      // end service
-                                                                  else
-                                                                      populate( "function", args );     // end function
+                                                                  populate( "routine", args );      // end operation
                                                             }
                                                             
                               ;
@@ -604,20 +598,14 @@ projectTerminatorServiceDeclaration//[ProjectTerminator terminator]
                                                             {
                                                                   args[0] = $serviceVisibility.visibility;
                                                                   args[1] = $serviceName.name;
-                                                                  if ( $TERMINATOR_SERVICE_DECLARATION.text.equals("service") )
-                                                                      populate( "service", args );
-                                                                  else
-                                                                      populate( "function", args );
+                                                                  populate( "routine", args );
                                                             }
                                    parameterList
                                    (returnType)?
                                    pragmaList[""]
                                  )
                                                             {
-                                                                  if ( $TERMINATOR_SERVICE_DECLARATION.text.equals("service") )
-                                                                      populate( "service", args );      // end service
-                                                                  else
-                                                                      populate( "function", args );     // end function
+                                                                  populate( "routine", args );      // end operation
                                                             }
                                                             
                               ;
@@ -807,20 +795,14 @@ objectServiceDeclaration
                                                                       args[2] = $INSTANCE.text;
                                                                   if ( $relationshipReference.ref != null )
                                                                       args[3] = $relationshipReference.ref.get(0) + "::" + $relationshipReference.ref.get(1);
-                                                                  if ( $OBJECT_SERVICE_DECLARATION.text.equals("service") )
-                                                                      populate( "service", args );
-                                                                  else
-                                                                      populate( "function", args );
+                                                                  populate( "operation", args );
                                                             }
                                    parameterList
                                    returnType?
                                    pragmaList[""]
                                  )                          
                                                             {
-                                                                  if ( $OBJECT_SERVICE_DECLARATION.text.equals("service") )
-                                                                      populate( "service", args );      // end service
-                                                                  else
-                                                                      populate( "function", args );     // end function
+                                                                  populate( "operation", args );      // end operation
                                                             }
                               ;
 
@@ -1009,20 +991,14 @@ domainServiceDeclaration
                                                             {
                                                                   args[0] = $serviceVisibility.visibility;
                                                                   args[1] = $serviceName.name;
-                                                                  if ( $DOMAIN_SERVICE_DECLARATION.text.equals("service") )
-                                                                      populate( "service", args );
-                                                                  else
-                                                                      populate( "function", args );
+                                                                  populate( "routine", args );
                                                             }
                                    parameterList
                                    returnType?
                                    pragmaList[""]
                                  )
                                                             {
-                                                                  if ( $DOMAIN_SERVICE_DECLARATION.text.equals("service") )
-                                                                      populate( "service", args );      // end service
-                                                                  else
-                                                                      populate( "function", args );     // end function
+                                                                  populate( "routine", args );      // end operation
                                                             }
                                                             
                               ;
@@ -1326,10 +1302,7 @@ domainServiceDefinition//[DomainService service]
                                                             {
                                                                   args[0] = $serviceVisibility.visibility;
                                                                   args[1] = $serviceName.name;
-                                                                  if ( $DOMAIN_SERVICE_DEFINITION.text.equals("service") )
-                                                                      populate( "service", args );
-                                                                  else
-                                                                      populate( "function", args );
+                                                                  populate( "routine", args );
                                                             }
                                    parameterList
                                    returnType?
@@ -1342,10 +1315,7 @@ domainServiceDefinition//[DomainService service]
                                    pragmaList[""]                  
                                  )                                                   
                                                             {
-                                                                  if ( $DOMAIN_SERVICE_DEFINITION.text.equals("service") )
-                                                                      populate( "service", args );      // end service
-                                                                  else
-                                                                      populate( "function", args );     // end function
+                                                                populate( "routine", args );      // end operation
                                                             }
                                                             
                               ;
@@ -1363,10 +1333,7 @@ terminatorServiceDefinition//[DomainTerminatorService service]
                                                             {
                                                                   args[0] = $serviceVisibility.visibility;
                                                                   args[1] = $serviceName.name;
-                                                                  if ( $TERMINATOR_SERVICE_DEFINITION.text.equals("service") )
-                                                                      populate( "service", args );
-                                                                  else
-                                                                      populate( "function", args );
+                                                                  populate( "routine", args );
                                                             }
                                    parameterList
                                                             {
@@ -1379,10 +1346,7 @@ terminatorServiceDefinition//[DomainTerminatorService service]
                                    pragmaList[""]                  
                                  )                                                   
                                                             {
-                                                                  if ( $TERMINATOR_SERVICE_DEFINITION.text.equals("service") )
-                                                                      populate( "service", args );      // end service
-                                                                  else
-                                                                      populate( "function", args );     // end function
+                                                                populate( "routine", args );      // end operation
                                                             }
                                                             
                               ;
@@ -1398,10 +1362,7 @@ projectTerminatorServiceDefinition//[ProjectTerminatorService service]
                                                             {
                                                                   args[0] = $serviceVisibility.visibility;
                                                                   args[1] = $serviceName.name;
-                                                                  if ( $TERMINATOR_SERVICE_DEFINITION.text.equals("service") )
-                                                                      populate( "service", args );
-                                                                  else
-                                                                      populate( "function", args );
+                                                                  populate( "routine", args );
                                                             }
                                    parameterList
                                    returnType?
@@ -1414,10 +1375,7 @@ projectTerminatorServiceDefinition//[ProjectTerminatorService service]
                                    pragmaList[""]                  
                                  )                                                   
                                                             {
-                                                                  if ( $TERMINATOR_SERVICE_DEFINITION.text.equals("service") )
-                                                                      populate( "service", args );      // end service
-                                                                  else
-                                                                      populate( "function", args );     // end function
+                                                                populate( "routine", args );      // end operation
                                                             }
                                                             
                               ;
@@ -1438,10 +1396,7 @@ objectServiceDefinition//[ObjectService service]
                                                                   args[1] = $serviceName.name;
                                                                   if ( $INSTANCE != null )
                                                                       args[2] = $INSTANCE.text;
-                                                                  if ( $OBJECT_SERVICE_DEFINITION.text.equals("service") )
-                                                                      populate( "service", args );
-                                                                  else
-                                                                      populate( "function", args );
+                                                                  populate( "operation", args );
                                                             }
                                    parameterList
                                    returnType?
@@ -1454,10 +1409,7 @@ objectServiceDefinition//[ObjectService service]
                                    pragmaList[""]                           
                                  )                          
                                                             {
-                                                                  if ( $OBJECT_SERVICE_DEFINITION.text.equals("service") )
-                                                                      populate( "service", args );      // end service
-                                                                  else
-                                                                      populate( "function", args );     // end function
+                                                                populate( "operation", args );      // end operation
                                                             }
                               ;
 
