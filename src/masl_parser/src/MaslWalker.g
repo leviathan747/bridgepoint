@@ -580,8 +580,8 @@ terminatorServiceDeclaration//[DomainTerminator terminator]
                                    serviceVisibility
                                    serviceName
                                                             {
-                                                                  args[0] = $serviceVisibility.visibility;
-                                                                  args[1] = $serviceName.name;
+                                                                  args[2] = $serviceVisibility.visibility;
+                                                                  args[3] = $serviceName.name;
                                                                   populate( "routine", args );
                                                             }
                                    parameterList
@@ -599,8 +599,8 @@ projectTerminatorServiceDeclaration//[ProjectTerminator terminator]
                                    serviceVisibility
                                    serviceName              
                                                             {
-                                                                  args[0] = $serviceVisibility.visibility;
-                                                                  args[1] = $serviceName.name;
+                                                                  args[2] = $serviceVisibility.visibility;
+                                                                  args[3] = $serviceName.name;
                                                                   populate( "routine", args );
                                                             }
                                    parameterList
@@ -643,9 +643,20 @@ returns [String[\] ref]
                               ;
 
 fullObjectReference
+returns [String[\] ref]
 //returns [ObjectNameExpression ref]
+@init
+{
+    String[] r = new String[2];
+    for ( int i = 0; i < r.length; i++ ) r[i] = "";
+}
                               : domainReference
                                 objectName                  
+                                                            { 
+                                                                r[0] = $domainReference.ref;
+                                                                r[1] = $objectName.name;
+                                                                $ref = r;
+                                                            }
                               ;
 
 
@@ -800,12 +811,12 @@ objectServiceDeclaration
                                      relationshipReference?)?
                                    serviceName
                                                             {
-                                                                  args[0] = $serviceVisibility.visibility;
-                                                                  args[1] = $serviceName.name;
+                                                                  args[2] = $serviceVisibility.visibility;
+                                                                  args[3] = $serviceName.name;
                                                                   if ( $INSTANCE != null )
-                                                                      args[2] = $INSTANCE.text;
+                                                                      args[4] = $INSTANCE.text;
                                                                   if ( $relationshipReference.ref != null )
-                                                                      args[3] = $relationshipReference.ref.get(1);
+                                                                      args[5] = $relationshipReference.ref.get(1);
                                                                   populate( "operation", args );
                                                             }
                                    parameterList
@@ -875,8 +886,8 @@ stateDeclaration
                                    stateName                
                                    stateType               
                                                             {
-                                                                args[0] = $stateName.name;
-                                                                args[1] = $stateType.type;
+                                                                args[2] = $stateName.name;
+                                                                args[3] = $stateType.type;
                                                                 populate( "state", args );
                                                             }
                                    parameterList
@@ -1006,8 +1017,8 @@ domainServiceDeclaration
                                    serviceVisibility
                                    serviceName
                                                             {
-                                                                  args[0] = $serviceVisibility.visibility;
-                                                                  args[1] = $serviceName.name;
+                                                                  args[2] = $serviceVisibility.visibility;
+                                                                  args[3] = $serviceName.name;
                                                                   populate( "routine", args );
                                                             }
                                    parameterList
@@ -1323,8 +1334,9 @@ domainServiceDefinition//[DomainService service]
                                    domainReference
                                    serviceName
                                                             {
-                                                                  args[0] = $serviceVisibility.visibility;
-                                                                  args[1] = $serviceName.name;
+                                                                  args[0] = $domainReference.ref;
+                                                                  args[2] = $serviceVisibility.visibility;
+                                                                  args[3] = $serviceName.name;
                                                                   populate( "routine", args );
                                                             }
                                    parameterList
@@ -1353,8 +1365,10 @@ terminatorServiceDefinition//[DomainTerminatorService service]
                                    terminatorName
                                    serviceName
                                                             {
-                                                                  args[0] = $serviceVisibility.visibility;
-                                                                  args[1] = $serviceName.name;
+                                                                  args[0] = $domainReference.ref;
+                                                                  args[1] = $terminatorName.name;
+                                                                  args[2] = $serviceVisibility.visibility;
+                                                                  args[3] = $serviceName.name;
                                                                   populate( "routine", args );
                                                             }
                                    parameterList
@@ -1381,8 +1395,10 @@ projectTerminatorServiceDefinition//[ProjectTerminatorService service]
                                    terminatorName
                                    serviceName
                                                             {
-                                                                  args[0] = $serviceVisibility.visibility;
-                                                                  args[1] = $serviceName.name;
+                                                                  args[0] = $domainReference.ref;
+                                                                  args[1] = $terminatorName.name;
+                                                                  args[2] = $serviceVisibility.visibility;
+                                                                  args[3] = $serviceName.name;
                                                                   populate( "routine", args );
                                                             }
                                    parameterList
@@ -1412,10 +1428,12 @@ objectServiceDefinition//[ObjectService service]
                                    fullObjectReference
                                    serviceName
                                                             {
-                                                                  args[0] = $serviceVisibility.visibility;
-                                                                  args[1] = $serviceName.name;
+                                                                  args[0] = $fullObjectReference.ref[0];
+                                                                  args[1] = $fullObjectReference.ref[1];
+                                                                  args[2] = $serviceVisibility.visibility;
+                                                                  args[3] = $serviceName.name;
                                                                   if ( $INSTANCE != null )
-                                                                      args[2] = $INSTANCE.text;
+                                                                      args[4] = $INSTANCE.text;
                                                                   populate( "operation", args );
                                                             }
                                    parameterList
@@ -1442,8 +1460,10 @@ stateDefinition//[State stateDef]
                                    fullObjectReference
                                    stateName
                                                             {
-                                                                args[0] = $stateName.name;
-                                                                args[1] = $stateType.type;
+                                                                args[0] = $fullObjectReference.ref[0];
+                                                                args[1] = $fullObjectReference.ref[1];
+                                                                args[2] = $stateName.name;
+                                                                args[3] = $stateType.type;
                                                                 populate( "state", args );
                                                             }
                                    parameterList
