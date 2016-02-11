@@ -2,8 +2,8 @@
 public class Main {
     public static void main(String args[]) throws Exception {
 
-        Population          population = new MaslDSLExporter();             // create new population interface
-        MaslImportParser    parser = new MaslImportParser( population );    // create new parser
+        Serial              serial = new MaslDSLExporter();             // create new serial interface
+        MaslImportParser    parser = new MaslImportParser( serial );    // create new parser
 
         // check input args
         if ( args.length < 1 ) {

@@ -5,15 +5,15 @@ import org.antlr.runtime.tree.*;
 public class MaslImportParser {
 
     // private fields
-    private Population  population;         // external interface
+    private Serial  serial;         // external interface
     private String      current_file;       // current file parsing
 
     // public constructor
-    public MaslImportParser( Population population ) {
-        if ( population != null )
-            this.population = population;
+    public MaslImportParser( Serial serial ) {
+        if ( serial != null )
+            this.serial = serial;
         else
-            this.population = null;
+            this.serial = null;
 
         current_file = null;
     }
@@ -64,7 +64,7 @@ public class MaslImportParser {
 
         nodes = new CommonTreeNodeStream(tree);
         walker = new MaslWalker( nodes );
-        walker.setPopulation( population );
+        walker.setInterface( serial );
         walker.setMaslParser( this );
 
         // Walk the chosen rule

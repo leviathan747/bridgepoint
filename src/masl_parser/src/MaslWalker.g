@@ -33,7 +33,7 @@ import java.util.HashMap;
 @members
 {
 // external interface
-private Population population = null;
+private Serial serial = null;
 
 // parent masl parser
 private MaslImportParser masl_parser = null;
@@ -41,12 +41,12 @@ private MaslImportParser masl_parser = null;
 // argument array to pass to interface
 private String[] args = new String[8];
 
-// set the population interface
-public void setPopulation ( Population population ) {
-    if ( population != null )
-        this.population = population;
+// set the serial interface
+public void setInterface ( Serial serial ) {
+    if ( serial != null )
+        this.serial = serial;
     else
-        this.population = null;
+        this.serial = null;
 
     // fill args initially with empty strings
     for ( int i = 0; i < args.length; i++ ) args[i] = "";
@@ -67,13 +67,13 @@ private void populate( String classname, String[] args ) {
         System.err.println( "Invalid arguments." );
         return;
     }
-    if ( population == null ) {
+    if ( serial == null ) {
         System.err.println( "No external interface set." );
         return;
     }
 
     // call the interface
-    population.populate( classname, args );
+    serial.populate( classname, args );
 
     // fill args with empty strings
     for ( int i = 0; i < args.length; i++ ) args[i] = "";

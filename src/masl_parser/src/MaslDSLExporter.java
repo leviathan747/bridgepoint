@@ -1,30 +1,23 @@
-
-public class MaslDSLExporter implements Population {
+public class MaslDSLExporter implements Serial {
 
     // populate
-    public void populate( String classname, String[] args ) {
+    public void populate( String classname, String[] value ) {
         // check args
-        if ( classname == null || classname.equals("") || args == null )
+        if ( classname == null || classname.equals("") || value == null )
             return;
 
         // print the classname
         System.out.print( classname );
 
         // if there are args
-        if ( args.length > 0 && args[0] != null ) {
-
-            System.out.print( "," );
+        if ( value.length > 0 && value[0] != null ) {
 
             // print all args
-            for ( int i = 0; i < args.length; i++ ) {
-                // print arg
-                System.out.print( args[i] );
+            for ( String arg : value ) {
+                System.out.print( "," );
 
-                // print comma if not the last arg
-                if ( i < (args.length - 1) ) {
-                    if ( args[i+1] == null ) break;
-                    System.out.print( "," );
-                }
+                // print arg
+                System.out.print( arg );
             }
         }
 
@@ -32,5 +25,13 @@ public class MaslDSLExporter implements Population {
         System.out.println();
     }
 
-}
+    // render
+    public void render( String element, String name ) {}
 
+    // tostring
+    public void tostring( String element, String name ) {}
+
+    // validate
+    public void validate( String element ) {}
+
+}
