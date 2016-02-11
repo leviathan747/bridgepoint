@@ -278,6 +278,7 @@ typeDeclaration
                                                               {
                                                                   args[0] = $typeName.name;
                                                                   args[1] = $typeVisibility.visibility;
+                                                                  args[2] = "blah";
                                                                   populate( "type", args );
                                                               }
                                    pragmaList[""]				
@@ -417,7 +418,7 @@ unconstrainedArrayDefinition
 typeReference
 returns [String type]
 //returns [BasicType type]
-                              : namedTypeRef                { $type = $namedTypeRef.type; }
+                              : namedTypeRef                { $type = $namedTypeRef.type[2]; }
                               | constrainedArrayTypeRef     { $type = "levi"; }//$constrainedArrayTypeRef.type }
                               | instanceTypeRef             { $type = "levi"; }//$instanceTypeRef.type }
                               | sequenceTypeRef             { $type = "levi"; }//$sequenceTypeRef.type }
@@ -436,20 +437,22 @@ instanceTypeRef
                               ;
 
 namedTypeRef
-returns [String type]
+returns [String[\] type]
 //returns [BasicType type]
+@init
+{
+    String[] t = new String[3];
+    for ( int i = 0; i < t.length; i++ ) t[i] = "";
+}
                               : ^( NAMED_TYPE
                                    optionalDomainReference
                                    typeName
                                    ANONYMOUS?
                                  )                          
                                                             { 
-                                                                String t = "";
-                                                                if ( $ANONYMOUS != null )
-                                                                    t += ( $ANONYMOUS + " " );
-                                                                if ( $optionalDomainReference.ref != "" )
-                                                                    t += ( $optionalDomainReference.ref + "::" );
-                                                                t += $typeName.name;
+                                                                t[0] = $ANONYMOUS.text;
+                                                                t[1] = $optionalDomainReference.ref;
+                                                                t[2] = $typeName.name;
                                                                 $type = t;
                                                             }
                               ;
@@ -623,15 +626,18 @@ returns [String name]
 
 
 objectReference
-returns [String ref]
+returns [String[\] ref]
 //returns [ObjectNameExpression ref]
+@init
+{
+    String[] r = new String[2];
+    for ( int i = 0; i < r.length; i++ ) r[i] = "";
+}
                               : optionalDomainReference
                                 objectName                  
                                                             { 
-                                                                String r = "";
-                                                                if ( $optionalDomainReference.ref != "" )
-                                                                    r += ( $optionalDomainReference.ref + "::" );
-                                                                r += $objectName.name;
+                                                                r[0] = $optionalDomainReference.ref;
+                                                                r[1] = $objectName.name;
                                                                 $ref = r;
                                                             }
                               ;
@@ -644,10 +650,14 @@ fullObjectReference
 
 
 optionalObjectReference
-returns [String ref]
+returns [String[\] ref]
 //returns [ObjectNameExpression ref]
                               : objectReference             { $ref = $objectReference.ref; }
-                              | /* blank */                 { $ref = ""; }
+                              | /* blank */                 { 
+                                                                String[] r = new String[2];
+                                                                for ( int i = 0; i < r.length; i++ ) r[i] = "";
+                                                                $ref = r;
+                                                            }
                               ;
 attributeName
 returns [String name]
@@ -751,7 +761,7 @@ returns [String[\] spec]
 //returns [RelationshipSpecification.Reference rel]
 @init
 {
-    String[] s = new String[4];
+    String[] s = new String[5];
     for ( int i = 0; i < s.length; i++ ) s[i] = "";
 }
                               : ^( RELATIONSHIP_SPEC
@@ -766,7 +776,8 @@ returns [String[\] spec]
                                                             }
                                    ( objectReference
                                                             {
-                                                                s[3] = $objectReference.ref;
+                                                                s[3] = $objectReference.ref[0];
+                                                                s[4] = $objectReference.ref[1];
                                                             }
                                    )? 
                                    )?
@@ -794,7 +805,7 @@ objectServiceDeclaration
                                                                   if ( $INSTANCE != null )
                                                                       args[2] = $INSTANCE.text;
                                                                   if ( $relationshipReference.ref != null )
-                                                                      args[3] = $relationshipReference.ref.get(0) + "::" + $relationshipReference.ref.get(1);
+                                                                      args[3] = $relationshipReference.ref.get(1);
                                                                   populate( "operation", args );
                                                             }
                                    parameterList
@@ -937,14 +948,16 @@ transitionOption[String startState]
                                  )                          
                                                             {
                                                                 args[0] = startState;
-                                                                args[1] = $incomingEvent.ref;
-                                                                args[2] = $endState.name;
+                                                                args[1] = $incomingEvent.ref[0];
+                                                                args[2] = $incomingEvent.ref[1];
+                                                                args[3] = $incomingEvent.ref[2];
+                                                                args[4] = $endState.name;
                                                                 populate( "transition", args );
                                                             }
                               ;
 
 incomingEvent
-returns [String ref]
+returns [String[\] ref]
 //returns [EventExpression ref]
                               : ^( EVENT
                                    eventReference           { $ref = $eventReference.ref; }
@@ -966,15 +979,19 @@ returns [String name]
                               ;
 
 eventReference
-returns [String ref]
+returns [String[\] ref]
 //returns [EventExpression ref]
+@init
+{
+    String[] r = new String[3];
+    for ( int i = 0; i < r.length; i++ ) r[i] = "";
+}
                               : optionalObjectReference
                                 eventName                   
                                                             { 
-                                                                String r = "";
-                                                                if ( $optionalObjectReference.ref != "" )
-                                                                    r += ( $optionalObjectReference.ref + "::" );
-                                                                r += $eventName.name;
+                                                                r[0] = $optionalObjectReference.ref[0];
+                                                                r[1] = $optionalObjectReference.ref[1];
+                                                                r[2] = $eventName.name;
                                                                 $ref = r;
                                                             }
                               ;
@@ -1132,7 +1149,8 @@ assocRelationshipDefinition
 
                                                                 // update with the associative object
                                                                 args[0] = $relationshipName.name;
-                                                                args[1] = $assocObj.ref;
+                                                                args[1] = $assocObj.ref[0];
+                                                                args[2] = $assocObj.ref[1];
                                                                 populate( "associative", args );
                                                             }
                                    pragmaList[""]
@@ -1154,11 +1172,13 @@ halfRelationshipDefinition
                                  )                          
                                                             { 
                                                                 // populate a side of participation
-                                                                args[0] = $from.ref;
-                                                                args[1] = $rolePhrase.role;
-                                                                args[2] = $conditionality.cond;
-                                                                args[3] = $multiplicity.mult;
-                                                                args[4] = $to.ref;
+                                                                args[0] = $from.ref[0];
+                                                                args[1] = $from.ref[1];
+                                                                args[2] = $rolePhrase.role;
+                                                                args[3] = $conditionality.cond;
+                                                                args[4] = $multiplicity.mult;
+                                                                args[5] = $to.ref[0];
+                                                                args[6] = $to.ref[1];
                                                                 populate( "participation", args );
                                                             }
                               ;
@@ -1175,13 +1195,16 @@ subtypeRelationshipDefinition
                                                             }
                                    supertype=objectReference
                                                             {
-                                                                args[0] = $supertype.ref;
+                                                                args[0] = $supertype.ref[0];
+                                                                args[1] = $supertype.ref[1];
                                                                 populate( "participation", args );
                                                             }
                                    (subtype=objectReference   
                                                             {
-                                                                args[0] = $subtype.ref;
-                                                                args[4] = $supertype.ref;
+                                                                args[0] = $subtype.ref[0];
+                                                                args[1] = $subtype.ref[1];
+                                                                args[5] = $supertype.ref[0];
+                                                                args[6] = $supertype.ref[1];
                                                                 populate( "participation", args );
                                                             }
                                    )+
@@ -1310,7 +1333,6 @@ domainServiceDefinition//[DomainService service]
                                                             {
                                                                 args[0] = getFile();
                                                                 populate( "codeblock", args );
-                                                                populate( "codeblock", args );  // end codeblock
                                                             }
                                    pragmaList[""]                  
                                  )                                                   
@@ -1339,7 +1361,6 @@ terminatorServiceDefinition//[DomainTerminatorService service]
                                                             {
                                                                 args[0] = getFile();
                                                                 populate( "codeblock", args );
-                                                                populate( "codeblock", args );  // end codeblock
                                                             }
                                    returnType?
                                    codeBlock
@@ -1370,7 +1391,6 @@ projectTerminatorServiceDefinition//[ProjectTerminatorService service]
                                                             {
                                                                 args[0] = getFile();
                                                                 populate( "codeblock", args );
-                                                                populate( "codeblock", args );  // end codeblock
                                                             }
                                    pragmaList[""]                  
                                  )                                                   
@@ -1404,7 +1424,6 @@ objectServiceDefinition//[ObjectService service]
                                                             {
                                                                 args[0] = getFile();
                                                                 populate( "codeblock", args );
-                                                                populate( "codeblock", args );  // end codeblock
                                                             }
                                    pragmaList[""]                           
                                  )                          
@@ -1432,7 +1451,6 @@ stateDefinition//[State stateDef]
                                                             {
                                                                 args[0] = getFile();
                                                                 populate( "codeblock", args );
-                                                                populate( "codeblock", args );  // end codeblock
                                                             }
                                    pragmaList[""]                
                                  )                          
