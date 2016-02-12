@@ -5,8 +5,8 @@ import org.antlr.runtime.tree.*;
 public class MaslImportParser {
 
     // private fields
-    private Serial  serial;         // external interface
-    private String      current_file;       // current file parsing
+    private Serial          serial;             // external interface
+    private String          current_file;       // current file parsing
 
     // public constructor
     public MaslImportParser( Serial serial ) {
@@ -16,6 +16,13 @@ public class MaslImportParser {
             this.serial = null;
 
         current_file = null;
+    }
+
+    // set output stream
+    public void setOutput( PrintStream out ) {
+        if ( null != out && null != serial ) {
+            serial.setOutput( out );
+        }
     }
 
     // public getter for current_file
@@ -77,6 +84,14 @@ public class MaslImportParser {
                     return;
                 }
                 break;
+            case "activityDefinition":
+                try {
+                    walker.activityDefinition();
+                } catch ( RecognitionException e ) {
+                    System.err.println( e );
+                    return;
+                }
+                break;
             case "objectServiceDefinition":
                 try {
                     walker.objectServiceDefinition();
@@ -118,12 +133,32 @@ public class MaslImportParser {
                 }
                 break;
             default:
-                System.err.println( "Unrecognized rule." );
+                System.err.println( "-parse: ERROR unrecognized rule." );
                 break;
         }
 
         current_file = null;
 
+    }
+
+    // main method
+    public static void main(String args[]) throws Exception {
+
+        Serial              serial = new MaslDSLExporter();             // create new serial interface
+        MaslImportParser    parser = new MaslImportParser( serial );    // create new parser
+
+        // check input args
+        if ( args.length < 1 ) {
+            System.out.println( "No MASL file provided." );
+        }
+
+        // parse all MASL files
+        //parser.parseAll( args );
+
+        if ( args.length < 2 )
+            parser.parse( "target", args[0] );
+        else
+            parser.parse( args[0], args[1] );
     }
 }
 

@@ -1324,6 +1324,14 @@ returns [ String name ]
 // Dynamic Behaviour
 //---------------------------------------------------------
 
+/*  This rule has been added to allow to parse any activity action body file
+    without knowledge of what type of activity it contained - LPS */
+
+activityDefinition            : domainServiceDefinition
+                              | terminatorServiceDefinition
+                              | objectServiceDefinition
+                              | stateDefinition
+                              ;
 
 
 domainServiceDefinition//[DomainService service]

@@ -1,4 +1,20 @@
+import java.io.*;
+
 public class MaslDSLExporter implements Serial {
+
+    private PrintStream     output;             // output stream
+
+    // public constructor
+    public MaslDSLExporter() {
+        output = System.out;
+    }
+
+    // set output stream
+    public void setOutput( PrintStream out ) {
+        if ( null != out ) {
+            output = out;
+        }
+    }
 
     // populate
     public void populate( String classname, String[] value ) {
@@ -7,22 +23,22 @@ public class MaslDSLExporter implements Serial {
             return;
 
         // print the classname
-        System.out.print( classname );
+        output.print( classname );
 
         // if there are args
         if ( value.length > 0 && value[0] != null ) {
 
             // print all args
             for ( String arg : value ) {
-                System.out.print( "," );
+                output.print( "," );
 
                 // print arg
-                System.out.print( arg );
+                output.print( arg );
             }
         }
 
         // print newline
-        System.out.println();
+        output.println();
     }
 
     // render
