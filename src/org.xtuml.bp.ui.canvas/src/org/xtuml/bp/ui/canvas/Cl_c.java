@@ -98,6 +98,7 @@ import org.xtuml.bp.core.UseCaseParticipant_c;
 import org.xtuml.bp.core.UserDataType_c;
 import org.xtuml.bp.core.User_c;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
+import org.xtuml.bp.core.common.ILogger;
 import org.xtuml.bp.core.common.IdAssigner;
 import org.xtuml.bp.core.common.ModelRoot;
 import org.xtuml.bp.core.common.NonRootModelElement;
@@ -275,6 +276,15 @@ public class Cl_c {
     	
     	return uuid_invoke(From, Using, argTypes, args);
     }
+    
+	public static UUID Getthetargetconnectorid(final UUID Ooa_id, final int Ooa_type, final Object system) {
+		UUID id = null;
+		Object connector = Getinstancefromooa_id(Ooa_id, Ooa_type, system);
+		Class[] argTypes = new Class[0];
+		Object[] args = new Object[0];
+		return uuid_invoke(connector, "Getconnectedid", argTypes, args);
+	}
+
     public static UUID Getelementid(final Object From, int index, final String Using) {
         Class[] argTypes = new Class[1];
         argTypes[0] = int.class;
@@ -283,6 +293,7 @@ public class Cl_c {
     	
     	return uuid_invoke(From, Using, argTypes, args);
 }
+    
     public static int Numconnectors(boolean elementTypesMatch,
     		                            final Object From, final String Using) {
         Class[] argTypes = new Class[1];
@@ -1644,29 +1655,47 @@ private static String s_invoke(
 		      
 }
 
-private static String[] errorReportingIgnoredFor = new String[] { "Getdescription", "getDescrip", "not used", "Get_connector_tooltip"};
-public static Method findMethod (Object target, String methodName, Class[] argTypes)
-  {
-    try {
-        return
-            target.getClass().getMethod(methodName, argTypes);
-    } catch (NoSuchMethodException e) {
-    	 boolean shouldIgnore = false;
-    	 for(int i = 0; i < errorReportingIgnoredFor.length; i++)
-    		 if(errorReportingIgnoredFor[i].equals(methodName)) {
-    			 shouldIgnore = true;
-    	 		 break;
-    		 }
-    	if(shouldIgnore)
-    		return null;
-        CanvasPlugin.logError(
-            "Client method, " + methodName + " not found: ", e);
-    }  	
-    return null;
-  }
-private static boolean hasMethod (Object target, String methodName, Class[] argTypes)
+	private static final String NOT_USED="";
+	private static String[] errorReportingIgnoredFor = new String[] { "Getdescription", "getDescrip", NOT_USED, "Get_connector_tooltip"};
+
+	public static Method findMethod(Object target, String methodName, Class[] argTypes) {
+		Method result = null;
+		try {
+
+			if (!NOT_USED.equalsIgnoreCase(methodName)) {
+				result = target.getClass().getMethod(methodName, argTypes);
+			}
+		} catch (NoSuchMethodException e) {
+			boolean shouldIgnore = false;
+			for (int i = 0; i < errorReportingIgnoredFor.length; i++) {
+				if (errorReportingIgnoredFor[i].equals(methodName)) {
+					shouldIgnore = true;
+					break;
+				}
+			}
+			
+			if (!shouldIgnore) {
+				String targetname = target.getClass().getName();
+				String argumentTypes = "";
+				for (int i = 0; (argTypes != null) && (i < argTypes.length); i++) {
+					if (i > 0) {
+						argumentTypes += ", ";
+					}
+					argumentTypes += argTypes[i].getSimpleName();
+				}
+				CanvasPlugin.logError("Client method not found. Target: " + targetname + "  OperationName: " + methodName + "  Argument(s): \"" + argumentTypes + "\"", e);
+			}
+		}
+		return result;
+	}
+
+	private static boolean hasMethod (Object target, String methodName, Class[] argTypes)
 {
-	return CoreUtil.hasMethod(target, methodName, argTypes);
+	boolean result = false;
+	if (!NOT_USED.equalsIgnoreCase(methodName)) {
+		result = CoreUtil.hasMethod(target, methodName, argTypes);
+	}
+	return result;
 }
 public static Object doMethod (Method m, Object target, Object[] args)
   {
@@ -1920,6 +1949,14 @@ public static void Settoolbarstate(boolean readonly) {
 		CanvasPlugin.logError(message, null);
 	}
 		
+	public static void Logtracemsg(int Filteryype, String Filtervalue, String Message) {
+		CanvasPlugin.logTraceMsg(Filteryype, Filtervalue, Message);
+	}
+		
+	public static void Traceoperation(String msg) {
+		Cl_c.Logtracemsg(ILogger.OPERATION, "", msg);		
+	}
+	
 	public static boolean Connectorsupportslinking(Object connector) {
 		return hasMethod(connector, "Linkconnector", new Class[] {UUID.class}); //$NON-NLS-1$
 	}
@@ -1931,4 +1968,5 @@ public static void Settoolbarstate(boolean readonly) {
         args[0] = new Integer(end);
         return s_invoke(represents, "Get_connector_tooltip", argTypes, args);
 	}
+
 }// End Cl_c
