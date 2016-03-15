@@ -241,7 +241,8 @@ public class ModelImportWizard extends Wizard implements IImportWizard {
 					iss.run(new NullProgressMonitor());
 				} else {
 					dialog.run(true, false, iss);
-                    fImporter.loadMASLActivities(sourceFileDirectory);
+                                        ImportHelper helper = new ImportHelper((CoreImport)fImporter);
+                                        helper.loadMASLActivities((Ooaofooa)fImporter.getRootModelElement().getModelRoot(), sourceFileDirectory);
 				}
 			} catch (InterruptedException e) {
 				org.xtuml.bp.io.core.CorePlugin.logError(
