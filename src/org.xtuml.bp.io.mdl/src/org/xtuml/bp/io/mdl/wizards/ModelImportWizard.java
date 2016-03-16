@@ -218,7 +218,6 @@ public class ModelImportWizard extends Wizard implements IImportWizard {
 				String rootId = Ooaofooa.createModelRootId((IProject) fSystem
 						.getAdapter(IProject.class), domainName, true);
 				Ooaofooa domainRoot = Ooaofooa.getInstance(rootId);
-                                IPath sourceFileDirectory = templatePath.removeLastSegments(1);
 				fImporter = CorePlugin.getModelImportFactory().create(inStream,
 						domainRoot, fSystem, false, true, true, false);
 				if (fImporter.getHeader().getModelComponentType()
@@ -241,8 +240,6 @@ public class ModelImportWizard extends Wizard implements IImportWizard {
 					iss.run(new NullProgressMonitor());
 				} else {
 					dialog.run(true, false, iss);
-                                        ImportHelper helper = new ImportHelper((CoreImport)fImporter);
-                                        helper.loadMASLActivities((Ooaofooa)fImporter.getRootModelElement().getModelRoot(), sourceFileDirectory);
 				}
 			} catch (InterruptedException e) {
 				org.xtuml.bp.io.core.CorePlugin.logError(
@@ -259,6 +256,11 @@ public class ModelImportWizard extends Wizard implements IImportWizard {
 			finally {
 				ModelRoot.enableChangeNotification();
 			}
+
+                        // load the MASL activities
+                        IPath sourceFileDirectory = templatePath.removeLastSegments(1);
+                        ImportHelper helper = new ImportHelper((CoreImport)fImporter);
+                        helper.loadMASLActivities((Ooaofooa)fImporter.getRootModelElement().getModelRoot(), sourceFileDirectory);
 		}
 		return true;
 	}
