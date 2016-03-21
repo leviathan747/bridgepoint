@@ -28,6 +28,8 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -338,7 +340,7 @@ public class ImportHelper
                 // get description field
             	String description = "";
             	try {
-					Method method = el.getClass().getMethod("getDescrip", null);
+					Method method = el.getClass().getMethod("getAction_semantics_internal", null);
 					description = (String)method.invoke((Object)el, null);
             	} catch ( SecurityException e ) {
             		System.out.println(e);
@@ -350,9 +352,30 @@ public class ImportHelper
             		System.out.println(e);
             	}
 
+                // parse codeblock
+                String filename = "";
+                if ( !description.isEmpty() ) {
+                    Matcher m = Pattern.compile( "codeblock:.*" ).matcher( description );
+                    if ( m.find() ) {
+                        filename = m.group().substring(10);
+            	        try {
+                            Method method = el.getClass().getMethod( "setAction_semantics_internal", String.class );
+                            method.invoke((Object)el, m.replaceAll("") );
+                        } catch ( SecurityException e ) {
+                                System.out.println(e);
+                        } catch ( NoSuchMethodException e ) {
+                                System.out.println(e);
+                        } catch ( InvocationTargetException e ) {
+                                System.out.println(e);
+                        } catch (IllegalAccessException e) {
+                                System.out.println(e);
+                        }
+                    }
+                }
+
                 // try to get MASL activity file
-                File mf = new File(srcFileDir.toOSString() + "/" + description);
-                if ( !description.isEmpty() && mf.exists() && mf.isFile() ) {
+                File mf = new File(srcFileDir.toOSString() + "/" + filename);
+                if ( !filename.isEmpty() && mf.exists() && mf.isFile() ) {
 
                     // create file at right location
                     IFile file;
