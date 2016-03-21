@@ -126,6 +126,7 @@ import org.xtuml.bp.core.common.PersistableModelComponent;
 import org.xtuml.bp.core.common.PersistenceManager;
 import org.xtuml.bp.core.inspector.IModelClassInspector;
 import org.xtuml.bp.core.inspector.ModelInspector;
+import org.xtuml.bp.core.ui.actions.GenericPackageAssignComponentOnCL_ICAction;
 import org.xtuml.bp.ui.canvas.AnchorOnSegment_c;
 import org.xtuml.bp.ui.canvas.CanvasTransactionListener;
 import org.xtuml.bp.ui.canvas.Cl_c;
@@ -319,6 +320,73 @@ public class ImportHelper
     protected Ooaofgraphics getGraphicsModelRoot()
     {
         return importer.getGraphicsModelRoot();
+    }
+
+    /**
+     * Resolve the MASL project by searching the workspace for components
+     * of the same name as the unassigned component references and assigning
+     * them.
+     */
+    public void resolveMASLproject() {
+
+        NonRootModelElement[] elements = importer.getLoadedInstances();
+        if ( elements == null ) return;
+
+        for ( NonRootModelElement el : elements ) {
+            // process the unassigned component references
+            if ( el instanceof ComponentReference_c ) {
+                ComponentReference_c cl_ic = (ComponentReference_c)el;
+
+                // get the name of the component we're looking for from the Descrip field
+            	String description = "";
+            	try {
+					Method method = el.getClass().getMethod("getDescrip", null);
+					description = (String)method.invoke((Object)el, null);
+            	} catch ( SecurityException e ) {
+            		System.out.println(e);
+            	} catch ( NoSuchMethodException e ) {
+            		System.out.println(e);
+            	} catch ( InvocationTargetException e ) {
+            		System.out.println(e);
+            	} catch (IllegalAccessException e) {
+            		System.out.println(e);
+            	}
+
+                // parse name
+                String cl_ic_name = "";
+                if ( !description.isEmpty() ) {
+                    Matcher m = Pattern.compile( "name:.*" ).matcher( description );
+                    if ( m.find() ) {
+                        cl_ic_name = m.group().substring(5);
+            	        try {
+                            Method method = el.getClass().getMethod( "setDescrip", String.class );
+                            method.invoke((Object)el, m.replaceAll("") );
+                        } catch ( SecurityException e ) {
+                                System.out.println(e);
+                        } catch ( NoSuchMethodException e ) {
+                                System.out.println(e);
+                        } catch ( InvocationTargetException e ) {
+                                System.out.println(e);
+                        } catch (IllegalAccessException e) {
+                                System.out.println(e);
+                        }
+                    }
+                }
+
+                // get reachable components
+		Component_c[] components = GenericPackageAssignComponentOnCL_ICAction.getElements( cl_ic );
+
+                // match the ComponentReference with the Component
+                for ( Component_c c_c : components ) {
+                    if ( c_c.getName().equals( cl_ic_name ) ) {
+                        // assign the component reference to the component
+                        cl_ic.Assigntocomp( c_c.getId() );
+                        break;
+                    }
+                }
+
+            }
+        }
     }
 
     /**

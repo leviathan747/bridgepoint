@@ -261,6 +261,9 @@ public class ModelImportWizard extends Wizard implements IImportWizard {
                         IPath sourceFileDirectory = templatePath.removeLastSegments(1);
                         ImportHelper helper = new ImportHelper((CoreImport)fImporter);
                         helper.loadMASLActivities((Ooaofooa)fImporter.getRootModelElement().getModelRoot(), sourceFileDirectory);
+
+                        // resolve component references in MASL projects
+                        helper.resolveMASLproject();
 		}
 		return true;
 	}
