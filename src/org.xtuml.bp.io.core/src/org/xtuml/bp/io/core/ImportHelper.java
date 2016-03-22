@@ -405,11 +405,11 @@ public class ImportHelper
             // for each MASL activity object
             if ( MASLEditorInput.isSupported( el ) ) {
 
-                // get description field
-            	String description = "";
+                // get Action_Semantics_internal field
+            	String action_semantics = "";
             	try {
 					Method method = el.getClass().getMethod("getAction_semantics_internal", null);
-					description = (String)method.invoke((Object)el, null);
+					action_semantics = (String)method.invoke((Object)el, null);
             	} catch ( SecurityException e ) {
             		System.out.println(e);
             	} catch ( NoSuchMethodException e ) {
@@ -422,8 +422,8 @@ public class ImportHelper
 
                 // parse codeblock
                 String filename = "";
-                if ( !description.isEmpty() ) {
-                    Matcher m = Pattern.compile( "codeblock:.*" ).matcher( description );
+                if ( !action_semantics.isEmpty() ) {
+                    Matcher m = Pattern.compile( "codeblock:.*" ).matcher( action_semantics );
                     if ( m.find() ) {
                         filename = m.group().substring(10);
             	        try {
@@ -482,6 +482,9 @@ public class ImportHelper
                         }
                     }
 
+                }
+                else {
+                    System.out.println( "Could not find MASL activity file." );
                 }
 
             }
