@@ -127,6 +127,8 @@ import org.xtuml.bp.core.common.PersistenceManager;
 import org.xtuml.bp.core.inspector.IModelClassInspector;
 import org.xtuml.bp.core.inspector.ModelInspector;
 import org.xtuml.bp.core.ui.actions.GenericPackageAssignComponentOnCL_ICAction;
+import org.xtuml.bp.core.ui.actions.GenericPackageFormalizeOnC_PAction;
+import org.xtuml.bp.core.ui.actions.GenericPackageFormalizeOnC_RAction;
 import org.xtuml.bp.ui.canvas.AnchorOnSegment_c;
 import org.xtuml.bp.ui.canvas.CanvasTransactionListener;
 import org.xtuml.bp.ui.canvas.Cl_c;
@@ -385,6 +387,44 @@ public class ImportHelper
                     }
                 }
 
+            }
+            else if ( el instanceof Requirement_c ) {
+                // process the unformalized required interfaces
+                Requirement_c c_r = (Requirement_c)el;
+
+                // get the name of the interface we're looking for from the InformalName field
+                String c_r_name = c_r.getInformalname();
+
+                // get reachable interfaces
+                Interface_c[] interfaces = GenericPackageFormalizeOnC_RAction.getElements( c_r );
+
+                // match the ComponentReference with the Component
+                for ( Interface_c c_i : interfaces ) {
+                    if ( c_i.getName().equals( c_r_name ) ) {
+                        // formalize the requirement
+                        c_r.Formalize(c_i.getId(), true);
+                        break;
+                    }
+                }
+            }
+            else if ( el instanceof Provision_c ) {
+                // process the unformalized provided interfaces
+                Provision_c c_p =  (Provision_c)el;
+
+                // get the name of the interface we're looking for from the InformalName field
+                String c_p_name = c_p.getInformalname();
+
+                // get reachable interfaces
+                Interface_c[] interfaces = GenericPackageFormalizeOnC_PAction.getElements( c_p );
+
+                // match the ComponentReference with the Component
+                for ( Interface_c c_i : interfaces ) {
+                    if ( c_i.getName().equals( c_p_name ) ) {
+                        // formalize the requirement
+                        c_p.Formalize(c_i.getId(), true);
+                        break;
+                    }
+                }
             }
         }
     }
