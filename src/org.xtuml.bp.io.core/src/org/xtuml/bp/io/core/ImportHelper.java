@@ -345,6 +345,9 @@ public class ImportHelper
 
             // process the unassigned component references
             if ( el instanceof ComponentReference_c ) {
+		TransactionUtil.TransactionGroup transactionGroup = TransactionUtil.startTransactionsOnSelectedModelRoots("Resolve Component Reference");
+		Ooaofooa.beginSaveOperation();
+
                 ComponentReference_c cl_ic = (ComponentReference_c)el;
 
                 // get the name of the component we're looking for from the Descrip field
@@ -369,17 +372,19 @@ public class ImportHelper
                 for ( Component_c c_c : components ) {
                     if ( c_c.getName().equals( cl_ic_name ) ) {
                         // assign the component reference to the component
-			TransactionUtil.TransactionGroup transactionGroup = TransactionUtil.startTransactionsOnSelectedModelRoots("Generic Package Assign Component");
-			Ooaofooa.beginSaveOperation();
                         cl_ic.Assigntocomp( c_c.getId() );
-			Ooaofooa.endSaveOperation();
-			TransactionUtil.endTransactions(transactionGroup);
                         break;
                     }
                 }
 
+		Ooaofooa.endSaveOperation();
+		TransactionUtil.endTransactions(transactionGroup);
+
             }
             else if ( el instanceof Requirement_c ) {
+		TransactionUtil.TransactionGroup transactionGroup = TransactionUtil.startTransactionsOnSelectedModelRoots("Resolve Required Interface");
+		Ooaofooa.beginSaveOperation();
+
                 // process the unformalized required interfaces
                 Requirement_c c_r = (Requirement_c)el;
 
@@ -395,11 +400,7 @@ public class ImportHelper
                 for ( Interface_c c_i : interfaces ) {
                     if ( c_i.getName().equals( c_r_name ) ) {
                         // formalize the requirement
-			TransactionUtil.TransactionGroup transactionGroup = TransactionUtil.startTransactionsOnSelectedModelRoots("Generic Package Formalize");
-			Ooaofooa.beginSaveOperation();
                         c_r.Formalize(c_i.getId(), true);
-			Ooaofooa.endSaveOperation();
-			TransactionUtil.endTransactions(transactionGroup);
 
                         // get all the new instances
                         RequiredOperation_c[] spr_ros = RequiredOperation_c.getManySPR_ROsOnR4502( RequiredExecutableProperty_c.getManySPR_REPsOnR4500( c_r ) );
@@ -409,8 +410,14 @@ public class ImportHelper
                         break;
                     }
                 }
+
+		Ooaofooa.endSaveOperation();
+		TransactionUtil.endTransactions(transactionGroup);
             }
             else if ( el instanceof Provision_c ) {
+		TransactionUtil.TransactionGroup transactionGroup = TransactionUtil.startTransactionsOnSelectedModelRoots("Resolve Provided Interface");
+		Ooaofooa.beginSaveOperation();
+
                 // process the unformalized provided interfaces
                 Provision_c c_p =  (Provision_c)el;
 
@@ -426,11 +433,7 @@ public class ImportHelper
                 for ( Interface_c c_i : interfaces ) {
                     if ( c_i.getName().equals( c_p_name ) ) {
                         // formalize the requirement
-			TransactionUtil.TransactionGroup transactionGroup = TransactionUtil.startTransactionsOnSelectedModelRoots("Generic Package Formalize");
-			Ooaofooa.beginSaveOperation();
                         c_p.Formalize(c_i.getId(), true);
-			Ooaofooa.endSaveOperation();
-			TransactionUtil.endTransactions(transactionGroup);
 
                         // get all the new instances
                         ProvidedOperation_c[] spr_pos = ProvidedOperation_c.getManySPR_POsOnR4503( ProvidedExecutableProperty_c.getManySPR_PEPsOnR4501( c_p ) );
@@ -463,7 +466,12 @@ public class ImportHelper
                     }
                     c_p.setDescrip( m.replaceAll("") );
                 }
+
+	        Ooaofooa.endSaveOperation();
+	        TransactionUtil.endTransactions(transactionGroup);
+
             }
+
         }
 
         return els.toArray( new NonRootModelElement[0] );
@@ -483,6 +491,9 @@ public class ImportHelper
 
             // for each MASL activity object
             if ( MASLEditorInput.isSupported( el ) ) {
+
+		TransactionUtil.TransactionGroup transactionGroup = TransactionUtil.startTransactionsOnSelectedModelRoots("Load MASL activity");
+		Ooaofooa.beginSaveOperation();
 
                 // get Action_Semantics_internal field
             	String action_semantics = "";
@@ -562,9 +573,12 @@ public class ImportHelper
                     }
 
                 }
-                else {
+                else if ( !filename.isEmpty() ) {
                     System.out.println( "Could not find MASL activity file. filename: '" + srcFileDir.toOSString() + "/" + filename + "'" );
                 }
+
+	        Ooaofooa.endSaveOperation();
+	        TransactionUtil.endTransactions(transactionGroup);
 
             }
         }
