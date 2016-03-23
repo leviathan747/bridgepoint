@@ -340,19 +340,7 @@ public class ImportHelper
                 ComponentReference_c cl_ic = (ComponentReference_c)el;
 
                 // get the name of the component we're looking for from the Descrip field
-            	String description = "";
-            	try {
-					Method method = el.getClass().getMethod("getDescrip", null);
-					description = (String)method.invoke((Object)el, null);
-            	} catch ( SecurityException e ) {
-            		System.out.println(e);
-            	} catch ( NoSuchMethodException e ) {
-            		System.out.println(e);
-            	} catch ( InvocationTargetException e ) {
-            		System.out.println(e);
-            	} catch (IllegalAccessException e) {
-            		System.out.println(e);
-            	}
+            	String description = cl_ic.getDescrip();
 
                 // parse name
                 String cl_ic_name = "";
@@ -360,18 +348,7 @@ public class ImportHelper
                     Matcher m = Pattern.compile( "name:.*" ).matcher( description );
                     if ( m.find() ) {
                         cl_ic_name = m.group().substring(5);
-            	        try {
-                            Method method = el.getClass().getMethod( "setDescrip", String.class );
-                            method.invoke((Object)el, m.replaceAll("") );
-                        } catch ( SecurityException e ) {
-                                System.out.println(e);
-                        } catch ( NoSuchMethodException e ) {
-                                System.out.println(e);
-                        } catch ( InvocationTargetException e ) {
-                                System.out.println(e);
-                        } catch (IllegalAccessException e) {
-                                System.out.println(e);
-                        }
+            	        cl_ic.setDescrip( m.replaceAll("") );
                     }
                 }
 
