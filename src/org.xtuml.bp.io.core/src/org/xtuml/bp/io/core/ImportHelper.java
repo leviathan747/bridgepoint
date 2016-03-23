@@ -33,6 +33,7 @@ import java.util.regex.Matcher;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -95,7 +96,10 @@ import org.xtuml.bp.core.Parsestatus_c;
 import org.xtuml.bp.core.PortReference_c;
 import org.xtuml.bp.core.Port_c;
 import org.xtuml.bp.core.PropertyParameter_c;
+import org.xtuml.bp.core.ProvidedExecutableProperty_c;
+import org.xtuml.bp.core.ProvidedOperation_c;
 import org.xtuml.bp.core.Provision_c;
+import org.xtuml.bp.core.RequiredExecutableProperty_c;
 import org.xtuml.bp.core.RequiredOperation_c;
 import org.xtuml.bp.core.RequiredSignal_c;
 import org.xtuml.bp.core.Requirement_c;
@@ -329,12 +333,15 @@ public class ImportHelper
      * of the same name as the unassigned component references and assigning
      * them.
      */
-    public void resolveMASLproject() {
+    public NonRootModelElement[] resolveMASLproject( NonRootModelElement[] elements ) {
 
-        NonRootModelElement[] elements = importer.getLoadedInstances();
-        if ( elements == null ) return;
+        LinkedList<NonRootModelElement> els = new LinkedList<NonRootModelElement>();
+        if ( elements == null ) return null;
 
         for ( NonRootModelElement el : elements ) {
+            // add to list
+            els.add( el );
+
             // process the unassigned component references
             if ( el instanceof ComponentReference_c ) {
                 ComponentReference_c cl_ic = (ComponentReference_c)el;
@@ -380,6 +387,12 @@ public class ImportHelper
                     if ( c_i.getName().equals( c_r_name ) ) {
                         // formalize the requirement
                         c_r.Formalize(c_i.getId(), true);
+
+                        // get all the new instances
+                        RequiredOperation_c[] spr_ros = RequiredOperation_c.getManySPR_ROsOnR4502( RequiredExecutableProperty_c.getManySPR_REPsOnR4500( c_r ) );
+                        for ( RequiredOperation_c spr_ro : spr_ros ) {
+                            els.add( spr_ro );
+                        }
                         break;
                     }
                 }
@@ -399,19 +412,49 @@ public class ImportHelper
                     if ( c_i.getName().equals( c_p_name ) ) {
                         // formalize the requirement
                         c_p.Formalize(c_i.getId(), true);
+
+                        // get all the new instances
+                        ProvidedOperation_c[] spr_pos = ProvidedOperation_c.getManySPR_POsOnR4503( ProvidedExecutableProperty_c.getManySPR_PEPsOnR4501( c_p ) );
+                        for ( ProvidedOperation_c spr_po : spr_pos ) {
+                            els.add( spr_po );
+                        }
                         break;
                     }
                 }
+
+                // copy the codeblock locations into the descrips of the new formalized provision
+                String description = c_p.getDescrip();
+
+                // parse codeblock mapping (op name, filename)
+                if ( !description.isEmpty() ) {
+                    Matcher m = Pattern.compile( "routine:(.*),(codeblock:.*)" ).matcher( description );
+                    while ( m.find() ) {
+                        // select the specified routine
+                        ProvidedOperation_c spr_po = null;
+                        ProvidedExecutableProperty_c[] spr_peps = ProvidedExecutableProperty_c.getManySPR_PEPsOnR4501( c_p );
+                        for ( ProvidedExecutableProperty_c spr_pep : spr_peps ) {
+                            spr_po = ProvidedOperation_c.getOneSPR_POOnR4503( spr_pep );
+                            if ( spr_po != null && spr_po.getName().equals( m.group(1) ) ) break;
+                        }
+
+                        // put the codeblock in the action semantics field
+                        if ( spr_po != null ) {
+                            spr_po.setAction_semantics_internal( m.group(2) );
+                        }
+                    }
+                    c_p.setDescrip( m.replaceAll("") );
+                }
             }
         }
+
+        return els.toArray( new NonRootModelElement[0] );
     }
 
     /**
      * Load the MASL activities into the BridgePoint model
      */
-    public void loadMASLActivities( Ooaofooa modelRoot, IPath srcFileDir ) {
+    public void loadMASLActivities( Ooaofooa modelRoot, IPath srcFileDir, NonRootModelElement[] elements ) {
 
-        NonRootModelElement[] elements = importer.getLoadedInstances();
         if ( elements == null ) return;
 
         for ( NonRootModelElement el : elements ) {

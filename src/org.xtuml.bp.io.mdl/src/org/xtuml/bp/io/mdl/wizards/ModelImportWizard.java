@@ -257,13 +257,13 @@ public class ModelImportWizard extends Wizard implements IImportWizard {
 				ModelRoot.enableChangeNotification();
 			}
 
+                        // resolve component references and formalize interfaces in MASL projects
+                        ImportHelper helper = new ImportHelper((CoreImport)fImporter);
+                        NonRootModelElement[] elements = helper.resolveMASLproject( fImporter.getLoadedInstances() );
+
                         // load the MASL activities
                         IPath sourceFileDirectory = templatePath.removeLastSegments(1);
-                        ImportHelper helper = new ImportHelper((CoreImport)fImporter);
-                        helper.loadMASLActivities((Ooaofooa)fImporter.getRootModelElement().getModelRoot(), sourceFileDirectory);
-
-                        // resolve component references in MASL projects
-                        helper.resolveMASLproject();
+                        helper.loadMASLActivities((Ooaofooa)fImporter.getRootModelElement().getModelRoot(), sourceFileDirectory, elements);
 		}
 		return true;
 	}
