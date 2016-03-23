@@ -133,6 +133,7 @@ import org.xtuml.bp.core.inspector.ModelInspector;
 import org.xtuml.bp.core.ui.actions.GenericPackageAssignComponentOnCL_ICAction;
 import org.xtuml.bp.core.ui.actions.GenericPackageFormalizeOnC_PAction;
 import org.xtuml.bp.core.ui.actions.GenericPackageFormalizeOnC_RAction;
+import org.xtuml.bp.core.util.TransactionUtil;
 import org.xtuml.bp.ui.canvas.AnchorOnSegment_c;
 import org.xtuml.bp.ui.canvas.CanvasTransactionListener;
 import org.xtuml.bp.ui.canvas.Cl_c;
@@ -359,6 +360,8 @@ public class ImportHelper
                     }
                 }
 
+		// ensure that all Components are loaded
+		PersistenceManager.ensureAllInstancesLoaded(cl_ic.getModelRoot(), Component_c.class);
                 // get reachable components
 		Component_c[] components = GenericPackageAssignComponentOnCL_ICAction.getElements( cl_ic );
 
@@ -366,7 +369,11 @@ public class ImportHelper
                 for ( Component_c c_c : components ) {
                     if ( c_c.getName().equals( cl_ic_name ) ) {
                         // assign the component reference to the component
+			TransactionUtil.TransactionGroup transactionGroup = TransactionUtil.startTransactionsOnSelectedModelRoots("Generic Package Assign Component");
+			Ooaofooa.beginSaveOperation();
                         cl_ic.Assigntocomp( c_c.getId() );
+			Ooaofooa.endSaveOperation();
+			TransactionUtil.endTransactions(transactionGroup);
                         break;
                     }
                 }
@@ -379,6 +386,8 @@ public class ImportHelper
                 // get the name of the interface we're looking for from the InformalName field
                 String c_r_name = c_r.getInformalname();
 
+		// ensure that all Interfaces are loaded
+		PersistenceManager.ensureAllInstancesLoaded(c_r.getModelRoot(), Interface_c.class);
                 // get reachable interfaces
                 Interface_c[] interfaces = GenericPackageFormalizeOnC_RAction.getElements( c_r );
 
@@ -386,7 +395,11 @@ public class ImportHelper
                 for ( Interface_c c_i : interfaces ) {
                     if ( c_i.getName().equals( c_r_name ) ) {
                         // formalize the requirement
+			TransactionUtil.TransactionGroup transactionGroup = TransactionUtil.startTransactionsOnSelectedModelRoots("Generic Package Formalize");
+			Ooaofooa.beginSaveOperation();
                         c_r.Formalize(c_i.getId(), true);
+			Ooaofooa.endSaveOperation();
+			TransactionUtil.endTransactions(transactionGroup);
 
                         // get all the new instances
                         RequiredOperation_c[] spr_ros = RequiredOperation_c.getManySPR_ROsOnR4502( RequiredExecutableProperty_c.getManySPR_REPsOnR4500( c_r ) );
@@ -404,6 +417,8 @@ public class ImportHelper
                 // get the name of the interface we're looking for from the InformalName field
                 String c_p_name = c_p.getInformalname();
 
+		// ensure that all Interfaces are loaded
+		PersistenceManager.ensureAllInstancesLoaded(c_p.getModelRoot(), Interface_c.class);
                 // get reachable interfaces
                 Interface_c[] interfaces = GenericPackageFormalizeOnC_PAction.getElements( c_p );
 
@@ -411,7 +426,11 @@ public class ImportHelper
                 for ( Interface_c c_i : interfaces ) {
                     if ( c_i.getName().equals( c_p_name ) ) {
                         // formalize the requirement
+			TransactionUtil.TransactionGroup transactionGroup = TransactionUtil.startTransactionsOnSelectedModelRoots("Generic Package Formalize");
+			Ooaofooa.beginSaveOperation();
                         c_p.Formalize(c_i.getId(), true);
+			Ooaofooa.endSaveOperation();
+			TransactionUtil.endTransactions(transactionGroup);
 
                         // get all the new instances
                         ProvidedOperation_c[] spr_pos = ProvidedOperation_c.getManySPR_POsOnR4503( ProvidedExecutableProperty_c.getManySPR_PEPsOnR4501( c_p ) );
@@ -544,7 +563,7 @@ public class ImportHelper
 
                 }
                 else {
-                    System.out.println( "Could not find MASL activity file." );
+                    System.out.println( "Could not find MASL activity file. filename: '" + srcFileDir.toOSString() + "/" + filename + "'" );
                 }
 
             }
