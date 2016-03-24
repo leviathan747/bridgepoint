@@ -98,6 +98,7 @@ import org.xtuml.bp.core.Port_c;
 import org.xtuml.bp.core.PropertyParameter_c;
 import org.xtuml.bp.core.ProvidedExecutableProperty_c;
 import org.xtuml.bp.core.ProvidedOperation_c;
+import org.xtuml.bp.core.ProvidedSignal_c;
 import org.xtuml.bp.core.Provision_c;
 import org.xtuml.bp.core.RequiredExecutableProperty_c;
 import org.xtuml.bp.core.RequiredOperation_c;
@@ -540,7 +541,8 @@ public class ImportHelper
 
                     // get name
                     String name;
-                    if ( ( el instanceof RequiredOperation_c || el instanceof RequiredSignal_c ) &&
+                    if ( ( el instanceof RequiredOperation_c || el instanceof RequiredSignal_c ||
+                           el instanceof ProvidedOperation_c || el instanceof ProvidedSignal_c ) &&
                             getParent(getParent(el)) instanceof Port_c ) {
                         name = getParent(getParent(el)).getName() + "_" + el.getName();
                     }
