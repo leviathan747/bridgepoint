@@ -1,0 +1,7 @@
+bin/
+emf-gen/
+src-gen/
+xtend-gen/
+target/
+generated/
+plugin.xml_gen
