@@ -299,12 +299,21 @@ abstract class EV_$u_{object.Name}${class_sm_tag} extends genericEvent_c
          .// Generate Action Language Code using Processing Subsystem Instances
          .select one actionblock related by action->ACT_SAB[R691]->ACT_ACT[R698]
          .select any block related by actionblock->ACT_BLK[R666]
-         .invoke blck = blck_xlate(block)
+         .select one te_aba related by action->TE_ACT[R2022]->TE_ABA[R2010]
+         .if ( not_empty te_aba )
+            {
+${te_aba.code}
+            }
+            state = ST_$u_{object.Name}_$u_{newstate.Name} ;
+            break ;
+         .else
+           .invoke blck = blck_xlate(block)
             {
 ${blck.body}
             }
             state = ST_$u_{object.Name}_$u_{newstate.Name} ;
             break ;
+         .end if
       .elif (not_empty evtIgnored)
                case ST_$u_{object.Name}_$u_{state.Name}:
                 // Event Ignored
@@ -584,8 +593,13 @@ ${bridge.Action_Semantics}
         .print " Bridge ${bridge.Name}"
         .select any actionblock related by bridge->ACT_BRB[R697]->ACT_ACT[R698]
         .select any block related by actionblock->ACT_BLK[R666]
-        .invoke blck = blck_xlate(block)
+        .select one te_aba related by bridge->TE_BRG[R2025]->TE_ABA[R2010]
+        .if ( not_empty te_aba )
+${te_aba.code}
+        .else
+          .invoke blck = blck_xlate(block)
 ${blck.body}
+        .end if
       .end if
     } // End ${bridge.Name}
        
@@ -1772,9 +1786,15 @@ ${dbattr.Action_Semantics}
                   .// Generate Action Language Code using Processing Subsystem Instances
                   .select any actionblock related by dbattr->ACT_DAB[R693]->ACT_ACT[R698]
                   .select any block related by actionblock->ACT_BLK[R666]
-                  .invoke blck = blck_xlate(block)
+                  .select one te_aba related by dbattr->TE_DBATTR[R2026]->TE_ABA[R2010]
+                  .if ( not_empty te_aba )
+ModelRoot modelRoot = getModelRoot();
+${te_aba.code}
+                  .else
+                    .invoke blck = blck_xlate(block)
 ModelRoot modelRoot = getModelRoot();
 ${blck.body}
+                  .end if
                 .end if
               .end if
   }
@@ -1964,8 +1984,13 @@ ${transform.Action_Semantics}
               .// Generate Action Language Code using Processing Subsystem Instances
               .select one actionblock related by transform->ACT_OPB[R696]->ACT_ACT[R698]
               .select any block related by actionblock->ACT_BLK[R666]
-              .invoke blck = blck_xlate(block)
+              .select one te_aba related by transform->TE_TFR[R2024]->TE_ABA[R2010]
+              .if ( not_empty te_aba )
+${te_aba.code}
+              .else
+                .invoke blck = blck_xlate(block)
 ${blck.body}
+              .end if
             .end if
    } // End ${transform.Name}
           .end for
@@ -2333,8 +2358,13 @@ ${function.Action_Semantics}
       .print " Function ${function.Name}"
       .select any actionblock related by function->ACT_FNB[R695]->ACT_ACT[R698]
       .select any block related by actionblock->ACT_BLK[R666]
-      .invoke blck = blck_xlate(block)
+      .select one te_aba related by function->TE_SYNC[R2023]->TE_ABA[R2010]
+      .if ( not_empty te_aba )
+${te_aba.code}
+      .else
+        .invoke blck = blck_xlate(block)
 ${blck.body}
+      .end if
     .end if
    }  // End ${function.Name}
 

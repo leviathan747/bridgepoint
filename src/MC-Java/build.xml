@@ -96,6 +96,13 @@
     <exec vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe" >
           <arg line="xtumlmc_cleanse_for_BridgePoint ${UUID_Seed} ${mcjava.project.root}/gen/code_generation sql/${param1}.sql" />
     </exec>
+    <copy todir="gen/code_generation/">
+        <fileset dir="gen/" includes="**/*.mark"/>
+    </copy>
+    <exec vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe" dir="gen/code_generation">
+        <env key="ROX_MC_BIN_DIR" value="${util_bin_dir}" />
+	<arg line="xtumlmc_mcmc ../../sql/${param1}.sql" />
+    </exec>
     <exec vmlauncher="false" failonerror="true" executable="${util_bin_dir}/xtumlmc_build.exe" >
 	    <env key="PTC_MC_ARC_DIR" value="${param3}" />
     	<env key="PTC_MCC_SS_START" value="" />
