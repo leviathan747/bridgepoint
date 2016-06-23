@@ -128,9 +128,6 @@
            "",
            Gd_c.Null_unique_id()\
           .assign special_case = true
-        .elif ((col.Name == "Previous_Tfr_ID") and (callingProject == "NBP"))
-           parms.elementAt(${attr_col_num}) != null && IdAssigner.isUUID((String)parms.elementAt(${attr_col_num}))?IdAssigner.createUUIDFromString((String)parms.elementAt(${attr_col_num})):Gd_c.Null_unique_id()\
-           .assign special_case = true
         .end if
       .elif ( ((table.Key_Lett == "S_BRG") OR (table.Key_Lett == "S_SYNC")) )
         .if ((col.Name == "Suc_Pars") and (callingProject == "BP"))
@@ -149,11 +146,6 @@
            Gd_c.Null_unique_id(),
            ""\
           .assign special_case = true
-        .elif (callingProject == "NBP")
-          .if ( ((col.Name == "Previous_BParm_ID") OR (col.Name == "Previous_SParm_ID")) OR (col.Name == "Previous_TParm_ID") )
-           parms.elementAt(${attr_col_num}) != null && IdAssigner.isUUID((String)parms.elementAt(${attr_col_num}))?IdAssigner.createUUIDFromString((String)parms.elementAt(${attr_col_num})):Gd_c.Null_unique_id()\
-           .assign special_case = true
-          .end if
         .end if
       .elif (table.Key_Lett == "C_IO")
         .if ((col.Name == "Direction") and (callingProject == "NBP"))
@@ -161,9 +153,6 @@
           .// this column is special, we may need to add a new default attribute value
           parms.elementAt(${attr_col_num}) != null && ImportInteger.isInt(parms.elementAt(${attr_col_num})) ?Integer.parseInt((String)parms.elementAt(${attr_col_num})):0\
           .assign special_case = true
-        .elif ((col.Name == "Previous_Id") and (callingProject == "NBP"))
-          parms.elementAt(${attr_col_num}) != null && IdAssigner.isUUID((String)parms.elementAt(${attr_col_num}))?IdAssigner.createUUIDFromString((String)parms.elementAt(${attr_col_num})):Gd_c.Null_unique_id()\
-          .assign special_case = true          
         .end if
       .elif ( (table.Key_Lett == "C_EP") )
         .if ((col.Name == "Direction") and (callingProject == "NBP"))
@@ -190,9 +179,6 @@
           .// this column is special, we may need to add a new default attribute value
            parms.elementAt(${attr_col_num}) != null && ImportInteger.isInt(parms.elementAt(${attr_col_num})) ?Integer.parseInt((String)parms.elementAt(${attr_col_num})):0
           .assign special_case = true          
-        .elif ((col.Name == "Previous_Id") and (callingProject == "NBP"))
-          parms.elementAt(${attr_col_num}) != null && IdAssigner.isUUID((String)parms.elementAt(${attr_col_num}))?IdAssigner.createUUIDFromString((String)parms.elementAt(${attr_col_num})):Gd_c.Null_unique_id()\
-          .assign special_case = true          
         .end if
       .elif (table.Key_Lett == "C_DG")
         .if(col.Name == "Name")
@@ -214,11 +200,6 @@
            ""\
           .assign special_case = true
         .end if
-      .elif (table.Key_Lett == "C_PP")
-        .if ((col.Name == "Previous_PP_Id") and (callingProject == "NBP"))
-        parms.elementAt(${attr_col_num}) != null && IdAssigner.isUUID((String)parms.elementAt(${attr_col_num}))?IdAssigner.createUUIDFromString((String)parms.elementAt(${attr_col_num})):Gd_c.Null_unique_id()\
-          .assign special_case = true
-        .end if
       .elif (table.Key_Lett == "SM_EVTDI")
         .if ((col.Name == "DT_ID") and (callingProject == "BP"))
            .//
@@ -227,16 +208,6 @@
            "",
            IdAssigner.NULL_UUID,
            IdAssigner.NULL_UUID\
-          .assign special_case = true
-        .elif ((col.Name == "SMevt_ID") and (callingProject == "NBP"))
-          .//
-          .// this column is special, we may need to add a new default attribute value
-           parms.elementAt(${attr_col_num}) != null && IdAssigner.isUUID((String)parms.elementAt(${attr_col_num}))?IdAssigner
-                            ..createUUIDFromString((String)parms.elementAt(${attr_col_num})):Gd_c.Null_unique_id()\
-          .assign special_case = true
-        .elif ((col.Name == "Previous_SMedi_ID") and (callingProject == "NBP"))
-           parms.elementAt(${attr_col_num}) != null && IdAssigner.isUUID((String)parms.elementAt(${attr_col_num}))?IdAssigner
-                            ..createUUIDFromString((String)parms.elementAt(${attr_col_num})):Gd_c.Null_unique_id()\
           .assign special_case = true
         .end if
       .elif (table.Key_Lett == "V_VAR")
@@ -277,9 +248,6 @@
           IdAssigner.createUUIDFromString((String)parms.elementAt(${attr_col_num}), true),
           Gd_c.Null_unique_id()\
           .assign special_case = true
-        .elif ((col.Name == "Previous_Enum_ID") and (callingProject == "NBP"))
-           parms.elementAt(${attr_col_num}) != null && IdAssigner.isUUID((String)parms.elementAt(${attr_col_num}))?IdAssigner.createUUIDFromString((String)parms.elementAt(${attr_col_num})):Gd_c.Null_unique_id()\
-           .assign special_case = true
         .end if
       .elif ( (table.Key_Lett == "EP_PKG") )        
         .if ((col.Name == "Num_Rng") and (callingProject == "NBP"))
@@ -505,8 +473,8 @@ public class ${class_name} extends CoreImport
             .assign parentC = "SystemModel_c"
       .end if
     .if(multilevel and setComponent)
-    public ${class_name}(IFile file, ${var.main_class_name} aModelRoot, PersistableModelComponent component, boolean parseAll, boolean clearDatabase, boolean parseGraphics, boolean isTemplate) throws IOException {
-        super(aModelRoot, file.getLocation().toOSString(), clearDatabase, isTemplate);
+    public ${class_name}(IFile file, ${var.main_class_name} aModelRoot, PersistableModelComponent component, boolean parseAll, boolean clearDatabase, boolean parseGraphics, boolean isTemplate, boolean createUniqueIdDuringImport) throws IOException {
+        super(aModelRoot, file.getLocation().toOSString(), clearDatabase, isTemplate, createUniqueIdDuringImport);
         m_component = component;
         m_parseAll = parseAll;
         m_parseGraphics = parseGraphics;
@@ -523,8 +491,8 @@ public class ${class_name} extends CoreImport
                 }
         }
     }
-    public ${class_name}(InputStream inStream, ${var.main_class_name} aModelRoot, PersistableModelComponent component, boolean parseAll, boolean clearDatabase, boolean parseGraphics, boolean isTemplate) throws IOException {
-        super(aModelRoot, inStream, clearDatabase, isTemplate);
+    public ${class_name}(InputStream inStream, ${var.main_class_name} aModelRoot, PersistableModelComponent component, boolean parseAll, boolean clearDatabase, boolean parseGraphics, boolean isTemplate, boolean createUniqueIdDuringImport) throws IOException {
+        super(aModelRoot, inStream, clearDatabase, isTemplate, createUniqueIdDuringImport);
         m_parseAll = parseAll;
         m_inFile = streamFileName;
         m_parseGraphics = parseGraphics;
@@ -533,24 +501,24 @@ public class ${class_name} extends CoreImport
     .else
         .if (callingProject == "NBP")
           .if(not multilevel)
-    public ${class_name}(InputStream inStream, ${var.main_class_name} aModelRoot, ${parentC} parent, boolean parseAll, boolean clearDatabase, boolean parseGraphics, boolean isTemplate) throws IOException {
-        super(aModelRoot, inStream, clearDatabase, isTemplate);
+    public ${class_name}(InputStream inStream, ${var.main_class_name} aModelRoot, ${parentC} parent, boolean parseAll, boolean clearDatabase, boolean parseGraphics, boolean isTemplate, boolean createUniqueIdDuringImport) throws IOException {
+        super(aModelRoot, inStream, clearDatabase, isTemplate, createUniqueIdDuringImport);
         m_parseAll = parseAll;
         m_inFile = streamFileName;
         m_parseGraphics = parseGraphics;
         m_parent = parent;
     }
             .else
-    public ${class_name}(InputStream inStream, ${var.main_class_name} aModelRoot, boolean clearDatabase, IPath projectRelativePath) throws IOException {
-        super(aModelRoot, inStream, clearDatabase, false);
+    public ${class_name}(InputStream inStream, ${var.main_class_name} aModelRoot, boolean clearDatabase, IPath projectRelativePath, boolean createUniqueIdDuringImport) throws IOException {
+        super(aModelRoot, inStream, clearDatabase, false, createUniqueIdDuringImport);
         m_inFile = streamFileName;
         projRelPath = projectRelativePath;
     }
             .end if
         .end if
         .if(not multilevel)
-    public ${class_name}(String fileName, ${var.main_class_name} aModelRoot, ${parentC} parent, boolean parseAll, boolean clearDatabase, boolean isTemplate) throws FileNotFoundException {
-        super(aModelRoot, fileName, clearDatabase, isTemplate);
+    public ${class_name}(String fileName, ${var.main_class_name} aModelRoot, ${parentC} parent, boolean parseAll, boolean clearDatabase, boolean isTemplate, boolean createUniqueIdDuringImport) throws FileNotFoundException {
+        super(aModelRoot, fileName, clearDatabase, isTemplate, createUniqueIdDuringImport);
         m_inFile = fileName;
         m_parseAll = parseAll;
         m_parent = parent;
@@ -777,10 +745,7 @@ public class ${class_name} extends CoreImport
             if(actualVersion.equals(bp7_1_4VersionNumber)) {
             	  helper.associateSatisfactionsThroughIdentifier(getModelRoot());
             }
-            if (m_component.getComponentType().equals("Component") && actualVersion.equals(bp7_1_3VersionNumber))
-	            helper.migrateComponents(getModelRoot());
             helper.upgradeDSAs(getModelRoot());
-            helper.associateDTsWithDomain(getModelRoot());
             helper.upgradeElementOrder(getModelRoot());
 			loadedInstances.addAll(helper.upgradeDatatypes(loadedInstances));
 			helper.fixSatisfactionAssociations(loadedInstances);
@@ -872,7 +837,7 @@ ${result.body}\
     public void processStatement(${var.main_class_name} modelRoot, String table, Vector parms, Vector rawParms, int numParms, IProgressMonitor pm ) {
       .// Note that this code only creates the instances in memory
       .// The relationship pointers are not initialized until later.
-        ModelRoot.disableChangeNotification();
+          ModelRoot.disableChangeNotification();
       try {
     	.if (class_name == "ImportModelStream")
     	if (!modelRoot.isCompareRoot() && !initialCheck && table.contains("_PROXY" )){
@@ -895,7 +860,7 @@ ${result.body}\
 ${result.body}\
         pm.worked(1);
         } finally {
-                    ModelRoot.enableChangeNotification();
+                      ModelRoot.enableChangeNotification();
         }
     }
 

@@ -487,7 +487,7 @@ public class PersistableModelComponent implements Comparable {
     }
     
     public boolean isLoaded() {
-        return !(componentRootME == null || componentRootME.isProxy());
+        return !(componentRootME == null);
     }
     
     public boolean isOrphaned(){
@@ -814,7 +814,7 @@ public class PersistableModelComponent implements Comparable {
         }
         
         return factory.create(file, modelRoot, this, parseOal, true, true,
-                false);
+                false, true);
     }
     
     private IModelImport createImporter(Ooaofooa modelRoot, boolean parseOal)
@@ -1074,18 +1074,6 @@ public class PersistableModelComponent implements Comparable {
         if (thisMe != null && thisMe.isProxy()) {
             thisMe.updateContentPath(underlyingResource.getFullPath());
         }
-    }
-
-    public static void ensureCoreDataTypesAvailable(ModelRoot modelRoot) {
-    	//TODO: BOB REmove this obsolete function
-    }    
-
-    public static void ensureSystemCoreDataTypesAvailable(final SystemModel_c system) {
-    	//TODO: BOB REmove this obsolete function
-    }
-    
-    public static void ensureComponentCoreDataTypesAvailable(Component_c component) {
-    	//TODO: BOB REmove this obsolete function
     }
     
     public static void ensureDataTypesAvailable(ModelRoot modelRoot) {
