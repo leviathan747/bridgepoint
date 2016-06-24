@@ -357,7 +357,7 @@
 
 	<target name="clean_all"
         description="Clean entire project"
-        depends="clean_classes,clean_java,clean_sql,clean_schema,clean_mcmc" >
+        depends="clean_classes,clean_java,clean_sql,clean_schema" >
 		<echo>Done cleaning for ${ant.project.name}</echo>
 	</target>
 
@@ -391,14 +391,5 @@
 		<echo>Removing compiled class files ...</echo>
 		<delete verbose="true" dir="bin" />
 	</target>
-        <target name="clean_mcmc" description="Remove files created by mcmc." >
-            <echo>Removing files created by mcmc</echo>
-	    <delete verbose="true" file="gen/code_generation/a.xtuml" />
-	    <delete verbose="true" file="gen/code_generation/m.txt" />
-	    <delete verbose="true" file="gen/code_generation/mcconsole.txt" />
-	    <delete verbose="true">
-                <fileset dir="gen/code_generation/" includes="**/*.mark"/>
-            </delete>
-        </target>
 
 </project>
