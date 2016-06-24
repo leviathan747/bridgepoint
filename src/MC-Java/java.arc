@@ -517,7 +517,12 @@ p_${an.body}\
 .// - put in by wgt
 .print "Time is: ${info.date}"
 .assign send_changes = package.is_eclipse_plugin
-.invoke translate_all_oal( mc_root_pkg, application_root_class, send_changes );
+.select any te_aba from instances of TE_ABA
+.if ( not_empty te_aba )
+  .print "Detected translated action bodies. Skipping OAL translation..."
+.else
+  .invoke translate_all_oal( mc_root_pkg, application_root_class, send_changes );
+.end if
 .print "Time is: ${info.date}"
 .//
 .//
