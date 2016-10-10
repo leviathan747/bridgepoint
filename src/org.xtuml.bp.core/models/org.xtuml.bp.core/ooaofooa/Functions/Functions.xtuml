@@ -640,6 +640,116 @@ INSERT INTO PE_PE
 	"2467e6dc-9ef4-46c6-afa6-883c1e23a96c",
 	"00000000-0000-0000-0000-000000000000",
 	1);
+INSERT INTO S_SYNC
+	VALUES ("63509891-62f6-4e79-97b8-edb917ec33f2",
+	"00000000-0000-0000-0000-000000000000",
+	'autoCreateSatisfactions',
+	'',
+	'// this function creates satisfactions by searching in a package for provisions and requirements
+// that match. It does not consider delegations
+
+select any pkg from instances of EP_PKG where ( selected.Package_ID == param.pkg );
+
+select many provisions related by pkg->PE_PE[R8000]->C_C[R8001]->C_PO[R4010]->C_IR[R4016]->C_P[R4009];
+select many requirements related by pkg->PE_PE[R8000]->C_C[R8001]->C_PO[R4010]->C_IR[R4016]->C_R[R4009];
+select many imported_provisions related by pkg->PE_PE[R8000]->CL_IC[R8001]->CL_POR[R4707]->CL_IIR[R4708]->CL_IP[R4703];
+select many imported_requirements related by pkg->PE_PE[R8000]->CL_IC[R8001]->CL_POR[R4707]->CL_IIR[R4708]->CL_IR[R4703];
+
+for each provision in provisions
+  // match provisions and requirements
+  select one epPkg related by provision->C_IR[R4009]->C_PO[R4016]->C_C[R4010]->PE_PE[R8001]->EP_PKG[R8000];
+  select one p_interface related by provision->C_IR[R4009]->C_I[R4012];
+  for each requirement in requirements
+    select one r_interface related by requirement->C_IR[R4009]->C_I[R4012];
+    if ( not_empty p_interface and not_empty r_interface and p_interface.Id == r_interface.Id )
+      // create satisfaction
+      create object instance satisfaction of C_SF;
+      create object instance pe of PE_PE;
+      relate satisfaction to pe across R8001;
+      relate pe to epPkg across R8000;
+      pe.type = ElementTypeConstants::SATISFACTION;
+      pe.initialize();
+      // link the provision and requirement
+      relate provision to requirement across R4002 using satisfaction;
+    end if;
+  end for;
+  // match provisions and imported requirements
+  for each i_requirement in imported_requirements
+    select one r_interface related by i_requirement->CL_IIR[R4703]->C_IR[R4701]->C_I[R4012];
+    if ( not_empty p_interface and not_empty r_interface and p_interface.Id == r_interface.Id )
+      // create satisfaction
+      create object instance satisfaction of C_SF;
+      create object instance pe of PE_PE;
+      relate satisfaction to pe across R8001;
+      relate pe to epPkg across R8000;
+      pe.type = ElementTypeConstants::SATISFACTION;
+      pe.initialize();
+      // link the provision and requirement
+      select one requirement related by i_requirement->CL_IIR[R4703]->C_IR[R4701]->C_R[R4009];
+      relate provision to requirement across R4002 using satisfaction;
+      relate i_requirement to satisfaction across R4706;
+    end if;
+  end for;
+end for;
+for each i_provision in imported_provisions
+  // match imported provisions and requirements
+  select one epPkg related by i_provision->CL_IIR[R4703]->C_IR[R4701]->C_PO[R4016]->C_C[R4010]->PE_PE[R8001]->EP_PKG[R8000];
+  select one provision related by i_provision->CL_IIR[R4703]->C_IR[R4701]->C_P[R4009];
+  select one p_interface related by i_provision->CL_IIR[R4703]->C_IR[R4701]->C_I[R4012];
+  for each requirement in requirements
+    select one r_interface related by requirement->C_IR[R4009]->C_I[R4012];
+    if ( not_empty p_interface and not_empty r_interface and p_interface.Id == r_interface.Id )
+      // create satisfaction
+      create object instance satisfaction of C_SF;
+      create object instance pe of PE_PE;
+      relate satisfaction to pe across R8001;
+      relate pe to epPkg across R8000;
+      pe.type = ElementTypeConstants::SATISFACTION;
+      pe.initialize();
+      // link the provision and requirement
+      relate provision to requirement across R4002 using satisfaction;
+      create object instance ipins of CL_IPINS;
+      relate i_provision to satisfaction across R4705 using ipins;
+    end if;
+  end for;
+  // match imported provisions and imported requirements
+  for each i_requirement in imported_requirements
+    select one r_interface related by i_requirement->CL_IIR[R4703]->C_IR[R4701]->C_I[R4012];
+    if ( not_empty p_interface and not_empty r_interface and p_interface.Id == r_interface.Id )
+      // create satisfaction
+      create object instance satisfaction of C_SF;
+      create object instance pe of PE_PE;
+      relate satisfaction to pe across R8001;
+      relate pe to epPkg across R8000;
+      pe.type = ElementTypeConstants::SATISFACTION;
+      pe.initialize();
+      // link the provision and requirement
+      select one requirement related by i_requirement->CL_IIR[R4703]->C_IR[R4701]->C_R[R4009];
+      relate provision to requirement across R4002 using satisfaction;
+      relate i_requirement to satisfaction across R4706;
+      create object instance ipins of CL_IPINS;
+      relate i_provision to satisfaction across R4705 using ipins;
+    end if;
+  end for;
+end for;',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'');
+INSERT INTO S_SPARM
+	VALUES ("71497739-bd4a-4f0f-8afb-252a664701e4",
+	"63509891-62f6-4e79-97b8-edb917ec33f2",
+	'pkg',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO PE_PE
+	VALUES ("63509891-62f6-4e79-97b8-edb917ec33f2",
+	1,
+	"2467e6dc-9ef4-46c6-afa6-883c1e23a96c",
+	"00000000-0000-0000-0000-000000000000",
+	1);
 INSERT INTO PE_PE
 	VALUES ("2467e6dc-9ef4-46c6-afa6-883c1e23a96c",
 	1,
