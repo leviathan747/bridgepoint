@@ -1080,7 +1080,12 @@ if(inst != null && !inst.isProxy()){
     .elif ( "SPR_RS" == action_body.Key_Lett )
   smasl = Ooaofooa.Spr_rs2routine( inst.getModelRoot(), inst.getId() );
     .end if
-  if ( !smasl.equals("") ) {
+  PrintStream actionPrinter = null;
+  String dialect = inst.getDialect();
+  if ( null != m_actionFile ) {
+      actionPrinter = m_actionFile.getBody( dialect ).getBodyPrinter();
+  }
+  if ( !smasl.equals("") && null != actionPrinter ) {
       SmaslScanner sc = new SmaslScanner( smasl );
       String[] values;
 
@@ -1176,7 +1181,7 @@ if(inst != null && !inst.isProxy()){
               }
           }
           else {
-            m_afh.print( "// Activity '" + values[0] + "'unsupported\n" ); //$$NON-NLS-1$$
+            actionPrinter.print( "// Activity '" + values[0] + "'unsupported\n" ); //$$NON-NLS-1$$
             m_updateActions = true;
             return;
           }
@@ -1203,7 +1208,7 @@ if(inst != null && !inst.isProxy()){
       parameter_list = parameter_list.replaceAll("\n", buf);
 
       // output activity
-      m_afh.print( preface + activity_type + sig_begin + parameter_list + sig_end + codeblock + end ); //$$NON-NLS-1$$
+      actionPrinter.print( preface + activity_type + sig_begin + parameter_list + sig_end + codeblock + end ); //$$NON-NLS-1$$
       m_updateActions = true;
   }
 }

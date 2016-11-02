@@ -32,6 +32,7 @@ import org.osgi.framework.Bundle;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.Ooaofooa;
 import org.xtuml.bp.core.SystemModel_c;
+import org.xtuml.bp.core.common.ActionFile;
 import org.xtuml.bp.core.common.NonRootModelElement;
 
 public abstract class AbstractModelExportFactory {
@@ -40,7 +41,7 @@ public abstract class AbstractModelExportFactory {
 	public abstract IRunnableWithProgress create(
 		Ooaofooa modelRoot,
 		String outfileName,
-                String outActionFileName,
+                ActionFile actionFile,
 		boolean export_graphics) throws FileNotFoundException;
 
 	public abstract IRunnableWithProgress create(
@@ -48,13 +49,13 @@ public abstract class AbstractModelExportFactory {
 			SystemModel_c sys,
 			boolean exportGraphics) throws FileNotFoundException;
 	
-	public abstract IRunnableWithProgress create(NonRootModelElement element, String outfileName, String outActionFileName,
+	public abstract IRunnableWithProgress create(NonRootModelElement element, String outfileName, ActionFile actionFile,
 			boolean exportGraphics) throws FileNotFoundException;
 	
-	public abstract IRunnableWithProgress create(String outfileName, String outActionFileName,
+	public abstract IRunnableWithProgress create(String outfileName, ActionFile actionFile,
 			NonRootModelElement me) throws FileNotFoundException;
 
-	public abstract IRunnableWithProgress create(Ooaofooa modelRoot, ByteArrayOutputStream baos, ByteArrayOutputStream actionbaos,
+	public abstract IRunnableWithProgress create(Ooaofooa modelRoot, ByteArrayOutputStream baos, ActionFile actionFile,
 			NonRootModelElement me) throws FileNotFoundException;
 
 static public AbstractModelExportFactory getInstance()

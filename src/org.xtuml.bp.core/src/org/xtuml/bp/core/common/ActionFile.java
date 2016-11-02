@@ -9,12 +9,18 @@ package org.xtuml.bp.core.common;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
+import java.io.PrintStream;
 import java.util.Arrays;
 import java.util.List;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.Path;
 import org.eclipse.jface.preference.IPreferenceStore;
 import org.xtuml.bp.core.CorePlugin;
@@ -22,9 +28,10 @@ import org.xtuml.bp.core.Ooaofooa;
 
 public class ActionFile {
 	
-	private static final String[] DIALECTS = { "masl" }; //, "oal" };
+	private static final String[] DIALECTS = { "masl", "oal" };
 	
-	private HashMap<String,IFile> fileMap;
+	private HashMap<String,IFile>       fileMap;
+	private HashMap<String,ActionBody>  bodyMap;
 	
 	public ActionFile( String componentFileName ) {
 		fileMap = new HashMap<String,IFile>();
@@ -95,6 +102,52 @@ public class ActionFile {
 	public IFile getFile( String dialect ) {
 		return fileMap.get(dialect);
 	}
+
+        // initialize body map
+        public void initBodyMap() {
+            bodyMap = new HashMap<String,ActionBody>();
+	    for ( int i = 0; i < DIALECTS.length; i++ ) {
+	        bodyMap.put(DIALECTS[i], new ActionBody());
+	    }
+        }
+
+        // close print streams in the body map
+        public void closeBodyMap() {
+	    for ( int i = 0; i < DIALECTS.length; i++ ) {
+                ActionBody ab = getBody( DIALECTS[i] );
+                if ( null != ab ) {
+                    ab.close();
+                }
+	    }
+        }
+
+        // get the ActionBody instance for the specific dialect
+        public ActionBody getBody( String dialect ) {
+		return bodyMap.get(dialect);
+        }
+
+        // persist all the action bodies to their files
+        public void persistActionBodies( IProgressMonitor pm ) throws CoreException {
+	    for ( int i = 0; i < DIALECTS.length; i++ ) {
+                ActionBody ab = getBody( DIALECTS[i] );
+                if ( null != ab ) {
+                    InputStream astream = new ByteArrayInputStream(ab.getUpdateData().toByteArray());
+                    IFile af = getFile( DIALECTS[i] );
+                    if (!af.exists()) {
+                        if ( ab.getUpdateData().toByteArray().length != 0 ) {
+                            af.create(astream, true, pm);
+                        }
+                    } else {
+                        if ( ab.getUpdateData().toByteArray().length != 0 ) {
+                            af.setContents(astream, true, true, pm);
+                        }
+                        else {
+                            af.delete(true, false, pm);
+                        }
+                    }
+                }
+            }
+        }
 	
 	public static String getDefaultDialect() {
                 IPreferenceStore store = CorePlugin.getDefault().getPreferenceStore();
@@ -160,4 +213,31 @@ public class ActionFile {
 		return getComponentPath(new Path(fileName));
 	}
 
+        // Inner class ActionBody abstracts the information necessary for persisitng an action body to
+        // an action file
+        public class ActionBody {
+
+            private PrintStream             bodyPrinter;
+	    private ByteArrayOutputStream   updateData;
+
+            public ActionBody() {
+                updateData = new ByteArrayOutputStream();
+                bodyPrinter = new PrintStream(updateData);
+            }
+
+            public PrintStream getBodyPrinter() {
+                return bodyPrinter;
+            }
+
+            public ByteArrayOutputStream getUpdateData() {
+                return updateData;
+            }
+
+            public void close() {
+                if ( null != bodyPrinter ) {
+                    bodyPrinter.close();
+                }
+            }
+
+        }
 }

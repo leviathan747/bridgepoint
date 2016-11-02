@@ -84,42 +84,35 @@ public class ${class_name} extends CoreExport
 	ByteArrayOutputStream m_updateData;
         .if ( class_name == "ExportModelComponent" )
         boolean m_updateActions = false;
-        protected PrintStream m_afh; // handle for actions
-	ByteArrayOutputStream m_actionUpdateData;
+        ActionFile m_actionFile = null;
         .end if;
     .end if
 
     public ${class_name}(${var.main_class_name} modelRoot, String outfileName,
     .if (multilevel)
-    String outActionFileName,
+    ActionFile actionFile,
     .end if
     boolean export_graphics)
     	throws FileNotFoundException 
     {
 		super(modelRoot, CoreExport.YES);
     .if (callingProject == "NBP")
-        determineUpdateStatus(modelRoot.getFile(), outfileName
-        .if (multilevel)
-        , outActionFileName
-        .end if
-        );
+        determineUpdateStatus(modelRoot.getFile(), outfileName);
 	.else
 		Path path = new Path(outfileName);
 		File fh = path.toFile();
 		FileOutputStream fs = new FileOutputStream(fh);
 		m_fh = new PrintStream(fs);
-                .if (multilevel)
-		Path actionPath = new Path(outActionFileName);
-		File afh = actionPath.toFile();
-		FileOutputStream afs = new FileOutputStream(afh);
-		m_afh = new PrintStream(afs);
-                .end if
 	.end if
         m_export_graphics = export_graphics;
+        .if (multilevel)
+        m_actionFile = actionFile;
+        if ( null != m_actionFile ) m_actionFile.initBodyMap();
+        .end if
     }
 	.if(multilevel)
 
-	public ExportModelComponent(String outfileName, String outActionFileName,
+	public ExportModelComponent(String outfileName, ActionFile actionFile,
 			NonRootModelElement element)
 			throws FileNotFoundException {
 		super((Ooaofooa) element.getModelRoot(), CoreExport.YES);
@@ -129,24 +122,23 @@ public class ${class_name} extends CoreExport
         m_fh = new PrintStream(fs);
 		m_inst = element;
 		m_export_graphics = true;
-        Path actionPath = new Path(outActionFileName);
-        File afh = actionPath.toFile();
-        FileOutputStream afs = new FileOutputStream(afh);
-        m_afh = new PrintStream(afs);
+                m_actionFile = actionFile;
+                if ( null != m_actionFile ) m_actionFile.initBodyMap();
 	}
 	
-	public ExportModelComponent(Ooaofooa modelRoot, ByteArrayOutputStream baos, ByteArrayOutputStream actionbaos,
+	public ExportModelComponent(Ooaofooa modelRoot, ByteArrayOutputStream baos, ActionFile actionFile,
 			NonRootModelElement element) {
     	super(modelRoot, CoreExport.YES);
     	m_fh = new PrintStream(baos);
-    	m_afh = new PrintStream(actionbaos);
     	m_inst = element;
     	m_export_graphics = true;
+        m_actionFile = actionFile;
+        if ( null != m_actionFile ) m_actionFile.initBodyMap();
 	}
 	
 	public ${class_name}(${var.main_class_name} modelRoot, String outfileName,
         .if (multilevel)
-        String outActionFileName,
+        ActionFile actionFile,
         .end if
         boolean export_graphics, NonRootModelElement instance)
     	throws FileNotFoundException 
@@ -155,21 +147,17 @@ public class ${class_name} extends CoreExport
         PersistableModelComponent mc = 
             PersistenceManager.getComponent(instance);
         IFile f = MdlPlugin.getWorkspace().getRoot().getFile(mc.getFullPath());
-        determineUpdateStatus(f, outfileName
-        .if (multilevel)
-        , outActionFileName
-        .end if
-        );
+        determineUpdateStatus(f, outfileName);
 		m_inst = instance;
         m_export_graphics = export_graphics;
+        .if (multilevel)
+        m_actionFile = actionFile;
+        if ( null != m_actionFile ) m_actionFile.initBodyMap();
+        .end if
     }
 	.end if	
     .if (callingProject == "NBP")
-    private void determineUpdateStatus(IFile mrFile, String outfileName
-    .if (multilevel)
-    , String outActionFileName
-    .end if
-    )
+    private void determineUpdateStatus(IFile mrFile, String outfileName)
     throws FileNotFoundException {
         m_path = new Path(outfileName);
         // getLocation() is null for some unit tests
@@ -180,20 +168,10 @@ public class ${class_name} extends CoreExport
             m_isUpdate = true;
             m_updateData = new ByteArrayOutputStream();
             m_fh = new PrintStream(m_updateData);
-            .if ( class_name == "ExportModelComponent" )
-            m_actionUpdateData = new ByteArrayOutputStream();
-            m_afh = new PrintStream(m_actionUpdateData);
-            .end if
         } else {
             File fh = m_path.toFile();
             FileOutputStream fs = new FileOutputStream(fh);
             m_fh = new PrintStream(fs);
-            .if ( class_name == "ExportModelComponent" )
-            Path actionPath = new Path(outActionFileName);
-            File afh = actionPath.toFile();
-            FileOutputStream afs = new FileOutputStream(afh);
-            m_afh = new PrintStream(afs);
-            .end if
         }
     }
     .end if	
@@ -281,7 +259,7 @@ public class ${class_name} extends CoreExport
             }
             m_fh.close();
             .if ( class_name == "ExportModelComponent" )
-            m_afh.close();
+            if ( null != m_actionFile ) m_actionFile.closeBodyMap();
             .end if
     .if (callingProject == "NBP")
 			if (m_isUpdate) {
@@ -294,19 +272,8 @@ public class ${class_name} extends CoreExport
 				f.setContents(stream, true, true, pm);
 			}
                                 .if ( class_name == "ExportModelComponent" )
-				InputStream astream = new ByteArrayInputStream(m_actionUpdateData.toByteArray());
-                                IFile af = mc.getActionFile();
-                                if (!af.exists()) {
-                                    if ( m_actionUpdateData.toByteArray().length != 0 && m_updateActions ) {
-				        af.create(astream, true, pm);
-                                    }
-                                } else {
-                                    if ( m_actionUpdateData.toByteArray().length != 0 && m_updateActions ) {
-				        af.setContents(astream, true, true, pm);
-                                    }
-                                    else {
-                                        af.delete(true, false, pm);
-                                    }
+                                if ( null != m_actionFile && m_updateActions ) {
+                                    m_actionFile.persistActionBodies(pm);
                                 }
                                 .end if
 			}
