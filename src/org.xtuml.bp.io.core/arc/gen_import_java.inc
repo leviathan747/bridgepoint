@@ -474,10 +474,19 @@ public class ${class_name} extends CoreImport
     private final static String bp7_1_4VersionNumber = "7.1.4";
 
 	private final static String bp7_1_5VersionNumber = "7.1.5";
-    /**
-     * The current persistence version
+
+	private final static String bp7_1_6VersionNumber = "7.1.6";
+
+	/**
+	 * We moved from 7.1.6 to 7.1.7 in Jan 2017 in BridgePoint v5.8.6.
+	 * It was BridgePoint 5.8.6 where MASL persistence was introduced (#8417).
+	 * This is a persistence format change. We did not update the persistence
+	 * version at that time, but are doing so now.
+	 */
+	/**
+     * The current persistence version.
      */
-    private final static String persistenceVersion = "7.1.6";
+    private final static String persistenceVersion = "7.1.7";
 
     .end if
     String actualVersion = getHeader().getFileFormatVersion();
@@ -722,9 +731,7 @@ public class ${class_name} extends CoreImport
 
     public void processAction( String smasl, int dialect ) {
 	.if (class_name == "ImportModelComponent")
-        IPreferenceStore store = CorePlugin.getDefault().getPreferenceStore();
-        String persistActivities = store.getString(BridgePointPreferencesStore.ACTIVITY_PERSISTENCE);
-        if ( persistActivities.equals(BridgePointPreferencesStore.PERSIST_ACTIVITY_FILES) && dialect == Actiondialect_c.masl ) {
+        if ( dialect == Actiondialect_c.masl ) {
             NonRootModelElement pmc_root_element = getRootModelElement();
             ModelRoot modelRoot = pmc_root_element.getModelRoot();
 
@@ -805,6 +812,14 @@ public class ${class_name} extends CoreImport
 
             // compile the signature
             signature = ret_type + " " + name + parameter_list;
+
+            // fix the body
+            body = body.trim();
+            if ( dialect == Actiondialect_c.masl ) {
+                // if the dialect is MASL, the 'end' keyword belongs
+                // as part of the code body itself and must be added
+                body += "\nend";
+            }
 
             // call import function
             if ( pmc_root_element instanceof SystemModel_c ) {
@@ -929,7 +944,11 @@ public class ${class_name} extends CoreImport
           }
 
             .if (class_name == "ImportModelComponent")
-            doLoadActions(pm);
+            IPreferenceStore store = CorePlugin.getDefault().getPreferenceStore();
+            String persistActivities = store.getString(BridgePointPreferencesStore.ACTIVITY_PERSISTENCE);
+            if ( persistActivities.equals(BridgePointPreferencesStore.PERSIST_ACTIVITY_FILES) ) {
+              m_actionSuccess = doLoadActions(pm);
+            }
             .end if;
             pm.done();
             if (m_parseAll) {
