@@ -3,12 +3,74 @@
 
   <import file="../MC-Java/common.xml"/>
 
+  <property name="plugins-home" value="${ant.home}/../.."/>
+
+  <taskdef resource="net/sf/antcontrib/antcontrib.properties">
+    <classpath>
+      <pathelement location="${plugins-home}/plugins/ant-contrib-0.6.jar"/>
+    </classpath>
+  </taskdef>
+
   <property file="generate.properties"/>
-  <condition property="itemsfoundin1"><contains string="${items1}" substring="${ptc_mcc_ss_only}"/></condition>
-  <condition property="itemsfoundin2"><contains string="${items2}" substring="${ptc_mcc_ss_only}"/></condition>
-  <condition property="itemsfoundin3"><contains string="${items3}" substring="${ptc_mcc_ss_only}"/></condition>
-  <condition property="itemsfoundin4"><contains string="${items4}" substring="${ptc_mcc_ss_only}"/></condition>
+
+  <var name="ifoundin1" value="false"/>
+  <var name="ifoundin2" value="false"/>
+  <var name="ifoundin3" value="false"/>
+  <var name="ifoundin4" value="false"/>
+  <for list="${ptc_mcc_ss_only}" param="outer1">
+    <sequential><for list="${items1}" param="inner1">
+      <sequential><if>
+	<or>
+	  <istrue value="${ifoundin1}"/>
+	  <equals arg1="@{outer1}" arg2="@{inner1}"/>
+	</or>
+	<then><var name="ifoundin1" value="true"/></then>
+        <else><var name="ifoundin1" value="false"/></else>
+      </if></sequential>
+    </for></sequential>
+  </for>
+  <for list="${ptc_mcc_ss_only}" param="outer2">
+    <sequential><for list="${items2}" param="inner2">
+      <sequential><if>
+	<or>
+	  <istrue value="${ifoundin2}"/>
+	  <equals arg1="@{outer2}" arg2="@{inner2}"/>
+	</or>
+	<then><var name="ifoundin2" value="true"/></then>
+	<else><var name="ifoundin2" value="false"/></else>
+      </if></sequential>
+    </for></sequential>
+  </for>
+  <for list="${ptc_mcc_ss_only}" param="outer3">
+    <sequential><for list="${items3}" param="inner3">
+      <sequential><if>
+	<or>
+	  <istrue value="${ifoundin3}"/>
+	  <equals arg1="@{outer3}" arg2="@{inner3}"/>
+	</or>
+	<then><var name="ifoundin3" value="true"/></then>
+	<else><var name="ifoundin3" value="false"/></else>
+      </if></sequential>
+    </for></sequential>
+  </for>
+  <for list="${ptc_mcc_ss_only}" param="outer4">
+    <sequential><for list="${items4}" param="inner4">
+      <sequential><if>
+	<or>
+	  <istrue value="${ifoundin4}"/>
+	  <equals arg1="@{outer4}" arg2="@{inner4}"/>
+	</or>
+	<then><var name="ifoundin4" value="true"/></then>
+	<else><var name="ifoundin4" value="false"/></else>
+      </if></sequential>
+    </for></sequential>
+  </for>
   <condition property="nonempty_ss_only"><not><equals arg1="${ptc_mcc_ss_only}" arg2=""/></not></condition>
+  <property name="itemsfoundin1" value="${ifoundin1}"/>
+  <property name="itemsfoundin2" value="${ifoundin2}"/>
+  <property name="itemsfoundin3" value="${ifoundin3}"/>
+  <property name="itemsfoundin4" value="${ifoundin4}"/>
+
   <target name="all"
           description="Generate java code (and maybe only the specified class) and then the rest."
           depends="sql,java"
@@ -22,8 +84,6 @@
   </target>
   <target name="nb_all" description="no formatting" depends="sql,java,cme,cme_schema,cme_menus,inspector.java, cell_modifiers,generate_supertype_subtype_util, action_language_description_util, generate_rto_util">
   </target>
-
-  <property name="plugins-home" value="${ant.home}/../.."/>
 
   <property name="sql.input" value="models/org.xtuml.bp.core/ooaofooa" />
   <property name="sql.output" value="ooaofooa.sql" />
@@ -41,6 +101,7 @@
 
   <target name="sql.depends" >
     <echo >Plugins home: ${plugins-home}</echo>
+    <fail/>
   	
     <uptodate property="sql.buildNotNeeded" targetfile="sql/${sql.output}">
       <srcfiles dir="${sql.input}" excludes="${model_excludes}" includes="**/*.xtuml" />

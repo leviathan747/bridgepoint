@@ -620,11 +620,12 @@ ${blck.body}
     .assign translate_enabled = false
     .break for
   .end if
-  .if ((translate_enabled == true) and ((mc_ss_only == "") or (mc_ss_only == pkg.Name)))
+  .invoke contains_ss = contains( mc_ss_only, pkg.Name )
+  .if ((translate_enabled == true) and ((mc_ss_only == "") or (contains_ss.result)))
     .if ("${pkg.Descrip:Translate}" == "false")
       .print "Package ${pkg.Name} ignored"
     .else
-      .if (mc_ss_only == pkg.Name)
+      .if (contains_ss.result)
         .// Translate OAL before translating the specifically requested class.
         .invoke translate_all_oal( mc_root_pkg, application_root_class, send_changes );
         .assign already_translated = true
@@ -632,7 +633,8 @@ ${blck.body}
       .invoke tcn = get_test_class_name()
       .select many objects related by pkg->PE_PE[R8000]->O_OBJ[R8001]
       .for each object in objects
-        .if ((mc_class_only == "") or (mc_class_only == object.Name))
+        .invoke contains_obj = contains( mc_class_only, object.Name )
+        .if ((mc_class_only == "") or (contains_obj.result))
         .print " Translating Object:   ${object.Name}"
         .invoke cn = get_class_name ( object )
         .assign class_name = "${cn.body}"

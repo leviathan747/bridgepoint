@@ -991,3 +991,20 @@ ${param_delimiter}${intCast1}${value.buffer}${intCast2}\
     .assign attr_result = true
   .end if
 .end function
+.//
+.// ------------------------------------------------------------------------------------
+.// utility function to determine if a comma separated list of strings contains a string
+.// ------------------------------------------------------------------------------------
+.//
+.function contains
+  .param string list
+  .param string key
+
+  .assign split_list = $tsplit{list}
+  .assign attr_result = false
+  .for each value in split_list
+    .if ( key == value )
+      .assign attr_result = true
+    .end if
+  .end for
+.end function
