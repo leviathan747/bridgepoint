@@ -101,7 +101,6 @@
 
   <target name="sql.depends" >
     <echo >Plugins home: ${plugins-home}</echo>
-    <fail/>
   	
     <uptodate property="sql.buildNotNeeded" targetfile="sql/${sql.output}">
       <srcfiles dir="${sql.input}" excludes="${model_excludes}" includes="**/*.xtuml" />
