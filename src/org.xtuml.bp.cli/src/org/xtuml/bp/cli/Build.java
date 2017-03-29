@@ -27,28 +27,7 @@ public class Build implements IApplication {
 	@Override
 	public Object start(IApplicationContext context) throws Exception {
 		try {
-			CommandLineOption[] cmdLineOptions = new CommandLineOption[] {
-					new CommandLineOption("-project", "",
-							"The name of the project that will be built."),
-							
-// This option is not yet supported.  It is commented out until support is added.														
-//					new CommandLineOption("-mcOutputFolder", "",
-//							"The output folder for model compiler artifacts."),
-					new CommandLineOption("-buildConfig", "",
-							"The CDT build configuration to use."),
-					new CommandLineOption("-prebuildOnly", false,
-							"Run ONLY the BridgePoint Model Compiler pre-builder."),
-					new CommandLineOption("-cleanCLI", false,
-							"Performs a clean build on the project."),
-					new CommandLineOption("-doNotParse", false,
-							"Prevents the action language parser from running during build."),
-					new CommandLineOption(
-							"-debugCLI",
-							false,
-							"Launch a workbench and leave it open after executing the command."), 
-					new CommandLineOption("-help", false, "Display usage information.")
-
-			};
+			CommandLineOption[] cmdLineOptions = getCommandLineOptions();
 
 			BPCLIPreferences cmdLine = new  BPCLIPreferences(context, cmdLineOptions);
 			if (cmdLine.getBooleanValue("-help")) {
@@ -81,6 +60,32 @@ public class Build implements IApplication {
 	@Override
 	public void stop() {
 		// nothing to do
+	}
+	
+	public static CommandLineOption[] getCommandLineOptions() {
+        CommandLineOption[] cmdLineOptions = new CommandLineOption[] {
+                new CommandLineOption("-project", "",
+                        "The name of the project that will be built."),
+                        
+// This option is not yet supported.  It is commented out until support is added.														
+//					new CommandLineOption("-mcOutputFolder", "",
+//							"The output folder for model compiler artifacts."),
+                new CommandLineOption("-buildConfig", "",
+                        "The CDT build configuration to use."),
+                new CommandLineOption("-prebuildOnly", false,
+                        "Run ONLY the BridgePoint Model Compiler pre-builder."),
+                new CommandLineOption("-cleanCLI", false,
+                        "Performs a clean build on the project."),
+                new CommandLineOption("-doNotParse", false,
+                        "Prevents the action language parser from running during build."),
+                new CommandLineOption(
+                        "-debugCLI",
+                        false,
+                        "Launch a workbench and leave it open after executing the command."), 
+                new CommandLineOption("-help", false, "Display usage information.")
+
+        };
+        return cmdLineOptions;
 	}
 
 }

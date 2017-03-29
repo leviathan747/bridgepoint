@@ -102,8 +102,9 @@ public class LaunchWorkbenchAdvisor extends BPCLIWorkbenchAdvisor {
         
         private void handleCommand( String cmd ) {
             // print command
-            System.out.println(cmd);
+            System.out.println("Executing command: " + cmd);
             
+            // Check for exit command
             if ( "exit".equals(cmd) ) {
                 // terminate the server
                 advisor.changeServerState(TERMINATED);
@@ -113,17 +114,33 @@ public class LaunchWorkbenchAdvisor extends BPCLIWorkbenchAdvisor {
                     e.printStackTrace();
                 }
             }
-            else if ( cmd.startsWith("Import") ) {
+            
+            // execute the command
+            Executor executor = null;
+            if ( cmd.startsWith("Import") ) {
                 String[] context = cmd.replaceFirst("Import", "").trim().split(" ");
                 try {
                     BPCLIPreferences cmdLine = new  BPCLIPreferences(context, Import.getCommandLineOptions());
-                    ImportExecutor executor = new ImportExecutor(cmdLine);
-                    executor.execute();
+                    executor = new ImportExecutor(cmdLine);
                 }
                 catch ( BPCLIException e ) {
                     BPCLIPreferences.logError("Error during Launch: " + e.getMessage(), null);
                 }
             }
+            else if ( cmd.startsWith("Build") ) {
+                String[] context = cmd.replaceFirst("Build", "").trim().split(" ");
+                try {
+                    BPCLIPreferences cmdLine = new  BPCLIPreferences(context, Build.getCommandLineOptions());
+                    executor = new BuildExecutor(cmdLine);
+                }
+                catch ( BPCLIException e ) {
+                    BPCLIPreferences.logError("Error during Launch: " + e.getMessage(), null);
+                }
+            }
+            else {
+                System.out.println("Unrecognized command");
+            }
+            if ( null != executor ) executor.execute();
         }
     }
 

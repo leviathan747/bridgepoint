@@ -18,7 +18,7 @@ import org.eclipse.core.runtime.Path;
 import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.utilities.ui.ProjectUtilities;
 
-public class ImportExecutor {
+public class ImportExecutor implements Executor {
     
     private BPCLIPreferences cmdLine;
 
