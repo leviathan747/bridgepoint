@@ -313,4 +313,8 @@ public class BuildExecutor implements Executor {
 			eb.exportSystem(sys, destPath.toOSString(), new NullProgressMonitor(), false, "", !doNotParse);
 		}
 	}
+	
+	public boolean getPrebuilderOnly() {
+	    return prebuilderOnly;
+	}
 }

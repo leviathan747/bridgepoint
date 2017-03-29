@@ -1,9 +1,12 @@
 package org.xtuml.bp.cli;
 
 public class BuildWorkbenchAdvisor extends BPCLIWorkbenchAdvisor {
+    
+    private BuildExecutor executor;
 	
 	protected BuildWorkbenchAdvisor(BPCLIPreferences prefs) {
 		super(prefs);
+		executor = new BuildExecutor(cmdLine);
 	}
 
 	/**
@@ -15,12 +18,19 @@ public class BuildWorkbenchAdvisor extends BPCLIWorkbenchAdvisor {
 		Thread runner = new Thread(new Runnable() {
 			@Override
 			public void run() {
-			    BuildExecutor executor = new BuildExecutor(cmdLine);
 			    executor.execute();
 			}
 		});
 		runner.setName("BP CLI Build");
 		runner.start();
+	}
+
+	protected void performCLIBuild() {
+	    executor.performCLIBuild();
+	}
+	
+	public boolean getPrebuilderOnly() {
+	    return executor.getPrebuilderOnly();
 	}
 
 }

@@ -36,7 +36,7 @@ public class Build implements IApplication {
 				BPCLIWorkbenchAdvisor.redirectSystemOutput(cmdLine);
 				BuildWorkbenchAdvisor workbenchAdvisor = new BuildWorkbenchAdvisor(cmdLine);
 				System.out.println("Starting CLI Build" );
-				if (workbenchAdvisor.prebuilderOnly) {  // if prebuildOnly then don't create the workbench.
+				if (workbenchAdvisor.getPrebuilderOnly()) {  // if prebuildOnly then don't create the workbench.
 					if(!workbenchAdvisor.debug) {
 						Job.getJobManager().suspend();
 						CoreUtil.IsRunningHeadless = true;
