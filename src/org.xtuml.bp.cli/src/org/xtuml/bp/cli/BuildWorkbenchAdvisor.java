@@ -1,5 +1,7 @@
 package org.xtuml.bp.cli;
 
+import org.eclipse.ui.PlatformUI;
+
 public class BuildWorkbenchAdvisor extends BPCLIWorkbenchAdvisor {
     
     private BuildExecutor executor;
@@ -19,6 +21,18 @@ public class BuildWorkbenchAdvisor extends BPCLIWorkbenchAdvisor {
 			@Override
 			public void run() {
 			    executor.execute();
+			    System.out.println("Build complete.  Exiting.");
+                // Unless running in debug exit after the build.  Of course if this
+                // is prebuidlerOnly there is no workbench to have to close
+                if (!debug && !getPrebuilderOnly()) {
+                    PlatformUI.getWorkbench().getDisplay().asyncExec(new Runnable() {
+                        
+                        @Override
+                        public void run() {
+                            PlatformUI.getWorkbench().close();
+                        }
+                    });
+                }
 			}
 		});
 		runner.setName("BP CLI Build");

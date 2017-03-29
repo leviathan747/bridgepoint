@@ -97,10 +97,13 @@ public class LaunchWorkbenchAdvisor extends BPCLIWorkbenchAdvisor {
             // handle commands
             for ( String command : commands ) {
                 handleCommand(command.trim());
+                if ( TERMINATED == server_state ) return;
             }
         }
         
         private void handleCommand( String cmd ) {
+            if ( null == cmd || "".equals(cmd) ) return;
+
             // print command
             System.out.println("Executing command: " + cmd);
             
@@ -113,6 +116,7 @@ public class LaunchWorkbenchAdvisor extends BPCLIWorkbenchAdvisor {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+                return;
             }
             
             // execute the command

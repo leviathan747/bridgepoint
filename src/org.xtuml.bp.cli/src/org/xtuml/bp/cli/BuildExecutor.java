@@ -132,18 +132,6 @@ public class BuildExecutor implements Executor {
 			if (!prebuilderOnly) {
 				CUIPlugin.getDefault().getPreferenceStore().setValue("buildConsoleLines", originalConsoleLines); //$NON-NLS-1$
 			}
-			System.out.println("Build complete.  Exiting.");
-			// Unless running in debug exit after the build.  Of course if this
-			// is prebuidlerOnly there is no workbench to have to close
-			if (!debug && !prebuilderOnly) {
-				PlatformUI.getWorkbench().getDisplay().asyncExec(new Runnable() {
-					
-					@Override
-					public void run() {
-						PlatformUI.getWorkbench().close();
-					}
-				});
-			}
 		}
 	}
 	
