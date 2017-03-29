@@ -84,18 +84,20 @@ public class LaunchWorkbenchAdvisor extends BPCLIWorkbenchAdvisor {
             // get command data
             ByteArrayOutputStream data = new ByteArrayOutputStream();
             byte[] buffer = new byte[BUF_SIZE];
-            String command = "";
+            String[] commands = {};
             try {
                 in = socket.getInputStream();
                 while ( -1 != in.read(buffer, 0, BUF_SIZE) ) data.write(buffer);
-                command = data.toString();
+                commands = data.toString().split("\n");
                 socket.close();
             } catch (IOException e) {
                 e.printStackTrace();
             }
             
-            // handle command
-            handleCommand(command.trim());
+            // handle commands
+            for ( String command : commands ) {
+                handleCommand(command.trim());
+            }
         }
         
         private void handleCommand( String cmd ) {
@@ -114,11 +116,9 @@ public class LaunchWorkbenchAdvisor extends BPCLIWorkbenchAdvisor {
             else if ( cmd.startsWith("Import") ) {
                 String[] context = cmd.replaceFirst("Import", "").trim().split(" ");
                 try {
-                    BPCLIPreferences cmdLine = new  BPCLIPreferences(context, null);
-                    BPCLIWorkbenchAdvisor.redirectSystemOutput(cmdLine);
-                    System.out.println("Starting Import");
-                    BPCLIWorkbenchAdvisor advisor = new ImportWorkbenchAdvisor(cmdLine);
-                    advisor.createAndRunWorkbench();
+                    BPCLIPreferences cmdLine = new  BPCLIPreferences(context, Import.getCommandLineOptions());
+                    ImportExecutor executor = new ImportExecutor(cmdLine);
+                    executor.execute();
                 }
                 catch ( BPCLIException e ) {
                     BPCLIPreferences.logError("Error during Launch: " + e.getMessage(), null);
