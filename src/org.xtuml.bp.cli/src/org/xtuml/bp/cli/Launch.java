@@ -13,9 +13,7 @@ public class Launch implements IApplication {
     public Object start(IApplicationContext context) throws Exception {
         int returnCode = 0;
         try {
-            CommandLineOption[] cmdLineOptions = new CommandLineOption[] {
-                new CommandLineOption("-help", false, "Display usage information.")
-            };
+            CommandLineOption[] cmdLineOptions = getCommandLineOptions();
             
             BPCLIPreferences cmdLine = new  BPCLIPreferences(context, cmdLineOptions);
             if (cmdLine.getBooleanValue("-help")) {
@@ -40,6 +38,14 @@ public class Launch implements IApplication {
         if (display != null) {
             display.dispose();
         }
+    }
+    
+    public CommandLineOption[] getCommandLineOptions() {
+        CommandLineOption[] cmdLineOptions = new CommandLineOption[] {
+            new CommandLineOption("-port", "", "Local port to connect to."),
+            new CommandLineOption("-help", false, "Display usage information.")
+        };
+        return cmdLineOptions;
     }
 
 }

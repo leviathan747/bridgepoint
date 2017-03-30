@@ -12,13 +12,24 @@ import org.eclipse.ui.PlatformUI;
 public class LaunchWorkbenchAdvisor extends BPCLIWorkbenchAdvisor {
     
     private static int IDLE = 0;
-    private static int RUNNING = 1;
-    private static int TERMINATED = 2;
+    private static int INITIALIZED = 1;
+    private static int READY = 2;
+    private static int RUNNING = 3;
+    private static int TERMINATED = 4;
     
     private int server_state = IDLE;
+    
+    private int init_port;
 
     protected LaunchWorkbenchAdvisor(BPCLIPreferences prefs) {
         super(prefs);
+        try {
+            init_port = Integer.parseInt(cmdLine.getStringValue("-port"));
+        }
+        catch ( NumberFormatException e ) {
+            System.out.println("Invalid port number.");
+            init_port = -1;
+        }
     }
 
     @Override
@@ -29,18 +40,67 @@ public class LaunchWorkbenchAdvisor extends BPCLIWorkbenchAdvisor {
             @Override
             public void run() {
                 try {
+                    // create server
+                    System.out.println("Creating server...");
                     ServerSocket server = new ServerSocket();
                     server.bind(new InetSocketAddress(0));
-                    server_state = RUNNING;
-                    System.out.printf( "Server started and listening on port: %d\n", server.getLocalPort() );
-                    SocketHandler socketHandler = new SocketHandler(advisor, server);
-                    Thread handlerThread = new Thread(socketHandler);
-                    handlerThread.start();
-                    while ( RUNNING == server_state ) {
-                        try {
-                            Socket sock = server.accept();
-                            socketHandler.appendTaskQueue(sock);
-                        } catch ( SocketException e ) {/* do nothing */}
+                    server_state = INITIALIZED;
+
+                    // connect to the CLI server and send port
+                    Socket socket = new Socket();
+                    try {
+                        // try to connect for 30 seconds
+                        System.out.println("Connecting socket...");
+                        int timeout = 30;
+                        int sleeptime = 250;
+                        int try_num = 0;
+                        while ( true ) {
+                            try {
+                                socket.connect(new InetSocketAddress("localhost", init_port));
+                                break;
+                            } catch ( ConnectException e ) {
+                                if ( try_num > (timeout * ( 1000 / sleeptime )) ) {
+                                    System.out.println("Connection timeout.");
+                                    break;
+                                }
+                                else socket = new Socket();
+                            }
+                            try_num++;
+                            try {
+                                Thread.sleep(sleeptime);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                        }
+
+                        // write the port
+                        if ( socket.isConnected() ) {
+                            System.out.println("Sending port number...");
+                            OutputStream out = socket.getOutputStream();
+                            out.write((Integer.toString(server.getLocalPort())+"\n").getBytes());
+                            out.flush();
+                            socket.close();
+                            server_state = READY;
+                        }
+                    } catch ( IllegalArgumentException e ) {
+                        // do nothing
+                    } catch ( IOException e ) {
+                        e.printStackTrace();
+                    }
+                    
+                    // start server
+                    if ( READY == server_state ) {
+                        System.out.println("Server running.");
+                        server_state = RUNNING;
+                        SocketHandler socketHandler = new SocketHandler(advisor, server);
+                        Thread handlerThread = new Thread(socketHandler);
+                        handlerThread.start();
+                        while ( RUNNING == server_state ) {
+                            try {
+                                Socket sock = server.accept();
+                                socketHandler.appendTaskQueue(sock);
+                            } catch ( SocketException e ) {/* do nothing */}
+                        }
                     }
                     server.close();
                 } catch (IOException e) {
