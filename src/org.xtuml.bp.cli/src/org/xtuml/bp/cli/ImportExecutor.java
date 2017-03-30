@@ -59,7 +59,6 @@ public class ImportExecutor implements Executor {
         if(!source.exists() || !source.isDirectory()) {
             throw new BPCLIException("The source project does not exist.");
         }
-        System.out.println(projectPath+"/.project");
         IProjectDescription description = ResourcesPlugin
                 .getWorkspace().loadProjectDescription( new Path(projectPath+"/.project"));
         IProject project = ResourcesPlugin.getWorkspace()

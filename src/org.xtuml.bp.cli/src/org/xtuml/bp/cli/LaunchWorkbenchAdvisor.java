@@ -3,7 +3,9 @@ package org.xtuml.bp.cli;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.*;
+import java.util.concurrent.ConcurrentLinkedDeque;
 
 import org.eclipse.ui.PlatformUI;
 
@@ -31,11 +33,13 @@ public class LaunchWorkbenchAdvisor extends BPCLIWorkbenchAdvisor {
                     server.bind(new InetSocketAddress(0));
                     server_state = RUNNING;
                     System.out.printf( "Server started and listening on port: %d\n", server.getLocalPort() );
+                    SocketHandler socketHandler = new SocketHandler(advisor, server);
+                    Thread handlerThread = new Thread(socketHandler);
+                    handlerThread.start();
                     while ( RUNNING == server_state ) {
                         try {
                             Socket sock = server.accept();
-                            Thread socketHandler = new Thread(new SocketHandler(sock, advisor, server));
-                            socketHandler.start();
+                            socketHandler.appendTaskQueue(sock);
                         } catch ( SocketException e ) {/* do nothing */}
                     }
                     server.close();
@@ -65,44 +69,57 @@ public class LaunchWorkbenchAdvisor extends BPCLIWorkbenchAdvisor {
     
     private class SocketHandler implements Runnable {
         
-        private static final int BUF_SIZE = 1024;
+        private static final String OK_RESPONSE = "OK";
+        private static final String FAILURE_RESPONSE = "FL";
+
+        private ConcurrentLinkedDeque<Command> taskQueue;
         
         private LaunchWorkbenchAdvisor advisor;
         private ServerSocket server;
 
-        private Socket socket;
-        private InputStream in;
-        
-        public SocketHandler( Socket socket, LaunchWorkbenchAdvisor advisor, ServerSocket server) {
-            this.socket = socket;
+        public SocketHandler( LaunchWorkbenchAdvisor advisor, ServerSocket server) {
             this.advisor = advisor;
             this.server = server;
+            taskQueue = new ConcurrentLinkedDeque<Command>();
         }
 
         @Override
         public void run() {
-            // get command data
-            ByteArrayOutputStream data = new ByteArrayOutputStream();
-            byte[] buffer = new byte[BUF_SIZE];
-            String[] commands = {};
-            try {
-                in = socket.getInputStream();
-                while ( -1 != in.read(buffer, 0, BUF_SIZE) ) data.write(buffer);
-                commands = data.toString().split("\n");
-                socket.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            
             // handle commands
-            for ( String command : commands ) {
-                handleCommand(command.trim());
-                if ( TERMINATED == server_state ) return;
+            while ( RUNNING == server_state ) {
+                Command command = taskQueue.poll();
+                if ( null != command && null != command.getCmd() ) {
+                    String response = handleCommand(command.getCmd());
+                    command.sendResponse(response);
+                }
+                try {
+                    Thread.sleep(250);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
         }
         
-        private void handleCommand( String cmd ) {
-            if ( null == cmd || "".equals(cmd) ) return;
+        public void appendTaskQueue( Socket socket ) {
+            // get command data
+            InputStream in;
+            ByteArrayOutputStream data = new ByteArrayOutputStream();
+            try {
+                in = socket.getInputStream();
+                int c;
+                // read one line from the socket
+                while ( -1 != (c=in.read()) && '\n' != c ) {
+                    data.write(c);
+                }
+                taskQueue.add( new Command(data.toString().trim(), socket) );
+            } catch (IOException e) {
+                e.printStackTrace();
+
+            }
+        }
+        
+        private String handleCommand( String cmd ) {
+            if ( null == cmd || "".equals(cmd) ) return FAILURE_RESPONSE;
 
             // print command
             System.out.println("Executing command: " + cmd);
@@ -116,7 +133,7 @@ public class LaunchWorkbenchAdvisor extends BPCLIWorkbenchAdvisor {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                return;
+                return OK_RESPONSE;
             }
             
             // execute the command
@@ -145,6 +162,35 @@ public class LaunchWorkbenchAdvisor extends BPCLIWorkbenchAdvisor {
                 System.out.println("Unrecognized command");
             }
             if ( null != executor ) executor.execute();
+            return OK_RESPONSE;
+        }
+    }
+    
+    private class Command {
+
+        private String cmd;
+        private Socket socket;
+
+        public Command(String cmd, Socket socket) {
+            this.cmd = cmd;
+            this.socket = socket;
+        }
+        
+        public String getCmd() {
+            return cmd;
+        }
+        
+        public void sendResponse( String msg ) {
+            try {
+                OutputStream out = socket.getOutputStream();
+                out.write(msg.getBytes());
+                out.flush();
+                socket.close();
+            } catch (SocketException e) {
+                System.out.println("Socket has been closed by client.");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
