@@ -7,7 +7,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 import org.eclipse.core.resources.IProject;
-import org.eclipse.core.resources.IProjectDescription;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.NullProgressMonitor;
@@ -59,12 +58,28 @@ public class ImportExecutor implements Executor {
         if(!source.exists() || !source.isDirectory()) {
             throw new BPCLIException("The source project does not exist.");
         }
-        IProjectDescription description = ResourcesPlugin
-                .getWorkspace().loadProjectDescription( new Path(projectPath+"/.project"));
-        IProject project = ResourcesPlugin.getWorkspace()
-                .getRoot().getProject(description.getName());
-        project.create(description, null);
-        project.open(null);
+        // Get the source project
+        String projectName = getProjectNameFromPath();
+        project = ResourcesPlugin.getWorkspace().getRoot()
+                .getProject(projectName);
+
+        if(project.exists()) {
+            if(cmdLine.getBooleanValue("-deleteExisting")) {
+                project.delete(true, true, new NullProgressMonitor());
+            } else {
+                throw new BPCLIException("The specified project already exists in the workspace.");
+            }
+        }
+        if (!targetProjectName.isEmpty()) {
+            System.out.println("Note: the -targetProject argument is ignored when importing a project.");
+        }
+        System.out.println("Importing project: " + projectName);
+        // create the project
+        project.create(new NullProgressMonitor());
+        // Copy source project contents
+        copyFolder(new File(projectPath), project.getLocation().toFile());
+        project.close(new NullProgressMonitor());
+        project.open(new NullProgressMonitor());
     }
 
     private void copyFolder(File src, File dest) throws IOException {
