@@ -13,8 +13,14 @@ import org.eclipse.core.runtime.NullProgressMonitor;
 import java.io.FileOutputStream;
 import org.apache.commons.io.FilenameUtils;
 import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.ProjectScope;
 import org.eclipse.core.runtime.Path;
+import org.eclipse.core.runtime.preferences.IScopeContext;
+import org.osgi.service.prefs.BackingStoreException;
+import org.osgi.service.prefs.Preferences;
 import org.xtuml.bp.core.SystemModel_c;
+import org.xtuml.bp.core.ui.preferences.BridgePointProjectPreferences;
+import org.xtuml.bp.core.ui.preferences.BridgePointProjectReferencesPreferences;
 import org.xtuml.bp.utilities.ui.ProjectUtilities;
 
 public class ImportExecutor implements Executor {
@@ -129,15 +135,31 @@ public class ImportExecutor implements Executor {
         project = ResourcesPlugin.getWorkspace().getRoot().getProject(targetProjectName);
         if (project.exists()) {
             if (cmdLine.getBooleanValue("-deleteExisting")) {
+                System.out.println("Deleting existing project...");
                 project.delete(true, true, new NullProgressMonitor());
             } 
         } 
         if (!project.exists()) {
             if (cmdLine.getBooleanValue("-deleteExisting")) {
+                System.out.println("Creating project...");
                 project = ProjectUtilities.createProjectNoUI(targetProjectName);
             } 
             else {
                 throw new BPCLIException("The single file import requires the target project already exist.");
+            }
+        }
+
+        // set IPR preference
+        if (cmdLine.getBooleanValue("-allowIPRs")) {
+            System.out.println("Enabling IPRs...");
+	        IScopeContext projectScope = new ProjectScope(project);
+			Preferences projectNode = projectScope.getNode(
+			    BridgePointProjectPreferences.BP_PROJECT_PREFERENCES_ID);
+		    projectNode.putBoolean(BridgePointProjectReferencesPreferences.BP_PROJECT_REFERENCES_ID, true);
+            try {
+                projectNode.flush();
+            } catch (BackingStoreException e) {
+                System.out.println("Error updating project preferences");
             }
         }
     

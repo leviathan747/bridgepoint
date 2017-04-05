@@ -64,7 +64,11 @@ public class Import implements IApplication {
                 new CommandLineOption(
                         "-deleteExisting",
                         false,
-                        "If an project with the same name exists, delete it."),
+                        "If an project with the same name exists, delete it and create a new project."),
+                new CommandLineOption(
+                        "-allowIPRs",
+                        false,
+                        "Allow this project to refer to elements in other projects in the workspace."),
                 new CommandLineOption("-help", false, "Display usage information.")
         };
 	    return cmdLineOptions;
