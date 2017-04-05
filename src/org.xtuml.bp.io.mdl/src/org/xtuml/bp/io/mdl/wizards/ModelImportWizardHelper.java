@@ -48,15 +48,10 @@ public class ModelImportWizardHelper {
         if ( reconcileGraphics ) {
             if (helper.maslModelWasImported()) {
                 // Reconcile graphics.
-                PlatformUI.getWorkbench().getDisplay().syncExec(new Runnable() {
-                    public void run() {
-                        List<NonRootModelElement> systems = new ArrayList<NonRootModelElement>();
-                        systems.add(fSystem);
-                        GraphicsReconcilerLauncher reconciler = new GraphicsReconcilerLauncher(systems);
-                        reconciler.runReconciler(false, true);
-                    }
-
-                });				
+                List<NonRootModelElement> systems = new ArrayList<NonRootModelElement>();
+                systems.add(fSystem);
+                GraphicsReconcilerLauncher reconciler = new GraphicsReconcilerLauncher(systems);
+                reconciler.runReconciler(false, true);
             }
         }
     }

@@ -292,6 +292,7 @@ public class ProjectUtilities {
 				String message = "";
 				IModelImport importer = importHelper.doImportPhase1(processor, systemModel, inputFile, monitor);
 				importHelper.doImportPhase2(processor, systemModel, monitor, message, importer);
+				importHelper.doResolveMASL(importer, systemModel, true);
 			} catch (FileNotFoundException e) {
 				CorePlugin.logError("Internal error: failed to open " + filePath, e);
 				return false;
