@@ -67,6 +67,68 @@ import org.xtuml.bp.io.mdl.wizards.ModelImportWizardHelper;
 public class ProjectUtilities {
 
     private static String perspective = "org.xtuml.bp.core.perspective"; //$NON-NLS-1$
+    
+    public static IProject createProjectNoUI(final String name ) throws CoreException {
+        IProject projectHandle = ResourcesPlugin.getWorkspace().getRoot().getProject(name);
+        if (projectHandle.exists()) {
+            // try to open a currently existing project
+            projectHandle.open(new NullProgressMonitor());
+            return projectHandle;
+        }
+
+        // project doesn't exist, create a new project
+        final IProjectDescription myTestProject = ResourcesPlugin
+                .getWorkspace().newProjectDescription(projectHandle.getName());
+        myTestProject.setLocation(null); // default location
+        projectHandle.create(myTestProject, new NullProgressMonitor());
+
+        projectHandle.open(new NullProgressMonitor());
+
+        XtUMLNature.addNature(projectHandle);
+
+        ClassQueryInterface_c query = new ClassQueryInterface_c() {
+            public boolean evaluate(Object candidate) {
+                return ((SystemModel_c) candidate).getName().equals(name);
+            }
+        };
+        SystemModel_c newModel = SystemModel_c.SystemModelInstance(Ooaofooa
+                .getDefaultInstance(), query);
+        if (newModel == null) {
+            newModel = new SystemModel_c(Ooaofooa.getDefaultInstance());
+            newModel.setUseglobals(true);
+			// need to fire a created event so that
+			// the diagram elements are created
+			Ooaofooa.getDefaultInstance().fireModelElementCreated(
+					new BaseModelDelta(Modeleventnotification_c.DELTA_NEW,
+							newModel));
+        }
+        newModel.setName(name);
+
+        PersistableModelComponent newComp = PersistenceManager
+                .createRootComponent(projectHandle, newModel);
+        if (!newComp.isPersisted()) {
+            try {
+                ComponentResourceListener.setIgnoreResourceChangesMarker(true);
+                newComp.persist();
+                ComponentResourceListener.setIgnoreResourceChangesMarker(false);
+            } catch (CoreException e) {
+                CorePlugin.logError("Failed to create System Model data file",
+                        e);
+            }
+        }
+        // close and reopen the project to get
+        // the system level graphics setup as
+        // well as the system level datatypes
+        try {
+            projectHandle.close(new NullProgressMonitor());
+            projectHandle.open(new NullProgressMonitor());
+        } catch (CoreException e1) {
+            CorePlugin.logError("Unable to open test project.", e1);
+        }
+
+        return projectHandle;
+        
+    }
 
     public static IProject createProject(String name) throws CoreException {
         return createProject(name, null);
@@ -292,7 +354,7 @@ public class ProjectUtilities {
 				String message = "";
 				IModelImport importer = importHelper.doImportPhase1(processor, systemModel, inputFile, monitor);
 				importHelper.doImportPhase2(processor, systemModel, monitor, message, importer);
-				importHelper.doResolveMASL(importer, systemModel, true);
+				importHelper.doResolveMASL(importer, systemModel, false);
 			} catch (FileNotFoundException e) {
 				CorePlugin.logError("Internal error: failed to open " + filePath, e);
 				return false;

@@ -133,7 +133,12 @@ public class ImportExecutor implements Executor {
             } 
         } 
         if (!project.exists()) {
-            throw new BPCLIException("The single file import requires the target project already exist.");
+            if (cmdLine.getBooleanValue("-deleteExisting")) {
+                project = ProjectUtilities.createProjectNoUI(targetProjectName);
+            } 
+            else {
+                throw new BPCLIException("The single file import requires the target project already exist.");
+            }
         }
     
         // Import the file into the project
