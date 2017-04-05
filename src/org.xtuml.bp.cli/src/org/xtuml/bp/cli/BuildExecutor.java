@@ -296,7 +296,7 @@ public class BuildExecutor implements Executor {
 
 			IPath destPath = eb.getCodeGenFolderPath(project);
 			if (!destPath.toFile().exists()) {
-				destPath.toFile().mkdir();
+				destPath.toFile().mkdirs();
 			}
 			eb.exportSystem(sys, destPath.toOSString(), new NullProgressMonitor(), false, "", !doNotParse);
 		}
