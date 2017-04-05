@@ -62,7 +62,7 @@ public class ModelImportWizardHelper {
     }
     
     public IModelImport doImportPhase1(ModelStreamProcessor fProcessor, SystemModel_c fSystem, File fInputFile,
-            IProgressMonitor monitor, IModelImport fImporter)
+            IProgressMonitor monitor)
                     throws FileNotFoundException, IOException {
         fProcessor.setDestinationElement(fSystem);
         // otherwise read the file contents into a string and
@@ -77,7 +77,7 @@ public class ModelImportWizardHelper {
         ByteArrayInputStream is = new ByteArrayInputStream(fileBytes);
         Ooaofooa.getInstance(Ooaofooa.CLIPBOARD_MODEL_ROOT_NAME)
                 .clearDatabase(monitor);
-        fImporter = CorePlugin.getStreamImportFactory().create(
+        IModelImport fImporter = CorePlugin.getStreamImportFactory().create(
                 is,
                 Ooaofooa.getInstance(
                         Ooaofooa.CLIPBOARD_MODEL_ROOT_NAME, false),

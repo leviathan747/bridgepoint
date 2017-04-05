@@ -14,6 +14,8 @@
 package org.xtuml.bp.utilities.ui;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IProjectDescription;
@@ -50,14 +52,17 @@ import org.xtuml.bp.core.XtUMLNature;
 import org.xtuml.bp.core.common.BaseModelDelta;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.core.common.ComponentResourceListener;
+import org.xtuml.bp.core.common.ModelStreamProcessor;
 import org.xtuml.bp.core.common.PersistableModelComponent;
 import org.xtuml.bp.core.common.PersistenceManager;
+import org.xtuml.bp.core.ui.IModelImport;
 import org.xtuml.bp.core.ui.Selection;
 import org.xtuml.bp.core.util.UIUtil;
 import org.xtuml.bp.io.mdl.wizards.ModelExportPage;
 import org.xtuml.bp.io.mdl.wizards.ModelExportWizard;
 import org.xtuml.bp.io.mdl.wizards.ModelImportPage;
 import org.xtuml.bp.io.mdl.wizards.ModelImportWizard;
+import org.xtuml.bp.io.mdl.wizards.ModelImportWizardHelper;
 
 public class ProjectUtilities {
 
@@ -273,6 +278,31 @@ public class ProjectUtilities {
         return getSystemModel(project.getName());
     }
 
+
+    public static boolean importModelWithoutWizard(SystemModel_c systemModel,
+            String filePath) {
+		IPath templatePath = new Path(filePath);
+		if (templatePath.getFileExtension().equals(Ooaofooa.MODELS_EXT)) {
+			File inputFile;
+			try {
+				inputFile = templatePath.toFile();
+				ModelImportWizardHelper importHelper = new ModelImportWizardHelper();
+				ModelStreamProcessor processor = new ModelStreamProcessor();
+				IProgressMonitor monitor = new NullProgressMonitor();
+				String message = "";
+				IModelImport importer = importHelper.doImportPhase1(processor, systemModel, inputFile, monitor);
+				importHelper.doImportPhase2(processor, systemModel, monitor, message, importer);
+			} catch (FileNotFoundException e) {
+				CorePlugin.logError("Internal error: failed to open " + filePath, e);
+				return false;
+			} catch (IOException e) {
+				CorePlugin.logError("There was an exception loading the give source file.",e);
+				return false;
+			}
+		}
+
+        return true;
+    }
 
     public static boolean importModelUsingWizard(SystemModel_c systemModel,
             String fullyQualifiedSingleFileModel, boolean parseOnImport) {

@@ -10,7 +10,6 @@ import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.NullProgressMonitor;
-import org.eclipse.ui.PlatformUI;
 import java.io.FileOutputStream;
 import org.apache.commons.io.FilenameUtils;
 import org.eclipse.core.resources.IResource;
@@ -136,32 +135,27 @@ public class ImportExecutor implements Executor {
         if (!project.exists()) {
             throw new BPCLIException("The single file import requires the target project already exist.");
         }
-        
-        PlatformUI.getWorkbench().getDisplay().syncExec(new Runnable() {
-            
-            @Override
-            public void run() {
-                // Import the file into the project
-                SystemModel_c systemModel = ProjectUtilities.getSystemModel(project);
-                System.out.println("The system model is " + systemModel.getName());
-                try {
-                    project.open(new NullProgressMonitor());
-                    project.refreshLocal(IResource.DEPTH_INFINITE, null);
+    
+        // Import the file into the project
+        SystemModel_c systemModel = ProjectUtilities.getSystemModel(project);
+        System.out.println("The system model is " + systemModel.getName());
+        try {
+            project.open(new NullProgressMonitor());
+            project.refreshLocal(IResource.DEPTH_INFINITE, null);
 
-                    System.out.println("Proceeding with import of " + filePath);
-                    boolean setupSucceeded = ProjectUtilities.importModelUsingWizard(systemModel, filePath, false);
-                    if(!setupSucceeded) {
-                        throw new BPCLIException("The import process failed.");
-                    }
-                    
-                    ProjectUtilities.allowJobCompletion();
-
-                } catch (CoreException e) {
-                    System.out.println(e.toString());
-                } catch (BPCLIException e) {
-                    System.out.println(e.toString());
-                }
+            System.out.println("Proceeding with import of " + filePath);
+            boolean setupSucceeded = ProjectUtilities.importModelWithoutWizard(systemModel, filePath);
+            if(!setupSucceeded) {
+                throw new BPCLIException("The import process failed.");
             }
-        });        
+
+            project.refreshLocal(IResource.DEPTH_INFINITE, null);
+            
+        } catch (CoreException e) {
+            System.out.println(e.toString());
+        } catch (BPCLIException e) {
+            System.out.println(e.toString());
+        }
     }
+    
 }

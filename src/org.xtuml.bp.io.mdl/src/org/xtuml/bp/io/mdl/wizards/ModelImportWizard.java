@@ -186,7 +186,7 @@ public class ModelImportWizard extends Wizard implements IImportWizard {
 		public void run(final IProgressMonitor monitor)
 				throws InvocationTargetException, InterruptedException {
 			try {
-			    fImporter = importHelper.doImportPhase1(fProcessor, fSystem, fInputFile, monitor, fImporter);
+			    fImporter = importHelper.doImportPhase1(fProcessor, fSystem, fInputFile, monitor);
 				if (fImportPage.parseOnImport()) {
 					// this must be run on the display thread
 					PlatformUI.getWorkbench().getDisplay().syncExec(
