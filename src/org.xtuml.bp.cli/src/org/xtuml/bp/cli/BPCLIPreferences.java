@@ -23,8 +23,6 @@ package org.xtuml.bp.cli;
 
 import org.eclipse.equinox.app.IApplicationContext;
 
-import org.xtuml.bp.core.CorePlugin;
-
 /**
  * This class manages command-line options
  *

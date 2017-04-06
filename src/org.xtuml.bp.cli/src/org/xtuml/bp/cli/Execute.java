@@ -26,24 +26,13 @@ import org.eclipse.equinox.app.IApplication;
 import org.eclipse.equinox.app.IApplicationContext;
 
 import org.xtuml.bp.cli.BPCLIPreferences.CommandLineOption;
-import org.xtuml.bp.core.CorePlugin;
 
 public class Execute implements IApplication {
 	
 	@Override
 	public Object start(IApplicationContext context) throws Exception {
 		try {
-			CommandLineOption[] cmdLineOptions = new CommandLineOption[] {
-					new CommandLineOption("-launch", "",
-							"The name of the launch configuration to run."),
-					new CommandLineOption(
-							"-debugCLI",
-							false,
-							"Launch a workbench and leave it open after executing the command."),
-                    new CommandLineOption("-help", false,
-                            "Display usage information.")
-
-			};
+			CommandLineOption[] cmdLineOptions = getCommandLineOptions();
 
 			BPCLIPreferences cmdLine = new  BPCLIPreferences(context, cmdLineOptions);
 			if (cmdLine.getBooleanValue("-help")) {
@@ -72,6 +61,21 @@ public class Execute implements IApplication {
 	@Override
 	public void stop() {
 		// nothing to do
+	}
+
+	public static CommandLineOption[] getCommandLineOptions() {
+        CommandLineOption[] cmdLineOptions = new CommandLineOption[] {
+                new CommandLineOption("-launch", "",
+                        "The name of the launch configuration to run."),
+                new CommandLineOption(
+                        "-debugCLI",
+                        false,
+                        "Launch a workbench and leave it open after executing the command."),
+                new CommandLineOption("-help", false,
+                        "Display usage information.")
+
+        };
+        return cmdLineOptions;
 	}
 
 }

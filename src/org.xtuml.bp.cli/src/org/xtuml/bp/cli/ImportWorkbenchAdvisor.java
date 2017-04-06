@@ -1,7 +1,5 @@
 package org.xtuml.bp.cli;
 
-import org.eclipse.ui.PlatformUI;
-
 public class ImportWorkbenchAdvisor extends BPCLIWorkbenchAdvisor {
     
     private ImportExecutor executor;
@@ -18,18 +16,7 @@ public class ImportWorkbenchAdvisor extends BPCLIWorkbenchAdvisor {
 			@Override
 			public void run() {
 			    executor.execute();
-			    System.out.println("Import complete.  Exiting.");
-			    // Unless running in debug exit after the build
-			    if (!debug) {
-			        PlatformUI.getWorkbench().getDisplay().asyncExec(
-                        new Runnable() {
-
-                            @Override
-                            public void run() {
-                                PlatformUI.getWorkbench().close();
-                            }
-                        });
-			    }
+			    shutdown("Import");
 			}
 		});
 		runner.setName("BP CLI Import");

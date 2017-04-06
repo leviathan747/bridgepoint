@@ -19,7 +19,6 @@ import org.eclipse.equinox.app.IApplicationContext;
 import org.eclipse.jface.dialogs.ErrorDialog;
 
 import org.xtuml.bp.cli.BPCLIPreferences.CommandLineOption;
-import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.util.CoreUtil;
 
 public class Build implements IApplication {
