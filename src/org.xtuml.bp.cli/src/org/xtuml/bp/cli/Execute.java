@@ -37,7 +37,7 @@ public class Execute implements IApplication {
 			BPCLIPreferences cmdLine = new  BPCLIPreferences(context, cmdLineOptions);
 			if (cmdLine.getBooleanValue("-help")) {
 				cmdLine.usage("Execute");
-				ILaunchConfiguration[] cfgs = ExecuteWorkbenchAdvisor.getVerifierLaunchConfigs();
+				ILaunchConfiguration[] cfgs = ExecuteExecutor.getVerifierLaunchConfigs();
 				System.out.println("\n\tAvailable Verifier launch configurations:");
 				for(int i = 0; i < cfgs.length; i++){
 			        final String cfgName = cfgs[i].getName();
