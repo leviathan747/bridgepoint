@@ -22,19 +22,16 @@ public class RunMASLRefresherAction implements IObjectActionDelegate {
 	/* (non-Javadoc)
 	 * @see org.eclipse.ui.IActionDelegate#run(org.eclipse.jface.action.IAction)
 	 */
-	@Override
-	public void run(IAction action) {
-	    if (curSel instanceof SystemModel_c) {
-			if (!Refresher.exportHasRun()) {
-				// Run it synchronously. We use this CME to run this action
-				// through reflection in some places (in bp.core). It is
-				// important in those places that the action complete before 
-				// returning
-				Refresher refresh = new Refresher(false);
-				refresh.exportSystem((SystemModel_c)curSel);
-			}
-	    }	    
-	}
+    @Override
+    public void run(IAction action) {
+        if (curSel instanceof SystemModel_c) {
+            // Run it synchronously. We use this CME to run this action
+            // through reflection in some places (in bp.core). It is
+            // important in those places that the action complete before 
+            // returning
+            Refresher.exportSystem((SystemModel_c)curSel);
+        }
+    }
 
 	/* (non-Javadoc)
 	 * @see org.eclipse.ui.IActionDelegate#selectionChanged(org.eclipse.jface.action.IAction, org.eclipse.jface.viewers.ISelection)
