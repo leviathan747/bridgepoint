@@ -22,6 +22,8 @@ import org.xtuml.bp.core.ExecutableProperty_c
 import org.xtuml.bp.core.ProvidedOperation_c
 import org.xtuml.bp.core.ProvidedExecutableProperty_c
 import org.xtuml.bp.core.PropertyParameter_c
+import org.xtuml.bp.x2m.refresher.Refresher;
+import org.xtuml.bp.core.SystemModel_c
 
 class MaslRenameParticipant implements IRenameElementParticipant {
 	
@@ -37,6 +39,9 @@ class MaslRenameParticipant implements IRenameElementParticipant {
 	String newName
 	
 	override IStatus renameElement(NonRootModelElement xtumlElement, String newName, String oldName) {
+	    Refresher.sync = true
+	    Refresher.exportSystem( xtumlElement.root as SystemModel_c )
+	    Refresher.sync = false
 		this.projects = xtumlElement.projects
 		this.newName = newName
 		this.eClasses = xtumlElement.maslEClasses

@@ -33,8 +33,10 @@ import org.xtuml.bp.core.ProvidedExecutableProperty_c;
 import org.xtuml.bp.core.ProvidedOperation_c;
 import org.xtuml.bp.core.RequiredExecutableProperty_c;
 import org.xtuml.bp.core.RequiredOperation_c;
+import org.xtuml.bp.core.SystemModel_c;
 import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.core.ui.IRenameElementParticipant;
+import org.xtuml.bp.x2m.refresher.Refresher;
 import org.xtuml.bp.xtext.masl.masl.structure.StructurePackage;
 import org.xtuml.bp.xtext.masl.ui.rename.MaslRenameRefactoringExecutor;
 import org.xtuml.bp.xtext.masl.ui.rename.XtumlRenameElementContext;
@@ -69,6 +71,10 @@ public class MaslRenameParticipant implements IRenameElementParticipant {
   
   @Override
   public IStatus renameElement(final NonRootModelElement xtumlElement, final String newName, final String oldName) {
+    Refresher.setSync(true);
+    NonRootModelElement _root = xtumlElement.getRoot();
+    Refresher.exportSystem(((SystemModel_c) _root));
+    Refresher.setSync(false);
     List<IProject> _projects = this.getProjects(xtumlElement);
     this.projects = _projects;
     this.newName = newName;

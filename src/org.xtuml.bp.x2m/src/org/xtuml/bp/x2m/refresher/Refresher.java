@@ -40,6 +40,7 @@ public class Refresher extends Task {
     private static final int KILLTIMEOUT = 20000;
 
     public static Refresher self;
+    private boolean sync = false;
 
     private static final int MASL_PROJECT   = 1;
     private static final int MASL_DOMAIN    = 2;
@@ -163,28 +164,18 @@ public class Refresher extends Task {
 
             try {
                 // Next proceed with actually running xtuml2masl on the model
-            	Thread refreshThread = new Thread(new Runnable() {
-					@Override
-					public void run() {
-
-						if (!path.toFile().exists()) {
-							path.toFile().mkdir();
-						}
-						try {
-							PersistableModelComponent pmc = sys.getPersistableComponent();
-							pmc.loadComponentAndChildren(new NullProgressMonitor());
-							ExportBuilder eb = new ExportBuilder();
-							new File(codeGenPath).mkdirs();
-							eb.exportSystem(sys, codeGenPath, new NullProgressMonitor(), false, "", false);
-							runExport(project, projPath, destPath, export_type, names);
-							project.refreshLocal(IResource.DEPTH_INFINITE, null);
-						} catch (Throwable e) {
-							RuntimeException err = new RuntimeException(e.getMessage());
-							throw err;
-						}
-					}
-            	});
-                refreshThread.start();
+                if ( self.sync ) {
+                    executeRefresh( path, sys, codeGenPath, project, projPath, destPath, export_type, names );
+                } 
+                else {
+                    Thread refreshThread = new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            executeRefresh( path, sys, codeGenPath, project, projPath, destPath, export_type, names );
+                        }
+                    });
+                    refreshThread.start();
+                }
             } catch (Throwable e) {
                 String errMsg = e.getMessage();
                 if ( (errMsg == null) || errMsg.isEmpty() ) {
@@ -212,6 +203,25 @@ public class Refresher extends Task {
                     }
                 }
             }
+        }
+    }
+
+    private static void executeRefresh(IPath path, SystemModel_c sys, final String codeGenPath, final IProject project, final String projPath, final String destPath, final int export_type, final String[] names)
+        throws RuntimeException {
+        if (!path.toFile().exists()) {
+            path.toFile().mkdir();
+        }
+        try {
+            PersistableModelComponent pmc = sys.getPersistableComponent();
+            pmc.loadComponentAndChildren(new NullProgressMonitor());
+            ExportBuilder eb = new ExportBuilder();
+            new File(codeGenPath).mkdirs();
+            eb.exportSystem(sys, codeGenPath, new NullProgressMonitor(), false, "", false);
+            runExport(project, projPath, destPath, export_type, names);
+            project.refreshLocal(IResource.DEPTH_INFINITE, null);
+        } catch (Throwable e) {
+            RuntimeException err = new RuntimeException(e.getMessage());
+            throw err;
         }
     }
  
@@ -320,6 +330,13 @@ public class Refresher extends Task {
         }
 
         return exitValue;
+    }
+    
+    public static void setSync( boolean value ) {
+		if (self == null) {
+			self = new Refresher();
+		}
+		self.sync = value;
     }
 
 }
