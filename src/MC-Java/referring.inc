@@ -349,18 +349,20 @@ public static ${locn.body} ${nfn.body}${func_suffix}(ModelRoot modelRoot, ${tocn
      // not a Containment Relation
      List comps =  PersistenceManager.findAllComponents(modelRoot,${locn.body}.class);
   .end if
+    List<IModelImport> importers = new ArrayList<IModelImport>();
     for (int i = 0; i < comps.size(); i++) {
       PersistableModelComponent component = (PersistableModelComponent) comps.get(i);
       if (!component.isLoaded()) {
         try {
-          component.load(new NullProgressMonitor());
-          result=find_${nfn.body}${func_suffix}(modelRoot,target,test);
-          if(result!=null) return result;
+          component.load(new NullProgressMonitor(), true);
+          importers.add( component.getImporter() );
         } catch (Exception e) {
           CorePlugin.logError("Error Loading component", e);
         }
       }
     }
+    for ( IModelImport importer : importers ) importer.finishComponentLoad( new NullProgressMonitor(), true );
+    result=find_${nfn.body}${func_suffix}(modelRoot,target,test);
   }
   
   return result;

@@ -491,6 +491,7 @@ public class PersistenceManager {
         UpgradeHandler handler = getUpgradeHandler();
         // load the data for the roots
         PersistableModelComponent[] roots = findRootComponentInstances();
+        List<IModelImport> importers = new ArrayList<IModelImport>();
         for (int i = 0; i < roots.length; ++i) {
             if (!roots[i].isLoaded()) {
             	boolean load = true;
@@ -507,10 +508,12 @@ public class PersistenceManager {
                 }
                 if(load) {
                 	NullProgressMonitor nullMon = new NullProgressMonitor();
-                	roots[i].load(nullMon);
+                	roots[i].load(nullMon, true);
+                	importers.add( roots[i].getImporter() );
                 }
             }
         }
+        for ( IModelImport importer : importers ) importer.finishComponentLoad(new NullProgressMonitor(), true);
 		if (handler.requirements != null && !handler.requirements.isEmpty()) {
 			handler.performUpgrade();
 		}
@@ -864,6 +867,7 @@ public class PersistenceManager {
     
 	static public void ensureAllInstancesLoaded(ModelRoot modelRoot, Class elementClass,
 			PersistableModelComponent ignoredComponent) {
+		List<IModelImport> importers = new ArrayList<IModelImport>();
 		List comps = findAllComponents(modelRoot, elementClass);
 		for (Iterator iter = comps.iterator(); iter.hasNext();) {
 			PersistableModelComponent component = (PersistableModelComponent) iter.next();
@@ -882,12 +886,14 @@ public class PersistenceManager {
 			if (!component.isLoaded() && component.getStatus() != PersistableModelComponent.STATUS_LOADED
 					&& component.getStatus() != PersistableModelComponent.STATUS_LOADING) {
 				try {
-					component.load(new NullProgressMonitor());
+					component.load(new NullProgressMonitor(), true);
+					importers.add( component.getImporter() );
 				} catch (CoreException e) {
 					CorePlugin.logError("Can't load component", e);
 				}
 			}
 		}
+		for ( IModelImport importer : importers ) importer.finishComponentLoad(new NullProgressMonitor(), true);
 	}
 
     static public List findAllChildComponents(PersistableModelComponent parent,

@@ -118,7 +118,13 @@ public class PersistableModelComponent implements Comparable {
     // instance of ME when component is loaded otherwise it will be null;
     private NonRootModelElement componentRootME;
     
-    static synchronized public PersistableModelComponent create(IPath modelFilePath) {
+    private IModelImport importer;
+    
+	public IModelImport getImporter() {
+		return importer;
+	}
+
+	static synchronized public PersistableModelComponent create(IPath modelFilePath) {
         PersistableModelComponent result = PersistenceManager.findComponent(modelFilePath);
         try {
             if(result==null){
@@ -649,6 +655,10 @@ public class PersistableModelComponent implements Comparable {
  * @throws CoreException
  */
     public void load(IProgressMonitor monitor) throws CoreException {
+        load(monitor, false);
+    }
+
+    public void load(IProgressMonitor monitor, boolean noFinish) throws CoreException {
         if (status == STATUS_LOADING) {
             // recursive call from some where
             // any code causing cotrol to reach here should be addressed
@@ -672,6 +682,11 @@ public class PersistableModelComponent implements Comparable {
 
     public void load(IProgressMonitor monitor, boolean parseOal,boolean reload)
             throws CoreException {
+        load(monitor, parseOal, reload, false);
+    }
+
+    public void load(IProgressMonitor monitor, boolean parseOal,boolean reload, boolean noFinish)
+            throws CoreException {
         if (status == STATUS_LOADING) {
             // recursive call from some where
             // any code causing control to reach here should be addressed
@@ -688,6 +703,11 @@ public class PersistableModelComponent implements Comparable {
 
     public void load(Ooaofooa modelRoot, IProgressMonitor monitor)
             throws CoreException {
+        load(modelRoot, monitor, false);
+    }
+    
+    public void load(Ooaofooa modelRoot, IProgressMonitor monitor, boolean noFinish)
+            throws CoreException {
         if (status == STATUS_LOADING) {
             // recursive call from some where
             // any code causing cotrol to reach here should be addressed
@@ -697,8 +717,14 @@ public class PersistableModelComponent implements Comparable {
         load(modelRoot, monitor, false,false);
     }
     
-    public synchronized void load(Ooaofooa modelRoot, IProgressMonitor monitor,
+    public void load(Ooaofooa modelRoot, IProgressMonitor monitor,
             boolean parseOal,boolean reload) throws CoreException {
+    	load( modelRoot, monitor, parseOal, reload, false );
+
+    }
+
+    public synchronized void load(Ooaofooa modelRoot, IProgressMonitor monitor,
+            boolean parseOal,boolean reload, boolean noFinish) throws CoreException {
     	
         if(!reload && isLoaded())
         return;
@@ -727,7 +753,7 @@ public class PersistableModelComponent implements Comparable {
       try {
             status = STATUS_LOADING;    
         
-            IModelImport importer = createImporter(modelRoot, parseOal);
+        importer = createImporter(modelRoot, parseOal);
         if (importer == null) {
           // we're trying to load a file in a closed project
              status=oldStatus;
@@ -745,7 +771,9 @@ public class PersistableModelComponent implements Comparable {
                 + importer.getErrorMessage(), new Throwable()
                 .fillInStackTrace());
           }else{
+        	  if ( !noFinish ) {
             importer.finishComponentLoad(monitor, true);
+            }
 	    if ( !importer.getActionSuccessful() ) {
 	      CorePlugin.logError("Error while loading model from "
 			      + getFullPath() + " ERROR: "

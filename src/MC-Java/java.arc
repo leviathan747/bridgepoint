@@ -676,6 +676,7 @@ import ${pkg.Descrip:Import};
         .end if
         .if (package.is_eclipse_plugin)
 import org.xtuml.bp.core.common.*;      
+import org.xtuml.bp.core.ui.IModelImport;
         .else
 import ${package.name}.common.*;      
         .end if
@@ -1189,19 +1190,6 @@ ${gen_RGO_resolution.body}\
             .if(object.Key_Lett != "O_BATTR")
             Object[] ${rel_inst_var_name}_uk = new Object[] ${guk.key};
             if(${rel_inst_var_name}_uk[0] instanceof UUID && ((UUID) ${rel_inst_var_name}_uk[0]).getLeastSignificantBits() != 0) {
-				if((${rel_inst_var_name} == null  || ${rel_inst_var_name}.isProxy()) && !baseRoot.isCompareRoot() && !isProxy() && !((UUID) ${rel_inst_var_name}_uk[0]).equals(Gd_c.Null_unique_id())) {
-					// load all potential PMCs that may contain our target 
-					PersistenceManager.ensureAllInstancesLoaded(null,
-							Package_c.class, getPersistableComponent());
-					PersistenceManager.ensureAllInstancesLoaded(null,
-							Component_c.class, getPersistableComponent());
-					PersistenceManager.ensureAllInstancesLoaded(null,
-							ModelClass_c.class, getPersistableComponent());
-					PersistenceManager.ensureAllInstancesLoaded(null,
-							InstanceStateMachine_c.class, getPersistableComponent());
-					PersistenceManager.ensureAllInstancesLoaded(null,
-							ClassStateMachine_c.class, getPersistableComponent());
-				}
 			}
 			.end if
                 .assign search_all_model_roots = package.search_all_model_roots
@@ -1347,19 +1335,21 @@ ${gen_RGO_resolution.body}\
         .if (package.is_root AND  persistent) .//lazy loading is only for persistable elements
         if(result==null && loadComponent){
      List pmcs =  PersistenceManager.findAllComponents(modelRoot,${class_name}.class);
+        List<IModelImport> importers = new ArrayList<IModelImport>();
         for (int i = 0; i < pmcs.size(); i++) {
             PersistableModelComponent component = (PersistableModelComponent) pmcs
                 ..get(i);
             if (!component.isLoaded()) {
                 try {
-                    component.load(new NullProgressMonitor());
-                     result=find$cr{object.Name}Instance(modelRoot,test,loadComponent);
-                     if(result!=null) return result;
+                    component.load(new NullProgressMonitor(), true);
+                    importers.add( component.getImporter() );
                 } catch (Exception e) {
                     CorePlugin.logError("Error Loading component", e);
                 }
             }
         }
+        for ( IModelImport importer : importers ) importer.finishComponentLoad( new NullProgressMonitor(), true );
+        result=find$cr{object.Name}Instance(modelRoot,test,loadComponent);
         }
         if(result!=null && loadComponent){
             result.loadProxy();
