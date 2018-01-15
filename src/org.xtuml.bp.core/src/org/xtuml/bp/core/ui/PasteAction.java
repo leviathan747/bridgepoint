@@ -161,6 +161,7 @@ public abstract class PasteAction extends CutCopyPasteAction  {
 			// Check if anything (RTOs or RGOs) must be downgraded. Only run the
 			// check function if it exists. We don't want to throw an error if it
 			// does not exist.
+			/*
 			for (NonRootModelElement sourceElement : ELEMENT_MOVE_SOURCE_SELECTION) {
 				try {
 					String opName = "Downgradecheck"; //$NON-NLS-1$
@@ -178,6 +179,7 @@ public abstract class PasteAction extends CutCopyPasteAction  {
 					throw e;
 				}
 			} 
+			*/
 			
 			// Move the graphics to their graphical model root
 			processGraphics(destination); 

@@ -57,7 +57,8 @@ public class CanvasCutAction extends CutAction {
 	 */
 	public boolean isSelectionCuttable() {
 		if(m_editor == null) return false;
-		boolean cuttable = CanvasCopyAction.isSelectionCopiable(m_editor.getModel());
+		//boolean cuttable = CanvasCopyAction.isSelectionCopiable(m_editor.getModel());
+		boolean cuttable = true;
 		if(!cuttable || !selectionIsCuttable()) {
 			cuttable = false;
 		}

@@ -82,7 +82,7 @@ public class CanvasCopyAction extends CopyAction {
 						.getOneGD_CONOnR2(elements[i]);
 				if (connector != null) {
 					if (!CanvasCopyAction.isConnectorCopiable(connector)) {
-						continue;
+						//continue;
 					}
 				}
 				list.add((NonRootModelElement) elements[i].getRepresents());
