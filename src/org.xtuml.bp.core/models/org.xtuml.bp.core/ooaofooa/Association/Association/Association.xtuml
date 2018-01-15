@@ -639,6 +639,10 @@ else
     select one o_iobj related by r_oir->O_IOBJ[R202];
     // if an o_iobj instance is present, check if that is selected
     // otherwise the relationship is to a real class
+
+    // Edit: the relationship is cuttable, but an imported class will be created
+    // in the new location to maintain relationships
+    /*
     if ( not_empty o_iobj )
       if ( not Sel::isSelected(element:o_iobj.convertToInstance()) )
         cuttable = false;
@@ -651,6 +655,7 @@ else
         break;
       end if;
     end if;
+    */
   end for;
 end if;
 
