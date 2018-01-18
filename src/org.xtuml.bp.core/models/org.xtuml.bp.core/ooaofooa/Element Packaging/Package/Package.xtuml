@@ -3094,34 +3094,6 @@ if(not_empty rel)
     end for;      
     relate self to pe across R8000;
   end if;
-
-  // if this was pasted from a cut, it is possible that an imported class needs
-  // to be created
-  select many o_objs related by rel->O_OBJ[R201];
-  for each o_obj in o_objs
-    // if the object is not in the selection, it may need an iobj created
-    if ( not Sel::inCutSelection( element:o_obj.convertToInstance() ) )
-      // check if there is an iobj in the selection
-      select any o_iobj related by rel->R_OIR[R201]->O_IOBJ[R202] where ( selected.Obj_ID == o_obj.Obj_ID );
-      if ( empty o_iobj or ( not_empty o_iobj and not Sel::inCutSelection( element:o_iobj.convertToInstance() ) ) )
-        select any o_iobj related by self->PE_PE[R8000]->O_IOBJ[R8001] where ( selected.Obj_ID == o_obj.Obj_ID );
-        if ( empty o_iobj )
-          // create and link new instance
-          create object instance o_iobj of O_IOBJ;
-          create object instance pe of PE_PE;
-          relate o_iobj to pe across R8001;
-          relate pe to self across R8000;
-          relate o_iobj to o_obj across R101;
-        end if;
-        // hook it to each oir from the pasted relationship
-        select many r_oirs related by rel->R_OIR[R201] where ( selected.Obj_ID == o_obj.Obj_ID );
-        for each r_oir in r_oirs
-          relate r_oir to o_iobj across R202;
-        end for;
-      end if;
-    end if;
-  end for;
-
 end if;
 
 ',

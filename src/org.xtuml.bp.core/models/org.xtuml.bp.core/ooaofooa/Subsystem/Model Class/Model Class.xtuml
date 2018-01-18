@@ -2375,48 +2375,6 @@ end for;',
 	'',
 	"d2579b96-b019-4b97-9f1d-218e705f9cf2",
 	0);
-INSERT INTO O_TFR
-	VALUES ("912c74a5-4da2-4946-b48f-64c23e30bbde",
-	"b7630071-9e2a-4183-9986-779dca14c275",
-	'disconnect',
-	'',
-	"ba5eda7a-def5-0000-0000-000000000000",
-	1,
-	'// if any relationships connected to this class in this pakcage are not part of
-// the cut selection, an imported class must be created to take its place
-select one ep_pkg related by self->PE_PE[R8001]->EP_PKG[R8000];
-create_iobj = false;
-select many r_rels related by self->R_REL[R201];
-for each r_rel in r_rels
-  select one rel_pkg related by r_rel->PE_PE[R8001]->EP_PKG[R8000];
-  if ( rel_pkg.Package_ID == ep_pkg.Package_ID and not Sel::inCutSelection( element:r_rel.convertToInstance() ) )
-    create_iobj = true;
-    break;
-  end if;
-end for;
-// create the iobj instance and relate the OIRs to it
-if ( create_iobj )
-  // create and link new instance
-  create object instance o_iobj of O_IOBJ;
-  create object instance pe of PE_PE;
-  relate o_iobj to pe across R8001;
-  relate pe to ep_pkg across R8000;
-  relate o_iobj to self across R101;
-  // hook it to each oir in this package
-  for each r_rel in r_rels
-    select one rel_pkg related by r_rel->PE_PE[R8001]->EP_PKG[R8000];
-    if ( rel_pkg.Package_ID == ep_pkg.Package_ID )
-      select many r_oirs related by r_rel->R_OIR[R201] where ( selected.Obj_ID == self.Obj_ID );
-      for each r_oir in r_oirs
-        relate r_oir to o_iobj across R202;
-      end for;
-    end if;
-  end for;
-end if;',
-	1,
-	'',
-	"4f4cd6e6-97df-4017-b89b-26b670d97799",
-	0);
 INSERT INTO O_NBATTR
 	VALUES ("abd8f188-4260-4e03-9844-41b21ef751b3",
 	"b7630071-9e2a-4183-9986-779dca14c275");
