@@ -27,6 +27,7 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
@@ -90,6 +91,15 @@ public abstract class PasteAction extends CutCopyPasteAction  {
 			// Iterate over each element that was selected. Note that
 			// this is the actual selection. This is NOT using the "importer"
 			// to suck in all dependent elements
+
+      // gather set of containers that need to be updated
+      Set<NonRootModelElement> containersToUpdate = new HashSet<>();
+			for ( NonRootModelElement sourceElement : ELEMENT_MOVE_SOURCE_SELECTION ) {
+          containersToUpdate.add( getContainerForMove( sourceElement ) );
+      }
+      containersToUpdate.add( destination );
+
+      // unhook from source container
 			for (NonRootModelElement sourceElement : ELEMENT_MOVE_SOURCE_SELECTION) {
 
 				// disconnect
@@ -157,6 +167,16 @@ public abstract class PasteAction extends CutCopyPasteAction  {
 						parentNRME);
 				Ooaofooa.getDefaultInstance().fireModelElementMoved(change);									
 			} 
+
+      // clean up assocaitions that may have been left in an inconsistent state
+      // by the move
+      for ( NonRootModelElement container : containersToUpdate ) {
+          try {
+              container.getClass().getMethod( "Createmissingimportedclasses" ).invoke( container );
+          } catch ( Exception e ) {
+              CorePlugin.logError( "Unable to connect invoke 'createMissingImportedClasses'", e );
+          }
+      }
 		
 			// Check if anything (RTOs or RGOs) must be downgraded. Only run the
 			// check function if it exists. We don't want to throw an error if it

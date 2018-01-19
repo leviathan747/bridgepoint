@@ -3492,6 +3492,21 @@ return cuttable;',
 	'',
 	"2eb3cb57-7b4f-4607-b24d-577d9e8a13ee",
 	0);
+INSERT INTO O_TFR
+	VALUES ("02317c0e-415a-4821-bf49-5d37a06331eb",
+	"2786d973-1537-44a1-81d6-3ddbd2377865",
+	'createMissingImportedClasses',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'select many r_rels related by self->PE_PE[R8003]->R_REL[R8001];
+for each r_rel in r_rels
+  r_rel.createMissingImportedClasses();
+end for;',
+	1,
+	'',
+	"7923017f-22f6-4753-bfec-b3e652648057",
+	0);
 INSERT INTO O_NBATTR
 	VALUES ("44ad7e17-9251-42cf-aa73-ac271023c8a3",
 	"2786d973-1537-44a1-81d6-3ddbd2377865");

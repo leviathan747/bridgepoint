@@ -6771,6 +6771,21 @@ return isAccessible and isAssignable;',
 	'',
 	"cacea0fc-4740-4230-8242-d728c337d0ff",
 	0);
+INSERT INTO O_TFR
+	VALUES ("e0c745a5-9556-452d-95f6-33f8ed575707",
+	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e",
+	'createMissingImportedClasses',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'select many r_rels related by self->PE_PE[R8000]->R_REL[R8001];
+for each r_rel in r_rels
+  r_rel.createMissingImportedClasses();
+end for;',
+	1,
+	'',
+	"5f9fbbeb-fd01-4db5-be48-01bee4e480e4",
+	0);
 INSERT INTO O_NBATTR
 	VALUES ("bceab74d-6f82-4823-b3be-7791bab58106",
 	"ac8bc4f0-968f-4f2e-9fb0-8b793076a80e");
