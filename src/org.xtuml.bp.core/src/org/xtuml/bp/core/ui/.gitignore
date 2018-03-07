@@ -348,3 +348,7 @@ SetToProviderOnC_ASAction.java
 SplitOnO_ATTRAction.java
 SplitOnO_ATTRWizard.java
 SplitOnO_ATTRWizardPage1.java
+MakeDeferredOnO_TFRAction.java
+MakeDeferredOnO_TFRWizard.java
+MakeDeferredOnO_TFRWizardPage1.java
+MakeRetainedOnO_TFRAction.java
