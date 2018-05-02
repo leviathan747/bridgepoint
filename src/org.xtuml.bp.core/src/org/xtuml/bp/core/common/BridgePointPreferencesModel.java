@@ -80,7 +80,8 @@ public class BridgePointPreferencesModel implements IPreferenceModel {
     public String contentAssistInvocationFormat;
     public boolean contentAssistEnableAutoTriggering;
     public String contentAssistAutoTriggerSequences;
-    public boolean contentAssistEnablePartialParsing;
+
+    public boolean enablePartialParsing;
 
     public boolean allowConcretePolys;
     
@@ -132,7 +133,8 @@ public class BridgePointPreferencesModel implements IPreferenceModel {
         contentAssistInvocationFormat = syncTo.contentAssistInvocationFormat;
         contentAssistEnableAutoTriggering = syncTo.contentAssistEnableAutoTriggering;
         contentAssistAutoTriggerSequences = syncTo.contentAssistAutoTriggerSequences;
-        contentAssistEnablePartialParsing = syncTo.contentAssistEnablePartialParsing;
+
+        enablePartialParsing = syncTo.enablePartialParsing;
 
         allowConcretePolys = syncTo.allowConcretePolys;
 
@@ -190,7 +192,8 @@ public class BridgePointPreferencesModel implements IPreferenceModel {
         prefs.contentAssistInvocationFormat = contentAssistInvocationFormat;
         prefs.contentAssistEnableAutoTriggering = contentAssistEnableAutoTriggering;
         prefs.contentAssistAutoTriggerSequences = contentAssistAutoTriggerSequences;
-        prefs.contentAssistEnablePartialParsing = contentAssistEnablePartialParsing;
+
+        prefs.enablePartialParsing = enablePartialParsing;
 
         prefs.allowConcretePolys = allowConcretePolys;
 

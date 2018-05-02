@@ -17,7 +17,6 @@ import org.eclipse.jface.text.contentassist.IContextInformation;
 import org.eclipse.jface.text.contentassist.IContextInformationValidator;
 import org.eclipse.swt.graphics.Image;
 import org.xtuml.bp.als.oal.ParseRunnable;
-import org.xtuml.bp.als.oal.PartialParseRunnable;
 import org.xtuml.bp.core.Action_c;
 import org.xtuml.bp.core.Association_c;
 import org.xtuml.bp.core.Attribute_c;
@@ -325,7 +324,7 @@ public class OALCompletionProcessor implements IContentAssistProcessor {
     
     private void parseActivityPartial( IDocument document, NonRootModelElement element, int position ) {
         if ( null != element && getNeedsParse() ) {
-            ParseRunnable parseRunner = new PartialParseRunnable( element, document.get(),
+            ParseRunnable parseRunner = new ParseRunnable( element, document.get(),
                     DocumentUtil.positionToLine( position, document ), DocumentUtil.positionToCol( position, document ) );
             parseRunner.run();
             setNeedsParse(false);
