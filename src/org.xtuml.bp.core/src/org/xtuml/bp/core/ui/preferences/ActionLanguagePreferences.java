@@ -20,6 +20,7 @@ import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.events.SelectionListener;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.FontData;
 import org.eclipse.swt.layout.GridData;
@@ -56,6 +57,7 @@ public class ActionLanguagePreferences
     private Button enableErrorForEmptySynchronousMessage;
 	private Button enableErrorForEmptySynchronousMessageRealized;
 	private Button enableParseOnActivtyEdits;
+	private Button enablePartialParsing;
     
     protected IPreferenceModel model;
 
@@ -172,6 +174,28 @@ public class ActionLanguagePreferences
     										"disadvantage is that large action bodies may take a long time to parse.\n" +
     										"When disabled, you must manually parse the OAL using the \n" +
     										" Parse All Activities option found in the context menu.");
+    enableParseOnActivtyEdits.addSelectionListener( new SelectionListener() {
+        @Override
+        public void widgetDefaultSelected( SelectionEvent e ) {}
+        @Override
+        public void widgetSelected( SelectionEvent e ) {
+            if ( enableParseOnActivtyEdits.getSelection() ) {
+                enablePartialParsing.setEnabled( true );
+            }
+            else {
+                enablePartialParsing.setSelection( false );
+                enablePartialParsing.setEnabled( false );
+            }
+        }
+    });
+
+    enablePartialParsing = new Button(composite, SWT.CHECK | SWT.LEFT);
+    enablePartialParsing.setText("Enable partial parsing (beta)");
+    enablePartialParsing.setToolTipText("If enabled, the parser will only re-parse statements affected\n" +
+                                        "by an edit in an action body.");
+    GridData partialParsingData = new GridData();
+    partialParsingData.horizontalIndent = 20;
+    enablePartialParsing.setLayoutData(partialParsingData);
 
     allowOperationsInWhere = new Button(composite, SWT.CHECK | SWT.LEFT);
     allowOperationsInWhere.setText("Allow operations inside where clauses of select statements");
@@ -272,6 +296,12 @@ public class ActionLanguagePreferences
       else {
     	  bpPrefs.enableParseOnActivtyEdits = false;
       }      
+      if (enablePartialParsing.getSelection()) {
+    	  bpPrefs.enablePartialParsing = true;
+      }
+      else {
+    	  bpPrefs.enablePartialParsing = false;
+      }      
       if (allowOperationsInWhere.getSelection()) {
           bpPrefs.allowOperationsInWhere = true;
       }
@@ -359,6 +389,13 @@ public class ActionLanguagePreferences
       }
       allowImplicitComponentAddressing.setSelection(bpPrefs.allowImplicitComponentAddressing);
       enableParseOnActivtyEdits.setSelection(bpPrefs.enableParseOnActivtyEdits);      
+      enablePartialParsing.setSelection(bpPrefs.enablePartialParsing);      
+      if ( enableParseOnActivtyEdits.getSelection() ) {
+    	  enablePartialParsing.setEnabled( true );
+      }
+      else {
+    	  enablePartialParsing.setEnabled( false );
+      }
       allowOperationsInWhere.setSelection(bpPrefs.allowOperationsInWhere);
       allowInterfaceNameInICMessage.setSelection(bpPrefs.allowInterfaceNameInICMessage);
 	  enableErrorForEmptySynchronousMessage
