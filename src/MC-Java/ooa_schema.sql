@@ -246,6 +246,8 @@ CREATE TABLE ACT_SMT (
     Previous_Statement_ID      UNIQUE_ID,
     LineNumber INTEGER,
     StartPosition      INTEGER,
+    EndLineNumber INTEGER,
+    EndPosition INTEGER,
     Label      STRING,
     buffer STRING, 
     buffer2 STRING,
