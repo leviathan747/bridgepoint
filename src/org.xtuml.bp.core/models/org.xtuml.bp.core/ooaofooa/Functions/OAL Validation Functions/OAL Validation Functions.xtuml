@@ -1144,11 +1144,16 @@ if ( not_empty stmt )
   select one if_stmt related by stmt->ACT_IF[R603];
   select one elif_stmt related by stmt->ACT_E[R603];
   select one else_stmt related by stmt->ACT_EL[R603];
-  // the if statement handles the numbering itself
+  // the if statement handles start the numbering itself
   if ( empty if_stmt and empty elif_stmt and empty else_stmt )
     select one blk related by stmt->ACT_BLK[R602];
     stmt.LineNumber = blk.CurrentLine;
     stmt.StartPosition = blk.CurrentCol;
+  end if;
+  // the elif/else statement handles start the numbering itself
+  if ( empty elif_stmt and empty else_stmt )
+    stmt.EndLineNumber = ::getLineNumber( rule_token:param.a1_rule_token );
+    stmt.EndPosition = ::getColumn( rule_token:param.a1_rule_token ) + GD::strlen( s: ::getText( rule_token:param.a1_rule_token ) ) - 1;
   end if;
 end if;
 return param.a6_current_rule_id;
@@ -5142,6 +5147,17 @@ else
         select any root_blk from instances of ACT_BLK where selected.Block_ID == param.a2_upper_ruleid_name;
 		stmt.LineNumber = root_blk.CurrentLine;
 		stmt.StartPosition = root_blk.CurrentCol;
+		// the end position of an elif statement is the end position of the last statement in the block
+		stmt.EndLineNumber = stmt.LineNumber;
+		stmt.EndPosition = stmt.StartPosition;
+		select many child_smts related by elif_blk->ACT_SMT[R602];
+		for each child_smt in child_smts
+		  if ( child_smt.EndLineNumber > stmt.EndLineNumber or
+		       child_smt.EndLineNumber == stmt.EndLineNumber and child_smt.EndPosition > stmt.EndPosition )
+            stmt.EndLineNumber = child_smt.EndLineNumber;
+            stmt.EndPosition = child_smt.EndPosition;
+		  end if;
+		end for;
         relate elif_stmt to val across R659;
       end if;
     end if;
@@ -5402,6 +5418,15 @@ else
         select any root_blk from instances of ACT_BLK where selected.Block_ID == param.a2_upper_rule_id;
 		stmt.LineNumber = root_blk.CurrentLine;
 		stmt.StartPosition = root_blk.CurrentCol;
+		// the end position of an else statement is the end position of the last statement in the block
+		select many child_smts related by else_blk->ACT_SMT[R602];
+		for each child_smt in child_smts
+		  if ( child_smt.EndLineNumber > stmt.EndLineNumber or
+		       child_smt.EndLineNumber == stmt.EndLineNumber and child_smt.EndPosition > stmt.EndPosition )
+            stmt.EndLineNumber = child_smt.EndLineNumber;
+            stmt.EndPosition = child_smt.EndPosition;
+		  end if;
+		end for;
       end if;
     end if;
   end if;
