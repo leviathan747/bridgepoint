@@ -189,6 +189,21 @@ public class TextParser extends OalParser {
 		return super.action(m_action_id, m_type);
 	}
 
+	public final UUID partial_block( NonRootModelElement model, UUID block_id )
+			throws RecognitionException, TokenStreamException,
+			InterruptedException {
+		// The parser validation code assumes that all data types
+		// are loaded.
+		PersistableModelComponent.ensureDataTypesAvailable(getModelRoot());
+		
+		// get the container
+		m_container = getContainer( model );
+		
+		m_oal_context = new Oal_validate(m_container, ( m_contentAssistLine != 0 && m_contentAssistCol != 0 ) );
+
+		return super.partial_block( block_id );
+	}
+
 	protected String parserTokenText = " ";
 	protected int parserLineNumber = 0;
 	protected String parserMessage = " ";

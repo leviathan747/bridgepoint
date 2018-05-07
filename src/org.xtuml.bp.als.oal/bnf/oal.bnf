@@ -1012,7 +1012,7 @@ mult_op!
   |
     TOK_CARET
   ;
-partial_block[boolean isRoot]
+partial_block
   :
     ( options {
         greedy=false;
