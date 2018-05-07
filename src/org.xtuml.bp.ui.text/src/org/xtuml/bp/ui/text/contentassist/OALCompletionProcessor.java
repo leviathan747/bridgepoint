@@ -60,6 +60,7 @@ import org.xtuml.bp.core.TransitionActionBody_c;
 import org.xtuml.bp.core.common.BridgePointPreferencesStore;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.core.common.NonRootModelElement;
+import org.xtuml.bp.core.util.BodyUtil;
 import org.xtuml.bp.core.util.DocumentUtil;
 import org.xtuml.bp.ui.text.AbstractModelElementPropertyEditorInput;
 import org.xtuml.bp.ui.text.editor.oal.OALEditor;
@@ -115,7 +116,7 @@ public class OALCompletionProcessor implements IContentAssistProcessor {
 
         // parse from the closest parsed statement
         parseActivityPartial( document, element, position );
-        Body_c body = getBody( element );
+        Body_c body = BodyUtil.getBody( element );
 
         // get the list
         ProposalList_c list = ProposalList_c.getOneP_PLOnR1603( body, new ClassQueryInterface_c() {
@@ -274,39 +275,6 @@ public class OALCompletionProcessor implements IContentAssistProcessor {
         }
     }
     
-    private Body_c getBody( NonRootModelElement element ) {
-        Body_c body = null;
-        if ( element instanceof RequiredSignal_c ) {
-            body = Body_c.getOneACT_ACTOnR698(RequiredSignalBody_c.getOneACT_RSBOnR684((RequiredSignal_c)element));
-        }
-        else if ( element instanceof RequiredOperation_c ) {
-            body = Body_c.getOneACT_ACTOnR698(RequiredOperationBody_c.getOneACT_ROBOnR685((RequiredOperation_c)element));
-        }
-        else if ( element instanceof ProvidedSignal_c ) {
-            body = Body_c.getOneACT_ACTOnR698(ProvidedSignalBody_c.getOneACT_PSBOnR686((ProvidedSignal_c)element));
-        }
-        else if ( element instanceof ProvidedOperation_c ) {
-            body = Body_c.getOneACT_ACTOnR698(ProvidedOperationBody_c.getOneACT_POBOnR687((ProvidedOperation_c)element));
-        }
-        else if ( element instanceof Action_c ) {
-            body = Body_c.getOneACT_ACTOnR698(StateActionBody_c.getOneACT_SABOnR691((Action_c)element));
-            if ( null == body ) body = Body_c.getOneACT_ACTOnR698(TransitionActionBody_c.getOneACT_TABOnR688((Action_c)element));
-        }
-        else if ( element instanceof DerivedBaseAttribute_c ) {
-            body = Body_c.getOneACT_ACTOnR698(DerivedAttributeBody_c.getManyACT_DABsOnR693((DerivedBaseAttribute_c)element));
-        }
-        else if ( element instanceof Function_c ) {
-            body = Body_c.getOneACT_ACTOnR698(FunctionBody_c.getManyACT_FNBsOnR695((Function_c)element));
-        }
-        else if ( element instanceof Operation_c ) {
-            body = Body_c.getOneACT_ACTOnR698(OperationBody_c.getManyACT_OPBsOnR696((Operation_c)element));
-        }
-        else if ( element instanceof Bridge_c ) {
-            body = Body_c.getOneACT_ACTOnR698(BridgeBody_c.getManyACT_BRBsOnR697((Bridge_c)element));
-        }
-        return body;
-    }
-    
     private void parseActivityPartial( IDocument document, NonRootModelElement element, int position ) {
         if ( null != element && getNeedsParse() ) {
             ParseRunnable parseRunner = new ParseRunnable( element, document.get(),
@@ -361,7 +329,7 @@ public class OALCompletionProcessor implements IContentAssistProcessor {
     }
     
     public void cleanUp( NonRootModelElement element ) {
-        Body_c body = getBody( element );
+        Body_c body = BodyUtil.getBody( element );
         ProposalList_c list = ProposalList_c.getOneP_PLOnR1603( body );
         if ( null != list ) {
           list.Dispose();

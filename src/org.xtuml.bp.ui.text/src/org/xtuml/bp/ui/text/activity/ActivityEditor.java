@@ -12,6 +12,7 @@ import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.text.IDocumentListener;
 import org.eclipse.jface.text.IRegion;
 import org.eclipse.jface.text.ITextDoubleClickStrategy;
+import org.eclipse.jface.text.Region;
 import org.eclipse.jface.text.TextViewer;
 import org.eclipse.jface.text.source.IAnnotationAccess;
 import org.eclipse.jface.text.source.IAnnotationModel;
@@ -30,14 +31,18 @@ import org.eclipse.ui.texteditor.DefaultRangeIndicator;
 import org.eclipse.ui.texteditor.IDocumentProvider;
 import org.xtuml.bp.als.oal.OalLexer;
 import org.xtuml.bp.core.Block_c;
+import org.xtuml.bp.core.Body_c;
 import org.xtuml.bp.core.CorePlugin;
 import org.xtuml.bp.core.Ooaofooa;
+import org.xtuml.bp.core.ParseStep_c;
 import org.xtuml.bp.core.Parsestatus_c;
 import org.xtuml.bp.core.Pref_c;
+import org.xtuml.bp.core.Statement_c;
 import org.xtuml.bp.core.common.BridgePointPreferencesStore;
 import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.core.common.NullEditorInput;
 import org.xtuml.bp.core.ui.Selection;
+import org.xtuml.bp.core.util.BodyUtil;
 import org.xtuml.bp.core.util.EditorUtil;
 import org.xtuml.bp.core.util.HierarchyUtil;
 import org.xtuml.bp.ui.text.AbstractModelElementEditorInput;
@@ -92,11 +97,16 @@ public class ActivityEditor extends OALEditor {
     }
 
     protected static class ParseRunnable implements Runnable {
+
         public ActivityEditorInput m_ae_input;
         public IDocument m_document;
         public ActivityAnnotationModel m_myAnnotationModel;
         public NonRootModelElement m_modelElement;
+        public boolean m_enableContentAssist;
+        public String m_oldText;
+        public String m_newText;
         private boolean m_clearContext;
+
         /**
          * The editor (if any) which is editing the text being parsed.
          */
@@ -114,6 +124,7 @@ public class ActivityEditor extends OALEditor {
             m_clearContext = true; // some visibility or declared a new element,
                                     // so we want to recompute element
                                     // visibility.
+            m_oldText = "";
         }
 
         /**
@@ -123,6 +134,7 @@ public class ActivityEditor extends OALEditor {
             // When parsing outside an editor, we want
             m_clearContext = false; // to parse as quickly as possible, so we
                                     // enable visibility caching.
+            m_oldText = "";
         }
 
         public void run() {
@@ -131,17 +143,49 @@ public class ActivityEditor extends OALEditor {
             // been disposed, then no parse should be performed
             if (m_modelElement == null || m_modelElement.isOrphaned() || (forEditor != null && forEditor.disposed))
                 return;
+            
+            String parseText = m_newText;
+            ParseStep_c step = null;
+            Body_c body = null;
+            IRegion diffRegion = new Region(0,0);
+            int deltaLength = 0;
+            
+            // pre-processing for partial parsing
+            if ( Pref_c.Getboolean( BridgePointPreferencesStore.ENABLE_PARTIAL_PARSING ) ) {
+            	
+            diffRegion = getDiff( m_newText, m_oldText );
+            deltaLength = m_newText.length() - m_oldText.length();
+            body = BodyUtil.getBody( m_modelElement );
+            if ( null != body ) {
+            	body.Createparsesteps( m_newText, deltaLength, diffRegion.getOffset(), diffRegion.getOffset() + diffRegion.getLength(), m_oldText );
+            }
+            
+            // create parse steps
+            // TODO parse step needs to be related to body
+            // TODO naively getting only one step
+            step = ParseStep_c.ParseStepInstance( body.getModelRoot(), selected -> ((ParseStep_c)selected).getProcessing() );
+            if ( null != step ) {
+            	parseText = step.getText();
+            }
+            	
+            }
 
             Ooaofooa modelRoot = (Ooaofooa) m_modelElement.getModelRoot();
-            OalLexer lexer = new OalLexer(new StringReader(m_document.get()));
+            OalLexer lexer = new OalLexer(new StringReader(parseText));
             EditorTextParser parser = new EditorTextParser(modelRoot, lexer, m_myAnnotationModel, m_ae_input,m_document);
             boolean parseCompleted = false;
             boolean problemsFound = false;
             m_myAnnotationModel.beginReporting();
             try {
-                // Parse the input expression
-                parser.action(m_modelElement, m_clearContext);
-                parseCompleted = true;
+            	if ( null == step ) {
+                    // Parse the input expression
+                    parser.action(m_modelElement, m_clearContext);
+                    parseCompleted = true;
+            	}
+            	else {
+            		step.setProcessing( true );
+            		parser.partial_block( m_modelElement, step.Getblock() );
+            	}
             } catch (TokenStreamException e) {
                 Block_c.Clearcurrentscope(modelRoot, parser.m_oal_context.m_act_id);
                 if (e instanceof TokenStreamRecognitionException) {
@@ -209,6 +253,38 @@ public class ActivityEditor extends OALEditor {
                 if (!parseCompleted || problemsFound)
                     forEditor.taggedContent = null;
             }
+
+            // post-processing for partial parsing
+            if ( Pref_c.Getboolean( BridgePointPreferencesStore.ENABLE_PARTIAL_PARSING ) ) {
+            
+            if ( null != body ) {
+            	body.Reconcilelocations( m_newText, deltaLength, diffRegion.getOffset(), diffRegion.getOffset() + diffRegion.getLength(), m_oldText );
+            	if ( null != step ) {
+            		step.setProcessing(false);
+            		step.Dispose();
+            	}
+            }
+
+            }
+        }
+
+        /**
+         * Finds the region relative to newText where the two strings differ.
+         * To state it another way, newText and oldText are identical up to the start
+         * of the returned region and they are identical after the returned region.
+         */
+        private IRegion getDiff( String newText, String oldText ) {
+          // get the number of characters that match at the beginning of each string
+          int offset = 0;
+          for ( ; offset < newText.length() && offset < oldText.length(); offset++ ) {
+            if ( newText.charAt( offset ) != oldText.charAt( offset ) ) break;
+          }
+          // get the number of characters that match at the end of each string
+          int reverseOffset = 0;
+          for ( ; reverseOffset < newText.length() && reverseOffset < oldText.length(); reverseOffset++ ) {
+            if ( newText.charAt( newText.length() - reverseOffset - 1 ) != oldText.charAt( oldText.length() - reverseOffset - 1 ) ) break;
+          }
+          return new Region( offset, newText.length() - reverseOffset - offset - 1 );
         }
     };
 
@@ -235,6 +311,7 @@ public class ActivityEditor extends OALEditor {
                                 fRunnable.m_document = ae_provider.getDocument(input);
                                 fRunnable.m_myAnnotationModel = (ActivityAnnotationModel) annotationModel;
                                 fRunnable.m_modelElement = fRunnable.m_ae_input.getModelElement();
+                                fRunnable.m_newText = ev.getDocument().get();
                                 Ooaofooa.m_display = Display.getCurrent();
                                 accessParseThread(fRunnable, getParseThreadName() + fRunnable.m_ae_input.getName());
                                 Thread.yield();
@@ -246,7 +323,24 @@ public class ActivityEditor extends OALEditor {
         }
 
         public void documentAboutToBeChanged(DocumentEvent ev) {
-            // do nothing
+            IDocumentProvider provider = getDocumentProvider();
+            if (provider instanceof DocumentProvider) {
+                Object input = getEditorInput();
+                if (input instanceof ActivityEditorInput) {
+                    NonRootModelElement modelElement = ((ActivityEditorInput) input).getModelElement();
+                    int toParse = AllActivityModifier.accessSuc_Pars(false, 0, modelElement);
+                    if (toParse != Parsestatus_c.doNotParse) {
+                        DocumentProvider ae_provider = (DocumentProvider) provider;
+                        IAnnotationModel annotationModel = ae_provider.getAnnotationModel(input);
+                        if (annotationModel instanceof ActivityAnnotationModel) {
+                            if (ev.getLength() != 0 || ev.getText().length() != 0 || ev.getOffset() != 0
+                                    || ev.getModificationStamp() != 0) {
+                            	if ( "".equals(fRunnable.m_oldText) ) fRunnable.m_oldText = ev.getDocument().get();
+                            }
+                        }
+                    }
+                }
+            }
         }
     };
 
@@ -498,4 +592,6 @@ public class ActivityEditor extends OALEditor {
         BPTextDefaultTextDoubleClickStategy dblClckStrategy = (BPTextDefaultTextDoubleClickStategy) doubleClickStrategy;
         return dblClckStrategy.findWord(doc, offset);
     }
+    
+
 }

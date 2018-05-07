@@ -2658,6 +2658,146 @@ INSERT INTO S_BPARM
 	'',
 	"50343eaf-4139-4aea-89ce-6162253869d2",
 	'');
+INSERT INTO S_BRG
+	VALUES ("deb3e7d5-c0a6-460d-a010-a69b26420db4",
+	"b69262ac-62eb-4030-b329-b967033f0ee0",
+	'lineAndColumnToPosition',
+	'Translate:native
+Import:org.eclipse.jface.text.Document; import org.xtuml.bp.core.util.DocumentUtil ',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000002",
+	'return DocumentUtil.lineAndColumnToPosition( p_Line, p_Column, new Document( p_Text ) );',
+	0,
+	'',
+	0);
+INSERT INTO S_BPARM
+	VALUES ("2d069522-43cc-4f33-a0d2-45328defeb1b",
+	"deb3e7d5-c0a6-460d-a010-a69b26420db4",
+	'text',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_BPARM
+	VALUES ("398cea10-0d4d-4b70-8f5d-20c63c709185",
+	"deb3e7d5-c0a6-460d-a010-a69b26420db4",
+	'line',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"2d069522-43cc-4f33-a0d2-45328defeb1b",
+	'');
+INSERT INTO S_BPARM
+	VALUES ("6ed82abe-e791-4e61-9ea4-76072bc64645",
+	"deb3e7d5-c0a6-460d-a010-a69b26420db4",
+	'column',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"398cea10-0d4d-4b70-8f5d-20c63c709185",
+	'');
+INSERT INTO S_BRG
+	VALUES ("f9b97dcc-f253-4639-8936-b7cdf89ce854",
+	"b69262ac-62eb-4030-b329-b967033f0ee0",
+	'positionToLine',
+	'Translate:native
+Import:org.eclipse.jface.text.Document; import org.xtuml.bp.core.util.DocumentUtil ',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000002",
+	'return DocumentUtil.positionToLine( p_Position, new Document( p_Text ) );',
+	0,
+	'',
+	0);
+INSERT INTO S_BPARM
+	VALUES ("86b51364-8f64-405b-9516-9772ee7c2a53",
+	"f9b97dcc-f253-4639-8936-b7cdf89ce854",
+	'text',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_BPARM
+	VALUES ("12b622cd-bb20-4cdf-9e19-cffbe906e277",
+	"f9b97dcc-f253-4639-8936-b7cdf89ce854",
+	'position',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"86b51364-8f64-405b-9516-9772ee7c2a53",
+	'');
+INSERT INTO S_BRG
+	VALUES ("2f0da562-3c83-4aaf-8274-9060f05cf9c9",
+	"b69262ac-62eb-4030-b329-b967033f0ee0",
+	'positionToColumn',
+	'Translate:native
+Import:org.eclipse.jface.text.Document; import org.xtuml.bp.core.util.DocumentUtil ',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000002",
+	'return DocumentUtil.positionToCol( p_Position, new Document( p_Text ) );',
+	0,
+	'',
+	0);
+INSERT INTO S_BPARM
+	VALUES ("d7d1e45b-c1ba-4b90-8c97-5e3329f3aa1e",
+	"2f0da562-3c83-4aaf-8274-9060f05cf9c9",
+	'text',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
+INSERT INTO S_BPARM
+	VALUES ("df4fd5b7-c6c4-499a-adcc-60a9f100fafd",
+	"2f0da562-3c83-4aaf-8274-9060f05cf9c9",
+	'position',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"d7d1e45b-c1ba-4b90-8c97-5e3329f3aa1e",
+	'');
+INSERT INTO S_BRG
+	VALUES ("641c89ed-cf79-448f-8ec9-6944683e7bd9",
+	"b69262ac-62eb-4030-b329-b967033f0ee0",
+	'replaceAll',
+	'Replace all instances of ''regex'' with the ''replacement'' string. This is a wrapper
+for the Java String ''replaceAll'' method.
+
+Translate:native',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000004",
+	'return p_S.replaceAll( p_Regex, p_Replacement );',
+	0,
+	'',
+	0);
+INSERT INTO S_BPARM
+	VALUES ("a8fb49d3-00fa-4e61-9477-7ab32e083389",
+	"641c89ed-cf79-448f-8ec9-6944683e7bd9",
+	'regex',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"da775726-c9bb-4b8c-a81c-2e865fbc3ff4",
+	'');
+INSERT INTO S_BPARM
+	VALUES ("9ec33649-6527-426d-8236-af32fff59512",
+	"641c89ed-cf79-448f-8ec9-6944683e7bd9",
+	'replacement',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"a8fb49d3-00fa-4e61-9477-7ab32e083389",
+	'');
+INSERT INTO S_BPARM
+	VALUES ("da775726-c9bb-4b8c-a81c-2e865fbc3ff4",
+	"641c89ed-cf79-448f-8ec9-6944683e7bd9",
+	's',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
 INSERT INTO PE_PE
 	VALUES ("b69262ac-62eb-4030-b329-b967033f0ee0",
 	1,
