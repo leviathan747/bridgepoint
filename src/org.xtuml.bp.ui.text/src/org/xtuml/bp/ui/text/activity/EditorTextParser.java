@@ -66,7 +66,7 @@ public class EditorTextParser extends TextParser
     ActivityEditorInput ae_input,
     IDocument document)
   {
-    super(modelRoot, lexer);
+    super(modelRoot, lexer, true);
     this.model = model;
     this.activityEditorInput = ae_input;
     this.document = document;

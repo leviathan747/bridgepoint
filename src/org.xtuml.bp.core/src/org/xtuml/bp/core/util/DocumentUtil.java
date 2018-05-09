@@ -12,6 +12,7 @@ public class DocumentUtil {
                 position += document.getLineLength( i );
             } catch (BadLocationException e) {
                 e.printStackTrace();
+                break;
             }
         }
         position += column - 1;
@@ -25,6 +26,7 @@ public class DocumentUtil {
                 if ( count >= position ) return i + 1;
             } catch (BadLocationException e) {
                 e.printStackTrace();
+                break;
             }
         }
         return 0;
@@ -37,6 +39,7 @@ public class DocumentUtil {
                 count += document.getLineLength(i);
             } catch (BadLocationException e) {
                 e.printStackTrace();
+                break;
             }
         }
         return 0;
