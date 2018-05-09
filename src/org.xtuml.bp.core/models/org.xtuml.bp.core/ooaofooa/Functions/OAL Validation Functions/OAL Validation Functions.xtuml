@@ -36693,6 +36693,14 @@ if ( not_empty blk )
       select one statement related by statement->ACT_SMT[R661.''succeeds''];
     end while;
     
+    // create initial content assistance proposals
+    if ( ::contentAssistEnabled() )
+      // create a dummy token at the current offset for statement content assist
+      token = ::get_dummy_token();
+      ::set_token( a1_token:token, a2_line: ::get_offset_line(), a3_column: ::get_offset_col(), a4_text:"" );
+      ::statement_content_assist( a1_rule_token:token );
+    end if;
+    
   end if;
 end if;
  

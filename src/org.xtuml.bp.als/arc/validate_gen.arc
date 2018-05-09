@@ -97,6 +97,8 @@ public class ${java_class} {
   private ${java_class} Self = null;
   private NonRootModelElement m_nrme = null;
   private boolean contentAssistEnabled;
+  private int offsetLine;
+  private int offsetCol;
 
   private ArrayList<ScopedSegment> scopedSegments = new ArrayList<ScopedSegment>();
 
@@ -119,14 +121,15 @@ public class ${java_class} {
   }
 
   public ${java_class}(NonRootModelElement nrme) {
-    Self = this;
-    m_nrme = nrme;
-    contentAssistEnabled = false;
+    this( nrme, false, 0, 0 );
   }
 
-  public ${java_class}(NonRootModelElement nrme, boolean contentAssistEnabled) {
-    this(nrme);
+  public ${java_class}(NonRootModelElement nrme, boolean contentAssistEnabled, int offsetLine, int offsetCol) {
+    Self = this;
+    m_nrme = nrme;
     this.contentAssistEnabled = contentAssistEnabled;
+    this.offsetLine = offsetLine;
+    this.offsetCol = offsetCol;
   }
 
 .select many fncs from instances of S_SYNC

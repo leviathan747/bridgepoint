@@ -1358,6 +1358,28 @@ INSERT INTO O_TPARM
 	'',
 	"39d8a3c4-687a-4df4-b125-ae387154a61f",
 	'');
+INSERT INTO O_TFR
+	VALUES ("4bfa86aa-fb70-47b7-9095-cb7bf5f7c680",
+	"d1c9af7b-9df6-432a-a25e-96cab24fc6af",
+	'getFirstParseStep',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000005",
+	1,
+	'select any first_step from instances of PAR_STP where false;
+select any step related by self->PAR_STP[R1613];
+while ( not_empty step )
+  first_step = step;
+  select one step related by step->PAR_STP[R1612.''follows''];
+end while;
+if ( empty first_step )
+  return GD::NULL_UNIQUE_ID();
+else
+  return first_step.Id;
+end if;',
+	1,
+	'',
+	"f168c375-bb59-4376-89f4-f75d82a8c37c",
+	0);
 INSERT INTO O_NBATTR
 	VALUES ("6f8d7450-c09b-42de-8362-9a36aa766cb7",
 	"d1c9af7b-9df6-432a-a25e-96cab24fc6af");

@@ -6,6 +6,7 @@ import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IMarker;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
+import org.eclipse.jface.text.Document;
 import org.eclipse.jface.text.DocumentEvent;
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.text.IDocumentListener;
@@ -41,6 +42,7 @@ import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.core.common.NullEditorInput;
 import org.xtuml.bp.core.ui.Selection;
 import org.xtuml.bp.core.util.BodyUtil;
+import org.xtuml.bp.core.util.DocumentUtil;
 import org.xtuml.bp.core.util.EditorUtil;
 import org.xtuml.bp.core.util.HierarchyUtil;
 import org.xtuml.bp.ui.text.AbstractModelElementEditorInput;
@@ -71,8 +73,25 @@ public class ActivityEditor extends OALEditor {
 
     private static final String m_parseThreadName = "org.xtuml.bp.ui.text.parseThread."; //$NON-NLS-1$
     private volatile TolerantThread parseThread = null;
-    private static int HANGON_DURATION_original_value = 5, // in milli seconds
+    private static int HANGON_DURATION_original_value = 500, // in milli seconds
             HANGON_DURATION = HANGON_DURATION_original_value;
+
+    private ParseRunnable fRunnable = null;
+    private boolean parseWhileEditing = true;
+
+    public ActivityEditor() {
+        super();
+        setDocumentProvider(new DocumentProvider());
+        setRangeIndicator(new DefaultRangeIndicator());
+    }
+    
+    public boolean parseWhileEditing() {
+        return parseWhileEditing;
+    }
+    
+    public void enableParseWhileEditing( boolean enable ) {
+        parseWhileEditing = enable;
+    }
 
     public static String getParseThreadName() {
         return m_parseThreadName;
@@ -99,8 +118,10 @@ public class ActivityEditor extends OALEditor {
         public ActivityAnnotationModel m_myAnnotationModel;
         public NonRootModelElement m_modelElement;
         public boolean m_enableContentAssist;
-        private String m_oldText;
         public String m_newText;
+        public IRegion m_parseRegion;
+
+        private String m_oldText;
         private boolean m_clearContext;
 
         /**
@@ -147,20 +168,15 @@ public class ActivityEditor extends OALEditor {
                 newText = m_newText;
             }
             
-            ParseStep_c[] steps = new ParseStep_c[0];
             Body_c body = BodyUtil.getBody( m_modelElement );
-            IRegion diffRegion = new Region(0,0);
             int deltaLength = 0;
             
             // pre-processing for partial parsing
-            // TODO remove this preference check
-            if ( Pref_c.Getboolean( BridgePointPreferencesStore.ENABLE_PARTIAL_PARSING ) ) {
-                // create parse steps
-                diffRegion = getDiff( newText, m_oldText );
-                deltaLength = newText.length() - m_oldText.length();
-                if ( null != body ) {
-                    body.Createparsesteps( newText, deltaLength, diffRegion.getOffset() + diffRegion.getLength(), diffRegion.getOffset(), m_oldText );
-                }
+            // create parse steps
+            if ( null == m_parseRegion ) m_parseRegion = getDiff( newText, m_oldText );
+            deltaLength = newText.length() - m_oldText.length();
+            if ( null != body ) {
+                body.Createparsesteps( newText, deltaLength, m_parseRegion.getOffset() + m_parseRegion.getLength(), m_parseRegion.getOffset(), m_oldText );
             }
 
             boolean parseCompleted = false;
@@ -168,31 +184,32 @@ public class ActivityEditor extends OALEditor {
             Ooaofooa modelRoot = (Ooaofooa) m_modelElement.getModelRoot();
             OalLexer lexer;
             EditorTextParser parser = null;
-            ParseStep_c step = null;
 
+            ParseStep_c step = null == body ? null : (ParseStep_c)body.getModelRoot().getInstanceList( ParseStep_c.class ).getGlobal( body.Getfirstparsestep() );
             m_myAnnotationModel.beginReporting();
+
             while ( !parseCompleted ) {
+                ParseStep_c nextStep = null;
                 try {
-                    String parseText = newText;
-                    // TODO naively getting only one step
-                    step = ParseStep_c.getOnePAR_STPOnR1613( body );
-                    if ( null != body && null != step && Gd_c.Null_unique_id() != step.Getblock() ) {
-                        parseText = step.getText();
-                    }
-
-                    lexer = new OalLexer(new StringReader(parseText));
-                    parser = new EditorTextParser(modelRoot, lexer, m_myAnnotationModel, m_ae_input,m_document);
-
-                    if ( null == body || null == step || Gd_c.Null_unique_id() == step.Getblock() ) {
+                    if ( null == body || null == step || Gd_c.Null_unique_id() == step.Getblock() ||
+                            Pref_c.Getboolean( BridgePointPreferencesStore.ENABLE_PARTIAL_PARSING ) == false ) { // TODO remove preference check
                         // Parse the whole body
+                        TextPlugin.logError( "Running full parse.", null ); // TODO remove this debug statement
+                        lexer = new OalLexer(new StringReader(newText));
+                        parser = new EditorTextParser(modelRoot, lexer, m_myAnnotationModel, m_ae_input,m_document, m_enableContentAssist);
                         parser.action( m_modelElement, m_clearContext );
                         parseCompleted = true;
                     }
                     else {
-                    	// parse a single step
+                        // parse a single step
                         step.setProcessing( true );
-                        parser.partial_block( m_modelElement, step.Getblock() );
-                        parseCompleted = true; // TODO get next step
+                        lexer = new OalLexer(new StringReader(step.getText()));
+                        parser = new EditorTextParser(modelRoot, lexer, m_myAnnotationModel, m_ae_input,m_document, m_enableContentAssist);
+                        int parseOffsetLine = DocumentUtil.positionToLine( m_parseRegion.getOffset(), new Document(newText) );
+                        int parseOffsetCol = DocumentUtil.positionToCol( m_parseRegion.getOffset(), new Document(newText) );
+                        parser.partial_block( m_modelElement, step.Getblock(), parseOffsetLine, parseOffsetCol );
+                        nextStep = ParseStep_c.getOnePAR_STPOnR1612Follows( step );
+                        parseCompleted = ( null == nextStep ); // parse is completed when there are no more parse steps
                     }
                 } catch (TokenStreamException e) {
                     if (e instanceof TokenStreamRecognitionException) {
@@ -216,11 +233,10 @@ public class ActivityEditor extends OALEditor {
                     // appropriately.
                     TextPlugin.logError(errorMsg, t);
                 } finally {
-                	if ( null != step ) {
-                		step.Dispose();
-                	}
-                	// TODO partial parsing post processing
-                    //body.Reconcilelocations( newText, deltaLength, diffRegion.getOffset(), diffRegion.getOffset() + diffRegion.getLength(), m_oldText );
+                    if ( null != step ) step.Dispose();
+                    step = nextStep;
+                    // TODO partial parsing post processing
+                    //body.Reconcilelocations( newText, deltaLength, m_parseRegion.getOffset(), m_parseRegion.getOffset() + m_parseRegion.getLength(), m_oldText );
                 }
             }
 
@@ -234,6 +250,8 @@ public class ActivityEditor extends OALEditor {
                 if (forEditor == null) {
                     m_myAnnotationModel.resetMarkers();
                 }
+            }
+            if ( parseCompleted ) {
                 m_oldText = newText;
             }
 
@@ -260,12 +278,10 @@ public class ActivityEditor extends OALEditor {
     };
 
     protected class Listener implements IDocumentListener {
-        private ParseRunnable fRunnable = new ParseRunnable(ActivityEditor.this);
 
         public void documentChanged(DocumentEvent ev) {
-            if (fOverviewRuler != null)
-                fOverviewRuler.update();
-
+            if ( null == fRunnable ) fRunnable = new ParseRunnable(ActivityEditor.this);
+            if (fOverviewRuler != null) fOverviewRuler.update();
             IDocumentProvider provider = getDocumentProvider();
             if (provider instanceof DocumentProvider) {
                 Object input = getEditorInput();
@@ -276,18 +292,21 @@ public class ActivityEditor extends OALEditor {
                         DocumentProvider ae_provider = (DocumentProvider) provider;
                         IAnnotationModel annotationModel = ae_provider.getAnnotationModel(input);
                         if (annotationModel instanceof ActivityAnnotationModel) {
-                            if (ev.getLength() != 0 || ev.getText().length() != 0 || ev.getOffset() != 0
-                                    || ev.getModificationStamp() != 0) {
-                                fRunnable.m_ae_input = (ActivityEditorInput) input;
-                                fRunnable.m_document = ae_provider.getDocument(input);
-                                fRunnable.m_myAnnotationModel = (ActivityAnnotationModel) annotationModel;
-                                fRunnable.m_modelElement = fRunnable.m_ae_input.getModelElement();
-                                synchronized ( fRunnable.m_newText ) {
-                                    fRunnable.m_newText = ev.getDocument().get();
+                            if (ev.getLength() != 0 || ev.getText().length() != 0 || ev.getOffset() != 0 || ev.getModificationStamp() != 0) {
+                                if ( parseWhileEditing ) {
+                                    fRunnable.m_ae_input = (ActivityEditorInput) input;
+                                    fRunnable.m_document = ae_provider.getDocument(input);
+                                    fRunnable.m_myAnnotationModel = (ActivityAnnotationModel) annotationModel;
+                                    fRunnable.m_modelElement = fRunnable.m_ae_input.getModelElement();
+                                    fRunnable.m_enableContentAssist = false;
+                                    synchronized ( fRunnable.m_newText ) {
+                                        fRunnable.m_newText = ev.getDocument().get();
+                                    }
+                                    fRunnable.m_parseRegion = null;
+                                    Ooaofooa.m_display = Display.getCurrent();
+                                    accessParseThread(fRunnable, getParseThreadName() + fRunnable.m_ae_input.getName());
+                                    Thread.yield();
                                 }
-                                Ooaofooa.m_display = Display.getCurrent();
-                                accessParseThread(fRunnable, getParseThreadName() + fRunnable.m_ae_input.getName());
-                                Thread.yield();
                             }
                         }
                     }
@@ -298,6 +317,35 @@ public class ActivityEditor extends OALEditor {
         public void documentAboutToBeChanged(DocumentEvent ev) {}
 
     };
+    
+    public void scheduleContentAssistParse( IRegion parseRegion ) {
+        if ( null == fRunnable ) fRunnable = new ParseRunnable(ActivityEditor.this);
+        IDocumentProvider provider = getDocumentProvider();
+        if (provider instanceof DocumentProvider) {
+            Object input = getEditorInput();
+            if (input instanceof ActivityEditorInput) {
+                NonRootModelElement modelElement = ((ActivityEditorInput) input).getModelElement();
+                int toParse = AllActivityModifier.accessSuc_Pars(false, 0, modelElement);
+                if (toParse != Parsestatus_c.doNotParse) {
+                    DocumentProvider ae_provider = (DocumentProvider) provider;
+                    IAnnotationModel annotationModel = ae_provider.getAnnotationModel(input);
+                    if (annotationModel instanceof ActivityAnnotationModel) {
+                          fRunnable.m_ae_input = (ActivityEditorInput) input;
+                          fRunnable.m_document = ae_provider.getDocument(input);
+                          fRunnable.m_myAnnotationModel = (ActivityAnnotationModel) annotationModel;
+                          fRunnable.m_modelElement = fRunnable.m_ae_input.getModelElement();
+                          fRunnable.m_enableContentAssist = true;
+                          synchronized ( fRunnable.m_newText ) {
+                              fRunnable.m_newText = fRunnable.m_document.get();
+                          }
+                          fRunnable.m_parseRegion = parseRegion;
+                          Ooaofooa.m_display = Display.getCurrent();
+                          accessParseThread(fRunnable, getParseThreadName() + fRunnable.m_ae_input.getName());
+                    }
+                }
+            }
+        }
+    }
 
     private class TolerantThread extends Thread {
         private int hangOnTime = HANGON_DURATION;
@@ -359,14 +407,6 @@ public class ActivityEditor extends OALEditor {
         }
     }
 
-    public ActivityEditor() {
-        super();
-        setDocumentProvider(new DocumentProvider());
-        setRangeIndicator(new DefaultRangeIndicator());
-
-    }
-
-    // This is actually a protected method
     protected void doSetInput(IEditorInput input) throws CoreException {
         // if this editor is already editing a document
         IDocumentProvider provider = getDocumentProvider();
