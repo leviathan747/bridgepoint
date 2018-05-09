@@ -61,8 +61,8 @@ public class TextParser extends OalParser {
 		super(modelRoot, lexer);
 	}
 
-	public TextParser(Ooaofooa modelRoot, TokenStream lexer, int contentAssistLine, int contentAssistCol) {
-		super(modelRoot, lexer, contentAssistLine, contentAssistCol);
+	public TextParser(Ooaofooa modelRoot, TokenStream lexer, boolean contentAssist) {
+		super(modelRoot, lexer, contentAssist);
 	}
 	
 	public NonRootModelElement getContainer( Object model ) {
@@ -185,7 +185,7 @@ public class TextParser extends OalParser {
 				((Component_c) m_container).Clearscope();
 			}
 		}
-		m_oal_context = new Oal_validate(m_container, ( m_contentAssistLine != 0 && m_contentAssistCol != 0 ) );
+		m_oal_context = new Oal_validate(m_container, m_contentAssist);
 		return super.action(m_action_id, m_type);
 	}
 
@@ -199,7 +199,7 @@ public class TextParser extends OalParser {
 		// get the container
 		m_container = getContainer( model );
 		
-		m_oal_context = new Oal_validate(m_container, ( m_contentAssistLine != 0 && m_contentAssistCol != 0 ) );
+		m_oal_context = new Oal_validate(m_container, m_contentAssist);
 
 		return super.partial_block( block_id );
 	}
@@ -240,7 +240,7 @@ public class TextParser extends OalParser {
 			}
 		}
 
-		if (reportError && ( m_contentAssistLine == 0 || m_contentAssistCol == 0 ) ) {
+		if (reportError) {
 			System.out.println("Parse error: " + parserMessage + "line: " + parserLineNumber);
 		}
 	}

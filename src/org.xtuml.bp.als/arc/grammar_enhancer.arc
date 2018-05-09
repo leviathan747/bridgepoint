@@ -756,8 +756,7 @@ ${s}}
     .assign tokenclass_dt = result.dt
 ${s}// rule content assist action for '${fncname}'
 ${s}{ if ( Thread.interrupted() ) throw new InterruptedException();
-${s}  if ( "".equals( m_output ) && m_contentAssistLine > 0 && m_contentAssistCol > 0 && null != LT(0) &&
-${s}       ( LT(0).getLine() < m_contentAssistLine || ( LT(0).getLine() == m_contentAssistLine && LT(0).getColumn() <= m_contentAssistCol ) ) ) {
+${s}  if ( "".equals( m_output ) && m_contentAssist ) {
 ${s}    ${fncclass}.${fncname}( getModelRoot(), LT(0),
     .invoke result = create_new_function(fncname, r, void_dt)
     .assign fnc = result.fnc
@@ -811,8 +810,7 @@ ${s}}
     .assign tokenclass_dt = result.dt
 ${s}// rule lookahead content assist action for '${fncname}'
 ${s}{ if ( Thread.interrupted() ) throw new InterruptedException();
-${s}  if ( "".equals( m_output ) && m_contentAssistLine > 0 && m_contentAssistCol > 0 && null != LT(1) &&
-${s}       ( LT(1).getLine() < m_contentAssistLine || ( LT(1).getLine() == m_contentAssistLine && LT(1).getColumn() <= m_contentAssistCol ) ) ) {
+${s}  if ( "".equals( m_output ) && m_contentAssist ) {
 ${s}    ${fncclass}.${fncname}( getModelRoot(), LT(1),
     .invoke result = create_new_function(fncname, r, void_dt)
     .assign fnc = result.fnc
@@ -861,8 +859,7 @@ ${s}}
     .assign tokenclass_dt = result.dt
 ${s}// rule begin content assist action for '${fncname}'
 ${s}{ if ( Thread.interrupted() ) throw new InterruptedException();
-${s}  if ( "".equals( m_output ) && m_contentAssistLine > 0 && m_contentAssistCol > 0 && null != LT(1) &&
-${s}       ( LT(1).getLine() < m_contentAssistLine || ( LT(1).getLine() == m_contentAssistLine && LT(1).getColumn() <= m_contentAssistCol ) ) ) {
+${s}  if ( "".equals( m_output ) && m_contentAssist ) {
 ${s}    ${fncclass}.${fncname}( getModelRoot(), LT(1),
     .invoke result = create_new_function(fncname, r, void_dt)
     .assign fnc = result.fnc
@@ -905,8 +902,7 @@ ${s}}
     .assign tokenclass_dt = result.dt
 ${s}// rule begin2 content assist action for '${fncname}'
 ${s}{ if ( Thread.interrupted() ) throw new InterruptedException();
-${s}  if ( "".equals( m_output ) && m_contentAssistLine > 0 && m_contentAssistCol > 0 && null != LT(2) &&
-${s}       ( LT(2).getLine() < m_contentAssistLine || ( LT(2).getLine() == m_contentAssistLine && LT(2).getColumn() <= m_contentAssistCol ) ) ) {
+${s}  if ( "".equals( m_output ) && m_contentAssist ) {
 ${s}    ${fncclass}.${fncname}( getModelRoot(), LT(1), LT(2),
     .invoke result = create_new_function(fncname, r, void_dt)
     .assign fnc = result.fnc
@@ -1477,17 +1473,15 @@ ${t.value}
           .if ( prev_term_name != "header" )
 { 
     Ooaofooa p_modelRoot;
-    int m_contentAssistLine;  // these fields represent the line and column where content assist is requested; if either are 0,
-    int m_contentAssistCol;   // content assist routines should be skipped
+    boolean m_contentAssist;
     public OalParser(Ooaofooa aModelRoot, TokenStream lexer){
-        this(aModelRoot, lexer, 0, 0);
+        this(aModelRoot, lexer, false);
     }
 
-    public OalParser(Ooaofooa aModelRoot, TokenStream lexer, int contentAssistLine, int contentAssistCol){
+    public OalParser(Ooaofooa aModelRoot, TokenStream lexer, boolean contentAssist){
         this(lexer);
         p_modelRoot = aModelRoot;
-        m_contentAssistLine = contentAssistLine;
-        m_contentAssistCol = contentAssistCol;
+        m_contentAssist = contentAssist;
     }
     
     public Ooaofooa getModelRoot(){

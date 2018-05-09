@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.text.IRegion;
 import org.eclipse.jface.text.ITextViewer;
@@ -16,53 +17,37 @@ import org.eclipse.jface.text.contentassist.IContentAssistProcessor;
 import org.eclipse.jface.text.contentassist.IContextInformation;
 import org.eclipse.jface.text.contentassist.IContextInformationValidator;
 import org.eclipse.swt.graphics.Image;
-import org.xtuml.bp.als.oal.ParseRunnable;
-import org.xtuml.bp.core.Action_c;
 import org.xtuml.bp.core.Association_c;
 import org.xtuml.bp.core.Attribute_c;
 import org.xtuml.bp.core.Body_c;
-import org.xtuml.bp.core.BridgeBody_c;
 import org.xtuml.bp.core.BridgeParameter_c;
 import org.xtuml.bp.core.Bridge_c;
 import org.xtuml.bp.core.CorePlugin;
-import org.xtuml.bp.core.DerivedAttributeBody_c;
-import org.xtuml.bp.core.DerivedBaseAttribute_c;
 import org.xtuml.bp.core.EnumerationDataType_c;
 import org.xtuml.bp.core.Enumerator_c;
 import org.xtuml.bp.core.ExternalEntity_c;
-import org.xtuml.bp.core.Port_c;
-import org.xtuml.bp.core.StateMachineEvent_c;
-import org.xtuml.bp.core.SymbolicConstant_c;
-import org.xtuml.bp.core.FunctionBody_c;
 import org.xtuml.bp.core.FunctionParameter_c;
 import org.xtuml.bp.core.Function_c;
 import org.xtuml.bp.core.ModelClass_c;
-import org.xtuml.bp.core.OperationBody_c;
 import org.xtuml.bp.core.OperationParameter_c;
 import org.xtuml.bp.core.Operation_c;
+import org.xtuml.bp.core.Port_c;
 import org.xtuml.bp.core.Pref_c;
 import org.xtuml.bp.core.PropertyParameter_c;
+import org.xtuml.bp.core.ProposalCalculationCue_c;
 import org.xtuml.bp.core.ProposalList_c;
 import org.xtuml.bp.core.Proposal_c;
 import org.xtuml.bp.core.Proposaltypes_c;
-import org.xtuml.bp.core.ProposalCalculationCue_c;
-import org.xtuml.bp.core.ProvidedOperationBody_c;
-import org.xtuml.bp.core.ProvidedOperation_c;
-import org.xtuml.bp.core.ProvidedSignalBody_c;
-import org.xtuml.bp.core.ProvidedSignal_c;
-import org.xtuml.bp.core.RequiredOperationBody_c;
-import org.xtuml.bp.core.RequiredOperation_c;
-import org.xtuml.bp.core.RequiredSignalBody_c;
-import org.xtuml.bp.core.RequiredSignal_c;
-import org.xtuml.bp.core.StateActionBody_c;
 import org.xtuml.bp.core.StateMachineEventDataItem_c;
-import org.xtuml.bp.core.TransitionActionBody_c;
+import org.xtuml.bp.core.StateMachineEvent_c;
+import org.xtuml.bp.core.SymbolicConstant_c;
 import org.xtuml.bp.core.common.BridgePointPreferencesStore;
 import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.core.util.BodyUtil;
 import org.xtuml.bp.core.util.DocumentUtil;
 import org.xtuml.bp.ui.text.AbstractModelElementPropertyEditorInput;
+import org.xtuml.bp.ui.text.activity.ActivityEditor;
 import org.xtuml.bp.ui.text.editor.oal.OALEditor;
 
 public class OALCompletionProcessor implements IContentAssistProcessor {
@@ -71,7 +56,7 @@ public class OALCompletionProcessor implements IContentAssistProcessor {
     private static final Pattern SLCOMMENT = Pattern.compile( "\\/\\/.*$", Pattern.MULTILINE );
     private static final Pattern MLCOMMENT = Pattern.compile( "\\/\\*[\\s\\S]*\\*\\/", Pattern.MULTILINE );
 
-    private OALEditor editor;
+    private ActivityEditor editor;
     private boolean isAutoTriggered;
     private boolean inSession;
     private char[] triggerCharacters;
@@ -84,7 +69,9 @@ public class OALCompletionProcessor implements IContentAssistProcessor {
     
     public OALCompletionProcessor( OALEditor editor, ContentAssistant assistant ) {
         this();
-        this.editor = editor;
+        if ( editor instanceof ActivityEditor ) {
+            this.editor = (ActivityEditor)editor;
+        }
         assistant.addCompletionListener( new ICompletionListener() {
             @Override
             public void assistSessionStarted( ContentAssistEvent event ) {
@@ -114,11 +101,14 @@ public class OALCompletionProcessor implements IContentAssistProcessor {
     public ICompletionProposal[] computeCompletionProposals( IDocument document, NonRootModelElement element, int position ) {
         if ( isInsideComment( document, position ) ) return NO_PROPOSALS;
 
-        // parse from the closest parsed statement
-        parseActivityPartial( document, element, position );
-        Body_c body = BodyUtil.getBody( element );
+        // wait for an existing parse thread
+        if ( null != editor && getNeedsParse() ) {
+          editor.waitForParseThread();
+          setNeedsParse( false );
+        }
 
         // get the list
+        Body_c body = BodyUtil.getBody( element );
         ProposalList_c list = ProposalList_c.getOneP_PLOnR1603( body, new ClassQueryInterface_c() {
             @Override
             public boolean evaluate( Object selected ) {
@@ -275,15 +265,6 @@ public class OALCompletionProcessor implements IContentAssistProcessor {
         }
     }
     
-    private void parseActivityPartial( IDocument document, NonRootModelElement element, int position ) {
-        if ( null != element && getNeedsParse() ) {
-            ParseRunnable parseRunner = new ParseRunnable( element, document.get(),
-                    DocumentUtil.positionToLine( position, document ), DocumentUtil.positionToCol( position, document ) );
-            parseRunner.run();
-            setNeedsParse(false);
-        }
-    }
-    
     private synchronized void setDefaultTriggerChars() {
         isDefaultTrigger = true;
     }
@@ -320,7 +301,7 @@ public class OALCompletionProcessor implements IContentAssistProcessor {
         return Pattern.compile( "\\A" + whitespaceAndCommentPattern + "|" + whitespaceAndCommentPattern + "\\z", SLCOMMENT.flags() | MLCOMMENT.flags() ).matcher( input ).replaceAll( "" );
     }
     
-    public void setUp() {
+    private void setUp() {
         this.editor = null;
         this.isAutoTriggered = false;
         this.setInSession(false);
@@ -328,7 +309,8 @@ public class OALCompletionProcessor implements IContentAssistProcessor {
         setNeedsParse(true);
     }
     
-    public void cleanUp( NonRootModelElement element ) {
+    private void cleanUp( NonRootModelElement element ) {
+    	/*
         Body_c body = BodyUtil.getBody( element );
         ProposalList_c list = ProposalList_c.getOneP_PLOnR1603( body );
         if ( null != list ) {
@@ -338,6 +320,7 @@ public class OALCompletionProcessor implements IContentAssistProcessor {
         for ( ProposalCalculationCue_c cue : cues ) {
           cue.Dispose();
         }
+        */
         setDefaultTriggerChars();
         setNeedsParse( true );
         setInSession( false );
