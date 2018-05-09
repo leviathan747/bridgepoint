@@ -185,11 +185,11 @@ public class TextParser extends OalParser {
 				((Component_c) m_container).Clearscope();
 			}
 		}
-		m_oal_context = new Oal_validate(m_container, m_contentAssist);
+		m_oal_context = new Oal_validate(m_container, m_contentAssist, 0, 0);
 		return super.action(m_action_id, m_type);
 	}
 
-	public final UUID partial_block( NonRootModelElement model, UUID block_id )
+	public final UUID partial_block( NonRootModelElement model, UUID block_id, int offsetLine, int offsetCol )
 			throws RecognitionException, TokenStreamException,
 			InterruptedException {
 		// The parser validation code assumes that all data types
@@ -199,7 +199,7 @@ public class TextParser extends OalParser {
 		// get the container
 		m_container = getContainer( model );
 		
-		m_oal_context = new Oal_validate(m_container, m_contentAssist);
+		m_oal_context = new Oal_validate(m_container, m_contentAssist, offsetLine, offsetCol);
 
 		return super.partial_block( block_id );
 	}

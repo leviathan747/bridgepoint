@@ -19,6 +19,7 @@ import org.eclipse.jface.text.contentassist.IContextInformationValidator;
 import org.eclipse.swt.graphics.Image;
 import org.xtuml.bp.core.Association_c;
 import org.xtuml.bp.core.Attribute_c;
+import org.xtuml.bp.core.Block_c;
 import org.xtuml.bp.core.Body_c;
 import org.xtuml.bp.core.BridgeParameter_c;
 import org.xtuml.bp.core.Bridge_c;
@@ -40,9 +41,9 @@ import org.xtuml.bp.core.Proposal_c;
 import org.xtuml.bp.core.Proposaltypes_c;
 import org.xtuml.bp.core.StateMachineEventDataItem_c;
 import org.xtuml.bp.core.StateMachineEvent_c;
+import org.xtuml.bp.core.Statement_c;
 import org.xtuml.bp.core.SymbolicConstant_c;
 import org.xtuml.bp.core.common.BridgePointPreferencesStore;
-import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.core.common.NonRootModelElement;
 import org.xtuml.bp.core.util.BodyUtil;
 import org.xtuml.bp.core.util.DocumentUtil;
@@ -103,18 +104,14 @@ public class OALCompletionProcessor implements IContentAssistProcessor {
 
         // wait for an existing parse thread
         if ( null != editor && getNeedsParse() ) {
-          editor.waitForParseThread();
-          setNeedsParse( false );
+            parseBody( document, element, position );
+            editor.waitForParseThread();
+            setNeedsParse( false );
         }
 
         // get the list
         Body_c body = BodyUtil.getBody( element );
-        ProposalList_c list = ProposalList_c.getOneP_PLOnR1603( body, new ClassQueryInterface_c() {
-            @Override
-            public boolean evaluate( Object selected ) {
-                return DocumentUtil.lineAndColumnToPosition( ((ProposalList_c)selected).getLine(), ((ProposalList_c)selected).getCol(), document ) <= position;
-            }
-        });
+        ProposalList_c list = ProposalList_c.getOneP_PLOnR1603( body, selected -> DocumentUtil.lineAndColumnToPosition( ((ProposalList_c)selected).getLine(), ((ProposalList_c)selected).getCol(), document ) <= position );
         if ( null == list ) return NO_PROPOSALS;
 
         // add proposals
@@ -243,8 +240,11 @@ public class OALCompletionProcessor implements IContentAssistProcessor {
         }
     }
 
-    private synchronized void setInSession(boolean inSession) {
+    private synchronized void setInSession( boolean inSession ) {
         this.inSession = inSession;
+        if ( null != this.editor ) {
+            this.editor.enableParseWhileEditing( !inSession );  // disable parse while editing within a content assist session
+        }
         notifyAll();
     }
     
@@ -254,6 +254,30 @@ public class OALCompletionProcessor implements IContentAssistProcessor {
 
     public synchronized void setNeedsParse( boolean needsParse ) {
         this.needsParse = needsParse;
+    }
+    
+    private void parseBody( IDocument document, NonRootModelElement element, int position ) {
+    	if ( null != editor ) {
+    		IRegion parseRegion = new Region( 0, document.getLength() );
+            Body_c body = BodyUtil.getBody( element );
+            if ( null != body ) {
+            	Statement_c precedingStatement = null;
+                int precedingStatementPosition = 0;
+            	Statement_c[] smts = Statement_c.getManyACT_SMTsOnR602(Block_c.getManyACT_BLKsOnR612( body ));
+            	for ( Statement_c smt : smts ) {
+            		int smtPosition = DocumentUtil.lineAndColumnToPosition( smt.getEndlinenumber(), smt.getEndposition(), document );
+            		precedingStatementPosition = null != precedingStatement ? DocumentUtil.lineAndColumnToPosition( precedingStatement.getEndlinenumber(), precedingStatement.getEndposition(), document ) : 0;
+            		if ( smtPosition < position && ( null == precedingStatement || null != precedingStatement && smtPosition > precedingStatementPosition ) ) {
+            			precedingStatement = smt;
+            		}
+            	}
+            	precedingStatementPosition = null != precedingStatement ? DocumentUtil.lineAndColumnToPosition( precedingStatement.getEndlinenumber(), precedingStatement.getEndposition(), document ) : 0;
+            	parseRegion = new Region( precedingStatementPosition + 1, position - precedingStatementPosition - 1 );
+            }
+            ActivityEditor.setWaitBeforeParse( 0 ); // parse for content assist immediately
+            editor.scheduleContentAssistParse( parseRegion );
+            ActivityEditor.resetWaitBeforeParse();
+    	}
     }
 
     private synchronized void waitForSessionToStart() {
@@ -310,7 +334,6 @@ public class OALCompletionProcessor implements IContentAssistProcessor {
     }
     
     private void cleanUp( NonRootModelElement element ) {
-    	/*
         Body_c body = BodyUtil.getBody( element );
         ProposalList_c list = ProposalList_c.getOneP_PLOnR1603( body );
         if ( null != list ) {
@@ -320,7 +343,6 @@ public class OALCompletionProcessor implements IContentAssistProcessor {
         for ( ProposalCalculationCue_c cue : cues ) {
           cue.Dispose();
         }
-        */
         setDefaultTriggerChars();
         setNeedsParse( true );
         setInSession( false );
