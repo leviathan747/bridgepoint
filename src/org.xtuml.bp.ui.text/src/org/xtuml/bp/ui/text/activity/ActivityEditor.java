@@ -120,6 +120,7 @@ public class ActivityEditor extends OALEditor {
         public boolean m_enableContentAssist;
         public String m_newText;
         public IRegion m_parseRegion;
+        public boolean m_forceFullParse;
 
         private String m_oldText;
         private boolean m_clearContext;
@@ -168,31 +169,40 @@ public class ActivityEditor extends OALEditor {
                 newText = m_newText;
             }
             
-            Body_c body = BodyUtil.getBody( m_modelElement );
-            int deltaLength = 0;
-            
-            // pre-processing for partial parsing
-            // create parse steps
-            if ( null == m_parseRegion ) m_parseRegion = getDiff( newText, m_oldText );
-            deltaLength = newText.length() - m_oldText.length();
-            if ( null != body ) {
-                body.Createparsesteps( newText, deltaLength, m_parseRegion.getOffset() + m_parseRegion.getLength(), m_parseRegion.getOffset(), m_oldText );
-            }
+            boolean tryPartialParse = !m_forceFullParse && Pref_c.Getboolean( BridgePointPreferencesStore.ENABLE_PARTIAL_PARSING );  // TODO remove preference check
 
+            boolean parseRunning = true;
             boolean parseCompleted = false;
             boolean problemsFound = false;
             Ooaofooa modelRoot = (Ooaofooa) m_modelElement.getModelRoot();
             OalLexer lexer;
             EditorTextParser parser = null;
 
-            ParseStep_c step = null == body ? null : (ParseStep_c)body.getModelRoot().getInstanceList( ParseStep_c.class ).getGlobal( body.Getfirstparsestep() );
-            m_myAnnotationModel.beginReporting();
+            Body_c body = null;
+            int deltaLength = 0;
+            ParseStep_c step = null;
+            
+            if ( tryPartialParse ) {
+                body = BodyUtil.getBody( m_modelElement );
+                deltaLength = 0;
+                
+                // create parse steps
+                if ( null == m_parseRegion ) m_parseRegion = getDiff( newText, m_oldText );
+                deltaLength = newText.length() - m_oldText.length();
+                if ( null != body ) {
+                    body.Createparsesteps( newText, deltaLength, m_parseRegion.getOffset() + m_parseRegion.getLength(), m_parseRegion.getOffset(), m_oldText );
+                }
+                
+                // get first step
+                step = null == body ? null : (ParseStep_c)body.getModelRoot().getInstanceList( ParseStep_c.class ).getGlobal( body.Getfirstparsestep() );
+            }
 
-            while ( !parseCompleted ) {
+            m_myAnnotationModel.beginReporting();
+            while ( parseRunning ) {
+                boolean runningPartialParse = tryPartialParse && null != body && null != step && Gd_c.Null_unique_id() != step.Getblock();
                 ParseStep_c nextStep = null;
                 try {
-                    if ( null == body || null == step || Gd_c.Null_unique_id() == step.Getblock() ||
-                            Pref_c.Getboolean( BridgePointPreferencesStore.ENABLE_PARTIAL_PARSING ) == false ) { // TODO remove preference check
+                    if ( !runningPartialParse ) {
                         // Parse the whole body
                         TextPlugin.logError( "Running full parse.", null ); // TODO remove this debug statement
                         lexer = new OalLexer(new StringReader(newText));
@@ -233,10 +243,15 @@ public class ActivityEditor extends OALEditor {
                     // appropriately.
                     TextPlugin.logError(errorMsg, t);
                 } finally {
-                    if ( null != step ) step.Dispose();
-                    step = nextStep;
-                    // TODO partial parsing post processing
-                    //body.Reconcilelocations( newText, deltaLength, m_parseRegion.getOffset(), m_parseRegion.getOffset() + m_parseRegion.getLength(), m_oldText );
+                	if ( runningPartialParse ) {
+                        if ( null != step ) step.Dispose();
+                        step = nextStep;
+                        body.Reconcilelocations( newText, deltaLength, m_parseRegion.getOffset() + m_parseRegion.getLength(), m_parseRegion.getOffset(), m_oldText );
+                        parseRunning = ( null != step );
+                	}
+                	else {
+                		parseRunning = false;
+                	}
                 }
             }
 
@@ -303,6 +318,7 @@ public class ActivityEditor extends OALEditor {
                                         fRunnable.m_newText = ev.getDocument().get();
                                     }
                                     fRunnable.m_parseRegion = null;
+                                    fRunnable.m_forceFullParse = false;
                                     Ooaofooa.m_display = Display.getCurrent();
                                     accessParseThread(fRunnable, getParseThreadName() + fRunnable.m_ae_input.getName());
                                     Thread.yield();
@@ -339,6 +355,7 @@ public class ActivityEditor extends OALEditor {
                               fRunnable.m_newText = fRunnable.m_document.get();
                           }
                           fRunnable.m_parseRegion = parseRegion;
+                          fRunnable.m_forceFullParse = false;
                           Ooaofooa.m_display = Display.getCurrent();
                           accessParseThread(fRunnable, getParseThreadName() + fRunnable.m_ae_input.getName());
                     }
