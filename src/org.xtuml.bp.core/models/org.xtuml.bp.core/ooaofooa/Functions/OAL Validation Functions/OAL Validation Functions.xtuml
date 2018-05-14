@@ -36674,6 +36674,17 @@ select any blk from instances of ACT_BLK where false;
 select any blk from instances of ACT_BLK where (selected.Block_ID == param.a1_ruleid_name);
 if ( not_empty blk )
   select one act related by blk->ACT_ACT[R612];
+  if ( empty act )
+    // move block to parsing associations
+    select one act related by blk->ACT_ACT[R601];
+    unrelate blk from act across R601;
+    relate blk to act across R612;
+    select one act2 related by blk->ACT_ACT[R666];
+    if ( not_empty act2 )
+      unrelate blk from act2 across R666;
+      relate blk to act2 across R650;
+    end if;
+  end if;
   if ( not_empty act )
     ::set_current_context(context: act.Action_ID );
     select one in_scope_block related by act->ACT_BLK[R699];

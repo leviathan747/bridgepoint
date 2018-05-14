@@ -163,6 +163,9 @@ public class ActivityEditor extends OALEditor {
             // been disposed, then no parse should be performed
             if (m_modelElement == null || m_modelElement.isOrphaned() || (forEditor != null && forEditor.disposed))
                 return;
+
+            // export the body before the parse
+            ParseUtil.exportElement( m_modelElement , ParseUtil.PRE_PARSE_EXPORT_TYPE ); // TODO remove this
             
             String newText = "";
             synchronized ( m_newText ) {
@@ -269,6 +272,9 @@ public class ActivityEditor extends OALEditor {
             if ( parseCompleted ) {
                 m_oldText = newText;
             }
+
+            // export the body after the parse
+            ParseUtil.exportElement( m_modelElement , ParseUtil.POST_PARSE_EXPORT_TYPE ); // TODO remove this
 
         }
 
