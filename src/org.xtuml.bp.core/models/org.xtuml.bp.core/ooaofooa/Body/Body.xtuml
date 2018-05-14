@@ -10797,6 +10797,46 @@ INSERT INTO DIM_DIA
 	1263.000000,
 	449.000000,
 	"00000000-0000-0000-0000-000000000000");
+INSERT INTO S_DT
+	VALUES ("3b2f1039-e51c-40ae-831f-eaf6ce05bd15",
+	"00000000-0000-0000-0000-000000000000",
+	'inst_ref<Statement>',
+	'',
+	'');
+INSERT INTO S_IRDT
+	VALUES ("3b2f1039-e51c-40ae-831f-eaf6ce05bd15",
+	0,
+	"e9011b75-e798-45a3-ac83-92ba7c04db4e");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("e9011b75-e798-45a3-ac83-92ba7c04db4e",
+	'Statement',
+	602,
+	'ACT_SMT',
+	'This class represents an action language statement within a block.',
+	"00000000-0000-0000-0000-000000000000",
+	'./Statement/Statement.xtuml');
+INSERT INTO PE_PE
+	VALUES ("3b2f1039-e51c-40ae-831f-eaf6ce05bd15",
+	1,
+	"76583c73-7a99-4c81-b260-8109e6cef5ca",
+	"00000000-0000-0000-0000-000000000000",
+	3);
+INSERT INTO S_DT
+	VALUES ("cee71d13-0cc7-4a3f-8169-10c19f548a68",
+	"00000000-0000-0000-0000-000000000000",
+	'inst_ref_set<Statement>',
+	'',
+	'');
+INSERT INTO S_IRDT
+	VALUES ("cee71d13-0cc7-4a3f-8169-10c19f548a68",
+	1,
+	"e9011b75-e798-45a3-ac83-92ba7c04db4e");
+INSERT INTO PE_PE
+	VALUES ("cee71d13-0cc7-4a3f-8169-10c19f548a68",
+	1,
+	"76583c73-7a99-4c81-b260-8109e6cef5ca",
+	"00000000-0000-0000-0000-000000000000",
+	3);
 INSERT INTO R_SIMP
 	VALUES ("cf1f38a4-06c9-464e-97aa-d1b73bc1b98a");
 INSERT INTO R_REL
@@ -10910,14 +10950,6 @@ INSERT INTO R_OIR
 	"a56af201-2c25-460c-9750-ac377aa060ac",
 	"a9e91f6c-5f96-44ee-9c11-ecdd659dfe34",
 	"00000000-0000-0000-0000-000000000000");
-INSERT INTO O_OBJ_PROXY
-	VALUES ("e9011b75-e798-45a3-ac83-92ba7c04db4e",
-	'Statement',
-	602,
-	'ACT_SMT',
-	'This class represents an action language statement within a block.',
-	"00000000-0000-0000-0000-000000000000",
-	'./Statement/Statement.xtuml');
 INSERT INTO R_PART
 	VALUES ("e9011b75-e798-45a3-ac83-92ba7c04db4e",
 	"a56af201-2c25-460c-9750-ac377aa060ac",

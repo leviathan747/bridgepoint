@@ -1168,6 +1168,8 @@ INSERT INTO O_TFR
 select any last_unaffected_statement_before from instances of ACT_SMT where false;
 select any first_unaffected_statement_after from instances of ACT_SMT where false;
 select many smts related by self->ACT_BLK[R612]->ACT_SMT[R602];
+select many committed_smts related by self->ACT_BLK[R601]->ACT_SMT[R602];
+smts = smts | committed_smts;
 for each smt in smts
   // compare with current last unaffected statement before the diff
   if ( Util::lineAndColumnToPosition( text:param.oldText, line:smt.EndLineNumber, column:smt.EndPosition ) < param.diffStartIndex )
