@@ -10971,6 +10971,46 @@ INSERT INTO PE_PE
 	"e060f94c-3f82-463e-9d98-d20315b7c196",
 	"00000000-0000-0000-0000-000000000000",
 	3);
+INSERT INTO S_DT
+	VALUES ("ec43588d-97f8-4eec-83a3-eb481e512975",
+	"00000000-0000-0000-0000-000000000000",
+	'inst_ref<Variable>',
+	'',
+	'');
+INSERT INTO S_IRDT
+	VALUES ("ec43588d-97f8-4eec-83a3-eb481e512975",
+	0,
+	"04ccf45f-92e0-4d09-ba38-c8b5e3c789c4");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("04ccf45f-92e0-4d09-ba38-c8b5e3c789c4",
+	'Variable',
+	815,
+	'V_VAR',
+	'This class represents a temporary variable or an instance.',
+	"00000000-0000-0000-0000-000000000000",
+	'./Variable/Variable.xtuml');
+INSERT INTO PE_PE
+	VALUES ("ec43588d-97f8-4eec-83a3-eb481e512975",
+	1,
+	"e060f94c-3f82-463e-9d98-d20315b7c196",
+	"00000000-0000-0000-0000-000000000000",
+	3);
+INSERT INTO S_DT
+	VALUES ("cd4fdf94-a855-4e29-896d-11f93f85a549",
+	"00000000-0000-0000-0000-000000000000",
+	'inst_ref_set<Variable>',
+	'',
+	'');
+INSERT INTO S_IRDT
+	VALUES ("cd4fdf94-a855-4e29-896d-11f93f85a549",
+	1,
+	"04ccf45f-92e0-4d09-ba38-c8b5e3c789c4");
+INSERT INTO PE_PE
+	VALUES ("cd4fdf94-a855-4e29-896d-11f93f85a549",
+	1,
+	"e060f94c-3f82-463e-9d98-d20315b7c196",
+	"00000000-0000-0000-0000-000000000000",
+	3);
 INSERT INTO R_SIMP
 	VALUES ("13230ce2-4f54-4d1a-a030-cf088346c5eb");
 INSERT INTO R_REL
@@ -11690,14 +11730,6 @@ INSERT INTO R_OIR
 	"beefba5b-63ae-4c27-863c-bda06a675a06",
 	"715e1203-441f-47ce-b78f-e985ae241c44",
 	"00000000-0000-0000-0000-000000000000");
-INSERT INTO O_OBJ_PROXY
-	VALUES ("04ccf45f-92e0-4d09-ba38-c8b5e3c789c4",
-	'Variable',
-	815,
-	'V_VAR',
-	'This class represents a temporary variable or an instance.',
-	"00000000-0000-0000-0000-000000000000",
-	'./Variable/Variable.xtuml');
 INSERT INTO R_SUB
 	VALUES ("97baa2ef-fc0b-46e7-8d55-caccba4cb123",
 	"beefba5b-63ae-4c27-863c-bda06a675a06",
