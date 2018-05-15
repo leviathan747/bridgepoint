@@ -36935,14 +36935,20 @@ if ( not_empty blk )
     
     // remove statements for this parse step
     select any step related by act->PAR_STP[R1613] where ( selected.processing );
-    select one statement related by step->ACT_SMT[R1610]->ACT_SMT[R661.''succeeds''];
-    select one boundary_statement related by step->ACT_SMT[R1611];
-    // delete all statements up to but not including the boundary statement
-    // if there is no boundary statement, delete the rest of the statements in the block
-    while ( not_empty statement and ( empty boundary_statement or ( not_empty boundary_statement and statement.Statement_ID != boundary_statement.Statement_ID ) ) )
-      statement.dispose();
-      select one statement related by statement->ACT_SMT[R661.''succeeds''];
-    end while;
+    select one last_unaffected_statement_before related by step->ACT_SMT[R1610];
+    select one first_unaffected_statement_after related by step->ACT_SMT[R1611];
+    // delete all statements between the two bounding statements
+    select many statements related by blk->ACT_SMT[R602];
+    for each statement in statements
+      if ( ( empty last_unaffected_statement_before or ( last_unaffected_statement_before.LineNumber < statement.LineNumber or
+                                                         last_unaffected_statement_before.LineNumber == statement.LineNumber and 
+                                                         last_unaffected_statement_before.StartPosition < statement.StartPosition ) ) and
+           ( empty first_unaffected_statement_after or ( first_unaffected_statement_after.LineNumber > statement.LineNumber or
+                                                         first_unaffected_statement_after.LineNumber == statement.LineNumber and 
+                                                         first_unaffected_statement_after.StartPosition > statement.StartPosition ) ) )
+        statement.dispose();
+      end if;
+    end for;
     
     // create initial content assistance proposals
     if ( ::contentAssistEnabled() )

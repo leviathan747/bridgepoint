@@ -3,7 +3,7 @@ INSERT INTO LOCATION_MARKER VALUES (
   'attributeLineNumber',
   'attributeColumn',
   '',
-  '->ACT_BLK[R612]->ACT_SMT[R602]->ACT_AI[R603]',
+  '->ACT_SMT[R602]->ACT_AI[R603]',
   ''
 );
 INSERT INTO LOCATION_MARKER VALUES (
@@ -11,7 +11,7 @@ INSERT INTO LOCATION_MARKER VALUES (
   'CurrentLine',
   'CurrentCol',
   '',
-  '->ACT_BLK[R612]',
+  '',
   ''
 );
 INSERT INTO LOCATION_MARKER VALUES (
@@ -19,7 +19,7 @@ INSERT INTO LOCATION_MARKER VALUES (
   'currentKeyLettersLineNumber',
   'currentKeyLettersColumn',
   '',
-  '->ACT_BLK[R612]',
+  '',
   ''
 );
 INSERT INTO LOCATION_MARKER VALUES (
@@ -27,7 +27,7 @@ INSERT INTO LOCATION_MARKER VALUES (
   'currentParameterAssignmentNameLineNumber',
   'currentParameterAssignmentNameColumn',
   '',
-  '->ACT_BLK[R612]',
+  '',
   ''
 );
 INSERT INTO LOCATION_MARKER VALUES (
@@ -35,7 +35,7 @@ INSERT INTO LOCATION_MARKER VALUES (
   'currentAssociationNumberLineNumber',
   'currentAssociationNumberColumn',
   '',
-  '->ACT_BLK[R612]',
+  '',
   ''
 );
 INSERT INTO LOCATION_MARKER VALUES (
@@ -43,7 +43,7 @@ INSERT INTO LOCATION_MARKER VALUES (
   'currentAssociationPhraseLineNumber',
   'currentAssociationPhraseColumn',
   '',
-  '->ACT_BLK[R612]',
+  '',
   ''
 );
 INSERT INTO LOCATION_MARKER VALUES (
@@ -51,7 +51,7 @@ INSERT INTO LOCATION_MARKER VALUES (
   'currentDataTypeNameLineNumber',
   'currentDataTypeNameColumn',
   '',
-  '->ACT_BLK[R612]',
+  '',
   ''
 );
 INSERT INTO LOCATION_MARKER VALUES (
@@ -59,7 +59,7 @@ INSERT INTO LOCATION_MARKER VALUES (
   'bridgeNameLineNumber',
   'bridgeNameColumn',
   '',
-  '->ACT_BLK[R612]->ACT_SMT[R602]->ACT_BRG[R603]',
+  '->ACT_SMT[R602]->ACT_BRG[R603]',
   ''
 );
 INSERT INTO LOCATION_MARKER VALUES (
@@ -67,7 +67,7 @@ INSERT INTO LOCATION_MARKER VALUES (
   'externalEntityKeyLettersLineNumber',
   'externalEntityKeyLettersColumn',
   '',
-  '->ACT_BLK[R612]->ACT_SMT[R602]->ACT_BRG[R603]',
+  '->ACT_SMT[R602]->ACT_BRG[R603]',
   ''
 );
 INSERT INTO LOCATION_MARKER VALUES (
@@ -75,7 +75,7 @@ INSERT INTO LOCATION_MARKER VALUES (
   'modelClassKeyLettersLineNumber',
   'modelClassKeyLettersColumn',
   '',
-  '->ACT_BLK[R612]->ACT_SMT[R602]->ACT_CNV[R603]',
+  '->ACT_SMT[R602]->ACT_CNV[R603]',
   ''
 );
 INSERT INTO LOCATION_MARKER VALUES (
@@ -83,7 +83,7 @@ INSERT INTO LOCATION_MARKER VALUES (
   'modelClassKeyLettersLineNumber',
   'modelClassKeyLettersColumn',
   '',
-  '->ACT_BLK[R612]->ACT_SMT[R602]->ACT_CR[R603]',
+  '->ACT_SMT[R602]->ACT_CR[R603]',
   ''
 );
 INSERT INTO LOCATION_MARKER VALUES (
@@ -91,7 +91,7 @@ INSERT INTO LOCATION_MARKER VALUES (
   'extentLineNumber',
   'extentColumn',
   '',
-  '->ACT_BLK[R612]->ACT_SMT[R602]->ACT_FIO[R603]',
+  '->ACT_SMT[R602]->ACT_FIO[R603]',
   ''
 );
 INSERT INTO LOCATION_MARKER VALUES (
@@ -99,7 +99,7 @@ INSERT INTO LOCATION_MARKER VALUES (
   'extentLineNumber',
   'extentColumn',
   '',
-  '->ACT_BLK[R612]->ACT_SMT[R602]->ACT_FIW[R603]',
+  '->ACT_SMT[R602]->ACT_FIW[R603]',
   ''
 );
 INSERT INTO LOCATION_MARKER VALUES (
@@ -107,7 +107,7 @@ INSERT INTO LOCATION_MARKER VALUES (
   'functionNameLineNumber',
   'functionNameColumn',
   '',
-  '->ACT_BLK[R612]->ACT_SMT[R602]->ACT_FNC[R603]',
+  '->ACT_SMT[R602]->ACT_FNC[R603]',
   ''
 );
 INSERT INTO LOCATION_MARKER VALUES (
@@ -115,7 +115,7 @@ INSERT INTO LOCATION_MARKER VALUES (
   'opNameLineNumber',
   'opNameColumn',
   '',
-  '->ACT_BLK[R612]->ACT_SMT[R602]->ACT_IOP[R603]',
+  '->ACT_SMT[R602]->ACT_IOP[R603]',
   ''
 );
 INSERT INTO LOCATION_MARKER VALUES (
@@ -123,7 +123,7 @@ INSERT INTO LOCATION_MARKER VALUES (
   'ownerNameLineNumber',
   'ownerNameColumn',
   '',
-  '->ACT_BLK[R612]->ACT_SMT[R602]->ACT_IOP[R603]',
+  '->ACT_SMT[R602]->ACT_IOP[R603]',
   ''
 );
 INSERT INTO LOCATION_MARKER VALUES (
@@ -131,7 +131,7 @@ INSERT INTO LOCATION_MARKER VALUES (
   'modelClassKeyLettersLineNumber',
   'modelClassKeyLettersColumn',
   '',
-  '->ACT_BLK[R612]->ACT_SMT[R602]->ACT_SEL[R603]->ACT_LNK[R637]',
+  '->ACT_SMT[R602]->ACT_SEL[R603]->ACT_LNK[R637]',
   '->ACT_LNK[R604.''precedes'']'
 );
 INSERT INTO LOCATION_MARKER VALUES (
@@ -139,7 +139,7 @@ INSERT INTO LOCATION_MARKER VALUES (
   'associationNumberLineNumber',
   'associationNumberColumn',
   '',
-  '->ACT_BLK[R612]->ACT_SMT[R602]->ACT_SEL[R603]->ACT_LNK[R637]',
+  '->ACT_SMT[R602]->ACT_SEL[R603]->ACT_LNK[R637]',
   '->ACT_LNK[R604.''precedes'']'
 );
 INSERT INTO LOCATION_MARKER VALUES (
@@ -147,7 +147,7 @@ INSERT INTO LOCATION_MARKER VALUES (
   'phraseLineNumber',
   'phraseColumn',
   '',
-  '->ACT_BLK[R612]->ACT_SMT[R602]->ACT_SEL[R603]->ACT_LNK[R637]',
+  '->ACT_SMT[R602]->ACT_SEL[R603]->ACT_LNK[R637]',
   '->ACT_LNK[R604.''precedes'']'
 );
 INSERT INTO LOCATION_MARKER VALUES (
@@ -155,7 +155,7 @@ INSERT INTO LOCATION_MARKER VALUES (
   'associationNumberLineNumber',
   'associationNumberColumn',
   '',
-  '->ACT_BLK[R612]->ACT_SMT[R602]->ACT_REL[R603]',
+  '->ACT_SMT[R602]->ACT_REL[R603]',
   ''
 );
 INSERT INTO LOCATION_MARKER VALUES (
@@ -163,7 +163,7 @@ INSERT INTO LOCATION_MARKER VALUES (
   'associationPhraseLineNumber',
   'associationPhraseColumn',
   '',
-  '->ACT_BLK[R612]->ACT_SMT[R602]->ACT_REL[R603]',
+  '->ACT_SMT[R602]->ACT_REL[R603]',
   ''
 );
 INSERT INTO LOCATION_MARKER VALUES (
@@ -171,7 +171,7 @@ INSERT INTO LOCATION_MARKER VALUES (
   'associationNumberLineNumber',
   'associationNumberColumn',
   '',
-  '->ACT_BLK[R612]->ACT_SMT[R602]->ACT_RU[R603]',
+  '->ACT_SMT[R602]->ACT_RU[R603]',
   ''
 );
 INSERT INTO LOCATION_MARKER VALUES (
@@ -179,7 +179,7 @@ INSERT INTO LOCATION_MARKER VALUES (
   'associationPhraseLineNumber',
   'associationPhraseColumn',
   '',
-  '->ACT_BLK[R612]->ACT_SMT[R602]->ACT_RU[R603]',
+  '->ACT_SMT[R602]->ACT_RU[R603]',
   ''
 );
 INSERT INTO LOCATION_MARKER VALUES (
@@ -187,7 +187,7 @@ INSERT INTO LOCATION_MARKER VALUES (
   'sigNameLineNumber',
   'sigNameColumn',
   '',
-  '->ACT_BLK[R612]->ACT_SMT[R602]->ACT_SGN[R603]',
+  '->ACT_SMT[R602]->ACT_SGN[R603]',
   ''
 );
 INSERT INTO LOCATION_MARKER VALUES (
@@ -195,7 +195,7 @@ INSERT INTO LOCATION_MARKER VALUES (
   'ownerNameLineNumber',
   'ownerNameColumn',
   '',
-  '->ACT_BLK[R612]->ACT_SMT[R602]->ACT_SGN[R603]',
+  '->ACT_SMT[R602]->ACT_SGN[R603]',
   ''
 );
 INSERT INTO LOCATION_MARKER VALUES (
@@ -203,7 +203,15 @@ INSERT INTO LOCATION_MARKER VALUES (
   'LineNumber',
   'StartPosition',
   '',
-  '->ACT_BLK[R612]->ACT_SMT[R602]',
+  '->ACT_SMT[R602]',
+  ''
+);
+INSERT INTO LOCATION_MARKER VALUES (
+  'ACT_SMT',
+  'EndLineNumber',
+  'EndPosition',
+  '',
+  '->ACT_SMT[R602]',
   ''
 );
 INSERT INTO LOCATION_MARKER VALUES (
@@ -211,7 +219,7 @@ INSERT INTO LOCATION_MARKER VALUES (
   'operationNameLineNumber',
   'operationNameColumn',
   '',
-  '->ACT_BLK[R612]->ACT_SMT[R602]->ACT_TFM[R603]',
+  '->ACT_SMT[R602]->ACT_TFM[R603]',
   ''
 );
 INSERT INTO LOCATION_MARKER VALUES (
@@ -219,7 +227,7 @@ INSERT INTO LOCATION_MARKER VALUES (
   'modelClassKeyLettersLineNumber',
   'modelClassKeyLettersColumn',
   '',
-  '->ACT_BLK[R612]->ACT_SMT[R602]->ACT_TFM[R603]',
+  '->ACT_SMT[R602]->ACT_TFM[R603]',
   ''
 );
 INSERT INTO LOCATION_MARKER VALUES (
@@ -227,7 +235,7 @@ INSERT INTO LOCATION_MARKER VALUES (
   'associationNumberLineNumber',
   'associationNumberColumn',
   '',
-  '->ACT_BLK[R612]->ACT_SMT[R602]->ACT_UNR[R603]',
+  '->ACT_SMT[R602]->ACT_UNR[R603]',
   ''
 );
 INSERT INTO LOCATION_MARKER VALUES (
@@ -235,7 +243,7 @@ INSERT INTO LOCATION_MARKER VALUES (
   'associationPhraseLineNumber',
   'associationPhraseColumn',
   '',
-  '->ACT_BLK[R612]->ACT_SMT[R602]->ACT_UNR[R603]',
+  '->ACT_SMT[R602]->ACT_UNR[R603]',
   ''
 );
 INSERT INTO LOCATION_MARKER VALUES (
@@ -243,7 +251,7 @@ INSERT INTO LOCATION_MARKER VALUES (
   'associationNumberLineNumber',
   'associationNumberColumn',
   '',
-  '->ACT_BLK[R612]->ACT_SMT[R602]->ACT_URU[R603]',
+  '->ACT_SMT[R602]->ACT_URU[R603]',
   ''
 );
 INSERT INTO LOCATION_MARKER VALUES (
@@ -251,7 +259,7 @@ INSERT INTO LOCATION_MARKER VALUES (
   'associationPhraseLineNumber',
   'associationPhraseColumn',
   '',
-  '->ACT_BLK[R612]->ACT_SMT[R602]->ACT_URU[R603]',
+  '->ACT_SMT[R602]->ACT_URU[R603]',
   ''
 );
 INSERT INTO LOCATION_MARKER VALUES (
@@ -259,7 +267,7 @@ INSERT INTO LOCATION_MARKER VALUES (
   'eventDerivedLabelLineNumber',
   'eventDerivedLabelColumn',
   '',
-  '->ACT_BLK[R612]->ACT_SMT[R602]->E_ESS[R603]',
+  '->ACT_SMT[R602]->E_ESS[R603]',
   ''
 );
 INSERT INTO LOCATION_MARKER VALUES (
@@ -267,7 +275,7 @@ INSERT INTO LOCATION_MARKER VALUES (
   'eventMeaningLineNumber',
   'eventMeaningColumn',
   '',
-  '->ACT_BLK[R612]->ACT_SMT[R602]->E_ESS[R603]',
+  '->ACT_SMT[R602]->E_ESS[R603]',
   ''
 );
 INSERT INTO LOCATION_MARKER VALUES (
@@ -275,7 +283,7 @@ INSERT INTO LOCATION_MARKER VALUES (
   'eventTargetKeyLettersLineNumber',
   'eventTargetKeyLettersColumn',
   '',
-  '->ACT_BLK[R612]->ACT_SMT[R602]->E_ESS[R603]',
+  '->ACT_SMT[R602]->E_ESS[R603]',
   ''
 );
 INSERT INTO LOCATION_MARKER VALUES (
@@ -283,7 +291,7 @@ INSERT INTO LOCATION_MARKER VALUES (
   'firstEventDataItemNameLineNumber',
   'firstEventDataItemNameColumn',
   '',
-  '->ACT_BLK[R612]->ACT_SMT[R602]->E_ESS[R603]',
+  '->ACT_SMT[R602]->E_ESS[R603]',
   ''
 );
 INSERT INTO LOCATION_MARKER VALUES (
@@ -291,7 +299,7 @@ INSERT INTO LOCATION_MARKER VALUES (
   'currentLaterEventDataItemNameLineNumber',
   'currentLaterEventDataItemNameColumn',
   '',
-  '->ACT_BLK[R612]->ACT_SMT[R602]->E_ESS[R603]',
+  '->ACT_SMT[R602]->E_ESS[R603]',
   ''
 );
 INSERT INTO LOCATION_MARKER VALUES (
@@ -299,7 +307,7 @@ INSERT INTO LOCATION_MARKER VALUES (
   'externalEntityKeyLettersLineNumber',
   'externalEntityKeyLettersColumn',
   '',
-  '->ACT_BLK[R612]->V_VAL[R826]->V_BRV[R801]',
+  '->V_VAL[R826]->V_BRV[R801]',
   ''
 );
 INSERT INTO LOCATION_MARKER VALUES (
@@ -307,7 +315,7 @@ INSERT INTO LOCATION_MARKER VALUES (
   'dataTypeNameLineNumber',
   'dataTypeNameColumn',
   '',
-  '->ACT_BLK[R612]->V_VAL[R826]->V_LEN[R801]',
+  '->V_VAL[R826]->V_LEN[R801]',
   ''
 );
 INSERT INTO LOCATION_MARKER VALUES (
@@ -315,7 +323,7 @@ INSERT INTO LOCATION_MARKER VALUES (
   'LineNumber',
   'StartPosition',
   'EndPosition',
-  '->ACT_BLK[R612]->V_VAR[R823]->V_LOC[R835]',
+  '->V_VAR[R823]->V_LOC[R835]',
   ''
 );
 INSERT INTO LOCATION_MARKER VALUES (
@@ -323,7 +331,7 @@ INSERT INTO LOCATION_MARKER VALUES (
   'ownerNameLineNumber',
   'ownerNameColumn',
   '',
-  '->ACT_BLK[R612]->V_VAL[R826]->V_MSV[R801]',
+  '->V_VAL[R826]->V_MSV[R801]',
   ''
 );
 INSERT INTO LOCATION_MARKER VALUES (
@@ -331,7 +339,7 @@ INSERT INTO LOCATION_MARKER VALUES (
   'labelLineNumber',
   'labelColumn',
   '',
-  '->ACT_BLK[R612]->ACT_SMT[R602]->ACT_TFM[R603]->V_PAR[R627]',
+  '->ACT_SMT[R602]->ACT_TFM[R603]->V_PAR[R627]',
   ''
 );
 INSERT INTO LOCATION_MARKER VALUES (
@@ -339,7 +347,7 @@ INSERT INTO LOCATION_MARKER VALUES (
   'labelLineNumber',
   'labelColumn',
   '',
-  '->ACT_BLK[R612]->ACT_SMT[R602]->ACT_BRG[R603]->V_PAR[R628]',
+  '->ACT_SMT[R602]->ACT_BRG[R603]->V_PAR[R628]',
   ''
 );
 INSERT INTO LOCATION_MARKER VALUES (
@@ -347,7 +355,7 @@ INSERT INTO LOCATION_MARKER VALUES (
   'labelLineNumber',
   'labelColumn',
   '',
-  '->ACT_BLK[R612]->ACT_SMT[R602]->ACT_SGN[R603]->V_PAR[R662]',
+  '->ACT_SMT[R602]->ACT_SGN[R603]->V_PAR[R662]',
   ''
 );
 INSERT INTO LOCATION_MARKER VALUES (
@@ -355,7 +363,7 @@ INSERT INTO LOCATION_MARKER VALUES (
   'labelLineNumber',
   'labelColumn',
   '',
-  '->ACT_BLK[R612]->ACT_SMT[R602]->ACT_FNC[R603]->V_PAR[R669]',
+  '->ACT_SMT[R602]->ACT_FNC[R603]->V_PAR[R669]',
   ''
 );
 INSERT INTO LOCATION_MARKER VALUES (
@@ -363,7 +371,7 @@ INSERT INTO LOCATION_MARKER VALUES (
   'labelLineNumber',
   'labelColumn',
   '',
-  '->ACT_BLK[R612]->ACT_SMT[R602]->ACT_IOP[R603]->V_PAR[R679]',
+  '->ACT_SMT[R602]->ACT_IOP[R603]->V_PAR[R679]',
   ''
 );
 INSERT INTO LOCATION_MARKER VALUES (
@@ -371,7 +379,7 @@ INSERT INTO LOCATION_MARKER VALUES (
   'labelLineNumber',
   'labelColumn',
   '',
-  '->ACT_BLK[R612]->ACT_SMT[R602]->E_ESS[R603]->V_PAR[R700]',
+  '->ACT_SMT[R602]->E_ESS[R603]->V_PAR[R700]',
   ''
 );
 INSERT INTO LOCATION_MARKER VALUES (
@@ -379,7 +387,7 @@ INSERT INTO LOCATION_MARKER VALUES (
   'labelLineNumber',
   'labelColumn',
   '',
-  '->ACT_BLK[R612]->V_VAL[R826]->V_BRV[R801]->V_PAR[R810]',
+  '->V_VAL[R826]->V_BRV[R801]->V_PAR[R810]',
   ''
 );
 INSERT INTO LOCATION_MARKER VALUES (
@@ -387,7 +395,7 @@ INSERT INTO LOCATION_MARKER VALUES (
   'labelLineNumber',
   'labelColumn',
   '',
-  '->ACT_BLK[R612]->V_VAL[R826]->V_TRV[R801]->V_PAR[R811]',
+  '->V_VAL[R826]->V_TRV[R801]->V_PAR[R811]',
   ''
 );
 INSERT INTO LOCATION_MARKER VALUES (
@@ -395,7 +403,7 @@ INSERT INTO LOCATION_MARKER VALUES (
   'labelLineNumber',
   'labelColumn',
   '',
-  '->ACT_BLK[R612]->V_VAL[R826]->V_FNV[R801]->V_PAR[R817]',
+  '->V_VAL[R826]->V_FNV[R801]->V_PAR[R817]',
   ''
 );
 INSERT INTO LOCATION_MARKER VALUES (
@@ -403,7 +411,7 @@ INSERT INTO LOCATION_MARKER VALUES (
   'labelLineNumber',
   'labelColumn',
   '',
-  '->ACT_BLK[R612]->V_VAL[R826]->V_MSV[R801]->V_PAR[R842]',
+  '->V_VAL[R826]->V_MSV[R801]->V_PAR[R842]',
   ''
 );
 INSERT INTO LOCATION_MARKER VALUES (
@@ -411,7 +419,7 @@ INSERT INTO LOCATION_MARKER VALUES (
   'modelClassKeyLettersLineNumber',
   'modelClassKeyLettersColumn',
   '',
-  '->ACT_BLK[R612]->V_VAL[R826]->V_TRV[R801]',
+  '->V_VAL[R826]->V_TRV[R801]',
   ''
 );
 INSERT INTO LOCATION_MARKER VALUES (
@@ -419,7 +427,7 @@ INSERT INTO LOCATION_MARKER VALUES (
   'firstParameterLabelLineNumber',
   'firstParameterLabelColumn',
   '',
-  '->ACT_BLK[R612]->V_VAL[R826]',
+  '->V_VAL[R826]',
   ''
 );
 INSERT INTO LOCATION_MARKER VALUES (
@@ -427,7 +435,7 @@ INSERT INTO LOCATION_MARKER VALUES (
   'LineNumber',
   'StartPosition',
   'EndPosition',
-  '->ACT_BLK[R612]->V_VAL[R826]',
+  '->V_VAL[R826]',
   ''
 );
 INSERT INTO LOCATION_MARKER VALUES (
@@ -435,6 +443,6 @@ INSERT INTO LOCATION_MARKER VALUES (
   'currentLaterParameterLabelLineNumber',
   'currentLaterParameterLabelColumn',
   '',
-  '->ACT_BLK[R612]->V_VAL[R826]',
+  '->V_VAL[R826]',
   ''
 );

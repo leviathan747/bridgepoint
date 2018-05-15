@@ -10683,6 +10683,294 @@ INSERT INTO DIM_DIA
 	1646.000000,
 	632.000000,
 	"00000000-0000-0000-0000-000000000000");
+INSERT INTO S_DT
+	VALUES ("78380fea-53b8-4689-afe3-ffc4ed6a9fa8",
+	"00000000-0000-0000-0000-000000000000",
+	'inst_ref<Bridge Value>',
+	'',
+	'');
+INSERT INTO S_IRDT
+	VALUES ("78380fea-53b8-4689-afe3-ffc4ed6a9fa8",
+	0,
+	"9a8228db-50d7-44ad-ae91-7533fd2e65e8");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("9a8228db-50d7-44ad-ae91-7533fd2e65e8",
+	'Bridge Value',
+	814,
+	'V_BRV',
+	'This class represents the value returned by a bridge invocation.',
+	"00000000-0000-0000-0000-000000000000",
+	'./Bridge Value/Bridge Value.xtuml');
+INSERT INTO PE_PE
+	VALUES ("78380fea-53b8-4689-afe3-ffc4ed6a9fa8",
+	1,
+	"e060f94c-3f82-463e-9d98-d20315b7c196",
+	"00000000-0000-0000-0000-000000000000",
+	3);
+INSERT INTO S_DT
+	VALUES ("0166cfc0-c049-4a58-9165-c5c4ba0cfed3",
+	"00000000-0000-0000-0000-000000000000",
+	'inst_ref_set<Bridge Value>',
+	'',
+	'');
+INSERT INTO S_IRDT
+	VALUES ("0166cfc0-c049-4a58-9165-c5c4ba0cfed3",
+	1,
+	"9a8228db-50d7-44ad-ae91-7533fd2e65e8");
+INSERT INTO PE_PE
+	VALUES ("0166cfc0-c049-4a58-9165-c5c4ba0cfed3",
+	1,
+	"e060f94c-3f82-463e-9d98-d20315b7c196",
+	"00000000-0000-0000-0000-000000000000",
+	3);
+INSERT INTO S_DT
+	VALUES ("53aa48ff-9126-4db4-a26e-3aa05c5342b5",
+	"00000000-0000-0000-0000-000000000000",
+	'inst_ref<Literal Enumerator>',
+	'',
+	'');
+INSERT INTO S_IRDT
+	VALUES ("53aa48ff-9126-4db4-a26e-3aa05c5342b5",
+	0,
+	"abe004cb-e784-4b7d-953e-dd49bcce0c1d");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("abe004cb-e784-4b7d-953e-dd49bcce0c1d",
+	'Literal Enumerator',
+	823,
+	'V_LEN',
+	'This class represents a literal enumerated value.',
+	"00000000-0000-0000-0000-000000000000",
+	'./Literal Enumerator/Literal Enumerator.xtuml');
+INSERT INTO PE_PE
+	VALUES ("53aa48ff-9126-4db4-a26e-3aa05c5342b5",
+	1,
+	"e060f94c-3f82-463e-9d98-d20315b7c196",
+	"00000000-0000-0000-0000-000000000000",
+	3);
+INSERT INTO S_DT
+	VALUES ("bcc97af9-ae7f-4778-8090-a56cca0f92d3",
+	"00000000-0000-0000-0000-000000000000",
+	'inst_ref_set<Literal Enumerator>',
+	'',
+	'');
+INSERT INTO S_IRDT
+	VALUES ("bcc97af9-ae7f-4778-8090-a56cca0f92d3",
+	1,
+	"abe004cb-e784-4b7d-953e-dd49bcce0c1d");
+INSERT INTO PE_PE
+	VALUES ("bcc97af9-ae7f-4778-8090-a56cca0f92d3",
+	1,
+	"e060f94c-3f82-463e-9d98-d20315b7c196",
+	"00000000-0000-0000-0000-000000000000",
+	3);
+INSERT INTO S_DT
+	VALUES ("09852eea-c6ec-43ee-ad0e-23949675ff3d",
+	"00000000-0000-0000-0000-000000000000",
+	'inst_ref<Variable Location>',
+	'',
+	'');
+INSERT INTO S_IRDT
+	VALUES ("09852eea-c6ec-43ee-ad0e-23949675ff3d",
+	0,
+	"8fdb421d-27dc-4cba-8c71-9bea07ea8c00");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("8fdb421d-27dc-4cba-8c71-9bea07ea8c00",
+	'Variable Location',
+	824,
+	'V_LOC',
+	'A location in the activity where the variable appears.  VariableLocations
+can be either l-values or r-values.  The variable which this location
+applies to is either an instance of the Variable class (R835), or a by 
+reference parameter acting as an l-value (R688).  Parameters acting as
+r-values are captured by R835.',
+	"00000000-0000-0000-0000-000000000000",
+	'./Variable Location/Variable Location.xtuml');
+INSERT INTO PE_PE
+	VALUES ("09852eea-c6ec-43ee-ad0e-23949675ff3d",
+	1,
+	"e060f94c-3f82-463e-9d98-d20315b7c196",
+	"00000000-0000-0000-0000-000000000000",
+	3);
+INSERT INTO S_DT
+	VALUES ("5a55f0a3-9297-4610-a3f1-8b90ee9c1b80",
+	"00000000-0000-0000-0000-000000000000",
+	'inst_ref_set<Variable Location>',
+	'',
+	'');
+INSERT INTO S_IRDT
+	VALUES ("5a55f0a3-9297-4610-a3f1-8b90ee9c1b80",
+	1,
+	"8fdb421d-27dc-4cba-8c71-9bea07ea8c00");
+INSERT INTO PE_PE
+	VALUES ("5a55f0a3-9297-4610-a3f1-8b90ee9c1b80",
+	1,
+	"e060f94c-3f82-463e-9d98-d20315b7c196",
+	"00000000-0000-0000-0000-000000000000",
+	3);
+INSERT INTO S_DT
+	VALUES ("d28562e2-8f47-4fbd-a1d2-76716712a384",
+	"00000000-0000-0000-0000-000000000000",
+	'inst_ref<Message Value>',
+	'',
+	'');
+INSERT INTO S_IRDT
+	VALUES ("d28562e2-8f47-4fbd-a1d2-76716712a384",
+	0,
+	"45997725-3b77-4a65-836e-de7dd8a1d845");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("45997725-3b77-4a65-836e-de7dd8a1d845",
+	'Message Value',
+	829,
+	'V_MSV',
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'./Message Value/Message Value.xtuml');
+INSERT INTO PE_PE
+	VALUES ("d28562e2-8f47-4fbd-a1d2-76716712a384",
+	1,
+	"e060f94c-3f82-463e-9d98-d20315b7c196",
+	"00000000-0000-0000-0000-000000000000",
+	3);
+INSERT INTO S_DT
+	VALUES ("272cc2ab-a0a0-49ca-a1f3-a0349c388d63",
+	"00000000-0000-0000-0000-000000000000",
+	'inst_ref_set<Message Value>',
+	'',
+	'');
+INSERT INTO S_IRDT
+	VALUES ("272cc2ab-a0a0-49ca-a1f3-a0349c388d63",
+	1,
+	"45997725-3b77-4a65-836e-de7dd8a1d845");
+INSERT INTO PE_PE
+	VALUES ("272cc2ab-a0a0-49ca-a1f3-a0349c388d63",
+	1,
+	"e060f94c-3f82-463e-9d98-d20315b7c196",
+	"00000000-0000-0000-0000-000000000000",
+	3);
+INSERT INTO S_DT
+	VALUES ("81f20d3d-ce95-4e57-915f-789ec5d98ab1",
+	"00000000-0000-0000-0000-000000000000",
+	'inst_ref<Actual Parameter>',
+	'',
+	'');
+INSERT INTO S_IRDT
+	VALUES ("81f20d3d-ce95-4e57-915f-789ec5d98ab1",
+	0,
+	"c9df3995-9d10-4b42-b2ca-1c82f443051c");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("c9df3995-9d10-4b42-b2ca-1c82f443051c",
+	'Actual Parameter',
+	801,
+	'V_PAR',
+	'This class represents the actual parameter value passed to a Function, Bridge or an Operation.',
+	"00000000-0000-0000-0000-000000000000",
+	'./Actual Parameter/Actual Parameter.xtuml');
+INSERT INTO PE_PE
+	VALUES ("81f20d3d-ce95-4e57-915f-789ec5d98ab1",
+	1,
+	"e060f94c-3f82-463e-9d98-d20315b7c196",
+	"00000000-0000-0000-0000-000000000000",
+	3);
+INSERT INTO S_DT
+	VALUES ("b8aa57ef-f001-42f5-b733-ee7c4879d4e1",
+	"00000000-0000-0000-0000-000000000000",
+	'inst_ref_set<Actual Parameter>',
+	'',
+	'');
+INSERT INTO S_IRDT
+	VALUES ("b8aa57ef-f001-42f5-b733-ee7c4879d4e1",
+	1,
+	"c9df3995-9d10-4b42-b2ca-1c82f443051c");
+INSERT INTO PE_PE
+	VALUES ("b8aa57ef-f001-42f5-b733-ee7c4879d4e1",
+	1,
+	"e060f94c-3f82-463e-9d98-d20315b7c196",
+	"00000000-0000-0000-0000-000000000000",
+	3);
+INSERT INTO S_DT
+	VALUES ("e33d414f-75bb-4cd6-9e1c-887a6cfb18a4",
+	"00000000-0000-0000-0000-000000000000",
+	'inst_ref<Operation Value>',
+	'',
+	'');
+INSERT INTO S_IRDT
+	VALUES ("e33d414f-75bb-4cd6-9e1c-887a6cfb18a4",
+	0,
+	"2e044ba2-e455-4a61-bf36-6f8a383ad315");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("2e044ba2-e455-4a61-bf36-6f8a383ad315",
+	'Operation Value',
+	808,
+	'V_TRV',
+	'This class represents the value returned by an operation invocation.
+--------------------------------------------------------------------------------
+Bridge:ALS',
+	"00000000-0000-0000-0000-000000000000",
+	'./Operation Value/Operation Value.xtuml');
+INSERT INTO PE_PE
+	VALUES ("e33d414f-75bb-4cd6-9e1c-887a6cfb18a4",
+	1,
+	"e060f94c-3f82-463e-9d98-d20315b7c196",
+	"00000000-0000-0000-0000-000000000000",
+	3);
+INSERT INTO S_DT
+	VALUES ("c3ece84e-b468-49f9-94dd-8133791ac2c8",
+	"00000000-0000-0000-0000-000000000000",
+	'inst_ref_set<Operation Value>',
+	'',
+	'');
+INSERT INTO S_IRDT
+	VALUES ("c3ece84e-b468-49f9-94dd-8133791ac2c8",
+	1,
+	"2e044ba2-e455-4a61-bf36-6f8a383ad315");
+INSERT INTO PE_PE
+	VALUES ("c3ece84e-b468-49f9-94dd-8133791ac2c8",
+	1,
+	"e060f94c-3f82-463e-9d98-d20315b7c196",
+	"00000000-0000-0000-0000-000000000000",
+	3);
+INSERT INTO S_DT
+	VALUES ("f7da629e-7683-4e9e-94e4-b53caa347983",
+	"00000000-0000-0000-0000-000000000000",
+	'inst_ref<Value>',
+	'',
+	'');
+INSERT INTO S_IRDT
+	VALUES ("f7da629e-7683-4e9e-94e4-b53caa347983",
+	0,
+	"80366c8b-358d-4b86-a0fd-bd9d289c9cd2");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("80366c8b-358d-4b86-a0fd-bd9d289c9cd2",
+	'Value',
+	800,
+	'V_VAL',
+	'A value (r-value) may be assigned to a variable, attribute or parameter
+(l-values). There are many different kinds of value in a model. This class
+captures this observation in a supertype.',
+	"00000000-0000-0000-0000-000000000000",
+	'./Value/Value.xtuml');
+INSERT INTO PE_PE
+	VALUES ("f7da629e-7683-4e9e-94e4-b53caa347983",
+	1,
+	"e060f94c-3f82-463e-9d98-d20315b7c196",
+	"00000000-0000-0000-0000-000000000000",
+	3);
+INSERT INTO S_DT
+	VALUES ("e4b7d4b2-112e-43a1-a185-ddd086c8ae6c",
+	"00000000-0000-0000-0000-000000000000",
+	'inst_ref_set<Value>',
+	'',
+	'');
+INSERT INTO S_IRDT
+	VALUES ("e4b7d4b2-112e-43a1-a185-ddd086c8ae6c",
+	1,
+	"80366c8b-358d-4b86-a0fd-bd9d289c9cd2");
+INSERT INTO PE_PE
+	VALUES ("e4b7d4b2-112e-43a1-a185-ddd086c8ae6c",
+	1,
+	"e060f94c-3f82-463e-9d98-d20315b7c196",
+	"00000000-0000-0000-0000-000000000000",
+	3);
 INSERT INTO R_SIMP
 	VALUES ("13230ce2-4f54-4d1a-a030-cf088346c5eb");
 INSERT INTO R_REL
@@ -10706,14 +10994,6 @@ INSERT INTO R_OIR
 	"13230ce2-4f54-4d1a-a030-cf088346c5eb",
 	"e143c1d4-d13f-48c0-842e-123aa5566da8",
 	"00000000-0000-0000-0000-000000000000");
-INSERT INTO O_OBJ_PROXY
-	VALUES ("c9df3995-9d10-4b42-b2ca-1c82f443051c",
-	'Actual Parameter',
-	801,
-	'V_PAR',
-	'This class represents the actual parameter value passed to a Function, Bridge or an Operation.',
-	"00000000-0000-0000-0000-000000000000",
-	'./Actual Parameter/Actual Parameter.xtuml');
 INSERT INTO R_PART
 	VALUES ("80366c8b-358d-4b86-a0fd-bd9d289c9cd2",
 	"13230ce2-4f54-4d1a-a030-cf088346c5eb",
@@ -10747,16 +11027,6 @@ INSERT INTO R_OIR
 	"13230ce2-4f54-4d1a-a030-cf088346c5eb",
 	"0f981330-1f9e-4531-8086-f15e7b57a479",
 	"00000000-0000-0000-0000-000000000000");
-INSERT INTO O_OBJ_PROXY
-	VALUES ("80366c8b-358d-4b86-a0fd-bd9d289c9cd2",
-	'Value',
-	800,
-	'V_VAL',
-	'A value (r-value) may be assigned to a variable, attribute or parameter
-(l-values). There are many different kinds of value in a model. This class
-captures this observation in a supertype.',
-	"00000000-0000-0000-0000-000000000000",
-	'./Value/Value.xtuml');
 INSERT INTO PE_PE
 	VALUES ("13230ce2-4f54-4d1a-a030-cf088346c5eb",
 	1,
@@ -11039,14 +11309,6 @@ INSERT INTO R_OIR
 	"f45cba3b-f381-475e-b8a9-3b355142054d",
 	"093023a4-b5bb-42e9-98ae-2b26ac967d4f",
 	"00000000-0000-0000-0000-000000000000");
-INSERT INTO O_OBJ_PROXY
-	VALUES ("9a8228db-50d7-44ad-ae91-7533fd2e65e8",
-	'Bridge Value',
-	814,
-	'V_BRV',
-	'This class represents the value returned by a bridge invocation.',
-	"00000000-0000-0000-0000-000000000000",
-	'./Bridge Value/Bridge Value.xtuml');
 INSERT INTO R_SUB
 	VALUES ("51404733-908d-49c1-99d2-4c71db0693c7",
 	"f45cba3b-f381-475e-b8a9-3b355142054d",
@@ -11157,16 +11419,6 @@ INSERT INTO R_OIR
 	"f45cba3b-f381-475e-b8a9-3b355142054d",
 	"d86bcbcc-813d-4507-8330-8090667ab15b",
 	"00000000-0000-0000-0000-000000000000");
-INSERT INTO O_OBJ_PROXY
-	VALUES ("2e044ba2-e455-4a61-bf36-6f8a383ad315",
-	'Operation Value',
-	808,
-	'V_TRV',
-	'This class represents the value returned by an operation invocation.
---------------------------------------------------------------------------------
-Bridge:ALS',
-	"00000000-0000-0000-0000-000000000000",
-	'./Operation Value/Operation Value.xtuml');
 INSERT INTO R_SUB
 	VALUES ("f2f30986-3d75-49a2-a82a-4aba285cb2d8",
 	"f45cba3b-f381-475e-b8a9-3b355142054d",
@@ -11298,14 +11550,6 @@ INSERT INTO R_OIR
 	"f45cba3b-f381-475e-b8a9-3b355142054d",
 	"b3a138d5-0781-444e-8d5a-1f51ebb58bcd",
 	"00000000-0000-0000-0000-000000000000");
-INSERT INTO O_OBJ_PROXY
-	VALUES ("abe004cb-e784-4b7d-953e-dd49bcce0c1d",
-	'Literal Enumerator',
-	823,
-	'V_LEN',
-	'This class represents a literal enumerated value.',
-	"00000000-0000-0000-0000-000000000000",
-	'./Literal Enumerator/Literal Enumerator.xtuml');
 INSERT INTO R_SUB
 	VALUES ("31c49eec-8fad-46b1-8fc7-37bf34bef9ac",
 	"f45cba3b-f381-475e-b8a9-3b355142054d",
@@ -11382,14 +11626,6 @@ INSERT INTO R_OIR
 	"f45cba3b-f381-475e-b8a9-3b355142054d",
 	"e488ad9f-e9d5-472c-b90c-5b46f2cffcb9",
 	"00000000-0000-0000-0000-000000000000");
-INSERT INTO O_OBJ_PROXY
-	VALUES ("45997725-3b77-4a65-836e-de7dd8a1d845",
-	'Message Value',
-	829,
-	'V_MSV',
-	'',
-	"00000000-0000-0000-0000-000000000000",
-	'./Message Value/Message Value.xtuml');
 INSERT INTO R_SUB
 	VALUES ("6b64cd41-61a5-40ba-ace1-686098f6f985",
 	"f45cba3b-f381-475e-b8a9-3b355142054d",
@@ -13032,18 +13268,6 @@ INSERT INTO R_OIR
 	"54a9c5b3-c825-46b3-b168-7175ec6ed7f8",
 	"4e8c5905-a004-4b7a-82d8-062223c07a81",
 	"00000000-0000-0000-0000-000000000000");
-INSERT INTO O_OBJ_PROXY
-	VALUES ("8fdb421d-27dc-4cba-8c71-9bea07ea8c00",
-	'Variable Location',
-	824,
-	'V_LOC',
-	'A location in the activity where the variable appears.  VariableLocations
-can be either l-values or r-values.  The variable which this location
-applies to is either an instance of the Variable class (R835), or a by 
-reference parameter acting as an l-value (R688).  Parameters acting as
-r-values are captured by R835.',
-	"00000000-0000-0000-0000-000000000000",
-	'./Variable Location/Variable Location.xtuml');
 INSERT INTO PE_PE
 	VALUES ("54a9c5b3-c825-46b3-b168-7175ec6ed7f8",
 	1,

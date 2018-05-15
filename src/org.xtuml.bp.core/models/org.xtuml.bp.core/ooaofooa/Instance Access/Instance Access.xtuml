@@ -920,6 +920,126 @@ INSERT INTO DIM_DIA
 	1287.000000,
 	802.000000,
 	"00000000-0000-0000-0000-000000000000");
+INSERT INTO S_DT
+	VALUES ("3d79e327-a8e8-4736-9a95-05135b0efa9e",
+	"00000000-0000-0000-0000-000000000000",
+	'inst_ref<Assign to Member>',
+	'',
+	'');
+INSERT INTO S_IRDT
+	VALUES ("3d79e327-a8e8-4736-9a95-05135b0efa9e",
+	0,
+	"777fe94e-8e45-466e-97cf-804bb2d57b7b");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("777fe94e-8e45-466e-97cf-804bb2d57b7b",
+	'Assign to Member',
+	603,
+	'ACT_AI',
+	'This class represents a statement that assigns a value to an attribute of some instance.',
+	"00000000-0000-0000-0000-000000000000",
+	'./Assign to Member/Assign to Member.xtuml');
+INSERT INTO PE_PE
+	VALUES ("3d79e327-a8e8-4736-9a95-05135b0efa9e",
+	1,
+	"a5aec8ee-6e5a-457e-bc25-cc65635048bb",
+	"00000000-0000-0000-0000-000000000000",
+	3);
+INSERT INTO S_DT
+	VALUES ("7c0d03e8-985d-490b-8029-c1498a666472",
+	"00000000-0000-0000-0000-000000000000",
+	'inst_ref_set<Assign to Member>',
+	'',
+	'');
+INSERT INTO S_IRDT
+	VALUES ("7c0d03e8-985d-490b-8029-c1498a666472",
+	1,
+	"777fe94e-8e45-466e-97cf-804bb2d57b7b");
+INSERT INTO PE_PE
+	VALUES ("7c0d03e8-985d-490b-8029-c1498a666472",
+	1,
+	"a5aec8ee-6e5a-457e-bc25-cc65635048bb",
+	"00000000-0000-0000-0000-000000000000",
+	3);
+INSERT INTO S_DT
+	VALUES ("1542c8a6-1fce-426e-b62c-85282edae215",
+	"00000000-0000-0000-0000-000000000000",
+	'inst_ref<Create No Variable>',
+	'',
+	'');
+INSERT INTO S_IRDT
+	VALUES ("1542c8a6-1fce-426e-b62c-85282edae215",
+	0,
+	"eea2b705-158b-4305-9014-5204773739c5");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("eea2b705-158b-4305-9014-5204773739c5",
+	'Create No Variable',
+	607,
+	'ACT_CNV',
+	'This class represents a statement that creates a new instance of some class.',
+	"00000000-0000-0000-0000-000000000000",
+	'./Create No Variable/Create No Variable.xtuml');
+INSERT INTO PE_PE
+	VALUES ("1542c8a6-1fce-426e-b62c-85282edae215",
+	1,
+	"a5aec8ee-6e5a-457e-bc25-cc65635048bb",
+	"00000000-0000-0000-0000-000000000000",
+	3);
+INSERT INTO S_DT
+	VALUES ("2667e49b-9887-4593-81cf-6c18983cbb0d",
+	"00000000-0000-0000-0000-000000000000",
+	'inst_ref_set<Create No Variable>',
+	'',
+	'');
+INSERT INTO S_IRDT
+	VALUES ("2667e49b-9887-4593-81cf-6c18983cbb0d",
+	1,
+	"eea2b705-158b-4305-9014-5204773739c5");
+INSERT INTO PE_PE
+	VALUES ("2667e49b-9887-4593-81cf-6c18983cbb0d",
+	1,
+	"a5aec8ee-6e5a-457e-bc25-cc65635048bb",
+	"00000000-0000-0000-0000-000000000000",
+	3);
+INSERT INTO S_DT
+	VALUES ("c92fcbed-9d30-4889-8d6b-068eab1c4115",
+	"00000000-0000-0000-0000-000000000000",
+	'inst_ref<Create>',
+	'',
+	'');
+INSERT INTO S_IRDT
+	VALUES ("c92fcbed-9d30-4889-8d6b-068eab1c4115",
+	0,
+	"5d38192c-4cdd-43f7-9143-438f744adfce");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("5d38192c-4cdd-43f7-9143-438f744adfce",
+	'Create',
+	613,
+	'ACT_CR',
+	'This class represents a statement that creates a new instance of some class.',
+	"00000000-0000-0000-0000-000000000000",
+	'./Create/Create.xtuml');
+INSERT INTO PE_PE
+	VALUES ("c92fcbed-9d30-4889-8d6b-068eab1c4115",
+	1,
+	"a5aec8ee-6e5a-457e-bc25-cc65635048bb",
+	"00000000-0000-0000-0000-000000000000",
+	3);
+INSERT INTO S_DT
+	VALUES ("e835bb0c-491a-49fc-884b-04cb977a7323",
+	"00000000-0000-0000-0000-000000000000",
+	'inst_ref_set<Create>',
+	'',
+	'');
+INSERT INTO S_IRDT
+	VALUES ("e835bb0c-491a-49fc-884b-04cb977a7323",
+	1,
+	"5d38192c-4cdd-43f7-9143-438f744adfce");
+INSERT INTO PE_PE
+	VALUES ("e835bb0c-491a-49fc-884b-04cb977a7323",
+	1,
+	"a5aec8ee-6e5a-457e-bc25-cc65635048bb",
+	"00000000-0000-0000-0000-000000000000",
+	3);
 INSERT INTO R_SIMP
 	VALUES ("f21f6d65-b9a1-4945-8bc2-1ff01a73cba4");
 INSERT INTO R_REL
@@ -943,14 +1063,6 @@ INSERT INTO R_OIR
 	"f21f6d65-b9a1-4945-8bc2-1ff01a73cba4",
 	"e3e8c624-b22e-4481-89f8-2ec919be4c5b",
 	"00000000-0000-0000-0000-000000000000");
-INSERT INTO O_OBJ_PROXY
-	VALUES ("777fe94e-8e45-466e-97cf-804bb2d57b7b",
-	'Assign to Member',
-	603,
-	'ACT_AI',
-	'This class represents a statement that assigns a value to an attribute of some instance.',
-	"00000000-0000-0000-0000-000000000000",
-	'./Assign to Member/Assign to Member.xtuml');
 INSERT INTO R_PART
 	VALUES ("80366c8b-358d-4b86-a0fd-bd9d289c9cd2",
 	"f21f6d65-b9a1-4945-8bc2-1ff01a73cba4",
@@ -1023,14 +1135,6 @@ INSERT INTO R_OIR
 	"2a6b55db-4e2b-448f-98e7-a341814c37fb",
 	"ecf2d8cd-4eec-4630-8afd-24719a532f5f",
 	"00000000-0000-0000-0000-000000000000");
-INSERT INTO O_OBJ_PROXY
-	VALUES ("5d38192c-4cdd-43f7-9143-438f744adfce",
-	'Create',
-	613,
-	'ACT_CR',
-	'This class represents a statement that creates a new instance of some class.',
-	"00000000-0000-0000-0000-000000000000",
-	'./Create/Create.xtuml');
 INSERT INTO R_PART
 	VALUES ("04ccf45f-92e0-4d09-ba38-c8b5e3c789c4",
 	"2a6b55db-4e2b-448f-98e7-a341814c37fb",
@@ -1254,14 +1358,6 @@ INSERT INTO R_OIR
 	"b827e73f-73c7-4d8f-8f34-fc2163f7a30f",
 	"8844b2a0-17f3-4cea-a853-36982e658e9d",
 	"00000000-0000-0000-0000-000000000000");
-INSERT INTO O_OBJ_PROXY
-	VALUES ("eea2b705-158b-4305-9014-5204773739c5",
-	'Create No Variable',
-	607,
-	'ACT_CNV',
-	'This class represents a statement that creates a new instance of some class.',
-	"00000000-0000-0000-0000-000000000000",
-	'./Create No Variable/Create No Variable.xtuml');
 INSERT INTO PE_PE
 	VALUES ("b827e73f-73c7-4d8f-8f34-fc2163f7a30f",
 	1,

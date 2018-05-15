@@ -1269,11 +1269,15 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'
+	'// This body is generated. To regen, run the following from the org.xtuml.bp.core root directory:
+//   gen_erate.pyz -nopersist -import sql/location_markers_schema.sql -import sql/location_markers.pei.sql -arch arc/generate_reconcile_locations.arc
 
 // ACT_AI attributeLineNumber, attributeColumn
 select many act_ais related by self->ACT_BLK[R612]->ACT_SMT[R602]->ACT_AI[R603]
   where ( Util::lineAndColumnToPosition( text:param.oldText, line:selected.attributeLineNumber, column:selected.attributeColumn ) + param.deltaLength > param.diffEndIndex );
+select many committed_act_ais related by self->ACT_BLK[R601]->ACT_SMT[R602]->ACT_AI[R603]
+  where ( Util::lineAndColumnToPosition( text:param.oldText, line:selected.attributeLineNumber, column:selected.attributeColumn ) + param.deltaLength > param.diffEndIndex );
+act_ais = act_ais | committed_act_ais;
 for each act_ai in act_ais
   position = Util::lineAndColumnToPosition( text:param.oldText, line:act_ai.attributeLineNumber, column:act_ai.attributeColumn );
   act_ai.attributeLineNumber = Util::positionToLine( text:param.bodyText, position:position + param.deltaLength );
@@ -1283,6 +1287,9 @@ end for;
 // ACT_BLK CurrentLine, CurrentCol
 select many act_blks related by self->ACT_BLK[R612]
   where ( Util::lineAndColumnToPosition( text:param.oldText, line:selected.CurrentLine, column:selected.CurrentCol ) + param.deltaLength > param.diffEndIndex );
+select many committed_act_blks related by self->ACT_BLK[R601]
+  where ( Util::lineAndColumnToPosition( text:param.oldText, line:selected.CurrentLine, column:selected.CurrentCol ) + param.deltaLength > param.diffEndIndex );
+act_blks = act_blks | committed_act_blks;
 for each act_blk in act_blks
   position = Util::lineAndColumnToPosition( text:param.oldText, line:act_blk.CurrentLine, column:act_blk.CurrentCol );
   act_blk.CurrentLine = Util::positionToLine( text:param.bodyText, position:position + param.deltaLength );
@@ -1292,6 +1299,9 @@ end for;
 // ACT_BLK currentKeyLettersLineNumber, currentKeyLettersColumn
 select many act_blks related by self->ACT_BLK[R612]
   where ( Util::lineAndColumnToPosition( text:param.oldText, line:selected.currentKeyLettersLineNumber, column:selected.currentKeyLettersColumn ) + param.deltaLength > param.diffEndIndex );
+select many committed_act_blks related by self->ACT_BLK[R601]
+  where ( Util::lineAndColumnToPosition( text:param.oldText, line:selected.currentKeyLettersLineNumber, column:selected.currentKeyLettersColumn ) + param.deltaLength > param.diffEndIndex );
+act_blks = act_blks | committed_act_blks;
 for each act_blk in act_blks
   position = Util::lineAndColumnToPosition( text:param.oldText, line:act_blk.currentKeyLettersLineNumber, column:act_blk.currentKeyLettersColumn );
   act_blk.currentKeyLettersLineNumber = Util::positionToLine( text:param.bodyText, position:position + param.deltaLength );
@@ -1301,6 +1311,9 @@ end for;
 // ACT_BLK currentParameterAssignmentNameLineNumber, currentParameterAssignmentNameColumn
 select many act_blks related by self->ACT_BLK[R612]
   where ( Util::lineAndColumnToPosition( text:param.oldText, line:selected.currentParameterAssignmentNameLineNumber, column:selected.currentParameterAssignmentNameColumn ) + param.deltaLength > param.diffEndIndex );
+select many committed_act_blks related by self->ACT_BLK[R601]
+  where ( Util::lineAndColumnToPosition( text:param.oldText, line:selected.currentParameterAssignmentNameLineNumber, column:selected.currentParameterAssignmentNameColumn ) + param.deltaLength > param.diffEndIndex );
+act_blks = act_blks | committed_act_blks;
 for each act_blk in act_blks
   position = Util::lineAndColumnToPosition( text:param.oldText, line:act_blk.currentParameterAssignmentNameLineNumber, column:act_blk.currentParameterAssignmentNameColumn );
   act_blk.currentParameterAssignmentNameLineNumber = Util::positionToLine( text:param.bodyText, position:position + param.deltaLength );
@@ -1310,6 +1323,9 @@ end for;
 // ACT_BLK currentAssociationNumberLineNumber, currentAssociationNumberColumn
 select many act_blks related by self->ACT_BLK[R612]
   where ( Util::lineAndColumnToPosition( text:param.oldText, line:selected.currentAssociationNumberLineNumber, column:selected.currentAssociationNumberColumn ) + param.deltaLength > param.diffEndIndex );
+select many committed_act_blks related by self->ACT_BLK[R601]
+  where ( Util::lineAndColumnToPosition( text:param.oldText, line:selected.currentAssociationNumberLineNumber, column:selected.currentAssociationNumberColumn ) + param.deltaLength > param.diffEndIndex );
+act_blks = act_blks | committed_act_blks;
 for each act_blk in act_blks
   position = Util::lineAndColumnToPosition( text:param.oldText, line:act_blk.currentAssociationNumberLineNumber, column:act_blk.currentAssociationNumberColumn );
   act_blk.currentAssociationNumberLineNumber = Util::positionToLine( text:param.bodyText, position:position + param.deltaLength );
@@ -1319,6 +1335,9 @@ end for;
 // ACT_BLK currentAssociationPhraseLineNumber, currentAssociationPhraseColumn
 select many act_blks related by self->ACT_BLK[R612]
   where ( Util::lineAndColumnToPosition( text:param.oldText, line:selected.currentAssociationPhraseLineNumber, column:selected.currentAssociationPhraseColumn ) + param.deltaLength > param.diffEndIndex );
+select many committed_act_blks related by self->ACT_BLK[R601]
+  where ( Util::lineAndColumnToPosition( text:param.oldText, line:selected.currentAssociationPhraseLineNumber, column:selected.currentAssociationPhraseColumn ) + param.deltaLength > param.diffEndIndex );
+act_blks = act_blks | committed_act_blks;
 for each act_blk in act_blks
   position = Util::lineAndColumnToPosition( text:param.oldText, line:act_blk.currentAssociationPhraseLineNumber, column:act_blk.currentAssociationPhraseColumn );
   act_blk.currentAssociationPhraseLineNumber = Util::positionToLine( text:param.bodyText, position:position + param.deltaLength );
@@ -1328,6 +1347,9 @@ end for;
 // ACT_BLK currentDataTypeNameLineNumber, currentDataTypeNameColumn
 select many act_blks related by self->ACT_BLK[R612]
   where ( Util::lineAndColumnToPosition( text:param.oldText, line:selected.currentDataTypeNameLineNumber, column:selected.currentDataTypeNameColumn ) + param.deltaLength > param.diffEndIndex );
+select many committed_act_blks related by self->ACT_BLK[R601]
+  where ( Util::lineAndColumnToPosition( text:param.oldText, line:selected.currentDataTypeNameLineNumber, column:selected.currentDataTypeNameColumn ) + param.deltaLength > param.diffEndIndex );
+act_blks = act_blks | committed_act_blks;
 for each act_blk in act_blks
   position = Util::lineAndColumnToPosition( text:param.oldText, line:act_blk.currentDataTypeNameLineNumber, column:act_blk.currentDataTypeNameColumn );
   act_blk.currentDataTypeNameLineNumber = Util::positionToLine( text:param.bodyText, position:position + param.deltaLength );
@@ -1337,6 +1359,9 @@ end for;
 // ACT_BRG bridgeNameLineNumber, bridgeNameColumn
 select many act_brgs related by self->ACT_BLK[R612]->ACT_SMT[R602]->ACT_BRG[R603]
   where ( Util::lineAndColumnToPosition( text:param.oldText, line:selected.bridgeNameLineNumber, column:selected.bridgeNameColumn ) + param.deltaLength > param.diffEndIndex );
+select many committed_act_brgs related by self->ACT_BLK[R601]->ACT_SMT[R602]->ACT_BRG[R603]
+  where ( Util::lineAndColumnToPosition( text:param.oldText, line:selected.bridgeNameLineNumber, column:selected.bridgeNameColumn ) + param.deltaLength > param.diffEndIndex );
+act_brgs = act_brgs | committed_act_brgs;
 for each act_brg in act_brgs
   position = Util::lineAndColumnToPosition( text:param.oldText, line:act_brg.bridgeNameLineNumber, column:act_brg.bridgeNameColumn );
   act_brg.bridgeNameLineNumber = Util::positionToLine( text:param.bodyText, position:position + param.deltaLength );
@@ -1346,6 +1371,9 @@ end for;
 // ACT_BRG externalEntityKeyLettersLineNumber, externalEntityKeyLettersColumn
 select many act_brgs related by self->ACT_BLK[R612]->ACT_SMT[R602]->ACT_BRG[R603]
   where ( Util::lineAndColumnToPosition( text:param.oldText, line:selected.externalEntityKeyLettersLineNumber, column:selected.externalEntityKeyLettersColumn ) + param.deltaLength > param.diffEndIndex );
+select many committed_act_brgs related by self->ACT_BLK[R601]->ACT_SMT[R602]->ACT_BRG[R603]
+  where ( Util::lineAndColumnToPosition( text:param.oldText, line:selected.externalEntityKeyLettersLineNumber, column:selected.externalEntityKeyLettersColumn ) + param.deltaLength > param.diffEndIndex );
+act_brgs = act_brgs | committed_act_brgs;
 for each act_brg in act_brgs
   position = Util::lineAndColumnToPosition( text:param.oldText, line:act_brg.externalEntityKeyLettersLineNumber, column:act_brg.externalEntityKeyLettersColumn );
   act_brg.externalEntityKeyLettersLineNumber = Util::positionToLine( text:param.bodyText, position:position + param.deltaLength );
@@ -1355,6 +1383,9 @@ end for;
 // ACT_CNV modelClassKeyLettersLineNumber, modelClassKeyLettersColumn
 select many act_cnvs related by self->ACT_BLK[R612]->ACT_SMT[R602]->ACT_CNV[R603]
   where ( Util::lineAndColumnToPosition( text:param.oldText, line:selected.modelClassKeyLettersLineNumber, column:selected.modelClassKeyLettersColumn ) + param.deltaLength > param.diffEndIndex );
+select many committed_act_cnvs related by self->ACT_BLK[R601]->ACT_SMT[R602]->ACT_CNV[R603]
+  where ( Util::lineAndColumnToPosition( text:param.oldText, line:selected.modelClassKeyLettersLineNumber, column:selected.modelClassKeyLettersColumn ) + param.deltaLength > param.diffEndIndex );
+act_cnvs = act_cnvs | committed_act_cnvs;
 for each act_cnv in act_cnvs
   position = Util::lineAndColumnToPosition( text:param.oldText, line:act_cnv.modelClassKeyLettersLineNumber, column:act_cnv.modelClassKeyLettersColumn );
   act_cnv.modelClassKeyLettersLineNumber = Util::positionToLine( text:param.bodyText, position:position + param.deltaLength );
@@ -1364,6 +1395,9 @@ end for;
 // ACT_CR modelClassKeyLettersLineNumber, modelClassKeyLettersColumn
 select many act_crs related by self->ACT_BLK[R612]->ACT_SMT[R602]->ACT_CR[R603]
   where ( Util::lineAndColumnToPosition( text:param.oldText, line:selected.modelClassKeyLettersLineNumber, column:selected.modelClassKeyLettersColumn ) + param.deltaLength > param.diffEndIndex );
+select many committed_act_crs related by self->ACT_BLK[R601]->ACT_SMT[R602]->ACT_CR[R603]
+  where ( Util::lineAndColumnToPosition( text:param.oldText, line:selected.modelClassKeyLettersLineNumber, column:selected.modelClassKeyLettersColumn ) + param.deltaLength > param.diffEndIndex );
+act_crs = act_crs | committed_act_crs;
 for each act_cr in act_crs
   position = Util::lineAndColumnToPosition( text:param.oldText, line:act_cr.modelClassKeyLettersLineNumber, column:act_cr.modelClassKeyLettersColumn );
   act_cr.modelClassKeyLettersLineNumber = Util::positionToLine( text:param.bodyText, position:position + param.deltaLength );
@@ -1373,6 +1407,9 @@ end for;
 // ACT_FIO extentLineNumber, extentColumn
 select many act_fios related by self->ACT_BLK[R612]->ACT_SMT[R602]->ACT_FIO[R603]
   where ( Util::lineAndColumnToPosition( text:param.oldText, line:selected.extentLineNumber, column:selected.extentColumn ) + param.deltaLength > param.diffEndIndex );
+select many committed_act_fios related by self->ACT_BLK[R601]->ACT_SMT[R602]->ACT_FIO[R603]
+  where ( Util::lineAndColumnToPosition( text:param.oldText, line:selected.extentLineNumber, column:selected.extentColumn ) + param.deltaLength > param.diffEndIndex );
+act_fios = act_fios | committed_act_fios;
 for each act_fio in act_fios
   position = Util::lineAndColumnToPosition( text:param.oldText, line:act_fio.extentLineNumber, column:act_fio.extentColumn );
   act_fio.extentLineNumber = Util::positionToLine( text:param.bodyText, position:position + param.deltaLength );
@@ -1382,6 +1419,9 @@ end for;
 // ACT_FIW extentLineNumber, extentColumn
 select many act_fiws related by self->ACT_BLK[R612]->ACT_SMT[R602]->ACT_FIW[R603]
   where ( Util::lineAndColumnToPosition( text:param.oldText, line:selected.extentLineNumber, column:selected.extentColumn ) + param.deltaLength > param.diffEndIndex );
+select many committed_act_fiws related by self->ACT_BLK[R601]->ACT_SMT[R602]->ACT_FIW[R603]
+  where ( Util::lineAndColumnToPosition( text:param.oldText, line:selected.extentLineNumber, column:selected.extentColumn ) + param.deltaLength > param.diffEndIndex );
+act_fiws = act_fiws | committed_act_fiws;
 for each act_fiw in act_fiws
   position = Util::lineAndColumnToPosition( text:param.oldText, line:act_fiw.extentLineNumber, column:act_fiw.extentColumn );
   act_fiw.extentLineNumber = Util::positionToLine( text:param.bodyText, position:position + param.deltaLength );
@@ -1391,6 +1431,9 @@ end for;
 // ACT_FNC functionNameLineNumber, functionNameColumn
 select many act_fncs related by self->ACT_BLK[R612]->ACT_SMT[R602]->ACT_FNC[R603]
   where ( Util::lineAndColumnToPosition( text:param.oldText, line:selected.functionNameLineNumber, column:selected.functionNameColumn ) + param.deltaLength > param.diffEndIndex );
+select many committed_act_fncs related by self->ACT_BLK[R601]->ACT_SMT[R602]->ACT_FNC[R603]
+  where ( Util::lineAndColumnToPosition( text:param.oldText, line:selected.functionNameLineNumber, column:selected.functionNameColumn ) + param.deltaLength > param.diffEndIndex );
+act_fncs = act_fncs | committed_act_fncs;
 for each act_fnc in act_fncs
   position = Util::lineAndColumnToPosition( text:param.oldText, line:act_fnc.functionNameLineNumber, column:act_fnc.functionNameColumn );
   act_fnc.functionNameLineNumber = Util::positionToLine( text:param.bodyText, position:position + param.deltaLength );
@@ -1400,6 +1443,9 @@ end for;
 // ACT_IOP opNameLineNumber, opNameColumn
 select many act_iops related by self->ACT_BLK[R612]->ACT_SMT[R602]->ACT_IOP[R603]
   where ( Util::lineAndColumnToPosition( text:param.oldText, line:selected.opNameLineNumber, column:selected.opNameColumn ) + param.deltaLength > param.diffEndIndex );
+select many committed_act_iops related by self->ACT_BLK[R601]->ACT_SMT[R602]->ACT_IOP[R603]
+  where ( Util::lineAndColumnToPosition( text:param.oldText, line:selected.opNameLineNumber, column:selected.opNameColumn ) + param.deltaLength > param.diffEndIndex );
+act_iops = act_iops | committed_act_iops;
 for each act_iop in act_iops
   position = Util::lineAndColumnToPosition( text:param.oldText, line:act_iop.opNameLineNumber, column:act_iop.opNameColumn );
   act_iop.opNameLineNumber = Util::positionToLine( text:param.bodyText, position:position + param.deltaLength );
@@ -1409,6 +1455,9 @@ end for;
 // ACT_IOP ownerNameLineNumber, ownerNameColumn
 select many act_iops related by self->ACT_BLK[R612]->ACT_SMT[R602]->ACT_IOP[R603]
   where ( Util::lineAndColumnToPosition( text:param.oldText, line:selected.ownerNameLineNumber, column:selected.ownerNameColumn ) + param.deltaLength > param.diffEndIndex );
+select many committed_act_iops related by self->ACT_BLK[R601]->ACT_SMT[R602]->ACT_IOP[R603]
+  where ( Util::lineAndColumnToPosition( text:param.oldText, line:selected.ownerNameLineNumber, column:selected.ownerNameColumn ) + param.deltaLength > param.diffEndIndex );
+act_iops = act_iops | committed_act_iops;
 for each act_iop in act_iops
   position = Util::lineAndColumnToPosition( text:param.oldText, line:act_iop.ownerNameLineNumber, column:act_iop.ownerNameColumn );
   act_iop.ownerNameLineNumber = Util::positionToLine( text:param.bodyText, position:position + param.deltaLength );
@@ -1417,6 +1466,8 @@ end for;
 
 // ACT_LNK modelClassKeyLettersLineNumber, modelClassKeyLettersColumn
 select many act_lnks related by self->ACT_BLK[R612]->ACT_SMT[R602]->ACT_SEL[R603]->ACT_LNK[R637];
+select many committed_act_lnks related by self->ACT_BLK[R601]->ACT_SMT[R602]->ACT_SEL[R603]->ACT_LNK[R637];
+act_lnks = act_lnks | committed_act_lnks;
 while ( not_empty act_lnks )
   for each act_lnk in act_lnks
     if ( Util::lineAndColumnToPosition( text:param.oldText, line:act_lnk.modelClassKeyLettersLineNumber, column:act_lnk.modelClassKeyLettersColumn ) + param.deltaLength > param.diffEndIndex )
@@ -1430,6 +1481,8 @@ end while;
 
 // ACT_LNK associationNumberLineNumber, associationNumberColumn
 select many act_lnks related by self->ACT_BLK[R612]->ACT_SMT[R602]->ACT_SEL[R603]->ACT_LNK[R637];
+select many committed_act_lnks related by self->ACT_BLK[R601]->ACT_SMT[R602]->ACT_SEL[R603]->ACT_LNK[R637];
+act_lnks = act_lnks | committed_act_lnks;
 while ( not_empty act_lnks )
   for each act_lnk in act_lnks
     if ( Util::lineAndColumnToPosition( text:param.oldText, line:act_lnk.associationNumberLineNumber, column:act_lnk.associationNumberColumn ) + param.deltaLength > param.diffEndIndex )
@@ -1443,6 +1496,8 @@ end while;
 
 // ACT_LNK phraseLineNumber, phraseColumn
 select many act_lnks related by self->ACT_BLK[R612]->ACT_SMT[R602]->ACT_SEL[R603]->ACT_LNK[R637];
+select many committed_act_lnks related by self->ACT_BLK[R601]->ACT_SMT[R602]->ACT_SEL[R603]->ACT_LNK[R637];
+act_lnks = act_lnks | committed_act_lnks;
 while ( not_empty act_lnks )
   for each act_lnk in act_lnks
     if ( Util::lineAndColumnToPosition( text:param.oldText, line:act_lnk.phraseLineNumber, column:act_lnk.phraseColumn ) + param.deltaLength > param.diffEndIndex )
@@ -1457,6 +1512,9 @@ end while;
 // ACT_REL associationNumberLineNumber, associationNumberColumn
 select many act_rels related by self->ACT_BLK[R612]->ACT_SMT[R602]->ACT_REL[R603]
   where ( Util::lineAndColumnToPosition( text:param.oldText, line:selected.associationNumberLineNumber, column:selected.associationNumberColumn ) + param.deltaLength > param.diffEndIndex );
+select many committed_act_rels related by self->ACT_BLK[R601]->ACT_SMT[R602]->ACT_REL[R603]
+  where ( Util::lineAndColumnToPosition( text:param.oldText, line:selected.associationNumberLineNumber, column:selected.associationNumberColumn ) + param.deltaLength > param.diffEndIndex );
+act_rels = act_rels | committed_act_rels;
 for each act_rel in act_rels
   position = Util::lineAndColumnToPosition( text:param.oldText, line:act_rel.associationNumberLineNumber, column:act_rel.associationNumberColumn );
   act_rel.associationNumberLineNumber = Util::positionToLine( text:param.bodyText, position:position + param.deltaLength );
@@ -1466,6 +1524,9 @@ end for;
 // ACT_REL associationPhraseLineNumber, associationPhraseColumn
 select many act_rels related by self->ACT_BLK[R612]->ACT_SMT[R602]->ACT_REL[R603]
   where ( Util::lineAndColumnToPosition( text:param.oldText, line:selected.associationPhraseLineNumber, column:selected.associationPhraseColumn ) + param.deltaLength > param.diffEndIndex );
+select many committed_act_rels related by self->ACT_BLK[R601]->ACT_SMT[R602]->ACT_REL[R603]
+  where ( Util::lineAndColumnToPosition( text:param.oldText, line:selected.associationPhraseLineNumber, column:selected.associationPhraseColumn ) + param.deltaLength > param.diffEndIndex );
+act_rels = act_rels | committed_act_rels;
 for each act_rel in act_rels
   position = Util::lineAndColumnToPosition( text:param.oldText, line:act_rel.associationPhraseLineNumber, column:act_rel.associationPhraseColumn );
   act_rel.associationPhraseLineNumber = Util::positionToLine( text:param.bodyText, position:position + param.deltaLength );
@@ -1475,6 +1536,9 @@ end for;
 // ACT_RU associationNumberLineNumber, associationNumberColumn
 select many act_rus related by self->ACT_BLK[R612]->ACT_SMT[R602]->ACT_RU[R603]
   where ( Util::lineAndColumnToPosition( text:param.oldText, line:selected.associationNumberLineNumber, column:selected.associationNumberColumn ) + param.deltaLength > param.diffEndIndex );
+select many committed_act_rus related by self->ACT_BLK[R601]->ACT_SMT[R602]->ACT_RU[R603]
+  where ( Util::lineAndColumnToPosition( text:param.oldText, line:selected.associationNumberLineNumber, column:selected.associationNumberColumn ) + param.deltaLength > param.diffEndIndex );
+act_rus = act_rus | committed_act_rus;
 for each act_ru in act_rus
   position = Util::lineAndColumnToPosition( text:param.oldText, line:act_ru.associationNumberLineNumber, column:act_ru.associationNumberColumn );
   act_ru.associationNumberLineNumber = Util::positionToLine( text:param.bodyText, position:position + param.deltaLength );
@@ -1484,6 +1548,9 @@ end for;
 // ACT_RU associationPhraseLineNumber, associationPhraseColumn
 select many act_rus related by self->ACT_BLK[R612]->ACT_SMT[R602]->ACT_RU[R603]
   where ( Util::lineAndColumnToPosition( text:param.oldText, line:selected.associationPhraseLineNumber, column:selected.associationPhraseColumn ) + param.deltaLength > param.diffEndIndex );
+select many committed_act_rus related by self->ACT_BLK[R601]->ACT_SMT[R602]->ACT_RU[R603]
+  where ( Util::lineAndColumnToPosition( text:param.oldText, line:selected.associationPhraseLineNumber, column:selected.associationPhraseColumn ) + param.deltaLength > param.diffEndIndex );
+act_rus = act_rus | committed_act_rus;
 for each act_ru in act_rus
   position = Util::lineAndColumnToPosition( text:param.oldText, line:act_ru.associationPhraseLineNumber, column:act_ru.associationPhraseColumn );
   act_ru.associationPhraseLineNumber = Util::positionToLine( text:param.bodyText, position:position + param.deltaLength );
@@ -1493,6 +1560,9 @@ end for;
 // ACT_SGN sigNameLineNumber, sigNameColumn
 select many act_sgns related by self->ACT_BLK[R612]->ACT_SMT[R602]->ACT_SGN[R603]
   where ( Util::lineAndColumnToPosition( text:param.oldText, line:selected.sigNameLineNumber, column:selected.sigNameColumn ) + param.deltaLength > param.diffEndIndex );
+select many committed_act_sgns related by self->ACT_BLK[R601]->ACT_SMT[R602]->ACT_SGN[R603]
+  where ( Util::lineAndColumnToPosition( text:param.oldText, line:selected.sigNameLineNumber, column:selected.sigNameColumn ) + param.deltaLength > param.diffEndIndex );
+act_sgns = act_sgns | committed_act_sgns;
 for each act_sgn in act_sgns
   position = Util::lineAndColumnToPosition( text:param.oldText, line:act_sgn.sigNameLineNumber, column:act_sgn.sigNameColumn );
   act_sgn.sigNameLineNumber = Util::positionToLine( text:param.bodyText, position:position + param.deltaLength );
@@ -1502,6 +1572,9 @@ end for;
 // ACT_SGN ownerNameLineNumber, ownerNameColumn
 select many act_sgns related by self->ACT_BLK[R612]->ACT_SMT[R602]->ACT_SGN[R603]
   where ( Util::lineAndColumnToPosition( text:param.oldText, line:selected.ownerNameLineNumber, column:selected.ownerNameColumn ) + param.deltaLength > param.diffEndIndex );
+select many committed_act_sgns related by self->ACT_BLK[R601]->ACT_SMT[R602]->ACT_SGN[R603]
+  where ( Util::lineAndColumnToPosition( text:param.oldText, line:selected.ownerNameLineNumber, column:selected.ownerNameColumn ) + param.deltaLength > param.diffEndIndex );
+act_sgns = act_sgns | committed_act_sgns;
 for each act_sgn in act_sgns
   position = Util::lineAndColumnToPosition( text:param.oldText, line:act_sgn.ownerNameLineNumber, column:act_sgn.ownerNameColumn );
   act_sgn.ownerNameLineNumber = Util::positionToLine( text:param.bodyText, position:position + param.deltaLength );
@@ -1511,15 +1584,33 @@ end for;
 // ACT_SMT LineNumber, StartPosition
 select many act_smts related by self->ACT_BLK[R612]->ACT_SMT[R602]
   where ( Util::lineAndColumnToPosition( text:param.oldText, line:selected.LineNumber, column:selected.StartPosition ) + param.deltaLength > param.diffEndIndex );
+select many committed_act_smts related by self->ACT_BLK[R601]->ACT_SMT[R602]
+  where ( Util::lineAndColumnToPosition( text:param.oldText, line:selected.LineNumber, column:selected.StartPosition ) + param.deltaLength > param.diffEndIndex );
+act_smts = act_smts | committed_act_smts;
 for each act_smt in act_smts
   position = Util::lineAndColumnToPosition( text:param.oldText, line:act_smt.LineNumber, column:act_smt.StartPosition );
   act_smt.LineNumber = Util::positionToLine( text:param.bodyText, position:position + param.deltaLength );
   act_smt.StartPosition = Util::positionToColumn( text:param.bodyText, position:position + param.deltaLength );
 end for;
 
+// ACT_SMT EndLineNumber, EndPosition
+select many act_smts related by self->ACT_BLK[R612]->ACT_SMT[R602]
+  where ( Util::lineAndColumnToPosition( text:param.oldText, line:selected.EndLineNumber, column:selected.EndPosition ) + param.deltaLength > param.diffEndIndex );
+select many committed_act_smts related by self->ACT_BLK[R601]->ACT_SMT[R602]
+  where ( Util::lineAndColumnToPosition( text:param.oldText, line:selected.EndLineNumber, column:selected.EndPosition ) + param.deltaLength > param.diffEndIndex );
+act_smts = act_smts | committed_act_smts;
+for each act_smt in act_smts
+  position = Util::lineAndColumnToPosition( text:param.oldText, line:act_smt.EndLineNumber, column:act_smt.EndPosition );
+  act_smt.EndLineNumber = Util::positionToLine( text:param.bodyText, position:position + param.deltaLength );
+  act_smt.EndPosition = Util::positionToColumn( text:param.bodyText, position:position + param.deltaLength );
+end for;
+
 // ACT_TFM operationNameLineNumber, operationNameColumn
 select many act_tfms related by self->ACT_BLK[R612]->ACT_SMT[R602]->ACT_TFM[R603]
   where ( Util::lineAndColumnToPosition( text:param.oldText, line:selected.operationNameLineNumber, column:selected.operationNameColumn ) + param.deltaLength > param.diffEndIndex );
+select many committed_act_tfms related by self->ACT_BLK[R601]->ACT_SMT[R602]->ACT_TFM[R603]
+  where ( Util::lineAndColumnToPosition( text:param.oldText, line:selected.operationNameLineNumber, column:selected.operationNameColumn ) + param.deltaLength > param.diffEndIndex );
+act_tfms = act_tfms | committed_act_tfms;
 for each act_tfm in act_tfms
   position = Util::lineAndColumnToPosition( text:param.oldText, line:act_tfm.operationNameLineNumber, column:act_tfm.operationNameColumn );
   act_tfm.operationNameLineNumber = Util::positionToLine( text:param.bodyText, position:position + param.deltaLength );
@@ -1529,6 +1620,9 @@ end for;
 // ACT_TFM modelClassKeyLettersLineNumber, modelClassKeyLettersColumn
 select many act_tfms related by self->ACT_BLK[R612]->ACT_SMT[R602]->ACT_TFM[R603]
   where ( Util::lineAndColumnToPosition( text:param.oldText, line:selected.modelClassKeyLettersLineNumber, column:selected.modelClassKeyLettersColumn ) + param.deltaLength > param.diffEndIndex );
+select many committed_act_tfms related by self->ACT_BLK[R601]->ACT_SMT[R602]->ACT_TFM[R603]
+  where ( Util::lineAndColumnToPosition( text:param.oldText, line:selected.modelClassKeyLettersLineNumber, column:selected.modelClassKeyLettersColumn ) + param.deltaLength > param.diffEndIndex );
+act_tfms = act_tfms | committed_act_tfms;
 for each act_tfm in act_tfms
   position = Util::lineAndColumnToPosition( text:param.oldText, line:act_tfm.modelClassKeyLettersLineNumber, column:act_tfm.modelClassKeyLettersColumn );
   act_tfm.modelClassKeyLettersLineNumber = Util::positionToLine( text:param.bodyText, position:position + param.deltaLength );
@@ -1538,6 +1632,9 @@ end for;
 // ACT_UNR associationNumberLineNumber, associationNumberColumn
 select many act_unrs related by self->ACT_BLK[R612]->ACT_SMT[R602]->ACT_UNR[R603]
   where ( Util::lineAndColumnToPosition( text:param.oldText, line:selected.associationNumberLineNumber, column:selected.associationNumberColumn ) + param.deltaLength > param.diffEndIndex );
+select many committed_act_unrs related by self->ACT_BLK[R601]->ACT_SMT[R602]->ACT_UNR[R603]
+  where ( Util::lineAndColumnToPosition( text:param.oldText, line:selected.associationNumberLineNumber, column:selected.associationNumberColumn ) + param.deltaLength > param.diffEndIndex );
+act_unrs = act_unrs | committed_act_unrs;
 for each act_unr in act_unrs
   position = Util::lineAndColumnToPosition( text:param.oldText, line:act_unr.associationNumberLineNumber, column:act_unr.associationNumberColumn );
   act_unr.associationNumberLineNumber = Util::positionToLine( text:param.bodyText, position:position + param.deltaLength );
@@ -1547,6 +1644,9 @@ end for;
 // ACT_UNR associationPhraseLineNumber, associationPhraseColumn
 select many act_unrs related by self->ACT_BLK[R612]->ACT_SMT[R602]->ACT_UNR[R603]
   where ( Util::lineAndColumnToPosition( text:param.oldText, line:selected.associationPhraseLineNumber, column:selected.associationPhraseColumn ) + param.deltaLength > param.diffEndIndex );
+select many committed_act_unrs related by self->ACT_BLK[R601]->ACT_SMT[R602]->ACT_UNR[R603]
+  where ( Util::lineAndColumnToPosition( text:param.oldText, line:selected.associationPhraseLineNumber, column:selected.associationPhraseColumn ) + param.deltaLength > param.diffEndIndex );
+act_unrs = act_unrs | committed_act_unrs;
 for each act_unr in act_unrs
   position = Util::lineAndColumnToPosition( text:param.oldText, line:act_unr.associationPhraseLineNumber, column:act_unr.associationPhraseColumn );
   act_unr.associationPhraseLineNumber = Util::positionToLine( text:param.bodyText, position:position + param.deltaLength );
@@ -1556,6 +1656,9 @@ end for;
 // ACT_URU associationNumberLineNumber, associationNumberColumn
 select many act_urus related by self->ACT_BLK[R612]->ACT_SMT[R602]->ACT_URU[R603]
   where ( Util::lineAndColumnToPosition( text:param.oldText, line:selected.associationNumberLineNumber, column:selected.associationNumberColumn ) + param.deltaLength > param.diffEndIndex );
+select many committed_act_urus related by self->ACT_BLK[R601]->ACT_SMT[R602]->ACT_URU[R603]
+  where ( Util::lineAndColumnToPosition( text:param.oldText, line:selected.associationNumberLineNumber, column:selected.associationNumberColumn ) + param.deltaLength > param.diffEndIndex );
+act_urus = act_urus | committed_act_urus;
 for each act_uru in act_urus
   position = Util::lineAndColumnToPosition( text:param.oldText, line:act_uru.associationNumberLineNumber, column:act_uru.associationNumberColumn );
   act_uru.associationNumberLineNumber = Util::positionToLine( text:param.bodyText, position:position + param.deltaLength );
@@ -1565,6 +1668,9 @@ end for;
 // ACT_URU associationPhraseLineNumber, associationPhraseColumn
 select many act_urus related by self->ACT_BLK[R612]->ACT_SMT[R602]->ACT_URU[R603]
   where ( Util::lineAndColumnToPosition( text:param.oldText, line:selected.associationPhraseLineNumber, column:selected.associationPhraseColumn ) + param.deltaLength > param.diffEndIndex );
+select many committed_act_urus related by self->ACT_BLK[R601]->ACT_SMT[R602]->ACT_URU[R603]
+  where ( Util::lineAndColumnToPosition( text:param.oldText, line:selected.associationPhraseLineNumber, column:selected.associationPhraseColumn ) + param.deltaLength > param.diffEndIndex );
+act_urus = act_urus | committed_act_urus;
 for each act_uru in act_urus
   position = Util::lineAndColumnToPosition( text:param.oldText, line:act_uru.associationPhraseLineNumber, column:act_uru.associationPhraseColumn );
   act_uru.associationPhraseLineNumber = Util::positionToLine( text:param.bodyText, position:position + param.deltaLength );
@@ -1574,6 +1680,9 @@ end for;
 // E_ESS eventDerivedLabelLineNumber, eventDerivedLabelColumn
 select many e_esss related by self->ACT_BLK[R612]->ACT_SMT[R602]->E_ESS[R603]
   where ( Util::lineAndColumnToPosition( text:param.oldText, line:selected.eventDerivedLabelLineNumber, column:selected.eventDerivedLabelColumn ) + param.deltaLength > param.diffEndIndex );
+select many committed_e_esss related by self->ACT_BLK[R601]->ACT_SMT[R602]->E_ESS[R603]
+  where ( Util::lineAndColumnToPosition( text:param.oldText, line:selected.eventDerivedLabelLineNumber, column:selected.eventDerivedLabelColumn ) + param.deltaLength > param.diffEndIndex );
+e_esss = e_esss | committed_e_esss;
 for each e_ess in e_esss
   position = Util::lineAndColumnToPosition( text:param.oldText, line:e_ess.eventDerivedLabelLineNumber, column:e_ess.eventDerivedLabelColumn );
   e_ess.eventDerivedLabelLineNumber = Util::positionToLine( text:param.bodyText, position:position + param.deltaLength );
@@ -1583,6 +1692,9 @@ end for;
 // E_ESS eventMeaningLineNumber, eventMeaningColumn
 select many e_esss related by self->ACT_BLK[R612]->ACT_SMT[R602]->E_ESS[R603]
   where ( Util::lineAndColumnToPosition( text:param.oldText, line:selected.eventMeaningLineNumber, column:selected.eventMeaningColumn ) + param.deltaLength > param.diffEndIndex );
+select many committed_e_esss related by self->ACT_BLK[R601]->ACT_SMT[R602]->E_ESS[R603]
+  where ( Util::lineAndColumnToPosition( text:param.oldText, line:selected.eventMeaningLineNumber, column:selected.eventMeaningColumn ) + param.deltaLength > param.diffEndIndex );
+e_esss = e_esss | committed_e_esss;
 for each e_ess in e_esss
   position = Util::lineAndColumnToPosition( text:param.oldText, line:e_ess.eventMeaningLineNumber, column:e_ess.eventMeaningColumn );
   e_ess.eventMeaningLineNumber = Util::positionToLine( text:param.bodyText, position:position + param.deltaLength );
@@ -1592,6 +1704,9 @@ end for;
 // E_ESS eventTargetKeyLettersLineNumber, eventTargetKeyLettersColumn
 select many e_esss related by self->ACT_BLK[R612]->ACT_SMT[R602]->E_ESS[R603]
   where ( Util::lineAndColumnToPosition( text:param.oldText, line:selected.eventTargetKeyLettersLineNumber, column:selected.eventTargetKeyLettersColumn ) + param.deltaLength > param.diffEndIndex );
+select many committed_e_esss related by self->ACT_BLK[R601]->ACT_SMT[R602]->E_ESS[R603]
+  where ( Util::lineAndColumnToPosition( text:param.oldText, line:selected.eventTargetKeyLettersLineNumber, column:selected.eventTargetKeyLettersColumn ) + param.deltaLength > param.diffEndIndex );
+e_esss = e_esss | committed_e_esss;
 for each e_ess in e_esss
   position = Util::lineAndColumnToPosition( text:param.oldText, line:e_ess.eventTargetKeyLettersLineNumber, column:e_ess.eventTargetKeyLettersColumn );
   e_ess.eventTargetKeyLettersLineNumber = Util::positionToLine( text:param.bodyText, position:position + param.deltaLength );
@@ -1601,6 +1716,9 @@ end for;
 // E_ESS firstEventDataItemNameLineNumber, firstEventDataItemNameColumn
 select many e_esss related by self->ACT_BLK[R612]->ACT_SMT[R602]->E_ESS[R603]
   where ( Util::lineAndColumnToPosition( text:param.oldText, line:selected.firstEventDataItemNameLineNumber, column:selected.firstEventDataItemNameColumn ) + param.deltaLength > param.diffEndIndex );
+select many committed_e_esss related by self->ACT_BLK[R601]->ACT_SMT[R602]->E_ESS[R603]
+  where ( Util::lineAndColumnToPosition( text:param.oldText, line:selected.firstEventDataItemNameLineNumber, column:selected.firstEventDataItemNameColumn ) + param.deltaLength > param.diffEndIndex );
+e_esss = e_esss | committed_e_esss;
 for each e_ess in e_esss
   position = Util::lineAndColumnToPosition( text:param.oldText, line:e_ess.firstEventDataItemNameLineNumber, column:e_ess.firstEventDataItemNameColumn );
   e_ess.firstEventDataItemNameLineNumber = Util::positionToLine( text:param.bodyText, position:position + param.deltaLength );
@@ -1610,6 +1728,9 @@ end for;
 // E_ESS currentLaterEventDataItemNameLineNumber, currentLaterEventDataItemNameColumn
 select many e_esss related by self->ACT_BLK[R612]->ACT_SMT[R602]->E_ESS[R603]
   where ( Util::lineAndColumnToPosition( text:param.oldText, line:selected.currentLaterEventDataItemNameLineNumber, column:selected.currentLaterEventDataItemNameColumn ) + param.deltaLength > param.diffEndIndex );
+select many committed_e_esss related by self->ACT_BLK[R601]->ACT_SMT[R602]->E_ESS[R603]
+  where ( Util::lineAndColumnToPosition( text:param.oldText, line:selected.currentLaterEventDataItemNameLineNumber, column:selected.currentLaterEventDataItemNameColumn ) + param.deltaLength > param.diffEndIndex );
+e_esss = e_esss | committed_e_esss;
 for each e_ess in e_esss
   position = Util::lineAndColumnToPosition( text:param.oldText, line:e_ess.currentLaterEventDataItemNameLineNumber, column:e_ess.currentLaterEventDataItemNameColumn );
   e_ess.currentLaterEventDataItemNameLineNumber = Util::positionToLine( text:param.bodyText, position:position + param.deltaLength );
@@ -1619,6 +1740,9 @@ end for;
 // V_BRV externalEntityKeyLettersLineNumber, externalEntityKeyLettersColumn
 select many v_brvs related by self->ACT_BLK[R612]->V_VAL[R826]->V_BRV[R801]
   where ( Util::lineAndColumnToPosition( text:param.oldText, line:selected.externalEntityKeyLettersLineNumber, column:selected.externalEntityKeyLettersColumn ) + param.deltaLength > param.diffEndIndex );
+select many committed_v_brvs related by self->ACT_BLK[R601]->V_VAL[R826]->V_BRV[R801]
+  where ( Util::lineAndColumnToPosition( text:param.oldText, line:selected.externalEntityKeyLettersLineNumber, column:selected.externalEntityKeyLettersColumn ) + param.deltaLength > param.diffEndIndex );
+v_brvs = v_brvs | committed_v_brvs;
 for each v_brv in v_brvs
   position = Util::lineAndColumnToPosition( text:param.oldText, line:v_brv.externalEntityKeyLettersLineNumber, column:v_brv.externalEntityKeyLettersColumn );
   v_brv.externalEntityKeyLettersLineNumber = Util::positionToLine( text:param.bodyText, position:position + param.deltaLength );
@@ -1628,6 +1752,9 @@ end for;
 // V_LEN dataTypeNameLineNumber, dataTypeNameColumn
 select many v_lens related by self->ACT_BLK[R612]->V_VAL[R826]->V_LEN[R801]
   where ( Util::lineAndColumnToPosition( text:param.oldText, line:selected.dataTypeNameLineNumber, column:selected.dataTypeNameColumn ) + param.deltaLength > param.diffEndIndex );
+select many committed_v_lens related by self->ACT_BLK[R601]->V_VAL[R826]->V_LEN[R801]
+  where ( Util::lineAndColumnToPosition( text:param.oldText, line:selected.dataTypeNameLineNumber, column:selected.dataTypeNameColumn ) + param.deltaLength > param.diffEndIndex );
+v_lens = v_lens | committed_v_lens;
 for each v_len in v_lens
   position = Util::lineAndColumnToPosition( text:param.oldText, line:v_len.dataTypeNameLineNumber, column:v_len.dataTypeNameColumn );
   v_len.dataTypeNameLineNumber = Util::positionToLine( text:param.bodyText, position:position + param.deltaLength );
@@ -1637,6 +1764,9 @@ end for;
 // V_LOC LineNumber, StartPosition
 select many v_locs related by self->ACT_BLK[R612]->V_VAR[R823]->V_LOC[R835]
   where ( Util::lineAndColumnToPosition( text:param.oldText, line:selected.LineNumber, column:selected.StartPosition ) + param.deltaLength > param.diffEndIndex );
+select many committed_v_locs related by self->ACT_BLK[R601]->V_VAR[R823]->V_LOC[R835]
+  where ( Util::lineAndColumnToPosition( text:param.oldText, line:selected.LineNumber, column:selected.StartPosition ) + param.deltaLength > param.diffEndIndex );
+v_locs = v_locs | committed_v_locs;
 for each v_loc in v_locs
   position = Util::lineAndColumnToPosition( text:param.oldText, line:v_loc.LineNumber, column:v_loc.StartPosition );
   position2 = Util::lineAndColumnToPosition( text:param.oldText, line:v_loc.LineNumber, column:v_loc.EndPosition );
@@ -1648,6 +1778,9 @@ end for;
 // V_MSV ownerNameLineNumber, ownerNameColumn
 select many v_msvs related by self->ACT_BLK[R612]->V_VAL[R826]->V_MSV[R801]
   where ( Util::lineAndColumnToPosition( text:param.oldText, line:selected.ownerNameLineNumber, column:selected.ownerNameColumn ) + param.deltaLength > param.diffEndIndex );
+select many committed_v_msvs related by self->ACT_BLK[R601]->V_VAL[R826]->V_MSV[R801]
+  where ( Util::lineAndColumnToPosition( text:param.oldText, line:selected.ownerNameLineNumber, column:selected.ownerNameColumn ) + param.deltaLength > param.diffEndIndex );
+v_msvs = v_msvs | committed_v_msvs;
 for each v_msv in v_msvs
   position = Util::lineAndColumnToPosition( text:param.oldText, line:v_msv.ownerNameLineNumber, column:v_msv.ownerNameColumn );
   v_msv.ownerNameLineNumber = Util::positionToLine( text:param.bodyText, position:position + param.deltaLength );
@@ -1657,6 +1790,9 @@ end for;
 // V_PAR labelLineNumber, labelColumn
 select many v_pars related by self->ACT_BLK[R612]->ACT_SMT[R602]->ACT_TFM[R603]->V_PAR[R627]
   where ( Util::lineAndColumnToPosition( text:param.oldText, line:selected.labelLineNumber, column:selected.labelColumn ) + param.deltaLength > param.diffEndIndex );
+select many committed_v_pars related by self->ACT_BLK[R601]->ACT_SMT[R602]->ACT_TFM[R603]->V_PAR[R627]
+  where ( Util::lineAndColumnToPosition( text:param.oldText, line:selected.labelLineNumber, column:selected.labelColumn ) + param.deltaLength > param.diffEndIndex );
+v_pars = v_pars | committed_v_pars;
 for each v_par in v_pars
   position = Util::lineAndColumnToPosition( text:param.oldText, line:v_par.labelLineNumber, column:v_par.labelColumn );
   v_par.labelLineNumber = Util::positionToLine( text:param.bodyText, position:position + param.deltaLength );
@@ -1666,6 +1802,9 @@ end for;
 // V_PAR labelLineNumber, labelColumn
 select many v_pars related by self->ACT_BLK[R612]->ACT_SMT[R602]->ACT_BRG[R603]->V_PAR[R628]
   where ( Util::lineAndColumnToPosition( text:param.oldText, line:selected.labelLineNumber, column:selected.labelColumn ) + param.deltaLength > param.diffEndIndex );
+select many committed_v_pars related by self->ACT_BLK[R601]->ACT_SMT[R602]->ACT_BRG[R603]->V_PAR[R628]
+  where ( Util::lineAndColumnToPosition( text:param.oldText, line:selected.labelLineNumber, column:selected.labelColumn ) + param.deltaLength > param.diffEndIndex );
+v_pars = v_pars | committed_v_pars;
 for each v_par in v_pars
   position = Util::lineAndColumnToPosition( text:param.oldText, line:v_par.labelLineNumber, column:v_par.labelColumn );
   v_par.labelLineNumber = Util::positionToLine( text:param.bodyText, position:position + param.deltaLength );
@@ -1675,6 +1814,9 @@ end for;
 // V_PAR labelLineNumber, labelColumn
 select many v_pars related by self->ACT_BLK[R612]->ACT_SMT[R602]->ACT_SGN[R603]->V_PAR[R662]
   where ( Util::lineAndColumnToPosition( text:param.oldText, line:selected.labelLineNumber, column:selected.labelColumn ) + param.deltaLength > param.diffEndIndex );
+select many committed_v_pars related by self->ACT_BLK[R601]->ACT_SMT[R602]->ACT_SGN[R603]->V_PAR[R662]
+  where ( Util::lineAndColumnToPosition( text:param.oldText, line:selected.labelLineNumber, column:selected.labelColumn ) + param.deltaLength > param.diffEndIndex );
+v_pars = v_pars | committed_v_pars;
 for each v_par in v_pars
   position = Util::lineAndColumnToPosition( text:param.oldText, line:v_par.labelLineNumber, column:v_par.labelColumn );
   v_par.labelLineNumber = Util::positionToLine( text:param.bodyText, position:position + param.deltaLength );
@@ -1684,6 +1826,9 @@ end for;
 // V_PAR labelLineNumber, labelColumn
 select many v_pars related by self->ACT_BLK[R612]->ACT_SMT[R602]->ACT_FNC[R603]->V_PAR[R669]
   where ( Util::lineAndColumnToPosition( text:param.oldText, line:selected.labelLineNumber, column:selected.labelColumn ) + param.deltaLength > param.diffEndIndex );
+select many committed_v_pars related by self->ACT_BLK[R601]->ACT_SMT[R602]->ACT_FNC[R603]->V_PAR[R669]
+  where ( Util::lineAndColumnToPosition( text:param.oldText, line:selected.labelLineNumber, column:selected.labelColumn ) + param.deltaLength > param.diffEndIndex );
+v_pars = v_pars | committed_v_pars;
 for each v_par in v_pars
   position = Util::lineAndColumnToPosition( text:param.oldText, line:v_par.labelLineNumber, column:v_par.labelColumn );
   v_par.labelLineNumber = Util::positionToLine( text:param.bodyText, position:position + param.deltaLength );
@@ -1693,6 +1838,9 @@ end for;
 // V_PAR labelLineNumber, labelColumn
 select many v_pars related by self->ACT_BLK[R612]->ACT_SMT[R602]->ACT_IOP[R603]->V_PAR[R679]
   where ( Util::lineAndColumnToPosition( text:param.oldText, line:selected.labelLineNumber, column:selected.labelColumn ) + param.deltaLength > param.diffEndIndex );
+select many committed_v_pars related by self->ACT_BLK[R601]->ACT_SMT[R602]->ACT_IOP[R603]->V_PAR[R679]
+  where ( Util::lineAndColumnToPosition( text:param.oldText, line:selected.labelLineNumber, column:selected.labelColumn ) + param.deltaLength > param.diffEndIndex );
+v_pars = v_pars | committed_v_pars;
 for each v_par in v_pars
   position = Util::lineAndColumnToPosition( text:param.oldText, line:v_par.labelLineNumber, column:v_par.labelColumn );
   v_par.labelLineNumber = Util::positionToLine( text:param.bodyText, position:position + param.deltaLength );
@@ -1702,6 +1850,9 @@ end for;
 // V_PAR labelLineNumber, labelColumn
 select many v_pars related by self->ACT_BLK[R612]->ACT_SMT[R602]->E_ESS[R603]->V_PAR[R700]
   where ( Util::lineAndColumnToPosition( text:param.oldText, line:selected.labelLineNumber, column:selected.labelColumn ) + param.deltaLength > param.diffEndIndex );
+select many committed_v_pars related by self->ACT_BLK[R601]->ACT_SMT[R602]->E_ESS[R603]->V_PAR[R700]
+  where ( Util::lineAndColumnToPosition( text:param.oldText, line:selected.labelLineNumber, column:selected.labelColumn ) + param.deltaLength > param.diffEndIndex );
+v_pars = v_pars | committed_v_pars;
 for each v_par in v_pars
   position = Util::lineAndColumnToPosition( text:param.oldText, line:v_par.labelLineNumber, column:v_par.labelColumn );
   v_par.labelLineNumber = Util::positionToLine( text:param.bodyText, position:position + param.deltaLength );
@@ -1711,6 +1862,9 @@ end for;
 // V_PAR labelLineNumber, labelColumn
 select many v_pars related by self->ACT_BLK[R612]->V_VAL[R826]->V_BRV[R801]->V_PAR[R810]
   where ( Util::lineAndColumnToPosition( text:param.oldText, line:selected.labelLineNumber, column:selected.labelColumn ) + param.deltaLength > param.diffEndIndex );
+select many committed_v_pars related by self->ACT_BLK[R601]->V_VAL[R826]->V_BRV[R801]->V_PAR[R810]
+  where ( Util::lineAndColumnToPosition( text:param.oldText, line:selected.labelLineNumber, column:selected.labelColumn ) + param.deltaLength > param.diffEndIndex );
+v_pars = v_pars | committed_v_pars;
 for each v_par in v_pars
   position = Util::lineAndColumnToPosition( text:param.oldText, line:v_par.labelLineNumber, column:v_par.labelColumn );
   v_par.labelLineNumber = Util::positionToLine( text:param.bodyText, position:position + param.deltaLength );
@@ -1720,6 +1874,9 @@ end for;
 // V_PAR labelLineNumber, labelColumn
 select many v_pars related by self->ACT_BLK[R612]->V_VAL[R826]->V_TRV[R801]->V_PAR[R811]
   where ( Util::lineAndColumnToPosition( text:param.oldText, line:selected.labelLineNumber, column:selected.labelColumn ) + param.deltaLength > param.diffEndIndex );
+select many committed_v_pars related by self->ACT_BLK[R601]->V_VAL[R826]->V_TRV[R801]->V_PAR[R811]
+  where ( Util::lineAndColumnToPosition( text:param.oldText, line:selected.labelLineNumber, column:selected.labelColumn ) + param.deltaLength > param.diffEndIndex );
+v_pars = v_pars | committed_v_pars;
 for each v_par in v_pars
   position = Util::lineAndColumnToPosition( text:param.oldText, line:v_par.labelLineNumber, column:v_par.labelColumn );
   v_par.labelLineNumber = Util::positionToLine( text:param.bodyText, position:position + param.deltaLength );
@@ -1729,6 +1886,9 @@ end for;
 // V_PAR labelLineNumber, labelColumn
 select many v_pars related by self->ACT_BLK[R612]->V_VAL[R826]->V_FNV[R801]->V_PAR[R817]
   where ( Util::lineAndColumnToPosition( text:param.oldText, line:selected.labelLineNumber, column:selected.labelColumn ) + param.deltaLength > param.diffEndIndex );
+select many committed_v_pars related by self->ACT_BLK[R601]->V_VAL[R826]->V_FNV[R801]->V_PAR[R817]
+  where ( Util::lineAndColumnToPosition( text:param.oldText, line:selected.labelLineNumber, column:selected.labelColumn ) + param.deltaLength > param.diffEndIndex );
+v_pars = v_pars | committed_v_pars;
 for each v_par in v_pars
   position = Util::lineAndColumnToPosition( text:param.oldText, line:v_par.labelLineNumber, column:v_par.labelColumn );
   v_par.labelLineNumber = Util::positionToLine( text:param.bodyText, position:position + param.deltaLength );
@@ -1738,6 +1898,9 @@ end for;
 // V_PAR labelLineNumber, labelColumn
 select many v_pars related by self->ACT_BLK[R612]->V_VAL[R826]->V_MSV[R801]->V_PAR[R842]
   where ( Util::lineAndColumnToPosition( text:param.oldText, line:selected.labelLineNumber, column:selected.labelColumn ) + param.deltaLength > param.diffEndIndex );
+select many committed_v_pars related by self->ACT_BLK[R601]->V_VAL[R826]->V_MSV[R801]->V_PAR[R842]
+  where ( Util::lineAndColumnToPosition( text:param.oldText, line:selected.labelLineNumber, column:selected.labelColumn ) + param.deltaLength > param.diffEndIndex );
+v_pars = v_pars | committed_v_pars;
 for each v_par in v_pars
   position = Util::lineAndColumnToPosition( text:param.oldText, line:v_par.labelLineNumber, column:v_par.labelColumn );
   v_par.labelLineNumber = Util::positionToLine( text:param.bodyText, position:position + param.deltaLength );
@@ -1747,6 +1910,9 @@ end for;
 // V_TRV modelClassKeyLettersLineNumber, modelClassKeyLettersColumn
 select many v_trvs related by self->ACT_BLK[R612]->V_VAL[R826]->V_TRV[R801]
   where ( Util::lineAndColumnToPosition( text:param.oldText, line:selected.modelClassKeyLettersLineNumber, column:selected.modelClassKeyLettersColumn ) + param.deltaLength > param.diffEndIndex );
+select many committed_v_trvs related by self->ACT_BLK[R601]->V_VAL[R826]->V_TRV[R801]
+  where ( Util::lineAndColumnToPosition( text:param.oldText, line:selected.modelClassKeyLettersLineNumber, column:selected.modelClassKeyLettersColumn ) + param.deltaLength > param.diffEndIndex );
+v_trvs = v_trvs | committed_v_trvs;
 for each v_trv in v_trvs
   position = Util::lineAndColumnToPosition( text:param.oldText, line:v_trv.modelClassKeyLettersLineNumber, column:v_trv.modelClassKeyLettersColumn );
   v_trv.modelClassKeyLettersLineNumber = Util::positionToLine( text:param.bodyText, position:position + param.deltaLength );
@@ -1756,6 +1922,9 @@ end for;
 // V_VAL firstParameterLabelLineNumber, firstParameterLabelColumn
 select many v_vals related by self->ACT_BLK[R612]->V_VAL[R826]
   where ( Util::lineAndColumnToPosition( text:param.oldText, line:selected.firstParameterLabelLineNumber, column:selected.firstParameterLabelColumn ) + param.deltaLength > param.diffEndIndex );
+select many committed_v_vals related by self->ACT_BLK[R601]->V_VAL[R826]
+  where ( Util::lineAndColumnToPosition( text:param.oldText, line:selected.firstParameterLabelLineNumber, column:selected.firstParameterLabelColumn ) + param.deltaLength > param.diffEndIndex );
+v_vals = v_vals | committed_v_vals;
 for each v_val in v_vals
   position = Util::lineAndColumnToPosition( text:param.oldText, line:v_val.firstParameterLabelLineNumber, column:v_val.firstParameterLabelColumn );
   v_val.firstParameterLabelLineNumber = Util::positionToLine( text:param.bodyText, position:position + param.deltaLength );
@@ -1765,6 +1934,9 @@ end for;
 // V_VAL LineNumber, StartPosition
 select many v_vals related by self->ACT_BLK[R612]->V_VAL[R826]
   where ( Util::lineAndColumnToPosition( text:param.oldText, line:selected.LineNumber, column:selected.StartPosition ) + param.deltaLength > param.diffEndIndex );
+select many committed_v_vals related by self->ACT_BLK[R601]->V_VAL[R826]
+  where ( Util::lineAndColumnToPosition( text:param.oldText, line:selected.LineNumber, column:selected.StartPosition ) + param.deltaLength > param.diffEndIndex );
+v_vals = v_vals | committed_v_vals;
 for each v_val in v_vals
   position = Util::lineAndColumnToPosition( text:param.oldText, line:v_val.LineNumber, column:v_val.StartPosition );
   position2 = Util::lineAndColumnToPosition( text:param.oldText, line:v_val.LineNumber, column:v_val.EndPosition );
@@ -1776,6 +1948,9 @@ end for;
 // V_VAL currentLaterParameterLabelLineNumber, currentLaterParameterLabelColumn
 select many v_vals related by self->ACT_BLK[R612]->V_VAL[R826]
   where ( Util::lineAndColumnToPosition( text:param.oldText, line:selected.currentLaterParameterLabelLineNumber, column:selected.currentLaterParameterLabelColumn ) + param.deltaLength > param.diffEndIndex );
+select many committed_v_vals related by self->ACT_BLK[R601]->V_VAL[R826]
+  where ( Util::lineAndColumnToPosition( text:param.oldText, line:selected.currentLaterParameterLabelLineNumber, column:selected.currentLaterParameterLabelColumn ) + param.deltaLength > param.diffEndIndex );
+v_vals = v_vals | committed_v_vals;
 for each v_val in v_vals
   position = Util::lineAndColumnToPosition( text:param.oldText, line:v_val.currentLaterParameterLabelLineNumber, column:v_val.currentLaterParameterLabelColumn );
   v_val.currentLaterParameterLabelLineNumber = Util::positionToLine( text:param.bodyText, position:position + param.deltaLength );

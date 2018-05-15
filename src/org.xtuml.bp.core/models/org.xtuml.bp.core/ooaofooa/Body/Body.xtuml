@@ -10837,6 +10837,48 @@ INSERT INTO PE_PE
 	"76583c73-7a99-4c81-b260-8109e6cef5ca",
 	"00000000-0000-0000-0000-000000000000",
 	3);
+INSERT INTO S_DT
+	VALUES ("27893446-59d4-4f77-b8af-4416e152b916",
+	"00000000-0000-0000-0000-000000000000",
+	'inst_ref<Block>',
+	'',
+	'');
+INSERT INTO S_IRDT
+	VALUES ("27893446-59d4-4f77-b8af-4416e152b916",
+	0,
+	"b7fa3f21-6c94-47c6-934b-a56a2b7d758e");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("b7fa3f21-6c94-47c6-934b-a56a2b7d758e",
+	'Block',
+	600,
+	'ACT_BLK',
+	'This class represents a block of action language within an action. Each block contains a number of statements.
+
+',
+	"00000000-0000-0000-0000-000000000000",
+	'./Block/Block.xtuml');
+INSERT INTO PE_PE
+	VALUES ("27893446-59d4-4f77-b8af-4416e152b916",
+	1,
+	"76583c73-7a99-4c81-b260-8109e6cef5ca",
+	"00000000-0000-0000-0000-000000000000",
+	3);
+INSERT INTO S_DT
+	VALUES ("94c5e401-3fde-442e-85e3-65a28c725204",
+	"00000000-0000-0000-0000-000000000000",
+	'inst_ref_set<Block>',
+	'',
+	'');
+INSERT INTO S_IRDT
+	VALUES ("94c5e401-3fde-442e-85e3-65a28c725204",
+	1,
+	"b7fa3f21-6c94-47c6-934b-a56a2b7d758e");
+INSERT INTO PE_PE
+	VALUES ("94c5e401-3fde-442e-85e3-65a28c725204",
+	1,
+	"76583c73-7a99-4c81-b260-8109e6cef5ca",
+	"00000000-0000-0000-0000-000000000000",
+	3);
 INSERT INTO R_SIMP
 	VALUES ("cf1f38a4-06c9-464e-97aa-d1b73bc1b98a");
 INSERT INTO R_REL
@@ -10911,16 +10953,6 @@ INSERT INTO R_OIR
 	"cf1f38a4-06c9-464e-97aa-d1b73bc1b98a",
 	"0538073f-78c5-481d-8c83-daad07252c2a",
 	"00000000-0000-0000-0000-000000000000");
-INSERT INTO O_OBJ_PROXY
-	VALUES ("b7fa3f21-6c94-47c6-934b-a56a2b7d758e",
-	'Block',
-	600,
-	'ACT_BLK',
-	'This class represents a block of action language within an action. Each block contains a number of statements.
-
-',
-	"00000000-0000-0000-0000-000000000000",
-	'./Block/Block.xtuml');
 INSERT INTO PE_PE
 	VALUES ("cf1f38a4-06c9-464e-97aa-d1b73bc1b98a",
 	1,
