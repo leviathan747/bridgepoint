@@ -2042,6 +2042,127 @@ INSERT INTO DIM_DIA
 	1390.000000,
 	964.000000,
 	"00000000-0000-0000-0000-000000000000");
+INSERT INTO S_DT
+	VALUES ("4d4b7f67-46f3-48d3-9ff9-529502a82cb3",
+	"00000000-0000-0000-0000-000000000000",
+	'inst_ref<Select From Instances>',
+	'',
+	'');
+INSERT INTO S_IRDT
+	VALUES ("4d4b7f67-46f3-48d3-9ff9-529502a82cb3",
+	0,
+	"89fa6f15-b93c-405a-821d-a7b066b3c937");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("89fa6f15-b93c-405a-821d-a7b066b3c937",
+	'Select From Instances',
+	612,
+	'ACT_FIO',
+	'This class represents a statement that selects a set of  instances from a class extent.',
+	"00000000-0000-0000-0000-000000000000",
+	'./Select From Instances/Select From Instances.xtuml');
+INSERT INTO PE_PE
+	VALUES ("4d4b7f67-46f3-48d3-9ff9-529502a82cb3",
+	1,
+	"4baa0857-ca29-4e4a-b1cb-873757c0f936",
+	"00000000-0000-0000-0000-000000000000",
+	3);
+INSERT INTO S_DT
+	VALUES ("6635297e-d0b7-4140-a8c9-afc4a253b6d7",
+	"00000000-0000-0000-0000-000000000000",
+	'inst_ref_set<Select From Instances>',
+	'',
+	'');
+INSERT INTO S_IRDT
+	VALUES ("6635297e-d0b7-4140-a8c9-afc4a253b6d7",
+	1,
+	"89fa6f15-b93c-405a-821d-a7b066b3c937");
+INSERT INTO PE_PE
+	VALUES ("6635297e-d0b7-4140-a8c9-afc4a253b6d7",
+	1,
+	"4baa0857-ca29-4e4a-b1cb-873757c0f936",
+	"00000000-0000-0000-0000-000000000000",
+	3);
+INSERT INTO S_DT
+	VALUES ("9c6e1561-4e68-4f59-8adb-1a254fbf4496",
+	"00000000-0000-0000-0000-000000000000",
+	'inst_ref<Select From Instances Where>',
+	'',
+	'');
+INSERT INTO S_IRDT
+	VALUES ("9c6e1561-4e68-4f59-8adb-1a254fbf4496",
+	0,
+	"d493c966-7083-429d-9e8e-552a145b89d5");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("d493c966-7083-429d-9e8e-552a145b89d5",
+	'Select From Instances Where',
+	611,
+	'ACT_FIW',
+	'This class represents a statement that selects a set of  instances from a class extent with the support of a where clause.  The where clause consists of a boolean expression containing the special instance handle ''selected''. If the expression evaluates to true, the instance represented by ''selected '' is added to the result set of the statement.
+',
+	"00000000-0000-0000-0000-000000000000",
+	'./Select From Instances Where/Select From Instances Where.xtuml');
+INSERT INTO PE_PE
+	VALUES ("9c6e1561-4e68-4f59-8adb-1a254fbf4496",
+	1,
+	"4baa0857-ca29-4e4a-b1cb-873757c0f936",
+	"00000000-0000-0000-0000-000000000000",
+	3);
+INSERT INTO S_DT
+	VALUES ("983bf9a8-b0e4-47ab-92fa-395594daba73",
+	"00000000-0000-0000-0000-000000000000",
+	'inst_ref_set<Select From Instances Where>',
+	'',
+	'');
+INSERT INTO S_IRDT
+	VALUES ("983bf9a8-b0e4-47ab-92fa-395594daba73",
+	1,
+	"d493c966-7083-429d-9e8e-552a145b89d5");
+INSERT INTO PE_PE
+	VALUES ("983bf9a8-b0e4-47ab-92fa-395594daba73",
+	1,
+	"4baa0857-ca29-4e4a-b1cb-873757c0f936",
+	"00000000-0000-0000-0000-000000000000",
+	3);
+INSERT INTO S_DT
+	VALUES ("35090692-f913-4ce5-b71f-f3b50b8bcad8",
+	"00000000-0000-0000-0000-000000000000",
+	'inst_ref<Chain Link>',
+	'',
+	'');
+INSERT INTO S_IRDT
+	VALUES ("35090692-f913-4ce5-b71f-f3b50b8bcad8",
+	0,
+	"03756c5d-05d7-4ac3-abbd-e9c5edd3fc81");
+INSERT INTO O_OBJ_PROXY
+	VALUES ("03756c5d-05d7-4ac3-abbd-e9c5edd3fc81",
+	'Chain Link',
+	627,
+	'ACT_LNK',
+	'This class represents a link in an association chain. In the string "self->O_OND[R5]->D_D[R7]", there are two chain links, one from the current instance to an instance (or set) of the class with keyletters "D_OND" found by traversing association "R5" and from there to an instance or set of the class with keyletters "D_D", crossing "R7". Each link is captured as an instance of this meta-model class. The target class is captured for each link, as is the association used for the traversal. The order of traversal is significant and is also captured.',
+	"00000000-0000-0000-0000-000000000000",
+	'./Chain Link/Chain Link.xtuml');
+INSERT INTO PE_PE
+	VALUES ("35090692-f913-4ce5-b71f-f3b50b8bcad8",
+	1,
+	"4baa0857-ca29-4e4a-b1cb-873757c0f936",
+	"00000000-0000-0000-0000-000000000000",
+	3);
+INSERT INTO S_DT
+	VALUES ("59cd20d9-8ee2-494a-87a5-36772b9754dc",
+	"00000000-0000-0000-0000-000000000000",
+	'inst_ref_set<Chain Link>',
+	'',
+	'');
+INSERT INTO S_IRDT
+	VALUES ("59cd20d9-8ee2-494a-87a5-36772b9754dc",
+	1,
+	"03756c5d-05d7-4ac3-abbd-e9c5edd3fc81");
+INSERT INTO PE_PE
+	VALUES ("59cd20d9-8ee2-494a-87a5-36772b9754dc",
+	1,
+	"4baa0857-ca29-4e4a-b1cb-873757c0f936",
+	"00000000-0000-0000-0000-000000000000",
+	3);
 INSERT INTO R_SIMP
 	VALUES ("22cd8849-8995-44d1-ae50-a4b2ae73d8fd");
 INSERT INTO R_REL
@@ -2082,14 +2203,6 @@ INSERT INTO R_OIR
 	"22cd8849-8995-44d1-ae50-a4b2ae73d8fd",
 	"99ec2b79-fea0-4a81-9fa5-372a2d1d868c",
 	"00000000-0000-0000-0000-000000000000");
-INSERT INTO O_OBJ_PROXY
-	VALUES ("03756c5d-05d7-4ac3-abbd-e9c5edd3fc81",
-	'Chain Link',
-	627,
-	'ACT_LNK',
-	'This class represents a link in an association chain. In the string "self->O_OND[R5]->D_D[R7]", there are two chain links, one from the current instance to an instance (or set) of the class with keyletters "D_OND" found by traversing association "R5" and from there to an instance or set of the class with keyletters "D_D", crossing "R7". Each link is captured as an instance of this meta-model class. The target class is captured for each link, as is the association used for the traversal. The order of traversal is significant and is also captured.',
-	"00000000-0000-0000-0000-000000000000",
-	'./Chain Link/Chain Link.xtuml');
 INSERT INTO R_FORM
 	VALUES ("03756c5d-05d7-4ac3-abbd-e9c5edd3fc81",
 	"22cd8849-8995-44d1-ae50-a4b2ae73d8fd",
@@ -2229,15 +2342,6 @@ INSERT INTO R_OIR
 	"7bf2cbb7-4de5-4adb-b74a-0b135848f69c",
 	"4ecb5dc6-1bbe-4c02-be10-e66c54b6e59c",
 	"00000000-0000-0000-0000-000000000000");
-INSERT INTO O_OBJ_PROXY
-	VALUES ("d493c966-7083-429d-9e8e-552a145b89d5",
-	'Select From Instances Where',
-	611,
-	'ACT_FIW',
-	'This class represents a statement that selects a set of  instances from a class extent with the support of a where clause.  The where clause consists of a boolean expression containing the special instance handle ''selected''. If the expression evaluates to true, the instance represented by ''selected '' is added to the result set of the statement.
-',
-	"00000000-0000-0000-0000-000000000000",
-	'./Select From Instances Where/Select From Instances Where.xtuml');
 INSERT INTO R_PART
 	VALUES ("80366c8b-358d-4b86-a0fd-bd9d289c9cd2",
 	"7bf2cbb7-4de5-4adb-b74a-0b135848f69c",
@@ -2432,14 +2536,6 @@ INSERT INTO R_OIR
 	"4ecd0a0c-2e03-4257-9faf-3b791e52dd11",
 	"57ab7b7f-7b6c-4ac1-b123-e8c66e99433d",
 	"00000000-0000-0000-0000-000000000000");
-INSERT INTO O_OBJ_PROXY
-	VALUES ("89fa6f15-b93c-405a-821d-a7b066b3c937",
-	'Select From Instances',
-	612,
-	'ACT_FIO',
-	'This class represents a statement that selects a set of  instances from a class extent.',
-	"00000000-0000-0000-0000-000000000000",
-	'./Select From Instances/Select From Instances.xtuml');
 INSERT INTO R_PART
 	VALUES ("04ccf45f-92e0-4d09-ba38-c8b5e3c789c4",
 	"4ecd0a0c-2e03-4257-9faf-3b791e52dd11",

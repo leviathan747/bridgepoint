@@ -3,12 +3,17 @@
 // ${m.key_letters} ${m.line_attr}, ${m.column_attr}
   .assign ws = "  "
   .if ( "" == m.navigation2 )
-select many $l{m.key_letters}s related by self${m.navigation}
+select many $l{m.key_letters}s related by self->ACT_BLK[R612]${m.navigation}
   where ( Util::lineAndColumnToPosition( text:param.oldText, line:selected.${m.line_attr}, column:selected.${m.column_attr} ) + param.deltaLength > param.diffEndIndex );
+select many committed_$l{m.key_letters}s related by self->ACT_BLK[R601]${m.navigation}
+  where ( Util::lineAndColumnToPosition( text:param.oldText, line:selected.${m.line_attr}, column:selected.${m.column_attr} ) + param.deltaLength > param.diffEndIndex );
+$l{m.key_letters}s = $l{m.key_letters}s | committed_$l{m.key_letters}s;
 for each $l{m.key_letters} in $l{m.key_letters}s
   .else
     .assign ws = "      "
-select many $l{m.key_letters}s related by self${m.navigation};
+select many $l{m.key_letters}s related by self->ACT_BLK[R612]${m.navigation};
+select many committed_$l{m.key_letters}s related by self->ACT_BLK[R601]${m.navigation};
+$l{m.key_letters}s = $l{m.key_letters}s | committed_$l{m.key_letters}s;
 while ( not_empty $l{m.key_letters}s )
   for each $l{m.key_letters} in $l{m.key_letters}s
     if ( Util::lineAndColumnToPosition( text:param.oldText, line:$l{m.key_letters}.${m.line_attr}, column:$l{m.key_letters}.${m.column_attr} ) + param.deltaLength > param.diffEndIndex )
