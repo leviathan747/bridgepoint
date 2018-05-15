@@ -36933,21 +36933,40 @@ if ( not_empty blk )
     end if;
     relate blk to act across R699;
     
-    // remove statements for this parse step
+    // delete all statements between the two bounding statements
     select any step related by act->PAR_STP[R1613] where ( selected.processing );
     select one last_unaffected_statement_before related by step->ACT_SMT[R1610];
     select one first_unaffected_statement_after related by step->ACT_SMT[R1611];
-    // delete all statements between the two bounding statements
-    select many statements related by blk->ACT_SMT[R602];
+    select many statements related by blk->ACT_SMT[R602] where
+      ( ( empty last_unaffected_statement_before or ( last_unaffected_statement_before.LineNumber < selected.LineNumber or
+                                                      last_unaffected_statement_before.LineNumber == selected.LineNumber and 
+                                                      last_unaffected_statement_before.StartPosition < selected.StartPosition ) ) and
+        ( empty first_unaffected_statement_after or ( first_unaffected_statement_after.LineNumber > selected.LineNumber or
+                                                      first_unaffected_statement_after.LineNumber == selected.LineNumber and 
+                                                      first_unaffected_statement_after.StartPosition > selected.StartPosition ) ) );
     for each statement in statements
-      if ( ( empty last_unaffected_statement_before or ( last_unaffected_statement_before.LineNumber < statement.LineNumber or
-                                                         last_unaffected_statement_before.LineNumber == statement.LineNumber and 
-                                                         last_unaffected_statement_before.StartPosition < statement.StartPosition ) ) and
-           ( empty first_unaffected_statement_after or ( first_unaffected_statement_after.LineNumber > statement.LineNumber or
-                                                         first_unaffected_statement_after.LineNumber == statement.LineNumber and 
-                                                         first_unaffected_statement_after.StartPosition > statement.StartPosition ) ) )
         statement.dispose();
+    end for;
+
+    // dispose any variables declared within the bounding statements
+    select many v_locs related by blk->V_VAR[R823]->V_LOC[R835] where
+      ( ( empty last_unaffected_statement_before or ( last_unaffected_statement_before.EndLineNumber < selected.LineNumber or
+                                                      last_unaffected_statement_before.EndLineNumber == selected.LineNumber and 
+                                                      last_unaffected_statement_before.EndPosition < selected.StartPosition ) ) and
+        ( empty first_unaffected_statement_after or ( first_unaffected_statement_after.LineNumber > selected.LineNumber or
+                                                      first_unaffected_statement_after.LineNumber == selected.LineNumber and 
+                                                      first_unaffected_statement_after.StartPosition > selected.EndPosition ) ) );
+    select many v_vars_to_delete from instances of V_VAR where false;
+    for each v_loc in v_locs
+      select any prior_loc related by v_loc->V_VAR[R835]->V_LOC[R835] where ( selected.LineNumber < v_loc.LineNumber or
+                                                                              selected.LineNumber == v_loc.LineNumber and selected.StartPosition < v_loc.StartPosition );
+      if ( empty prior_loc ) // this is the first declaration
+        select one v_var related by v_loc->V_VAR[R835];
+        v_vars_to_delete = v_vars_to_delete | v_var; // cannot delete right here because there is potential to iterate over a deleted V_LOC instance
       end if;
+    end for;
+    for each v_var in v_vars_to_delete
+      v_var.dispose();
     end for;
     
     // create initial content assistance proposals
