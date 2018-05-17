@@ -53,7 +53,9 @@ re-parsed.
 4.2 The "Parse all" mechanism shall be unaffected by the new partial parsing
 mechanism.  
 4.3 The chosen mechanism shall consider performance with respect to "Parse while
-editing" and content assist parsing.
+editing" and content assist parsing.  
+4.4 Performance benchmarking shall be employed and a report on performance
+increases shall be produced.  
 
 ### 5. Analysis
 
