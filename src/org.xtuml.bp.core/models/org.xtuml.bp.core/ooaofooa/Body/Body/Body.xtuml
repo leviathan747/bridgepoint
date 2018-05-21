@@ -1160,7 +1160,7 @@ INSERT INTO O_TPARM
 INSERT INTO O_TFR
 	VALUES ("0451166f-ce44-4a09-b319-40ab2a40cf7d",
 	"d1c9af7b-9df6-432a-a25e-96cab24fc6af",
-	'createParseSteps',
+	'createParseStep',
 	'',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
@@ -1189,7 +1189,7 @@ for each smt in smts
   end if;
 end for;
 
-// TODO naive approach only creates one step
+// create a step for this diff
 create object instance step of PAR_STP;
 step.processing = false;
 relate step to self across R1613;
@@ -1212,7 +1212,9 @@ end if;
 // Pad the beginning of the text with whitespace. This preserves the spacing of the original so
 // the parsed tokens have the correct line and column information.
 step.text = Util::replaceAll( s:Util::substr( s:param.bodyText, i1:0, i2:i1 ), regex:"\\S", replacement:" " ) +
-            Util::substr( s:param.bodyText, i1:i1, i2:i2 );',
+            Util::substr( s:param.bodyText, i1:i1, i2:i2 );
+
+step.createParseStepsForVariableReferences( deltaLength:param.deltaLength, bodyText:param.bodyText, oldText:param.oldText );',
 	1,
 	'',
 	"93b8e8fa-9b9e-414e-a803-ce4f9cc6e12d",
@@ -2026,6 +2028,53 @@ end if;',
 	1,
 	'',
 	"f168c375-bb59-4376-89f4-f75d82a8c37c",
+	0);
+INSERT INTO O_TFR
+	VALUES ("256a70a3-8362-4adf-89c3-ec339c4472f0",
+	"d1c9af7b-9df6-432a-a25e-96cab24fc6af",
+	'sequenceAndCollapseParseSteps',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'select any first_step from instances of PAR_STP where false;
+select many steps related by self->PAR_STP[R1613];
+
+// iterate over all steps and insert them based on location in the body
+for each step in steps
+
+  if ( empty first_step ) // if this is the first step in the list, automatically consider it the first step
+    first_step = step;
+  else
+    current_step = first_step;
+    select any last_step from instances of PAR_STP where false;
+    while ( not_empty current_step ) // insert the step into the order
+      // TODO this is simplistic ordering and does not consider all cases
+      select one step_first_smt related by step->ACT_SMT[R1610];
+      select one current_step_first_smt related by current_step->ACT_SMT[R1610];
+      if ( step_first_smt.LineNumber < current_step_first_smt.LineNumber )
+        break;
+      end if;
+      last_step = current_step;
+      select one current_step related by current_step->PAR_STP[R1612.''precedes'']; 
+    end while;
+    if ( not_empty current_step ) // insert before the current step
+      select one prev_step related by current_step->PAR_STP[R1612.''follows''];
+      if ( not_empty prev_step )
+        unrelate prev_step from current_step across R1612.''precedes'';
+        relate prev_step to step across R1612.''precedes'';
+      else
+        first_step = step;
+      end if;
+      relate current_step to step across R1612.''follows'';
+    else // insert at the end of the order
+      relate step to last_step across R1612.''follows'';
+    end if;
+  end if;
+
+end for;',
+	1,
+	'',
+	"4bfa86aa-fb70-47b7-9095-cb7bf5f7c680",
 	0);
 INSERT INTO O_NBATTR
 	VALUES ("6f8d7450-c09b-42de-8362-9a36aa766cb7",
