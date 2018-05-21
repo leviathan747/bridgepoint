@@ -62,6 +62,77 @@ end if;',
 	'',
 	"38e0405e-8d40-4c2c-8725-5da23753fb1c",
 	0);
+INSERT INTO O_TFR
+	VALUES ("3bf35666-183c-4f35-8cf3-f08a980659a9",
+	"db41bab1-91ef-477d-a69c-1976a3d06037",
+	'createParseStepsForVariableReferences',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000000",
+	1,
+	'// create a parse step for each statement that references a variable declared in the first re-parse step
+
+select one last_unaffected_statement_before related by self->ACT_SMT[R1610];
+select one first_unaffected_statement_after related by self->ACT_SMT[R1611];
+select one blk related by last_unaffected_statement_before->ACT_BLK[R602];
+if ( empty blk )
+  select one blk related by first_unaffected_statement_after->ACT_BLK[R602];
+end if;
+if ( not_empty blk )
+  select many v_locs related by blk->V_VAR[R823]->V_LOC[R835];
+  for each v_loc in v_locs
+    if ( ( empty last_unaffected_statement_before or ( last_unaffected_statement_before.EndLineNumber < v_loc.LineNumber or
+                                                       last_unaffected_statement_before.EndLineNumber == v_loc.LineNumber and 
+                                                       last_unaffected_statement_before.EndPosition < v_loc.StartPosition ) ) and
+         ( empty first_unaffected_statement_after or ( first_unaffected_statement_after.LineNumber > v_loc.LineNumber or
+                                                       first_unaffected_statement_after.LineNumber == v_loc.LineNumber and 
+                                                       first_unaffected_statement_after.StartPosition > v_loc.EndPosition ) ) )
+      select any prior_loc related by v_loc->V_VAR[R835]->V_LOC[R835] where ( selected.LineNumber < v_loc.LineNumber or
+                                                                              selected.LineNumber == v_loc.LineNumber and selected.StartPosition < v_loc.StartPosition );
+      if ( empty prior_loc ) // this is the first declaration
+        select many referring_locs related by v_loc->V_VAR[R835]->V_LOC[R835] where ( selected.Id != v_loc.Id );
+        for each referring_loc in referring_locs
+          
+          select one act related by self->ACT_ACT[R1613];
+          diffStartIndex = Util::lineAndColumnToPosition( text:param.oldText, line:referring_loc.LineNumber, column:referring_loc.StartPosition ) + param.deltaLength;
+          diffEndIndex = Util::lineAndColumnToPosition( text:param.oldText, line:referring_loc.LineNumber, column:referring_loc.EndPosition ) + param.deltaLength;
+          act.createParseStep( diffStartIndex:diffStartIndex, diffEndIndex:diffEndIndex, deltaLength:param.deltaLength, bodyText:param.bodyText, oldText:param.oldText );
+          
+        end for;
+      end if;
+    end if;
+  end for;
+end if;',
+	1,
+	'',
+	"1df09caf-7e93-4f99-ace4-7689b4bb95e7",
+	0);
+INSERT INTO O_TPARM
+	VALUES ("8ecd191a-bb67-476b-a775-629a3b733af3",
+	"3bf35666-183c-4f35-8cf3-f08a980659a9",
+	'bodyText',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"31245759-e49e-4037-99c0-fc006e7aafaf",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("4c106da0-b576-48e9-b6a9-d9e748dae821",
+	"3bf35666-183c-4f35-8cf3-f08a980659a9",
+	'oldText',
+	"ba5eda7a-def5-0000-0000-000000000004",
+	0,
+	'',
+	"8ecd191a-bb67-476b-a775-629a3b733af3",
+	'');
+INSERT INTO O_TPARM
+	VALUES ("31245759-e49e-4037-99c0-fc006e7aafaf",
+	"3bf35666-183c-4f35-8cf3-f08a980659a9",
+	'deltaLength',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	"00000000-0000-0000-0000-000000000000",
+	'');
 INSERT INTO O_NBATTR
 	VALUES ("e07c3f50-05b1-4ff2-a3c9-701f6adea329",
 	"db41bab1-91ef-477d-a69c-1976a3d06037");

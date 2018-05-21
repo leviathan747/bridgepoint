@@ -1,6 +1,7 @@
 package org.xtuml.bp.ui.text.activity;
 
 import java.io.StringReader;
+import java.util.Iterator;
 
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IMarker;
@@ -12,8 +13,10 @@ import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.text.IDocumentListener;
 import org.eclipse.jface.text.IRegion;
 import org.eclipse.jface.text.ITextDoubleClickStrategy;
+import org.eclipse.jface.text.Position;
 import org.eclipse.jface.text.Region;
 import org.eclipse.jface.text.TextViewer;
+import org.eclipse.jface.text.source.Annotation;
 import org.eclipse.jface.text.source.IAnnotationAccess;
 import org.eclipse.jface.text.source.IAnnotationModel;
 import org.eclipse.jface.viewers.StructuredSelection;
@@ -53,6 +56,7 @@ import org.xtuml.bp.ui.text.IUITextHelpContextIds;
 import org.xtuml.bp.ui.text.TextPlugin;
 import org.xtuml.bp.ui.text.annotation.ActivityAnnotationAccess;
 import org.xtuml.bp.ui.text.annotation.ActivityProblem;
+import org.xtuml.bp.ui.text.annotation.ActivityProblemAnnotation;
 import org.xtuml.bp.ui.text.editor.BPTextDefaultTextDoubleClickStategy;
 import org.xtuml.bp.ui.text.editor.oal.OALEditor;
 
@@ -193,7 +197,20 @@ public class ActivityEditor extends OALEditor {
                 if ( null == m_parseRegion ) m_parseRegion = getDiff( newText, m_oldText );
                 deltaLength = newText.length() - m_oldText.length();
                 if ( null != body ) {
-                    body.Createparsesteps( newText, deltaLength, m_parseRegion.getOffset() + m_parseRegion.getLength(), m_parseRegion.getOffset(), m_oldText );
+                    body.Createparsestep( newText, deltaLength, m_parseRegion.getOffset() + m_parseRegion.getLength(), m_parseRegion.getOffset(), m_oldText );
+                    // create parse step for existing error markers
+                    Iterator<?> problemIterator = m_myAnnotationModel.getAnnotationIterator();
+                    while ( problemIterator.hasNext() ) {
+                        Annotation problem = (Annotation)problemIterator.next();
+                        if ( problem instanceof ActivityProblemAnnotation ) {
+                            ActivityProblemAnnotation activityProblem = (ActivityProblemAnnotation)problem;
+                            if ( activityProblem.fProblem.isSemanticProblem() ) {
+                                Position pos = m_myAnnotationModel.getPosition( activityProblem );
+                                body.Createparsestep( newText, deltaLength, pos.getOffset() + pos.getLength(), pos.getOffset(), m_oldText );
+                            }
+                        }
+                    }
+                    body.Sequenceandcollapseparsesteps();
                 }
                 
                 // get first step
@@ -221,7 +238,7 @@ public class ActivityEditor extends OALEditor {
                         int parseOffsetLine = DocumentUtil.positionToLine( m_parseRegion.getOffset(), new Document(newText) );
                         int parseOffsetCol = DocumentUtil.positionToCol( m_parseRegion.getOffset(), new Document(newText) );
                         parser.partial_block( m_modelElement, step.Getblock(), parseOffsetLine, parseOffsetCol );
-                        nextStep = ParseStep_c.getOnePAR_STPOnR1612Follows( step );
+                        nextStep = ParseStep_c.getOnePAR_STPOnR1612Precedes( step );
                         parseCompleted = ( null == nextStep ); // parse is completed when there are no more parse steps
                     }
                 } catch (TokenStreamException e) {
@@ -230,7 +247,7 @@ public class ActivityEditor extends OALEditor {
                         parser.reportError(tsre.recog);
                     } else {
                         String errorMsg = "Internal parser error.  Token stream exception in parser.  OAL in this action home caused an exception in the parser."; //$NON-NLS-1$
-                        ActivityProblem ap = new ActivityProblem(errorMsg, IMarker.SEVERITY_ERROR, 0, 0, 0, m_ae_input);
+                        ActivityProblem ap = new ActivityProblem(errorMsg, IMarker.SEVERITY_ERROR, 0, 0, 0, false, m_ae_input);
                         m_myAnnotationModel.acceptProblem(ap);
                         TextPlugin.logError(errorMsg, e);
                     }
@@ -239,22 +256,21 @@ public class ActivityEditor extends OALEditor {
                 } catch (InterruptedException e) {
                 } catch (Throwable t) {
                     String errorMsg = "Internal parser error.  Parsing thread interrupted pre-maturely.  OAL in this action home caused an exception in the parser."; //$NON-NLS-1$
-                    ActivityProblem ap = new ActivityProblem(errorMsg, IMarker.SEVERITY_ERROR, 0, 0, 0, m_ae_input);
+                    ActivityProblem ap = new ActivityProblem(errorMsg, IMarker.SEVERITY_ERROR, 0, 0, 0, false, m_ae_input);
                     m_myAnnotationModel.acceptProblem(ap);
                     // This throwable catches all the un-checked exceptions that
                     // occur in the thread, and logs them
                     // appropriately.
                     TextPlugin.logError(errorMsg, t);
                 } finally {
-                	if ( runningPartialParse ) {
+                    if ( runningPartialParse ) {
                         if ( null != step ) step.Dispose();
                         step = nextStep;
-                        body.Reconcilelocations( newText, deltaLength, m_parseRegion.getOffset() + m_parseRegion.getLength(), m_parseRegion.getOffset(), m_oldText );
                         parseRunning = ( null != step );
-                	}
-                	else {
-                		parseRunning = false;
-                	}
+                    }
+                    else {
+                        parseRunning = false;
+                    }
                 }
             }
 
@@ -270,6 +286,9 @@ public class ActivityEditor extends OALEditor {
                 }
             }
             if ( parseCompleted ) {
+                if ( tryPartialParse && null != body ) {
+                    body.Reconcilelocations( newText, deltaLength, m_parseRegion.getOffset() + m_parseRegion.getLength(), m_parseRegion.getOffset(), m_oldText );
+                }
                 m_oldText = newText;
             }
 

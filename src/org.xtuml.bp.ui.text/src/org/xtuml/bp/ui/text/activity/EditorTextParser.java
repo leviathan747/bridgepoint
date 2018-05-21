@@ -103,6 +103,7 @@ public void reportError(RecognitionException ex)
 			parserLineNumber,
 			charStart,
 			charEnd,
+			ex instanceof pt_SemanticException,
 			activityEditorInput);
 
 	((ActivityAnnotationModel) model).acceptProblem(ap);

@@ -264,6 +264,8 @@ public class OALCompletionProcessor implements IContentAssistProcessor {
             	Statement_c precedingStatement = null;
                 int precedingStatementPosition = 0;
             	Statement_c[] smts = Statement_c.getManyACT_SMTsOnR602(Block_c.getManyACT_BLKsOnR612( body ));
+            	Statement_c[] committed_smts = Statement_c.getManyACT_SMTsOnR602(Block_c.getManyACT_BLKsOnR601( body ));
+            	smts = NonRootModelElement.setUnion( smts, committed_smts, new Statement_c[0] );
             	for ( Statement_c smt : smts ) {
             		int smtPosition = DocumentUtil.lineAndColumnToPosition( smt.getEndlinenumber(), smt.getEndposition(), document );
             		precedingStatementPosition = null != precedingStatement ? DocumentUtil.lineAndColumnToPosition( precedingStatement.getEndlinenumber(), precedingStatement.getEndposition(), document ) : 0;
