@@ -36495,14 +36495,6 @@ if ( not_empty enclosing_block )
   relate enclosing_block to act across R699;
 end if;
 
-// link the last parsed statement to the boundary statement
-select any step related by act->PAR_STP[R1613] where ( selected.processing );
-select one boundary_statement related by step->ACT_SMT[R1611];
-select any statement from instances of ACT_SMT where ( selected.Statement_ID == param.b1_statement3_id );
-if ( not_empty boundary_statement and not_empty statement )
-  relate boundary_statement to statement across R661.''precedes'';
-end if;
-
 return param.a4_rule_id;',
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
@@ -36701,32 +36693,34 @@ if ( not_empty blk )
     select any step related by act->PAR_STP[R1613] where ( selected.processing );
     select one last_unaffected_statement_before related by step->ACT_SMT[R1610];
     select one first_unaffected_statement_after related by step->ACT_SMT[R1611];
-    select many statements related by blk->ACT_SMT[R602] where
-      ( ( empty last_unaffected_statement_before or ( last_unaffected_statement_before.LineNumber < selected.LineNumber or
-                                                      last_unaffected_statement_before.LineNumber == selected.LineNumber and 
-                                                      last_unaffected_statement_before.StartPosition < selected.StartPosition ) ) and
-        ( empty first_unaffected_statement_after or ( first_unaffected_statement_after.LineNumber > selected.LineNumber or
-                                                      first_unaffected_statement_after.LineNumber == selected.LineNumber and 
-                                                      first_unaffected_statement_after.StartPosition > selected.StartPosition ) ) );
+    select many statements related by blk->ACT_SMT[R602];
     for each statement in statements
+      if ( ( empty last_unaffected_statement_before or ( last_unaffected_statement_before.LineNumber < statement.LineNumber or
+                                                         last_unaffected_statement_before.LineNumber == statement.LineNumber and 
+                                                         last_unaffected_statement_before.StartPosition < statement.StartPosition ) ) and
+           ( empty first_unaffected_statement_after or ( first_unaffected_statement_after.LineNumber > statement.LineNumber or
+                                                         first_unaffected_statement_after.LineNumber == statement.LineNumber and 
+                                                         first_unaffected_statement_after.StartPosition > statement.StartPosition ) ) );
         statement.dispose();
+      end if;
     end for;
 
     // dispose any variables declared within the bounding statements
-    select many v_locs related by blk->V_VAR[R823]->V_LOC[R835] where
-      ( ( empty last_unaffected_statement_before or ( last_unaffected_statement_before.EndLineNumber < selected.LineNumber or
-                                                      last_unaffected_statement_before.EndLineNumber == selected.LineNumber and 
-                                                      last_unaffected_statement_before.EndPosition < selected.StartPosition ) ) and
-        ( empty first_unaffected_statement_after or ( first_unaffected_statement_after.LineNumber > selected.LineNumber or
-                                                      first_unaffected_statement_after.LineNumber == selected.LineNumber and 
-                                                      first_unaffected_statement_after.StartPosition > selected.EndPosition ) ) );
+    select many v_locs related by blk->V_VAR[R823]->V_LOC[R835];
     select many v_vars_to_delete from instances of V_VAR where false;
     for each v_loc in v_locs
-      select any prior_loc related by v_loc->V_VAR[R835]->V_LOC[R835] where ( selected.LineNumber < v_loc.LineNumber or
-                                                                              selected.LineNumber == v_loc.LineNumber and selected.StartPosition < v_loc.StartPosition );
-      if ( empty prior_loc ) // this is the first declaration
-        select one v_var related by v_loc->V_VAR[R835];
-        v_vars_to_delete = v_vars_to_delete | v_var; // cannot delete right here because there is potential to iterate over a deleted V_LOC instance
+      if ( ( empty last_unaffected_statement_before or ( last_unaffected_statement_before.EndLineNumber < v_loc.LineNumber or
+                                                         last_unaffected_statement_before.EndLineNumber == v_loc.LineNumber and 
+                                                         last_unaffected_statement_before.EndPosition < v_loc.StartPosition ) ) and
+           ( empty first_unaffected_statement_after or ( first_unaffected_statement_after.LineNumber > v_loc.LineNumber or
+                                                         first_unaffected_statement_after.LineNumber == v_loc.LineNumber and 
+                                                         first_unaffected_statement_after.StartPosition > v_loc.EndPosition ) ) );
+        select any prior_loc related by v_loc->V_VAR[R835]->V_LOC[R835] where ( selected.LineNumber < v_loc.LineNumber or
+                                                                                selected.LineNumber == v_loc.LineNumber and selected.StartPosition < v_loc.StartPosition );
+        if ( empty prior_loc ) // this is the first declaration
+          select one v_var related by v_loc->V_VAR[R835];
+          v_vars_to_delete = v_vars_to_delete | v_var; // cannot delete right here because there is potential to iterate over a deleted V_LOC instance
+        end if;
       end if;
     end for;
     for each v_var in v_vars_to_delete

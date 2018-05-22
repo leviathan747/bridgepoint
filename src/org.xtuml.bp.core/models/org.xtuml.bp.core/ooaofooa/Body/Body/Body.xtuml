@@ -1164,8 +1164,7 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'// TODO this does not consider that a position could be within multiple statements (if, while, etc)
-select any last_unaffected_statement_before from instances of ACT_SMT where false;
+	'select any last_unaffected_statement_before from instances of ACT_SMT where false;
 select any first_unaffected_statement_after from instances of ACT_SMT where false;
 select many smts related by self->ACT_BLK[R612]->ACT_SMT[R602];
 select many committed_smts related by self->ACT_BLK[R601]->ACT_SMT[R602];
@@ -1188,6 +1187,15 @@ for each smt in smts
     end if;
   end if;
 end for;
+
+// if the statements are contained in different blocks, give up and parse the whole body
+// this could be an opporunity for optimization
+select one blk1 related by last_unaffected_statement_before->ACT_BLK[R602];
+select one blk2 related by first_unaffected_statement_after->ACT_BLK[R602];
+if ( not_empty blk1 and not_empty blk2 and blk1.Block_ID != blk2.Block_ID )
+  select any last_unaffected_statement_before from instances of ACT_SMT where false;
+  select any first_unaffected_statement_after from instances of ACT_SMT where false;
+end if;
 
 // create a step for this diff
 create object instance step of PAR_STP;
@@ -1213,8 +1221,65 @@ end if;
 // the parsed tokens have the correct line and column information.
 step.text = Util::replaceAll( s:Util::substr( s:param.bodyText, i1:0, i2:i1 ), regex:"\\S", replacement:" " ) +
             Util::substr( s:param.bodyText, i1:i1, i2:i2 );
+            
+// see if this step is contained in another step
+select any containing_step related by self->PAR_STP[R1613] where ( selected.Id != step.Id and
+                                                                   ( selected.startLine < step.startLine or selected.startLine == step.startLine and selected.startCol <= step.startCol ) and
+                                                                   ( selected.endLine > step.endLine or selected.endLine == step.endLine and selected.endCol >= step.endCol ) );
+if ( not_empty containing_step ) // this step is useless
+  step.dispose();
+else
 
-step.createParseStepsForVariableReferences( deltaLength:param.deltaLength, bodyText:param.bodyText, oldText:param.oldText );',
+  // see if this step contains other steps
+  select many contained_steps related by self->PAR_STP[R1613] where ( selected.Id != step.Id and
+                                                                      ( selected.startLine > step.startLine or selected.startLine == step.startLine and selected.startCol >= step.startCol ) and
+                                                                      ( selected.endLine < step.endLine or selected.endLine == step.endLine and selected.endCol <= step.endCol ) );
+  for each contained_step in contained_steps
+    contained_step.dispose();
+  end for;
+
+  // if we are parsing the whole body, don''t bother calculating follow up parse steps
+  if ( not_empty last_unaffected_statement_before or not_empty first_unaffected_statement_after )
+    step.createParseStepsForVariableReferences( deltaLength:param.deltaLength, bodyText:param.bodyText, oldText:param.oldText );
+  end if;
+  
+  // see if this step needs to be combined with another step
+  select any preceding_step related by self->PAR_STP[R1613] where ( selected.Id != step.Id and 
+                                                                    ( selected.startLine < step.startLine or selected.startLine == step.startLine and selected.startCol <= step.startCol ) and
+                                                                    ( selected.endLine > step.startLine or selected.endLine == step.startLine and selected.endCol >= step.startCol ) and
+                                                                    ( selected.endLine < step.endLine or selected.endLine == step.endLine and selected.endCol <= step.endCol ) );
+  if ( not_empty preceding_step )
+    select one preceding_step_following_smt related by preceding_step->ACT_SMT[R1611];
+    select one step_preceding_smt related by step->ACT_SMT[R1610];
+    if ( not_empty preceding_step_following_smt )
+      unrelate preceding_step_following_smt from preceding_step across R1611;
+    end if;
+    if ( not_empty step_preceding_smt )
+      relate step_preceding_smt to preceding_step across R1611;
+    end if;
+    preceding_step.text = Util::combineParseText( s1:preceding_step.text, s2:step.text );
+    step.dispose();
+  else
+
+    select any following_step related by self->PAR_STP[R1613] where ( selected.Id != step.Id and
+                                                                      ( step.startLine < selected.startLine or step.startLine == selected.startLine and step.startCol <= selected.startCol ) and
+                                                                      ( step.endLine > selected.startLine or step.endLine == selected.startLine and step.endCol >= selected.startCol ) and
+                                                                      ( step.endLine < selected.endLine or step.endLine == selected.endLine and step.endCol <= selected.endCol ) );
+    if ( not_empty following_step )
+      select one following_step_preceding_smt related by following_step->ACT_SMT[R1610];
+      select one step_following_smt related by step->ACT_SMT[R1611];
+      if ( not_empty following_step_preceding_smt )
+        unrelate following_step_preceding_smt from following_step across R1610;
+      end if;
+      if ( not_empty step_following_smt )
+        relate step_following_smt to following_step across R1610;
+      end if;
+      step.text = Util::combineParseText( s1:step.text, s2:following_step.text );
+    end if;
+
+  end if;
+
+end if;',
 	1,
 	'',
 	"93b8e8fa-9b9e-414e-a803-ce4f9cc6e12d",
@@ -2036,10 +2101,9 @@ INSERT INTO O_TFR
 	'',
 	"ba5eda7a-def5-0000-0000-000000000000",
 	1,
-	'select any first_step from instances of PAR_STP where false;
+	'// iterate over all steps and insert them based on location in the body
+select any first_step from instances of PAR_STP where false;
 select many steps related by self->PAR_STP[R1613];
-
-// iterate over all steps and insert them based on location in the body
 for each step in steps
 
   if ( empty first_step ) // if this is the first step in the list, automatically consider it the first step
@@ -2048,10 +2112,8 @@ for each step in steps
     current_step = first_step;
     select any last_step from instances of PAR_STP where false;
     while ( not_empty current_step ) // insert the step into the order
-      // TODO this is simplistic ordering and does not consider all cases
-      select one step_first_smt related by step->ACT_SMT[R1610];
-      select one current_step_first_smt related by current_step->ACT_SMT[R1610];
-      if ( step_first_smt.LineNumber < current_step_first_smt.LineNumber )
+      if ( step.startLine < current_step.startLine or
+         ( step.startLine == current_step.startLine and step.startCol < current_step.startCol ) )
         break;
       end if;
       last_step = current_step;
