@@ -12,6 +12,7 @@ public class DocumentUtil {
                 position += document.getLineLength( i );
             } catch (BadLocationException e) {
                 e.printStackTrace();
+                break;
             }
         }
         position += column - 1;
@@ -22,9 +23,13 @@ public class DocumentUtil {
         for ( int i = 0, count = 0; i < document.getNumberOfLines(); i++ ) {
             try {
                 count += document.getLineLength(i);
-                if ( count >= position ) return i + 1;
+                if ( count >= position ) {
+                	if ( count == position ) return i + 2;
+                	else return i + 1;
+                }
             } catch (BadLocationException e) {
                 e.printStackTrace();
+                break;
             }
         }
         return 0;
@@ -33,10 +38,14 @@ public class DocumentUtil {
     public static int positionToCol( int position, IDocument document ) {
         for ( int i = 0, count = 0; i < document.getNumberOfLines(); i++ ) {
             try {
-                if ( position - count <= document.getLineLength(i) ) return position - count + 1;
+                if ( position - count <= document.getLineLength(i) ) {
+                	if ( position - count == document.getLineLength(i) ) return 1;
+                	else return position - count + 1;
+                }
                 count += document.getLineLength(i);
             } catch (BadLocationException e) {
                 e.printStackTrace();
+                break;
             }
         }
         return 0;

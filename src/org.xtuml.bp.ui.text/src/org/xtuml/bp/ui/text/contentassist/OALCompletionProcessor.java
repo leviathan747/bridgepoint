@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
 import org.eclipse.jface.text.IDocument;
 import org.eclipse.jface.text.IRegion;
 import org.eclipse.jface.text.ITextViewer;
@@ -16,53 +17,38 @@ import org.eclipse.jface.text.contentassist.IContentAssistProcessor;
 import org.eclipse.jface.text.contentassist.IContextInformation;
 import org.eclipse.jface.text.contentassist.IContextInformationValidator;
 import org.eclipse.swt.graphics.Image;
-import org.xtuml.bp.als.oal.ParseRunnable;
-import org.xtuml.bp.als.oal.PartialParseRunnable;
-import org.xtuml.bp.core.Action_c;
 import org.xtuml.bp.core.Association_c;
 import org.xtuml.bp.core.Attribute_c;
+import org.xtuml.bp.core.Block_c;
 import org.xtuml.bp.core.Body_c;
-import org.xtuml.bp.core.BridgeBody_c;
 import org.xtuml.bp.core.BridgeParameter_c;
 import org.xtuml.bp.core.Bridge_c;
 import org.xtuml.bp.core.CorePlugin;
-import org.xtuml.bp.core.DerivedAttributeBody_c;
-import org.xtuml.bp.core.DerivedBaseAttribute_c;
 import org.xtuml.bp.core.EnumerationDataType_c;
 import org.xtuml.bp.core.Enumerator_c;
 import org.xtuml.bp.core.ExternalEntity_c;
-import org.xtuml.bp.core.Port_c;
-import org.xtuml.bp.core.StateMachineEvent_c;
-import org.xtuml.bp.core.SymbolicConstant_c;
-import org.xtuml.bp.core.FunctionBody_c;
 import org.xtuml.bp.core.FunctionParameter_c;
 import org.xtuml.bp.core.Function_c;
 import org.xtuml.bp.core.ModelClass_c;
-import org.xtuml.bp.core.OperationBody_c;
 import org.xtuml.bp.core.OperationParameter_c;
 import org.xtuml.bp.core.Operation_c;
+import org.xtuml.bp.core.Port_c;
 import org.xtuml.bp.core.Pref_c;
 import org.xtuml.bp.core.PropertyParameter_c;
+import org.xtuml.bp.core.ProposalCalculationCue_c;
 import org.xtuml.bp.core.ProposalList_c;
 import org.xtuml.bp.core.Proposal_c;
 import org.xtuml.bp.core.Proposaltypes_c;
-import org.xtuml.bp.core.ProposalCalculationCue_c;
-import org.xtuml.bp.core.ProvidedOperationBody_c;
-import org.xtuml.bp.core.ProvidedOperation_c;
-import org.xtuml.bp.core.ProvidedSignalBody_c;
-import org.xtuml.bp.core.ProvidedSignal_c;
-import org.xtuml.bp.core.RequiredOperationBody_c;
-import org.xtuml.bp.core.RequiredOperation_c;
-import org.xtuml.bp.core.RequiredSignalBody_c;
-import org.xtuml.bp.core.RequiredSignal_c;
-import org.xtuml.bp.core.StateActionBody_c;
 import org.xtuml.bp.core.StateMachineEventDataItem_c;
-import org.xtuml.bp.core.TransitionActionBody_c;
+import org.xtuml.bp.core.StateMachineEvent_c;
+import org.xtuml.bp.core.Statement_c;
+import org.xtuml.bp.core.SymbolicConstant_c;
 import org.xtuml.bp.core.common.BridgePointPreferencesStore;
-import org.xtuml.bp.core.common.ClassQueryInterface_c;
 import org.xtuml.bp.core.common.NonRootModelElement;
+import org.xtuml.bp.core.util.BodyUtil;
 import org.xtuml.bp.core.util.DocumentUtil;
 import org.xtuml.bp.ui.text.AbstractModelElementPropertyEditorInput;
+import org.xtuml.bp.ui.text.activity.ActivityEditor;
 import org.xtuml.bp.ui.text.editor.oal.OALEditor;
 
 public class OALCompletionProcessor implements IContentAssistProcessor {
@@ -71,7 +57,7 @@ public class OALCompletionProcessor implements IContentAssistProcessor {
     private static final Pattern SLCOMMENT = Pattern.compile( "\\/\\/.*$", Pattern.MULTILINE );
     private static final Pattern MLCOMMENT = Pattern.compile( "\\/\\*[\\s\\S]*\\*\\/", Pattern.MULTILINE );
 
-    private OALEditor editor;
+    private ActivityEditor editor;
     private boolean isAutoTriggered;
     private boolean inSession;
     private char[] triggerCharacters;
@@ -84,7 +70,9 @@ public class OALCompletionProcessor implements IContentAssistProcessor {
     
     public OALCompletionProcessor( OALEditor editor, ContentAssistant assistant ) {
         this();
-        this.editor = editor;
+        if ( editor instanceof ActivityEditor ) {
+            this.editor = (ActivityEditor)editor;
+        }
         assistant.addCompletionListener( new ICompletionListener() {
             @Override
             public void assistSessionStarted( ContentAssistEvent event ) {
@@ -114,17 +102,16 @@ public class OALCompletionProcessor implements IContentAssistProcessor {
     public ICompletionProposal[] computeCompletionProposals( IDocument document, NonRootModelElement element, int position ) {
         if ( isInsideComment( document, position ) ) return NO_PROPOSALS;
 
-        // parse from the closest parsed statement
-        parseActivityPartial( document, element, position );
-        Body_c body = getBody( element );
+        // wait for an existing parse thread
+        if ( null != editor && getNeedsParse() ) {
+            parseBody( document, element, position );
+            editor.waitForParseThread();
+            setNeedsParse( false );
+        }
 
         // get the list
-        ProposalList_c list = ProposalList_c.getOneP_PLOnR1603( body, new ClassQueryInterface_c() {
-            @Override
-            public boolean evaluate( Object selected ) {
-                return DocumentUtil.lineAndColumnToPosition( ((ProposalList_c)selected).getLine(), ((ProposalList_c)selected).getCol(), document ) <= position;
-            }
-        });
+        Body_c body = BodyUtil.getBody( element );
+        ProposalList_c list = ProposalList_c.getOneP_PLOnR1603( body, selected -> DocumentUtil.lineAndColumnToPosition( ((ProposalList_c)selected).getLine(), ((ProposalList_c)selected).getCol(), document ) <= position );
         if ( null == list ) return NO_PROPOSALS;
 
         // add proposals
@@ -253,8 +240,11 @@ public class OALCompletionProcessor implements IContentAssistProcessor {
         }
     }
 
-    private synchronized void setInSession(boolean inSession) {
+    private synchronized void setInSession( boolean inSession ) {
         this.inSession = inSession;
+        if ( null != this.editor ) {
+            this.editor.enableParseWhileEditing( !inSession );  // disable parse while editing within a content assist session
+        }
         notifyAll();
     }
     
@@ -265,6 +255,32 @@ public class OALCompletionProcessor implements IContentAssistProcessor {
     public synchronized void setNeedsParse( boolean needsParse ) {
         this.needsParse = needsParse;
     }
+    
+    private void parseBody( IDocument document, NonRootModelElement element, int position ) {
+    	if ( null != editor ) {
+    		IRegion parseRegion = new Region( 0, document.getLength() );
+            Body_c body = BodyUtil.getBody( element );
+            if ( null != body ) {
+            	Statement_c precedingStatement = null;
+                int precedingStatementPosition = 0;
+            	Statement_c[] smts = Statement_c.getManyACT_SMTsOnR602(Block_c.getManyACT_BLKsOnR612( body ));
+            	Statement_c[] committed_smts = Statement_c.getManyACT_SMTsOnR602(Block_c.getManyACT_BLKsOnR601( body ));
+            	smts = NonRootModelElement.setUnion( smts, committed_smts, new Statement_c[0] );
+            	for ( Statement_c smt : smts ) {
+            		int smtPosition = DocumentUtil.lineAndColumnToPosition( smt.getEndlinenumber(), smt.getEndposition(), document );
+            		precedingStatementPosition = null != precedingStatement ? DocumentUtil.lineAndColumnToPosition( precedingStatement.getEndlinenumber(), precedingStatement.getEndposition(), document ) : 0;
+            		if ( smtPosition < position && ( null == precedingStatement || null != precedingStatement && smtPosition > precedingStatementPosition ) ) {
+            			precedingStatement = smt;
+            		}
+            	}
+            	precedingStatementPosition = null != precedingStatement ? DocumentUtil.lineAndColumnToPosition( precedingStatement.getEndlinenumber(), precedingStatement.getEndposition(), document ) : 0;
+            	parseRegion = new Region( precedingStatementPosition + 1, position - precedingStatementPosition - 1 );
+            }
+            ActivityEditor.setWaitBeforeParse( 0 ); // parse for content assist immediately
+            editor.scheduleContentAssistParse( parseRegion );
+            ActivityEditor.resetWaitBeforeParse();
+    	}
+    }
 
     private synchronized void waitForSessionToStart() {
         while ( !inSession ) {
@@ -272,48 +288,6 @@ public class OALCompletionProcessor implements IContentAssistProcessor {
                 wait();
             }
             catch ( InterruptedException e ) {}
-        }
-    }
-    
-    private Body_c getBody( NonRootModelElement element ) {
-        Body_c body = null;
-        if ( element instanceof RequiredSignal_c ) {
-            body = Body_c.getOneACT_ACTOnR698(RequiredSignalBody_c.getOneACT_RSBOnR684((RequiredSignal_c)element));
-        }
-        else if ( element instanceof RequiredOperation_c ) {
-            body = Body_c.getOneACT_ACTOnR698(RequiredOperationBody_c.getOneACT_ROBOnR685((RequiredOperation_c)element));
-        }
-        else if ( element instanceof ProvidedSignal_c ) {
-            body = Body_c.getOneACT_ACTOnR698(ProvidedSignalBody_c.getOneACT_PSBOnR686((ProvidedSignal_c)element));
-        }
-        else if ( element instanceof ProvidedOperation_c ) {
-            body = Body_c.getOneACT_ACTOnR698(ProvidedOperationBody_c.getOneACT_POBOnR687((ProvidedOperation_c)element));
-        }
-        else if ( element instanceof Action_c ) {
-            body = Body_c.getOneACT_ACTOnR698(StateActionBody_c.getOneACT_SABOnR691((Action_c)element));
-            if ( null == body ) body = Body_c.getOneACT_ACTOnR698(TransitionActionBody_c.getOneACT_TABOnR688((Action_c)element));
-        }
-        else if ( element instanceof DerivedBaseAttribute_c ) {
-            body = Body_c.getOneACT_ACTOnR698(DerivedAttributeBody_c.getManyACT_DABsOnR693((DerivedBaseAttribute_c)element));
-        }
-        else if ( element instanceof Function_c ) {
-            body = Body_c.getOneACT_ACTOnR698(FunctionBody_c.getManyACT_FNBsOnR695((Function_c)element));
-        }
-        else if ( element instanceof Operation_c ) {
-            body = Body_c.getOneACT_ACTOnR698(OperationBody_c.getManyACT_OPBsOnR696((Operation_c)element));
-        }
-        else if ( element instanceof Bridge_c ) {
-            body = Body_c.getOneACT_ACTOnR698(BridgeBody_c.getManyACT_BRBsOnR697((Bridge_c)element));
-        }
-        return body;
-    }
-    
-    private void parseActivityPartial( IDocument document, NonRootModelElement element, int position ) {
-        if ( null != element && getNeedsParse() ) {
-            ParseRunnable parseRunner = new PartialParseRunnable( element, document.get(),
-                    DocumentUtil.positionToLine( position, document ), DocumentUtil.positionToCol( position, document ) );
-            parseRunner.run();
-            setNeedsParse(false);
         }
     }
     
@@ -353,7 +327,7 @@ public class OALCompletionProcessor implements IContentAssistProcessor {
         return Pattern.compile( "\\A" + whitespaceAndCommentPattern + "|" + whitespaceAndCommentPattern + "\\z", SLCOMMENT.flags() | MLCOMMENT.flags() ).matcher( input ).replaceAll( "" );
     }
     
-    public void setUp() {
+    private void setUp() {
         this.editor = null;
         this.isAutoTriggered = false;
         this.setInSession(false);
@@ -361,8 +335,8 @@ public class OALCompletionProcessor implements IContentAssistProcessor {
         setNeedsParse(true);
     }
     
-    public void cleanUp( NonRootModelElement element ) {
-        Body_c body = getBody( element );
+    private void cleanUp( NonRootModelElement element ) {
+        Body_c body = BodyUtil.getBody( element );
         ProposalList_c list = ProposalList_c.getOneP_PLOnR1603( body );
         if ( null != list ) {
           list.Dispose();

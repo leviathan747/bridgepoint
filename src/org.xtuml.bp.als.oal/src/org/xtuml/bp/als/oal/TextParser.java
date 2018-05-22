@@ -61,8 +61,8 @@ public class TextParser extends OalParser {
 		super(modelRoot, lexer);
 	}
 
-	public TextParser(Ooaofooa modelRoot, TokenStream lexer, int contentAssistLine, int contentAssistCol) {
-		super(modelRoot, lexer, contentAssistLine, contentAssistCol);
+	public TextParser(Ooaofooa modelRoot, TokenStream lexer, boolean contentAssist) {
+		super(modelRoot, lexer, contentAssist);
 	}
 	
 	public NonRootModelElement getContainer( Object model ) {
@@ -185,8 +185,23 @@ public class TextParser extends OalParser {
 				((Component_c) m_container).Clearscope();
 			}
 		}
-		m_oal_context = new Oal_validate(m_container, ( m_contentAssistLine != 0 && m_contentAssistCol != 0 ) );
+		m_oal_context = new Oal_validate(m_container, m_contentAssist, 0, 0);
 		return super.action(m_action_id, m_type);
+	}
+
+	public final UUID partial_block( NonRootModelElement model, UUID block_id, int offsetLine, int offsetCol )
+			throws RecognitionException, TokenStreamException,
+			InterruptedException {
+		// The parser validation code assumes that all data types
+		// are loaded.
+		PersistableModelComponent.ensureDataTypesAvailable(getModelRoot());
+		
+		// get the container
+		m_container = getContainer( model );
+		
+		m_oal_context = new Oal_validate(m_container, m_contentAssist, offsetLine, offsetCol);
+
+		return super.partial_block( block_id );
 	}
 
 	protected String parserTokenText = " ";
@@ -225,7 +240,7 @@ public class TextParser extends OalParser {
 			}
 		}
 
-		if (reportError && ( m_contentAssistLine == 0 || m_contentAssistCol == 0 ) ) {
+		if (reportError) {
 			System.out.println("Parse error: " + parserMessage + "line: " + parserLineNumber);
 		}
 	}

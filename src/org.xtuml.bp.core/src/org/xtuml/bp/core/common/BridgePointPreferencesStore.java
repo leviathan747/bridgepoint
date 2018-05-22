@@ -81,7 +81,8 @@ public class BridgePointPreferencesStore implements IPreferenceModelStore {
 	public static final String CONTENT_ASSIST_INVOCATION_FORMAT = PREFIX + "content_assist_invocation_format"; //$NON-NLS-1$
 	public static final String CONTENT_ASSIST_ENABLE_AUTO_TRIGGERING = PREFIX + "content_assist_enable_auto_triggering"; //$NON-NLS-1$
 	public static final String CONTENT_ASSIST_AUTO_TRIGGER_SEQUENCES = PREFIX + "content_assist_auto_trigger_sequences"; //$NON-NLS-1$
-	public static final String CONTENT_ASSIST_ENABLE_PARTIAL_PARSING = PREFIX + "content_assist_enable_partial_parsing";
+
+	public static final String ENABLE_PARTIAL_PARSING = PREFIX + "content_assist_enable_partial_parsing";
 
 	public static final String ALLOW_CONCRETE_POLYS = PREFIX + "allow_concrete_polys";
 
@@ -136,7 +137,8 @@ public class BridgePointPreferencesStore implements IPreferenceModelStore {
         store.setValue(CONTENT_ASSIST_INVOCATION_FORMAT, prefs.contentAssistInvocationFormat);
         store.setValue(CONTENT_ASSIST_ENABLE_AUTO_TRIGGERING, prefs.contentAssistEnableAutoTriggering);
         store.setValue(CONTENT_ASSIST_AUTO_TRIGGER_SEQUENCES, prefs.contentAssistAutoTriggerSequences);
-        store.setValue(CONTENT_ASSIST_ENABLE_PARTIAL_PARSING, prefs.contentAssistEnablePartialParsing);
+
+        store.setValue(ENABLE_PARTIAL_PARSING, prefs.enablePartialParsing);
 
         store.setValue(ALLOW_CONCRETE_POLYS, prefs.allowConcretePolys);
                 
@@ -236,7 +238,8 @@ public class BridgePointPreferencesStore implements IPreferenceModelStore {
         prefs.contentAssistInvocationFormat = store.getString( CONTENT_ASSIST_INVOCATION_FORMAT );
         prefs.contentAssistEnableAutoTriggering = store.getBoolean( CONTENT_ASSIST_ENABLE_AUTO_TRIGGERING );
         prefs.contentAssistAutoTriggerSequences = store.getString( CONTENT_ASSIST_AUTO_TRIGGER_SEQUENCES );
-        prefs.contentAssistEnablePartialParsing = store.getBoolean( CONTENT_ASSIST_ENABLE_PARTIAL_PARSING );
+
+        prefs.enablePartialParsing = store.getBoolean( ENABLE_PARTIAL_PARSING );
 
         prefs.allowConcretePolys = store.getBoolean( ALLOW_CONCRETE_POLYS );
         
@@ -314,7 +317,8 @@ public class BridgePointPreferencesStore implements IPreferenceModelStore {
         prefs.contentAssistInvocationFormat = "labels";
         prefs.contentAssistEnableAutoTriggering = true;
         prefs.contentAssistAutoTriggerSequences = ".\n::\n->\n,";
-        prefs.contentAssistEnablePartialParsing = false;
+
+        prefs.enablePartialParsing = false;
 
         prefs.allowConcretePolys = false;
         

@@ -1073,13 +1073,49 @@ INSERT INTO O_BATTR
 INSERT INTO O_ATTR
 	VALUES ("295c4e40-9143-4302-800d-3f4884d0b073",
 	"e9011b75-e798-45a3-ac83-92ba7c04db4e",
-	"59bbc19f-5b3f-44c5-b0e5-7bd9a469573a",
+	"968461af-14bc-45f7-bf77-682c4edd60f8",
 	'Label',
 	'',
 	'',
 	'Label',
 	0,
 	"ba5eda7a-def5-0000-0000-000000000004",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("811f15a4-e486-47c0-b843-c968c877883b",
+	"e9011b75-e798-45a3-ac83-92ba7c04db4e");
+INSERT INTO O_BATTR
+	VALUES ("811f15a4-e486-47c0-b843-c968c877883b",
+	"e9011b75-e798-45a3-ac83-92ba7c04db4e");
+INSERT INTO O_ATTR
+	VALUES ("811f15a4-e486-47c0-b843-c968c877883b",
+	"e9011b75-e798-45a3-ac83-92ba7c04db4e",
+	"59bbc19f-5b3f-44c5-b0e5-7bd9a469573a",
+	'EndLineNumber',
+	'',
+	'',
+	'EndLineNumber',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000002",
+	'',
+	'');
+INSERT INTO O_NBATTR
+	VALUES ("968461af-14bc-45f7-bf77-682c4edd60f8",
+	"e9011b75-e798-45a3-ac83-92ba7c04db4e");
+INSERT INTO O_BATTR
+	VALUES ("968461af-14bc-45f7-bf77-682c4edd60f8",
+	"e9011b75-e798-45a3-ac83-92ba7c04db4e");
+INSERT INTO O_ATTR
+	VALUES ("968461af-14bc-45f7-bf77-682c4edd60f8",
+	"e9011b75-e798-45a3-ac83-92ba7c04db4e",
+	"811f15a4-e486-47c0-b843-c968c877883b",
+	'EndPosition',
+	'',
+	'',
+	'EndPosition',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	'');
 INSERT INTO O_ID

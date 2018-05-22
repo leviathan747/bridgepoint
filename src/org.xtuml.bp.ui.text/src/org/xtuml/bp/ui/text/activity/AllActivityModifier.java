@@ -216,6 +216,9 @@ public class AllActivityModifier extends ParserAllActivityModifier
         parseRunner.m_document = dp.getDocument(editorInput);
         parseRunner.m_myAnnotationModel = m_myAnnotationModel;
         parseRunner.m_modelElement = (NonRootModelElement)modelElement;
+        parseRunner.m_enableContentAssist = false;
+        parseRunner.m_newText = parseRunner.m_document.get();
+        parseRunner.m_forceFullParse = true;
         parseRunner.run();
         
         //

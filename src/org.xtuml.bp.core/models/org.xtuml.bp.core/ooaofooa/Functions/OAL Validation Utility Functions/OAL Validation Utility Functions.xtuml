@@ -10012,6 +10012,66 @@ INSERT INTO PE_PE
 	"9092f98e-34df-42d0-be42-dc91951c8a73",
 	"00000000-0000-0000-0000-000000000000",
 	1);
+INSERT INTO S_SYNC
+	VALUES ("7beec0a2-5cda-4e0f-a366-2dffe81e714a",
+	"00000000-0000-0000-0000-000000000000",
+	'get_offset_line',
+	'ParserValidateFunction: TRUE
+ParserUtilityFunction: TRUE
+
+Translate: native
+',
+	'return offsetLine;',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	0);
+INSERT INTO PE_PE
+	VALUES ("7beec0a2-5cda-4e0f-a366-2dffe81e714a",
+	1,
+	"9092f98e-34df-42d0-be42-dc91951c8a73",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
+	VALUES ("aa31e3ab-5e01-477b-80bb-07ba02d799ca",
+	"00000000-0000-0000-0000-000000000000",
+	'get_offset_col',
+	'ParserValidateFunction: TRUE
+ParserUtilityFunction: TRUE
+
+Translate: native
+',
+	'return offsetCol;',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	0,
+	'',
+	0);
+INSERT INTO PE_PE
+	VALUES ("aa31e3ab-5e01-477b-80bb-07ba02d799ca",
+	1,
+	"9092f98e-34df-42d0-be42-dc91951c8a73",
+	"00000000-0000-0000-0000-000000000000",
+	1);
+INSERT INTO S_SYNC
+	VALUES ("6bfc30d3-2f1f-4d14-ba11-ca2bba889746",
+	"00000000-0000-0000-0000-000000000000",
+	'get_dummy_token',
+	'ParserValidateFunction: TRUE
+ParserUtilityFunction: TRUE
+
+Translate: native
+',
+	'return new antlr.CommonToken();',
+	"89e59e5c-3853-4d30-9b45-6246db5f3d7b",
+	0,
+	'',
+	0);
+INSERT INTO PE_PE
+	VALUES ("6bfc30d3-2f1f-4d14-ba11-ca2bba889746",
+	1,
+	"9092f98e-34df-42d0-be42-dc91951c8a73",
+	"00000000-0000-0000-0000-000000000000",
+	1);
 INSERT INTO PE_PE
 	VALUES ("9092f98e-34df-42d0-be42-dc91951c8a73",
 	1,

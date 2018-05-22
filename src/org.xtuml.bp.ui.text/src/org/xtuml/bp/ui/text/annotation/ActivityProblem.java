@@ -32,6 +32,7 @@ public class ActivityProblem {
 	private String fMessage;
 	private int fSeverity;
 	private int startPosition, endPosition, line;
+	private boolean semanticProblem;
 	ActivityEditorInput fActivityEditorInput;
 	public ActivityProblem(
 		String message,
@@ -39,6 +40,7 @@ public class ActivityProblem {
 		int lineNumber,
 		int start,
 		int end,
+		boolean semanticProblem,
 		ActivityEditorInput activityEditorInput) {
 		fMessage = message;
 		fSeverity = severity;
@@ -46,6 +48,7 @@ public class ActivityProblem {
 		startPosition = start;
 		endPosition = end;
 		fActivityEditorInput = activityEditorInput;
+		this.semanticProblem = semanticProblem;
 	}
 	public String getMessage() {
 		return fMessage;
@@ -64,6 +67,9 @@ public class ActivityProblem {
 	}
 	public boolean isWarning() {
 		return fSeverity == IMarker.SEVERITY_WARNING;
+	}
+	public boolean isSemanticProblem() {
+		return semanticProblem;
 	}
 	
 	/**

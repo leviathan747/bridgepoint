@@ -64,9 +64,10 @@ public class EditorTextParser extends TextParser
     TokenStream lexer,
     IAnnotationModel model,
     ActivityEditorInput ae_input,
-    IDocument document)
+    IDocument document,
+    boolean enableContentAssist)
   {
-    super(modelRoot, lexer);
+    super(modelRoot, lexer, enableContentAssist);
     this.model = model;
     this.activityEditorInput = ae_input;
     this.document = document;
@@ -102,6 +103,7 @@ public void reportError(RecognitionException ex)
 			parserLineNumber,
 			charStart,
 			charEnd,
+			ex instanceof pt_SemanticException,
 			activityEditorInput);
 
 	((ActivityAnnotationModel) model).acceptProblem(ap);
