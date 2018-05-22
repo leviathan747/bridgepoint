@@ -48,15 +48,20 @@ INSERT INTO O_TFR
 	"ba5eda7a-def5-0000-0000-000000000005",
 	1,
 	'select one block related by self->ACT_SMT[R1610]->ACT_BLK[R602];
+if ( empty block )
+  select one block related by self->ACT_SMT[R1611]->ACT_BLK[R602];
+  if ( empty block )
+    // select the first block in the activity
+    select one block related by self->ACT_ACT[R1613]->ACT_BLK[R650];
+    if ( empty block )
+      select one block related by self->ACT_ACT[R1613]->ACT_BLK[R666];
+    end if;
+  end if;
+end if;
 if ( not_empty block )
   return block.Block_ID;
 else
-  select one block related by self->ACT_SMT[R1611]->ACT_BLK[R602];
-  if ( not_empty block )
-    return block.Block_ID;
-  else
-    return GD::NULL_UNIQUE_ID();
-  end if;
+  return GD::NULL_UNIQUE_ID();
 end if;',
 	1,
 	'',
@@ -381,6 +386,154 @@ INSERT INTO O_ATTR
 	'Action_ID',
 	0,
 	"ba5eda7a-def5-0000-0000-000000000007",
+	'',
+	'');
+INSERT INTO O_DBATTR
+	VALUES ("5411eb60-d99c-4c57-8d1e-f8d3d60cc5da",
+	"db41bab1-91ef-477d-a69c-1976a3d06037",
+	'select one last_unaffected_smt_before related by self->ACT_SMT[R1610];
+if ( not_empty last_unaffected_smt_before )
+  self.startLine = last_unaffected_smt_before.EndLineNumber;
+else
+  select one blk related by self->ACT_SMT[R1611]->ACT_BLK[R602];
+  if ( empty blk ) // get top level block
+    select one blk related by self->ACT_ACT[R1613]->ACT_BLK[R650];
+    if ( empty blk )
+      select one blk related by self->ACT_ACT[R1613]->ACT_BLK[R666];
+    end if;
+  end if;
+  if ( not_empty blk )
+    self.startLine = blk.getStartLine();
+  else
+    self.startLine = 1;
+  end if;
+end if;',
+	1,
+	0);
+INSERT INTO O_BATTR
+	VALUES ("5411eb60-d99c-4c57-8d1e-f8d3d60cc5da",
+	"db41bab1-91ef-477d-a69c-1976a3d06037");
+INSERT INTO O_ATTR
+	VALUES ("5411eb60-d99c-4c57-8d1e-f8d3d60cc5da",
+	"db41bab1-91ef-477d-a69c-1976a3d06037",
+	"5a3f31db-1967-43a1-8378-802a078d1505",
+	'startLine',
+	'',
+	'',
+	'startLine',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000002",
+	'',
+	'');
+INSERT INTO O_DBATTR
+	VALUES ("23ddf4ec-4ae7-4821-9a5e-d2e6d44291df",
+	"db41bab1-91ef-477d-a69c-1976a3d06037",
+	'select one last_unaffected_smt_before related by self->ACT_SMT[R1610];
+if ( not_empty last_unaffected_smt_before )
+  self.startCol = last_unaffected_smt_before.EndPosition;
+else
+  select one blk related by self->ACT_SMT[R1611]->ACT_BLK[R602];
+  if ( empty blk ) // get top level block
+    select one blk related by self->ACT_ACT[R1613]->ACT_BLK[R650];
+    if ( empty blk )
+      select one blk related by self->ACT_ACT[R1613]->ACT_BLK[R666];
+    end if;
+  end if;
+  if ( not_empty blk )
+    self.startCol = blk.getStartCol();
+  else
+    self.startCol = 1;
+  end if;
+end if;',
+	1,
+	0);
+INSERT INTO O_BATTR
+	VALUES ("23ddf4ec-4ae7-4821-9a5e-d2e6d44291df",
+	"db41bab1-91ef-477d-a69c-1976a3d06037");
+INSERT INTO O_ATTR
+	VALUES ("23ddf4ec-4ae7-4821-9a5e-d2e6d44291df",
+	"db41bab1-91ef-477d-a69c-1976a3d06037",
+	"5411eb60-d99c-4c57-8d1e-f8d3d60cc5da",
+	'startCol',
+	'',
+	'',
+	'startCol',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000002",
+	'',
+	'');
+INSERT INTO O_DBATTR
+	VALUES ("92fccee6-5357-4d31-8583-acc3804173d3",
+	"db41bab1-91ef-477d-a69c-1976a3d06037",
+	'select one first_unaffected_smt_after related by self->ACT_SMT[R1611];
+if ( not_empty first_unaffected_smt_after )
+  self.endLine = first_unaffected_smt_after.LineNumber;
+else
+  select one blk related by self->ACT_SMT[R1610]->ACT_BLK[R602];
+  if ( empty blk ) // get top level block
+    select one blk related by self->ACT_ACT[R1613]->ACT_BLK[R650];
+    if ( empty blk )
+      select one blk related by self->ACT_ACT[R1613]->ACT_BLK[R666];
+    end if;
+  end if;
+  if ( not_empty blk )
+    self.endLine = blk.getEndLine();
+  else
+    self.endLine = 1;
+  end if;
+end if;',
+	1,
+	0);
+INSERT INTO O_BATTR
+	VALUES ("92fccee6-5357-4d31-8583-acc3804173d3",
+	"db41bab1-91ef-477d-a69c-1976a3d06037");
+INSERT INTO O_ATTR
+	VALUES ("92fccee6-5357-4d31-8583-acc3804173d3",
+	"db41bab1-91ef-477d-a69c-1976a3d06037",
+	"23ddf4ec-4ae7-4821-9a5e-d2e6d44291df",
+	'endLine',
+	'',
+	'',
+	'endLine',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000002",
+	'',
+	'');
+INSERT INTO O_DBATTR
+	VALUES ("5d7445d3-07d7-4b18-9618-c9b7aafa23c3",
+	"db41bab1-91ef-477d-a69c-1976a3d06037",
+	'select one first_unaffected_smt_after related by self->ACT_SMT[R1611];
+if ( not_empty first_unaffected_smt_after )
+  self.endCol = first_unaffected_smt_after.StartPosition;
+else
+  select one blk related by self->ACT_SMT[R1610]->ACT_BLK[R602];
+  if ( empty blk ) // get top level block
+    select one blk related by self->ACT_ACT[R1613]->ACT_BLK[R650];
+    if ( empty blk )
+      select one blk related by self->ACT_ACT[R1613]->ACT_BLK[R666];
+    end if;
+  end if;
+  if ( not_empty blk )
+    self.endCol = blk.getEndCol();
+  else
+    self.endCol = 1;
+  end if;
+end if;',
+	1,
+	0);
+INSERT INTO O_BATTR
+	VALUES ("5d7445d3-07d7-4b18-9618-c9b7aafa23c3",
+	"db41bab1-91ef-477d-a69c-1976a3d06037");
+INSERT INTO O_ATTR
+	VALUES ("5d7445d3-07d7-4b18-9618-c9b7aafa23c3",
+	"db41bab1-91ef-477d-a69c-1976a3d06037",
+	"92fccee6-5357-4d31-8583-acc3804173d3",
+	'endCol',
+	'',
+	'',
+	'endCol',
+	0,
+	"ba5eda7a-def5-0000-0000-000000000002",
 	'',
 	'');
 INSERT INTO O_ID

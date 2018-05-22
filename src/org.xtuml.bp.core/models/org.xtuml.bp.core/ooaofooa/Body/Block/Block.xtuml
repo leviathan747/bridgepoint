@@ -565,6 +565,90 @@ INSERT INTO S_DT_PROXY
 	'',
 	'',
 	'../../Datatypes/Datatypes.xtuml');
+INSERT INTO O_TFR
+	VALUES ("6d3de2d3-36ec-4ca4-8151-7377b38d301c",
+	"b7fa3f21-6c94-47c6-934b-a56a2b7d758e",
+	'getStartLine',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	1,
+	'startLine = -1;
+select many smts related by self->ACT_SMT[R602];
+for each smt in smts
+  if ( -1 == startLine or smt.LineNumber < startLine )
+    startLine = smt.LineNumber;
+  end if;
+end for;
+return startLine;',
+	1,
+	'',
+	"622877c6-d612-43da-bc9b-a8c043d8664b",
+	0);
+INSERT INTO O_TFR
+	VALUES ("407380aa-8818-4955-bd6f-58ecdead4d53",
+	"b7fa3f21-6c94-47c6-934b-a56a2b7d758e",
+	'getStartCol',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	1,
+	'select any first_smt related by self->ACT_SMT[R602] where false;
+select many smts related by self->ACT_SMT[R602];
+for each smt in smts
+  if ( empty first_smt or smt.LineNumber < first_smt.LineNumber or smt.LineNumber == first_smt.LineNumber and smt.StartPosition < first_smt.StartPosition )
+    first_smt = smt;
+  end if;
+end for;
+if ( not_empty first_smt )
+  return first_smt.StartPosition;
+else
+  return -1;
+end if;',
+	1,
+	'',
+	"6d3de2d3-36ec-4ca4-8151-7377b38d301c",
+	0);
+INSERT INTO O_TFR
+	VALUES ("5041897b-7db7-43a9-88c9-1830b6ef3aee",
+	"b7fa3f21-6c94-47c6-934b-a56a2b7d758e",
+	'getEndLine',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	1,
+	'endLine = -1;
+select many smts related by self->ACT_SMT[R602];
+for each smt in smts
+  if ( -1 == endLine or smt.LineNumber > endLine )
+    endLine = smt.LineNumber;
+  end if;
+end for;
+return endLine;',
+	1,
+	'',
+	"407380aa-8818-4955-bd6f-58ecdead4d53",
+	0);
+INSERT INTO O_TFR
+	VALUES ("9145f791-29dd-4ef8-ab66-bb719a769ea2",
+	"b7fa3f21-6c94-47c6-934b-a56a2b7d758e",
+	'getEndCol',
+	'',
+	"ba5eda7a-def5-0000-0000-000000000002",
+	1,
+	'select any last_smt related by self->ACT_SMT[R602] where false;
+select many smts related by self->ACT_SMT[R602];
+for each smt in smts
+  if ( empty last_smt or smt.EndLineNumber > last_smt.EndLineNumber or smt.EndLineNumber == last_smt.EndLineNumber and smt.EndPosition > last_smt.EndPosition )
+    last_smt = smt;
+  end if;
+end for;
+if ( not_empty last_smt )
+  return last_smt.EndPosition;
+else
+  return -1;
+end if;',
+	1,
+	'',
+	"5041897b-7db7-43a9-88c9-1830b6ef3aee",
+	0);
 INSERT INTO O_NBATTR
 	VALUES ("1a0afb36-7d42-46cd-b87c-7a52b8ec2857",
 	"b7fa3f21-6c94-47c6-934b-a56a2b7d758e");
