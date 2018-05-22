@@ -169,7 +169,7 @@ public class ActivityEditor extends OALEditor {
                 return;
 
             // export the body before the parse
-            ParseUtil.exportElement( m_modelElement , ParseUtil.PRE_PARSE_EXPORT_TYPE ); // TODO remove this
+            //ParseUtil.exportElement( m_modelElement , ParseUtil.PRE_PARSE_EXPORT_TYPE ); // TODO remove this
             
             String newText = "";
             synchronized ( m_newText ) {
@@ -293,7 +293,7 @@ public class ActivityEditor extends OALEditor {
             }
 
             // export the body after the parse
-            ParseUtil.exportElement( m_modelElement , ParseUtil.POST_PARSE_EXPORT_TYPE ); // TODO remove this
+            //ParseUtil.exportElement( m_modelElement , ParseUtil.POST_PARSE_EXPORT_TYPE ); // TODO remove this
 
         }
 
