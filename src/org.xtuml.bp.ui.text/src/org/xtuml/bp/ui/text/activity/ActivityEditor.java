@@ -235,7 +235,7 @@ public class ActivityEditor extends OALEditor {
                     if ( !runningPartialParse ) {
                         // Parse the whole body
                         TextPlugin.logError( "Running full parse.", null ); // TODO remove this debug statement
-                        if ( !"".equals( deferredOperationText ) {
+                        if ( !"".equals( deferredOperationText ) ) {
                           newText = deferredOperationText;
                         }
                         lexer = new OalLexer(new StringReader(newText));
