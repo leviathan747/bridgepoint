@@ -26,7 +26,7 @@ import org.eclipse.gef.Request;
 import org.eclipse.gef.SnapToHelper;
 import org.eclipse.gef.requests.CreateConnectionRequest;
 import org.eclipse.gef.requests.CreationFactory;
-import org.eclipse.gef.tools.ConnectionDragCreationTool;
+import org.eclipse.gef.tools.ConnectionCreationTool;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.KeyEvent;
 import org.xtuml.bp.ui.canvas.ModelTool_c;
@@ -34,7 +34,7 @@ import org.xtuml.bp.ui.canvas.Model_c;
 import org.xtuml.bp.ui.graphics.editor.GraphicalEditDomain;
 import org.xtuml.bp.ui.graphics.requests.GraphicsConnectionCreateRequest;
 
-public class GraphicsConnectionCreationTool extends ConnectionDragCreationTool {
+public class GraphicsConnectionCreationTool extends ConnectionCreationTool {
 
 	private int type;
 	private SnapToHelper helper;
